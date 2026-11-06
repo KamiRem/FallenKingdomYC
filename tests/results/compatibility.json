@@ -1,0 +1,41 @@
+{
+  "verifiedOn": "2026-11-06",
+  "paper": {
+    "id": "26.2",
+    "support": {
+      "status": "UNSUPPORTED",
+      "end": "2026-11-03"
+    },
+    "java": {
+      "version": {
+        "minimum": 25
+      },
+      "flags": {
+        "recommended": [
+          "-XX:+AlwaysPreTouch",
+          "-XX:+DisableExplicitGC",
+          "-XX:+ParallelRefProcEnabled",
+          "-XX:+PerfDisableSharedMem",
+          "-XX:+UnlockExperimentalVMOptions",
+          "-XX:+UseG1GC",
+          "-XX:G1HeapRegionSize=8M",
+          "-XX:G1HeapWastePercent=5",
+          "-XX:G1MaxNewSizePercent=40",
+          "-XX:G1MixedGCCountTarget=4",
+          "-XX:G1MixedGCLiveThresholdPercent=90",
+          "-XX:G1NewSizePercent=30",
+          "-XX:G1RSetUpdatingPauseTimePercent=5",
+          "-XX:G1ReservePercent=20",
+          "-XX:InitiatingHeapOccupancyPercent=15",
+          "-XX:MaxGCPauseMillis=200",
+          "-XX:MaxTenuringThreshold=1",
+          "-XX:SurvivorRatio=32"
+        ]
+      }
+    }
+  },
+  "paperBuild": 135,
+  "paperApi": "26.2.build.135-stable",
+  "fallenKingdom": "2.24.9",
+  "source": "https://fill.papermc.io/v3/projects/paper/versions/26.2"
+}

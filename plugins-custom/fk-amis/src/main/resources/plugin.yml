@@ -1,0 +1,14 @@
+name: FKAmis
+version: 1.0.0
+main: fr.fkamis.FKAmis
+api-version: '1.21'
+depend: [FallenKingdom]
+description: Règles privées, sessions manuelles et garde-fous pour quatre royaumes.
+commands:
+  fka:
+    description: Administration et statut de la partie privée
+    usage: /fka help
+permissions:
+  fkamis.admin:
+    description: Administrer la partie privée
+    default: op

@@ -1,0 +1,8 @@
+enable-permissions: true
+enable-mcfunction-support: false
+lang: fr
+world-check: false
+affected-worlds:
+  - world
+  - world_nether
+  - world_the_end

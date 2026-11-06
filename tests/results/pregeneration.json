@@ -1,0 +1,13 @@
+{
+  "generatedWorld": "runtime/local/world",
+  "knownSculkErrorCount": 27,
+  "requestedChunks": 13689,
+  "upstreamIssue": "https://github.com/PaperMC/Paper/issues/13995",
+  "borderSize": 1800,
+  "minecraft": "26.2",
+  "seed": "123456789",
+  "inspected": false,
+  "instance": "local",
+  "completed": true,
+  "errorCount": 27
+}

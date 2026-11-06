@@ -1,0 +1,13 @@
+.cache/
+.tools/
+runtime/
+backups/
+dist/
+**/target/
+__pycache__/
+*.pyc
+*.log
+.env
+.env.*
+!.env.example
+local/

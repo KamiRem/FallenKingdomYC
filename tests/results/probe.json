@@ -1,0 +1,43 @@
+{
+  "checks": [
+    {
+      "phase": "initial",
+      "passed": [
+        "four native teams",
+        "start refuses uninspected terrain",
+        "start refuses empty roster",
+        "explicit override starts day one",
+        "native caps closed day one",
+        "day two native caps",
+        "day three refuses missing objectives",
+        "console give forbidden material blocked",
+        "console give legal material retained",
+        "ban removes only forbidden materials",
+        "shulker retains legal contents",
+        "bundle retains legal contents",
+        "hopper transfer forbidden item",
+        "pause freezes server tick",
+        "resume unfreezes server tick",
+        "end closed by default",
+        "end opens administratively",
+        "end closes administratively",
+        "capture target above chest is visible",
+        "day three opens with validated objectives",
+        "two eliminations do not declare victory",
+        "last kingdom wins",
+        "atomic snapshot persists day elimination winner"
+      ]
+    },
+    {
+      "phase": "restart",
+      "passed": [
+        "restart retains day three",
+        "restart retains winner",
+        "restart retains eliminations",
+        "restart is frozen",
+        "finished match cannot resume"
+      ]
+    }
+  ],
+  "multiplayer": "non exécuté"
+}

@@ -1,0 +1,35 @@
+{
+  "verifiedOn": "2026-11-06",
+  "minecraft": "26.2",
+  "java": 25,
+  "artifacts": [
+    {
+      "hash": "ef3dbc68b013deafdbbee3bebf1ba351671ebcda94a8f136809b7532d5ba2fe1",
+      "algorithm": "SHA256",
+      "name": "paper",
+      "url": "https://fill-data.papermc.io/v1/objects/ef3dbc68b013deafdbbee3bebf1ba351671ebcda94a8f136809b7532d5ba2fe1/paper-26.2-135.jar",
+      "path": ".cache/artifacts/paper-26.2-135.jar"
+    },
+    {
+      "hash": "9127a92a5ad621f74b29ab8e53b6785d4ee30dd15f720c82c64f2c6a5973ba3b",
+      "algorithm": "SHA256",
+      "name": "fallenkingdom",
+      "url": "https://github.com/syldium/FallenKingdom/releases/download/v2.24.9/FallenKingdom-2.24.9.jar",
+      "path": ".cache/artifacts/FallenKingdom-2.24.9.jar"
+    },
+    {
+      "hash": "636bdc13dc649ddc7d5921c5c7d23cca6e44fd19d662b45cc9c02135a6c96c42",
+      "algorithm": "SHA256",
+      "name": "temurin",
+      "url": "https://github.com/adoptium/temurin25-binaries/releases/download/jdk-25.0.5%2B8/OpenJDK25U-jdk_x64_windows_hotspot_25.0.5_8.zip",
+      "path": ".cache/artifacts/temurin25-windows.zip"
+    },
+    {
+      "hash": "03e2d65d4483a3396980629f260e25cac0d8b6f7f2791e4dc20bc83f9514db8d0f05b0479e699a5f34679250c49c8e52e961262ded468a20de0be254d8207076",
+      "algorithm": "SHA512",
+      "name": "maven",
+      "url": "https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/3.9.11/apache-maven-3.9.11-bin.zip",
+      "path": ".cache/artifacts/apache-maven-3.9.11-bin.zip"
+    }
+  ]
+}

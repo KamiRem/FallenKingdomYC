@@ -1,0 +1,5 @@
+name: FKRuntimeProbe
+version: 1.0.0
+main: fr.fkamis.RuntimeProbe
+api-version: '1.21'
+depend: [FKAmis]

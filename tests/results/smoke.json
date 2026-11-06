@@ -1,0 +1,66 @@
+{
+  "atUtc": "2026-11-06T17:48:13.007278+00:00",
+  "server": "local",
+  "configuredSeed": "123456789",
+  "checks": [
+    {
+      "marker": "Done (",
+      "passed": true
+    },
+    {
+      "marker": "123456789",
+      "passed": true
+    },
+    {
+      "marker": "Jour 0",
+      "passed": true
+    },
+    {
+      "marker": "commandes natives verrouillées",
+      "passed": true
+    },
+    {
+      "marker": "Inspecter et confirmer les quatre terrains naturels",
+      "passed": true
+    },
+    {
+      "marker": "Aucune partie en cours",
+      "passed": true
+    },
+    {
+      "marker": "Aucun objectif enregistré",
+      "passed": true
+    },
+    {
+      "marker": "Rapport terrain privé écrit",
+      "passed": true
+    },
+    {
+      "marker": "Opération enregistrée",
+      "passed": true
+    },
+    {
+      "marker": "backup refuses running server",
+      "passed": true
+    },
+    {
+      "marker": "clean stop",
+      "passed": true
+    },
+    {
+      "marker": "plugin startup and no ERROR/SEVERE",
+      "passed": true
+    },
+    {
+      "marker": "real world backup verified",
+      "passed": true
+    },
+    {
+      "marker": "restore world and plugin state",
+      "passed": true
+    }
+  ],
+  "multiplayer": "non exécuté",
+  "worldGenerated": true,
+  "pregenerated": false
+}

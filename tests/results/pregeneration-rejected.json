@@ -1,0 +1,12 @@
+{
+  "inspected": false,
+  "upstreamIssue": "https://github.com/PaperMC/Paper/issues/13995",
+  "errorCount": 8,
+  "minecraft": "26.2",
+  "requestedChunks": 13689,
+  "instance": "smoke",
+  "borderSize": 1800,
+  "generatedWorld": "runtime/smoke/world",
+  "seed": "728461903257",
+  "completed": true
+}
