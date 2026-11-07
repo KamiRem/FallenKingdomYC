@@ -1,0 +1,5 @@
+name: FKGameplayProbe
+version: 1.0.0
+main: fr.fkamis.GameplayProbe
+api-version: '1.21'
+depend: [FKAmis]

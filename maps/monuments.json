@@ -1,0 +1,62 @@
+[
+  {
+    "id": "cercle-des-quatre-vents",
+    "x": 80,
+    "y": 68,
+    "z": -48,
+    "radius": 19,
+    "placed": true
+  },
+  {
+    "id": "temple-des-racines",
+    "x": -80,
+    "y": 105,
+    "z": -352,
+    "radius": 19,
+    "placed": true
+  },
+  {
+    "id": "mine-des-brumes",
+    "x": 360,
+    "y": 70,
+    "z": 0,
+    "radius": 30,
+    "placed": true
+  },
+  {
+    "id": "tour-des-vents",
+    "x": 40,
+    "y": 70,
+    "z": 350,
+    "radius": 19,
+    "placed": true
+  },
+  {
+    "id": "camp-des-eclaireurs",
+    "x": -320,
+    "y": 71,
+    "z": 48,
+    "radius": 19,
+    "placed": true
+  },
+  {
+    "id": "sanctuaire-des-sources",
+    "x": 40,
+    "y": 66,
+    "z": 175,
+    "radius": 19,
+    "placed": true
+  },
+  {
+    "id": "crypte-des-veilleurs",
+    "x": -80,
+    "y": 70,
+    "z": -223,
+    "radius": 26,
+    "placed": true,
+    "guardians": [
+      "0a121a24-40d4-4408-bfa3-837fc43a8557",
+      "ead81575-1460-4099-8b84-5bbdf554d124"
+    ]
+  }
+]

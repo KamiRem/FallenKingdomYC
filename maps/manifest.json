@@ -1,42 +1,20 @@
 {
-  "method": "vanilla-natural",
+  "schema": 2,
+  "activeInstanceUnchanged": "runtime/local",
+  "candidate": "runtime/map-v2-fixes",
   "minecraft": "26.2",
-  "seed": "123456789",
-  "generated": true,
-  "worldPath": "runtime/local/world",
-  "survey": "maps/seed-survey.csv",
-  "borderSize": 1800,
-  "inspected": false,
-  "territories": [
-    {
-      "team": "Rouge",
-      "candidateX": -500,
-      "candidateZ": -500,
-      "radius": 100,
-      "validated": false
-    },
-    {
-      "team": "Bleue",
-      "candidateX": 500,
-      "candidateZ": -500,
-      "radius": 100,
-      "validated": false
-    },
-    {
-      "team": "Verte",
-      "candidateX": -500,
-      "candidateZ": 500,
-      "radius": 100,
-      "validated": false
-    },
-    {
-      "team": "Jaune",
-      "candidateX": 500,
-      "candidateZ": 500,
-      "radius": 100,
-      "validated": false
-    }
-  ],
-  "note": "Graine retenue après sondage réel de six candidats ; forêt, prairie, cerisiers, reliefs et rivières observés. Terrains à inspecter en jeu : déplacer le centre Jaune hors rivière/jardin pâle. Aucun objectif ni fort prédéfini.",
-  "generationReport": "tests/results/pregeneration.json"
+  "seed": 123456789,
+  "borderSize": 1200,
+  "constructed": true,
+  "visualValidation": false,
+  "officialGameStarted": false,
+  "builtManifest": "maps/v2/built-manifest.json",
+  "survey": "maps/v2/terrain-survey.json",
+  "worldChecks": "tests/results/v2-fixes-world.json",
+  "historicalMap": "maps/v1-manifest.json",
+  "inspection": "docs/MAP_V2_INSPECTION.md",
+  "prebuiltForts": 0,
+  "previousCandidate": "runtime/map-v2",
+  "cleanupReport": "tests/results/v2-fixes-cleanup-total.json",
+  "corrections": "docs/V2_CORRECTIONS.md"
 }

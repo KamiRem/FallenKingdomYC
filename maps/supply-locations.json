@@ -1,0 +1,58 @@
+[
+  {
+    "id": "supply-1",
+    "zone": "Carrefour nord-ouest",
+    "x": -100,
+    "y": 67,
+    "z": -100
+  },
+  {
+    "id": "supply-2",
+    "zone": "Carrefour nord-est",
+    "x": 140,
+    "y": 65,
+    "z": -100
+  },
+  {
+    "id": "supply-3",
+    "zone": "Carrefour sud-ouest",
+    "x": -100,
+    "y": 70,
+    "z": 100
+  },
+  {
+    "id": "supply-4",
+    "zone": "Carrefour sud-est",
+    "x": 60,
+    "y": 71,
+    "z": 100
+  },
+  {
+    "id": "supply-5",
+    "zone": "Lisière nord",
+    "x": 0,
+    "y": 80,
+    "z": -480
+  },
+  {
+    "id": "supply-6",
+    "zone": "Crête est",
+    "x": 400,
+    "y": 64,
+    "z": 0
+  },
+  {
+    "id": "supply-7",
+    "zone": "Vallon sud",
+    "x": 0,
+    "y": 73,
+    "z": 480
+  },
+  {
+    "id": "supply-8",
+    "zone": "Bois ouest",
+    "x": -520,
+    "y": 74,
+    "z": 0
+  }
+]

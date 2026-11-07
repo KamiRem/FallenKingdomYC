@@ -1,0 +1,67 @@
+{
+  "instance": "runtime/map-v2-fixes",
+  "zones": {
+    "Bleue/cœur": {
+      "LEAF_LITTER": 1
+    },
+    "Jaune/cœur": {
+      "SHORT_GRASS": 1,
+      "WILDFLOWERS": 9
+    },
+    "Rouge/cœur": {
+      "PINK_PETALS": 112,
+      "SHORT_GRASS": 44
+    },
+    "abords-monuments": {
+      "BIRCH_LEAVES": 57,
+      "LEAF_LITTER": 22,
+      "OAK_LEAVES": 351,
+      "RED_MUSHROOM": 1,
+      "SHORT_GRASS": 49,
+      "TALL_GRASS": 13
+    },
+    "abords-ravitaillements": {
+      "SHORT_GRASS": 2
+    },
+    "sentiers-et-lisières": {
+      "BIRCH_LEAVES": 2,
+      "LEAF_LITTER": 52,
+      "OAK_LEAVES": 61,
+      "SHORT_GRASS": 22,
+      "TALL_GRASS": 2
+    }
+  },
+  "passChanges": [
+    801,
+    0
+  ],
+  "columns": 186149,
+  "visitedColumns": 372298,
+  "worstSliceMs": 5.3206,
+  "idempotent": true,
+  "protectedSnapshotsUnchanged": true,
+  "protectedSnapshots": {
+    "camp-des-eclaireurs": "fd311c3a09572aff4d285e29e9972edebaaeb0d2f451fe936cece4f85b89bdd3",
+    "cercle-des-quatre-vents": "394d858ad2e8a567124f8cbf570be7b34aa51b946889812bd9d461b46b04b256",
+    "crypte-des-veilleurs": "6077d9f80b5211fc755f91c88140323cf62985d65fa194afa5ee9910b12dd2c6",
+    "drapeau-Bleue": "b1bf18b8f907a1443f54ce15527e08280378e304a1923b52d5d5f94c0ca501a7",
+    "drapeau-Jaune": "9cf4ffd7fc3211f1a5327c1936a6ab8646e150677be0a9c14b3dc5bffc4d6271",
+    "drapeau-Rouge": "7f0f84a5314b809ebc08a573fd10a0f5da39eb31e0d9645b3e590aee36983b52",
+    "drapeau-Verte": "dd09f29137592df51c430b7826cba3a11eba494d437b84189feff2cd877946f1",
+    "mine-des-brumes": "e1e3b4f22b888aed9f7688edee896982777021c5f16d0abc266bf815d3377c14",
+    "sanctuaire-des-sources": "3cc05ca098102092128a0665d7923c5868016d4c36bf6b6f5e73519668bb2df8",
+    "supply-1": "minecraft:chest[facing\u003dsouth,type\u003dsingle,waterlogged\u003dfalse][null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]",
+    "supply-2": "minecraft:chest[facing\u003dsouth,type\u003dsingle,waterlogged\u003dfalse][null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]",
+    "supply-3": "minecraft:chest[facing\u003dsouth,type\u003dsingle,waterlogged\u003dfalse][null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]",
+    "supply-4": "minecraft:chest[facing\u003dsouth,type\u003dsingle,waterlogged\u003dfalse][null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]",
+    "supply-5": "minecraft:chest[facing\u003dsouth,type\u003dsingle,waterlogged\u003dfalse][null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]",
+    "supply-6": "minecraft:chest[facing\u003dsouth,type\u003dsingle,waterlogged\u003dfalse][null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]",
+    "supply-7": "minecraft:chest[facing\u003dsouth,type\u003dsingle,waterlogged\u003dfalse][null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]",
+    "supply-8": "minecraft:chest[facing\u003dsouth,type\u003dsingle,waterlogged\u003dfalse][null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]",
+    "temple-des-racines": "ea67736173c8b5270eefe4a85809cdace3f808919549dd9ef70e006f9cb64700",
+    "tour-des-vents": "507e11899888113e314521cbfd21b2c5638f9ff2bdf8b40caaa3d29c627401b2"
+  },
+  "terrainRebuilt": false,
+  "lootRegenerated": false,
+  "visualValidation": false
+}

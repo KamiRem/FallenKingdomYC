@@ -1,0 +1,62 @@
+{
+  "instance": "runtime/map-v2-fixes",
+  "passed": [
+    "Bordure 1200, quatre terrains, sept monuments, huit supports",
+    "Aucun chevauchement ; voisins entre 400 et 600 blocs",
+    "Drapeau red et spawn sûr : Rouge",
+    "Drapeau blue et spawn sûr : Bleue",
+    "Drapeau green et spawn sûr : Verte",
+    "Drapeau yellow et spawn sûr : Jaune",
+    "Blocs de monument conformes au plan ou à la source conservée : cercle-des-quatre-vents",
+    "Blocs de monument conformes au plan ou à la source conservée : temple-des-racines",
+    "Butin fixe exact et accès sans liquide : temple-des-racines",
+    "Blocs de monument conformes au plan ou à la source conservée : mine-des-brumes",
+    "Butin fixe exact et accès sans liquide : mine-des-brumes",
+    "Blocs de monument conformes au plan ou à la source conservée : tour-des-vents",
+    "Butin fixe exact et accès sans liquide : tour-des-vents",
+    "Blocs de monument conformes au plan ou à la source conservée : camp-des-eclaireurs",
+    "Butin fixe exact et accès sans liquide : camp-des-eclaireurs",
+    "Blocs de monument conformes au plan ou à la source conservée : sanctuaire-des-sources",
+    "Butin fixe exact et accès sans liquide : sanctuaire-des-sources",
+    "Blocs de monument conformes au plan ou à la source conservée : crypte-des-veilleurs",
+    "Butin fixe exact et accès sans liquide : crypte-des-veilleurs",
+    "21 différences préexistantes des monuments conservées",
+    "Huit coffres fixes identifiés, vides et neutres",
+    "Aucune salle ni objectif secret précréé"
+  ],
+  "distances": [
+    {
+      "from": "Rouge",
+      "to": "Bleue",
+      "distance": 441.81444068749045
+    },
+    {
+      "from": "Rouge",
+      "to": "Verte",
+      "distance": 481.6637831516918
+    },
+    {
+      "from": "Rouge",
+      "to": "Jaune",
+      "distance": 681.1754546370561
+    },
+    {
+      "from": "Bleue",
+      "to": "Verte",
+      "distance": 594.6427498927402
+    },
+    {
+      "from": "Bleue",
+      "to": "Jaune",
+      "distance": 407.9215610874228
+    },
+    {
+      "from": "Verte",
+      "to": "Jaune",
+      "distance": 481.6637831516918
+    }
+  ],
+  "preservedSourceDifferences": 21,
+  "visualValidation": false,
+  "note": "Contrôles techniques de blocs réels ; inspection avec client Minecraft restante."
+}

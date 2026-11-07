@@ -1,0 +1,164 @@
+# Désactivé dans les installations historiques ; profil map-v2 installé séparément.
+enabled: true
+test-mode: false
+interval-seconds: 1800
+max-active: 2
+lifetime-seconds: 600
+announce-zones: true
+rolls-per-chest: 3
+chest-budget: 48
+event-budget: 96
+caps:
+  COOKED_BEEF: 16
+  BREAD: 16
+  OAK_LOG: 32
+  SPRUCE_LOG: 32
+  COBBLESTONE: 48
+  STONE_BRICKS: 32
+  ARROW: 24
+  COAL: 16
+  TORCH: 24
+  IRON_INGOT: 12
+  GOLD_INGOT: 6
+  COPPER_INGOT: 16
+  OBSIDIAN: 4
+  ENDER_PEARL: 2
+  BOW: 1
+  SHIELD: 1
+  IRON_PICKAXE: 1
+  IRON_AXE: 1
+  BOOK: 4
+  LAPIS_LAZULI: 12
+  DIAMOND: 2
+  ENCHANTED_BOOK: 1
+tiers:
+  common:
+    weight: 65
+    entries:
+    - material: COOKED_BEEF
+      min: 3
+      max: 6
+      cost: 2
+    - material: OAK_LOG
+      min: 8
+      max: 16
+      cost: 1
+    - material: COBBLESTONE
+      min: 12
+      max: 24
+      cost: 1
+    - material: ARROW
+      min: 6
+      max: 12
+      cost: 1
+    - material: COAL
+      min: 4
+      max: 8
+      cost: 1
+    - material: TORCH
+      min: 8
+      max: 12
+      cost: 1
+    - material: IRON_INGOT
+      min: 2
+      max: 4
+      cost: 3
+  uncommon:
+    weight: 28
+    entries:
+    - material: GOLD_INGOT
+      min: 2
+      max: 3
+      cost: 4
+    - material: IRON_INGOT
+      min: 4
+      max: 6
+      cost: 3
+    - material: OBSIDIAN
+      min: 2
+      max: 3
+      cost: 4
+    - material: ENDER_PEARL
+      min: 1
+      max: 1
+      cost: 8
+    - material: SHIELD
+      min: 1
+      max: 1
+      cost: 10
+    - material: IRON_PICKAXE
+      min: 1
+      max: 1
+      cost: 12
+    - material: BOOK
+      min: 2
+      max: 3
+      cost: 3
+  rare:
+    weight: 7
+    entries:
+    - material: DIAMOND
+      min: 1
+      max: 2
+      cost: 24
+    - material: ENCHANTED_BOOK
+      min: 1
+      max: 1
+      cost: 24
+      enchant: minecraft:efficiency
+      level: 2
+    - material: ENCHANTED_BOOK
+      min: 1
+      max: 1
+      cost: 24
+      enchant: minecraft:protection
+      level: 1
+locations:
+  supply-1:
+    world: world
+    x: -100
+    y: 67
+    z: -100
+    zone: Carrefour nord-ouest
+  supply-2:
+    world: world
+    x: 140
+    y: 65
+    z: -100
+    zone: Carrefour nord-est
+  supply-3:
+    world: world
+    x: -100
+    y: 70
+    z: 100
+    zone: Carrefour sud-ouest
+  supply-4:
+    world: world
+    x: 60
+    y: 71
+    z: 100
+    zone: Carrefour sud-est
+  supply-5:
+    world: world
+    x: 0
+    y: 80
+    z: -480
+    zone: Lisière nord
+  supply-6:
+    world: world
+    x: 400
+    y: 64
+    z: 0
+    zone: Crête est
+  supply-7:
+    world: world
+    x: 0
+    y: 73
+    z: 480
+    zone: Vallon sud
+  supply-8:
+    world: world
+    x: -520
+    y: 74
+    z: 0
+    zone: Bois ouest

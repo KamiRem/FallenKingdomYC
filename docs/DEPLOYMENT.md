@@ -1,5 +1,33 @@
 # Hébergement, déploiement et sauvegardes
 
+## Déployer la candidate corrigée après validation
+
+L'instance de travail est `runtime/map-v2-fixes` ; `runtime/local` et `runtime/map-v2`
+restent conservés. Les profils corrigés sont dans `configs/map-v2-fixes/`.
+Un premier export de la candidate existe dans
+`dist/fallenkingdom-map-v2-20261107T011000Z.zip`, avec empreinte et manifeste vérifiés.
+Il reste destiné à la recette ; refaire l'export après validation des terrains.
+Après inspection avec clients, exporter la candidate arrêtée :
+
+```powershell
+.\scripts\server.ps1 backup -Name map-v2-fixes
+.\scripts\server.ps1 validate -Name map-v2-fixes
+.\scripts\server.ps1 export -Name map-v2-fixes
+```
+
+Transférer la copie complète : monde, JAR, `state.yml`, `config.yml` et `supplies.yml`.
+Ne pas fusionner seulement les fichiers de régions avec les anciennes équipes.
+Les coordonnées de ravitaillement et son compteur font partie de la sauvegarde.
+Les plugins `FKMapV2Builder` et `FKMapV2SupplyProbe` sont réservés au chantier et à
+la recette : aucun ne doit apparaître dans l'archive de production.
+Cela inclut aussi `FKMapV2Corrections` et `FKGameplayProbe`. Ne pas transférer une
+instance `probe-*` ou `map-v2-qa-*` comme carte de partie. Le bilan de l'export corrigé
+est dans `tests/results/v2-fixes-delivery.json`.
+
+Garder la sauvegarde initiale vérifiée et l'instance historique comme retour arrière.
+Une migration vers un nouvel hébergement ne valide pas automatiquement les terrains
+ni les performances à huit joueurs. Suivre [MAP_V2.md](MAP_V2.md) avant la mise en ligne.
+
 ## Dimensionnement et offre
 
 Pour huit joueurs, deux plugins et une carte prégénérée : viser 6 à 8 Go de RAM

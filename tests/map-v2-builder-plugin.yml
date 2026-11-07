@@ -1,0 +1,5 @@
+name: FKMapV2Builder
+version: 1.0.0
+main: fr.fkamis.MapV2Builder
+api-version: '1.21'
+depend: [FKAmis]

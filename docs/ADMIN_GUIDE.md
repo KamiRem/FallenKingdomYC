@@ -1,5 +1,32 @@
 # Administration
 
+## Variante v2 corrigée
+
+Utiliser `runtime/map-v2-fixes` pour les corrections, sans remplacer les deux instances
+précédentes. Voir [V2_CORRECTIONS.md](V2_CORRECTIONS.md) pour le nettoyage et les preuves.
+Le profil ajoute `ELYTRA` et `ENCHANTED_GOLDEN_APPLE` à `extra-banned` ; garder
+`GOLDEN_APPLE` autorisée et `ban-netherite-family: true`.
+
+`/fka teams tpall` rassemble les participants connectés sur leurs spawns enregistrés,
+avec `fkamis.admin`, avant départ. Après départ : mettre en pause puis utiliser
+`/fka teams tpall confirm`. Refus pendant une partie active ou après victoire.
+Spectateurs, éliminés et sans équipe sont ignorés. Un spawn dangereux refuse tout le
+lot ; les annulations externes restent respectées et l'opération est journalisée.
+La pause native et le gel des mondes restent actifs pendant ce rassemblement.
+
+## Carte v2 et ravitaillements
+
+La copie `runtime/map-v2` contient déjà ses territoires et apparitions, préparés sans
+fortification. Les quatre confirmations de terrain restent à donner après inspection
+visuelle. Ne pas redéfinir les centres avec les anciennes coordonnées ±500.
+Les coordonnées publiques exactes sont dans [MAP_V2_INSPECTION.md](MAP_V2_INSPECTION.md).
+
+Les commandes `/fka supply status|list|enable|disable|reload|add|remove|test` sont
+documentées avec leur syntaxe et permissions dans [LOOT_SYSTEM.md](LOOT_SYSTEM.md).
+`status` est public ; les autres demandent `fkamis.admin`. La commande de test ne
+fonctionne que sur une copie marquée `test-mode: true` avant tout démarrage de partie.
+La configuration livrée garde ce mode de test à `false`.
+
 Les commandes `/fka` sensibles demandent `fkamis.admin` (OP par défaut). La console
 possède ce droit ; les participants doivent rester non OP. Les équipes sont exactement
 `Rouge`, `Bleue`, `Verte`, `Jaune`. Les arguments d'équipe respectent la casse.
@@ -15,6 +42,7 @@ possède ce droit ; les participants doivent rester non OP. Les équipes sont ex
 | `/fka territory <équipe> <rayon>` | Centre à votre position, monde world ; rayon 40–150, séparation et bordure contrôlées ; ne génère aucun bloc |
 | `/fka terrain <équipe> confirm` | Attestation d'inspection humaine avant lancement |
 | `/fka spawn <équipe>` | Point d'apparition à votre position dans le territoire, avant lancement |
+| `/fka teams tpall [confirm]` | Admin ou console ; avant partie ou en pause confirmée ; spawns sûrs, aucun changement d'équipe/inventaire |
 | `/fka start` | Quatre terrains confirmés, quatre équipes complètes, huit comptes connectés et non OP, apparitions sûres |
 | `/fka start override` | Dérogation explicite de l'administrateur pour répartition incomplète/présences/OP ; jamais plus de deux par équipe ; terrains toujours requis |
 | `/fka pause` | Arrêt des interactions, déplacement et tick des mondes ; annulation des captures |

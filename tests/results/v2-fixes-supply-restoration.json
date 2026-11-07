@@ -1,0 +1,9 @@
+{
+  "source": "runtime\\map-v2-qa-fixes-final",
+  "restored": "runtime\\map-v2-qa-fixes-final-restored",
+  "archive": "backups\\map-v2-qa-fixes-final\\fk-20261107T023004539046Z.zip",
+  "sha256": "cb2d940d07b38e6e91b65506f934da7d5493f9767e7c85334388791d4a75952c",
+  "manifestFiles": 287,
+  "stateByteIdentical": true,
+  "note": "La phase restart contrôle les lots actifs et récupérés dans cette copie restaurée."
+}

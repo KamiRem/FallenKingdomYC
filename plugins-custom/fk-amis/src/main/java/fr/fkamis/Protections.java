@@ -10,6 +10,7 @@ import org.bukkit.event.hanging.*;
 import org.bukkit.event.inventory.*;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.potion.PotionEffectTypeCategory;
 
 import java.util.*;
 
@@ -23,24 +24,19 @@ final class Protections implements Listener {
         return plugin.objectiveAt(block.getLocation()) || plugin.frozen()
                 || (beforeAssaults() && plugin.territory(block.getLocation()) != null);
     }
-    private Player source(Entity entity) {
-        if (entity instanceof Player player) return player;
-        if (entity instanceof Projectile projectile && projectile.getShooter() instanceof Player player) return player;
-        if (entity instanceof Tameable tameable && tameable.getOwner() instanceof Player player) return player;
-        if (entity instanceof TNTPrimed tnt && tnt.getSource() instanceof Player player) return player;
-        if (entity instanceof AreaEffectCloud cloud && cloud.getSource() instanceof Player player) return player;
-        return null;
-    }
-    private boolean noCombat(Player attacker, Player defender) {
-        if (plugin.frozen() || plugin.eliminated(defender)) return true;
-        if (attacker != null && (plugin.blocked(attacker) || Objects.equals(plugin.team(attacker), plugin.team(defender)))) return true;
-        if (plugin.state.day < plugin.getConfig().getInt("pvp-day")) return true;
-        // Avant les assauts les royaumes sont des refuges, même pour des tirs venant de l'extérieur.
-        return beforeAssaults() && (plugin.territory(defender.getLocation()) != null
-                || (attacker != null && plugin.territory(attacker.getLocation()) != null));
+    private UUID source(Entity entity) { return plugin.damageAttribution.owner(entity); }
+    private boolean noCombat(UUID attacker, Player defender) {
+        Player online=attacker==null?null:Bukkit.getPlayer(attacker);
+        String team=attacker==null?null:plugin.roster.get(attacker);
+        GameplayRules.Side source=attacker==null?null:new GameplayRules.Side(team,team!=null&&!plugin.state.eliminated.contains(team)
+                &&(online==null||!plugin.blocked(online)),online!=null&&plugin.territory(online.getLocation())!=null);
+        var victim=new GameplayRules.Side(plugin.roster.get(defender.getUniqueId()),!plugin.eliminated(defender),plugin.territory(defender.getLocation())!=null);
+        return !GameplayRules.mayDamage(plugin.state.running(),plugin.state.day,plugin.getConfig().getInt("pvp-day"),plugin.assaultDay(),source,victim,defender.getUniqueId().equals(attacker));
     }
     @EventHandler(priority = EventPriority.HIGHEST) public void blockBreak(BlockBreakEvent e) {
-        if (plugin.protectedAt(e.getPlayer(), e.getBlock().getLocation()) || plugin.objectiveAt(e.getBlock().getLocation())) e.setCancelled(true);
+        var owner=plugin.territory(e.getBlock().getLocation());
+        if (plugin.protectedAt(e.getPlayer(), e.getBlock().getLocation()) || !GameplayRules.mayMineEnemy(plugin.state.started,owner!=null,
+                owner!=null&&owner.equals(plugin.team(e.getPlayer())),plugin.objectiveAt(e.getBlock().getLocation()))) e.setCancelled(true);
     }
     @EventHandler(priority = EventPriority.HIGHEST) public void blockPlace(BlockPlaceEvent e) {
         if (plugin.protectedAt(e.getPlayer(), e.getBlock().getLocation()) || plugin.objectiveAt(e.getBlock().getLocation())) e.setCancelled(true);
@@ -73,9 +69,10 @@ final class Protections implements Listener {
     }
     @EventHandler(priority = EventPriority.HIGHEST) public void fishing(PlayerFishEvent e) {
         if (plugin.blocked(e.getPlayer()) || (e.getCaught() != null && plugin.protectedAt(e.getPlayer(), e.getCaught().getLocation()))) e.setCancelled(true);
+        if(e.getCaught() instanceof Player p&&noCombat(e.getPlayer().getUniqueId(),p))e.setCancelled(true);
     }
     @EventHandler(priority = EventPriority.HIGHEST) public void hanging(HangingBreakByEntityEvent e) {
-        Player p = source(e.getRemover());
+        UUID id=source(e.getRemover());Player p=id==null?null:Bukkit.getPlayer(id);
         if (protectedBlock(e.getEntity().getLocation().getBlock()) || (p != null && plugin.protectedAt(p, e.getEntity().getLocation()))) e.setCancelled(true);
     }
     @EventHandler(priority = EventPriority.HIGHEST) public void hanging(HangingPlaceEvent e) {
@@ -123,36 +120,36 @@ final class Protections implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST) public void damage(EntityDamageEvent e) {
         if (plugin.frozen()) e.setCancelled(true);
         if (e.getEntity() instanceof Player p && plugin.eliminated(p)) e.setCancelled(true);
-        if (e.getEntity() instanceof Player p && plugin.state.day < plugin.getConfig().getInt("pvp-day")
-                && Set.of(EntityDamageEvent.DamageCause.FIRE, EntityDamageEvent.DamageCause.FIRE_TICK,
-                    EntityDamageEvent.DamageCause.LAVA, EntityDamageEvent.DamageCause.POISON,
-                    EntityDamageEvent.DamageCause.WITHER, EntityDamageEvent.DamageCause.BLOCK_EXPLOSION,
-                    EntityDamageEvent.DamageCause.ENTITY_EXPLOSION).contains(e.getCause())) e.setCancelled(true);
+        if(e.getEntity() instanceof Player p&&noCombat(plugin.damageAttribution.damageOwner(e),p))e.setCancelled(true);
     }
     @EventHandler(priority = EventPriority.HIGHEST) public void combat(EntityDamageByEntityEvent e) {
-        Player attacker = source(e.getDamager());
-        if (e.getEntity() instanceof Player defender) {
-            // Explosions et dégâts sans auteur certain sont bloqués avant le PvP et dans les refuges.
-            if ((attacker != null || e.getDamager() instanceof TNTPrimed || e.getDamager() instanceof Explosive)
-                    && noCombat(attacker, defender)) e.setCancelled(true);
-        } else if (plugin.frozen() || (attacker != null && plugin.protectedAt(attacker, e.getEntity().getLocation()))) e.setCancelled(true);
+        UUID id=source(e.getDamager());Player attacker=id==null?null:Bukkit.getPlayer(id);
+        if(!(e.getEntity() instanceof Player)&&(plugin.frozen()||attacker!=null&&
+                (e.getEntity() instanceof Enemy?plugin.blocked(attacker):plugin.protectedAt(attacker,e.getEntity().getLocation()))))e.setCancelled(true);
     }
     @EventHandler(priority = EventPriority.HIGHEST) public void potion(PotionSplashEvent e) {
-        Player attacker = source(e.getEntity());
+        UUID attacker = source(e.getEntity());
+        boolean harmful=e.getPotion().getEffects().stream().anyMatch(effect->effect.getType().getCategory()==PotionEffectTypeCategory.HARMFUL);
         for (LivingEntity entity : e.getAffectedEntities()) {
-            if (plugin.frozen() || (entity instanceof Player p && noCombat(attacker, p))
-                    || (attacker != null && plugin.protectedAt(attacker, entity.getLocation()))) e.setIntensity(entity, 0);
+            if (plugin.frozen() || harmful&&entity instanceof Player p&&noCombat(attacker,p)) e.setIntensity(entity, 0);
         }
     }
     @EventHandler(priority = EventPriority.HIGHEST) public void combust(EntityCombustByEntityEvent e) {
-        Player attacker = source(e.getCombuster());
-        if (plugin.frozen() || (e.getEntity() instanceof Player p && noCombat(attacker, p))
-                || (attacker != null && plugin.protectedAt(attacker, e.getEntity().getLocation()))) e.setCancelled(true);
+        UUID attacker = source(e.getCombuster());
+        if (plugin.frozen() || e.getEntity() instanceof Player p && noCombat(attacker, p)) e.setCancelled(true);
+    }
+    @EventHandler(priority = EventPriority.HIGHEST) public void combust(EntityCombustByBlockEvent e) {
+        if(plugin.frozen()||e.getEntity() instanceof Player p&&noCombat(plugin.damageAttribution.owner(e.getCombuster()),p))e.setCancelled(true);
+    }
+    @EventHandler(priority = EventPriority.HIGHEST) public void effect(EntityPotionEffectEvent e) {
+        if(e.getNewEffect()!=null&&e.getNewEffect().getType().getCategory()==PotionEffectTypeCategory.HARMFUL&&e.getEntity()instanceof Player p
+                &&noCombat(source(e.getSource()),p))e.setCancelled(true);
     }
     @EventHandler(priority = EventPriority.HIGHEST) public void cloud(AreaEffectCloudApplyEvent e) {
-        Player attacker = source(e.getEntity());
-        e.getAffectedEntities().removeIf(entity -> plugin.frozen() || (entity instanceof Player p && noCombat(attacker, p))
-                || (attacker != null && plugin.protectedAt(attacker, entity.getLocation())));
+        UUID attacker = source(e.getEntity());
+        boolean harmful=e.getEntity().getCustomEffects().stream().anyMatch(effect->effect.getType().getCategory()==PotionEffectTypeCategory.HARMFUL)
+                ||e.getEntity().getBasePotionType()!=null&&e.getEntity().getBasePotionType().getPotionEffects().stream().anyMatch(effect->effect.getType().getCategory()==PotionEffectTypeCategory.HARMFUL);
+        e.getAffectedEntities().removeIf(entity -> plugin.frozen() || harmful&&entity instanceof Player p&&noCombat(attacker,p));
     }
     @EventHandler(priority = EventPriority.HIGHEST) public void explosion(EntityExplodeEvent e) {
         e.blockList().removeIf(this::protectedBlock);
@@ -167,7 +164,7 @@ final class Protections implements Listener {
         for (Block b : blocks) {
             Block target = b.getRelative(direction);
             if (plugin.objectiveAt(b.getLocation()) || plugin.objectiveAt(target.getLocation())) return true;
-            if (beforeAssaults() && (!Objects.equals(plugin.territory(piston.getLocation()), plugin.territory(b.getLocation()))
+            if ((!Objects.equals(plugin.territory(piston.getLocation()), plugin.territory(b.getLocation()))
                     || !Objects.equals(plugin.territory(piston.getLocation()), plugin.territory(target.getLocation())))) return true;
         }
         return false;
@@ -194,6 +191,7 @@ final class Protections implements Listener {
     }
     @EventHandler(priority = EventPriority.HIGHEST) public void change(EntityChangeBlockEvent e) {
         if (protectedBlock(e.getBlock()) || (beforeAssaults() && plugin.territory(e.getEntity().getLocation()) != null)) e.setCancelled(true);
+        if(plugin.territory(e.getBlock().getLocation())!=null&&(e.getEntity()instanceof Enderman||e.getEntity()instanceof Wither))e.setCancelled(true);
     }
     @EventHandler(priority = EventPriority.HIGHEST) public void form(EntityBlockFormEvent e) {
         if (protectedBlock(e.getBlock())) e.setCancelled(true);
@@ -221,7 +219,7 @@ final class Protections implements Listener {
     }
     @EventHandler(priority = EventPriority.HIGHEST) public void teleport(PlayerTeleportEvent e) {
         if (e.getTo() != null && (dimensionClosed(e.getTo().getWorld()) || (plugin.state.started && plugin.frozen()
-                && !(plugin.returningToSafety && e.getTo().getWorld().getEnvironment() == World.Environment.NORMAL)))) e.setCancelled(true);
+                && !plugin.teamTeleports.allowsTeleport(e)&& !(plugin.returningToSafety && e.getTo().getWorld().getEnvironment() == World.Environment.NORMAL)))) e.setCancelled(true);
         plugin.resetCaptures();
     }
     @EventHandler(priority = EventPriority.HIGHEST) public void portal(PlayerPortalEvent e) {
@@ -235,7 +233,7 @@ final class Protections implements Listener {
         if (plugin.blocked(e.getPlayer())) e.setCancelled(true);
     }
     @EventHandler(priority = EventPriority.HIGHEST) public void mode(PlayerGameModeChangeEvent e) {
-        if (plugin.returningToSafety) return;
+        if (plugin.returningToSafety||plugin.teamTeleports.allowsMode(e.getPlayer())) return;
         if (plugin.state.started && !plugin.eliminated(e.getPlayer()) && e.getNewGameMode() != GameMode.SURVIVAL) e.setCancelled(true);
         if (plugin.state.started && plugin.eliminated(e.getPlayer()) && e.getNewGameMode() != GameMode.SPECTATOR) e.setCancelled(true);
     }

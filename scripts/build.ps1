@@ -1,4 +1,4 @@
-param([switch]$SkipTests, [switch]$Probe)
+param([switch]$SkipTests, [switch]$Probe, [switch]$MapV2, [switch]$Corrections)
 $ErrorActionPreference = 'Stop'
 $repo = Split-Path -Parent $PSScriptRoot
 Set-Location -LiteralPath $repo
@@ -17,4 +17,28 @@ if ($Probe) {
     Copy-Item tests/probe-plugin.yml .cache/probe/plugin.yml
     & "$($jdk.FullName)/bin/jar.exe" --create --file .cache/FKRuntimeProbe.jar -C .cache/probe .
     if ($LASTEXITCODE -ne 0) { throw 'Création du JAR de recette impossible.' }
+}
+if ($MapV2) {
+    New-Item -ItemType Directory -Force .cache/map-v2-builder/fr/fkamis | Out-Null
+    Copy-Item plugins-custom/fk-amis/target/test-classes/fr/fkamis/MapV2Builder*.class .cache/map-v2-builder/fr/fkamis/
+    Copy-Item tests/map-v2-builder-plugin.yml .cache/map-v2-builder/plugin.yml
+    & "$($jdk.FullName)/bin/jar.exe" --create --file .cache/FKMapV2Builder.jar -C .cache/map-v2-builder .
+    if ($LASTEXITCODE -ne 0) { throw "Création de l'outil de chantier impossible." }
+    New-Item -ItemType Directory -Force .cache/map-v2-supply-probe/fr/fkamis | Out-Null
+    Copy-Item plugins-custom/fk-amis/target/test-classes/fr/fkamis/MapV2SupplyProbe*.class .cache/map-v2-supply-probe/fr/fkamis/
+    Copy-Item tests/map-v2-supply-plugin.yml .cache/map-v2-supply-probe/plugin.yml
+    & "$($jdk.FullName)/bin/jar.exe" --create --file .cache/FKMapV2SupplyProbe.jar -C .cache/map-v2-supply-probe .
+    if ($LASTEXITCODE -ne 0) { throw 'Création du plugin de recette impossible.' }
+}
+if ($Corrections) {
+    New-Item -ItemType Directory -Force .cache/v2-corrections/fr/fkamis | Out-Null
+    Copy-Item plugins-custom/fk-amis/target/test-classes/fr/fkamis/MapV2Corrections*.class .cache/v2-corrections/fr/fkamis/
+    Copy-Item tests/v2-corrections-plugin.yml .cache/v2-corrections/plugin.yml
+    & "$($jdk.FullName)/bin/jar.exe" --create --file .cache/FKMapV2Corrections.jar -C .cache/v2-corrections .
+    if ($LASTEXITCODE -ne 0) { throw 'Création du nettoyeur impossible.' }
+    New-Item -ItemType Directory -Force .cache/gameplay-probe/fr/fkamis | Out-Null
+    Copy-Item plugins-custom/fk-amis/target/test-classes/fr/fkamis/GameplayProbe*.class .cache/gameplay-probe/fr/fkamis/
+    Copy-Item tests/gameplay-probe-plugin.yml .cache/gameplay-probe/plugin.yml
+    & "$($jdk.FullName)/bin/jar.exe" --create --file .cache/FKGameplayProbe.jar -C .cache/gameplay-probe .
+    if ($LASTEXITCODE -ne 0) { throw 'Création de la recette gameplay impossible.' }
 }

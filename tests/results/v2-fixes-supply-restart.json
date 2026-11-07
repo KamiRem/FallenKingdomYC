@@ -1,0 +1,15 @@
+{
+  "passed": [
+    "temps restant conservé au redémarrage sans rattrapage",
+    "numéro d\u0027événement conservé",
+    "lots actifs conservés au redémarrage",
+    "lot déjà réservé toujours inaccessible après redémarrage",
+    "reprise sans joueurs ne déclenche aucun rattrapage",
+    "commande de test désactivée dans le profil officiel"
+  ],
+  "players": 0,
+  "measurementTicks": 200,
+  "tps1m": 19.926013784028562,
+  "averageTickMs": 0.8246148514851485,
+  "note": "États et événements API simulés, aucun client authentifié ; mesure serveur sans huit joueurs."
+}

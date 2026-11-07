@@ -1,0 +1,123 @@
+{
+  "instance": "runtime/map-v2-fixes",
+  "totalRemoved": 6547,
+  "byMaterial": {
+    "BIRCH_LEAVES": 548,
+    "BUSH": 5,
+    "CHERRY_LEAVES": 343,
+    "LEAF_LITTER": 775,
+    "LILY_OF_THE_VALLEY": 16,
+    "OAK_LEAVES": 2540,
+    "PEONY": 3,
+    "PINK_PETALS": 1223,
+    "RED_MUSHROOM": 1,
+    "SHORT_GRASS": 791,
+    "SNOW": 94,
+    "TALL_GRASS": 153,
+    "WILDFLOWERS": 55
+  },
+  "zones": {
+    "Bleue/cœur": {
+      "BUSH": 2,
+      "LEAF_LITTER": 97,
+      "SHORT_GRASS": 4
+    },
+    "Bleue/transition": {
+      "BIRCH_LEAVES": 24,
+      "BUSH": 3,
+      "LEAF_LITTER": 603,
+      "LILY_OF_THE_VALLEY": 16,
+      "OAK_LEAVES": 469,
+      "PEONY": 3,
+      "SHORT_GRASS": 61
+    },
+    "Jaune/cœur": {
+      "SHORT_GRASS": 13,
+      "WILDFLOWERS": 34
+    },
+    "Jaune/transition": {
+      "BIRCH_LEAVES": 296,
+      "OAK_LEAVES": 71,
+      "SHORT_GRASS": 20,
+      "WILDFLOWERS": 21
+    },
+    "Rouge/cœur": {
+      "PINK_PETALS": 469,
+      "SHORT_GRASS": 150,
+      "TALL_GRASS": 46
+    },
+    "Rouge/transition": {
+      "CHERRY_LEAVES": 196,
+      "PINK_PETALS": 672,
+      "SHORT_GRASS": 277,
+      "SNOW": 94,
+      "TALL_GRASS": 75
+    },
+    "Verte/cœur": {
+      "SHORT_GRASS": 1
+    },
+    "Verte/transition": {
+      "SHORT_GRASS": 29,
+      "TALL_GRASS": 7
+    },
+    "abords-monuments": {
+      "BIRCH_LEAVES": 69,
+      "LEAF_LITTER": 22,
+      "OAK_LEAVES": 690,
+      "RED_MUSHROOM": 1,
+      "SHORT_GRASS": 49,
+      "TALL_GRASS": 13
+    },
+    "abords-ravitaillements": {
+      "BIRCH_LEAVES": 1,
+      "LEAF_LITTER": 1,
+      "OAK_LEAVES": 352,
+      "SHORT_GRASS": 2
+    },
+    "rives-du-lac": {
+      "PINK_PETALS": 82,
+      "SHORT_GRASS": 163,
+      "TALL_GRASS": 9
+    },
+    "sentiers-et-lisières": {
+      "BIRCH_LEAVES": 158,
+      "CHERRY_LEAVES": 147,
+      "LEAF_LITTER": 52,
+      "OAK_LEAVES": 958,
+      "SHORT_GRASS": 22,
+      "TALL_GRASS": 3
+    }
+  },
+  "passes": [
+    {
+      "report": "v2-fixes-cleanup-first.json",
+      "changes": [
+        2961,
+        1,
+        0
+      ],
+      "columns": 167535
+    },
+    {
+      "report": "v2-fixes-cleanup-second.json",
+      "changes": [
+        2784,
+        0
+      ],
+      "columns": 167535
+    },
+    {
+      "report": "v2-fixes-cleanup.json",
+      "changes": [
+        801,
+        0
+      ],
+      "columns": 186149
+    }
+  ],
+  "idempotent": true,
+  "monumentsFlagsAndLootPreserved": true,
+  "terrainRebuilt": false,
+  "lootRegenerated": false,
+  "visualValidation": false
+}

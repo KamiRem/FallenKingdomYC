@@ -1,0 +1,11 @@
+pvp-day: 2
+assault-day: 3
+nether-day: 2
+border-size: 1200
+capture-seconds: 60
+capture-radius: 2.5
+capture-players: 2
+teams: [Rouge, Bleue, Verte, Jaune]
+# Toute matière contenant NETHERITE et ANCIENT_DEBRIS est interdite par défaut.
+ban-netherite-family: true
+extra-banned: []

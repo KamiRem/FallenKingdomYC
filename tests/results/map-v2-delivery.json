@@ -1,0 +1,22 @@
+{
+  "archive": "dist\\fallenkingdom-map-v2-20261107T011000Z.zip",
+  "sha256": "493dcc51de68f9d98bc2113b94147d82dd3d2e898eb3473993c98c1622544d7c",
+  "bytes": 368228931,
+  "files": 277,
+  "candidate": true,
+  "visualValidation": false,
+  "supplyChecks": {
+    "initial": {
+      "checks": 42,
+      "tps": 19.926977051938756,
+      "mspt": 0.8276544554455445,
+      "players": 0
+    },
+    "restart": {
+      "checks": 6,
+      "tps": 19.85181008496575,
+      "mspt": 1.1662405940594058,
+      "players": 0
+    }
+  }
+}

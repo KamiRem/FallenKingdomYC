@@ -1,5 +1,23 @@
 # Fallen Kingdom privé — huit amis
 
+Les **corrections de la v2** sont préparées dans `runtime/map-v2-fixes` : nettoyage
+des supports naturels, PvE actif dès J1, minage adverse interdit en permanence,
+élytres et pommes enchantées interdites, `/fka teams tpall [confirm]`.
+`runtime/local` et `runtime/map-v2` sont conservés. Voir [le bilan des corrections](docs/V2_CORRECTIONS.md).
+
+```powershell
+.\scripts\server.ps1 start -Name map-v2-fixes -Port 25579
+```
+
+Le **premier chantier v2**, conservé dans `runtime/map-v2`, possède une bordure de 1 200 blocs,
+royaumes voisins à environ 408–482 blocs, terrains aménagés, quatre drapeaux, sept
+monuments et ravitaillements toutes les 30 minutes actives. L'instance historique
+`runtime/local` est conservée. Lire [la livraison v2](docs/MAP_V2.md),
+[le fonctionnement du butin](docs/LOOT_SYSTEM.md) et [le carnet d'inspection](docs/MAP_V2_INSPECTION.md).
+
+Les terrains attendent la validation visuelle et la recette avec les joueurs avant
+le démarrage officiel. Les sections ci-dessous décrivent aussi le profil historique.
+
 Projet Windows prêt à installer : **Paper 26.2 build 135**, **Java 25**,
 **FallenKingdom 2.24.9** de syldium et complément indépendant **FKAmis 1.0.0**.
 Quatre équipes de deux, forts entièrement construits par les joueurs, objectifs
@@ -45,7 +63,10 @@ officiel n'a été effectué et aucun terrain n'est déclaré équilibré automa
 | Jour 3 et suivants | ouvert | ouverts, capture en 60 secondes | ouvert |
 
 L'End est fermé jusqu'à décision administrative. Netherite, débris antiques et modèle
-d'amélioration en netherite sont interdits dans toutes les dimensions. La construction
+d'amélioration en netherite sont interdits dans toutes les dimensions. Les élytres et
+pommes dorées enchantées sont aussi interdites ; les pommes dorées ordinaires
+restent autorisées. Les mobs et dangers naturels restent actifs dès le jour 1.
+La construction
 FK classique limite la pose hors de sa base ; le minage adverse reste interdit, les
 défenses sont ouvertes à la TNT au jour 3. Voir [le règlement](docs/GAME_RULES.md).
 

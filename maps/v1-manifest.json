@@ -1,0 +1,42 @@
+{
+  "method": "vanilla-natural",
+  "minecraft": "26.2",
+  "seed": "123456789",
+  "generated": true,
+  "worldPath": "runtime/local/world",
+  "survey": "maps/seed-survey.csv",
+  "borderSize": 1800,
+  "inspected": false,
+  "territories": [
+    {
+      "team": "Rouge",
+      "candidateX": -500,
+      "candidateZ": -500,
+      "radius": 100,
+      "validated": false
+    },
+    {
+      "team": "Bleue",
+      "candidateX": 500,
+      "candidateZ": -500,
+      "radius": 100,
+      "validated": false
+    },
+    {
+      "team": "Verte",
+      "candidateX": -500,
+      "candidateZ": 500,
+      "radius": 100,
+      "validated": false
+    },
+    {
+      "team": "Jaune",
+      "candidateX": 500,
+      "candidateZ": 500,
+      "radius": 100,
+      "validated": false
+    }
+  ],
+  "note": "Graine retenue après sondage réel de six candidats ; forêt, prairie, cerisiers, reliefs et rivières observés. Terrains à inspecter en jeu : déplacer le centre Jaune hors rivière/jardin pâle. Aucun objectif ni fort prédéfini.",
+  "generationReport": "tests/results/pregeneration.json"
+}

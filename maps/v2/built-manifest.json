@@ -1,0 +1,355 @@
+{
+  "schema": 1,
+  "status": "BUILT",
+  "world": "runtime/map-v2/world",
+  "seed": 123456789,
+  "border": 1200,
+  "bases": [
+    {
+      "x": -240.0,
+      "z": -240.0,
+      "groundY": 111.0,
+      "minY": 90.0,
+      "maxY": 117.0,
+      "wetSamples": 0.0,
+      "samples": 25.0,
+      "biome": "minecraft:cherry_grove",
+      "score": 27.0,
+      "team": "Rouge",
+      "radius": 80.0,
+      "flagY": 113,
+      "flagHeight": 9,
+      "flagColor": "red",
+      "spawn": {
+        "x": -246.5,
+        "y": 112,
+        "z": -239.5
+      },
+      "terrainPrepared": true,
+      "visualValidation": false
+    },
+    {
+      "x": 200.0,
+      "z": -200.0,
+      "groundY": 64.0,
+      "minY": 61.0,
+      "maxY": 79.0,
+      "wetSamples": 0.0,
+      "samples": 25.0,
+      "biome": "minecraft:forest",
+      "score": 21.200000000000003,
+      "team": "Bleue",
+      "radius": 80.0,
+      "flagY": 66,
+      "flagHeight": 9,
+      "flagColor": "blue",
+      "spawn": {
+        "x": 193.5,
+        "y": 65,
+        "z": -199.5
+      },
+      "terrainPrepared": true,
+      "visualValidation": false
+    },
+    {
+      "x": -200.0,
+      "z": 240.0,
+      "groundY": 63.0,
+      "minY": 53.0,
+      "maxY": 65.0,
+      "wetSamples": 1.0,
+      "samples": 25.0,
+      "biome": "minecraft:plains",
+      "score": 25.6,
+      "team": "Verte",
+      "radius": 80.0,
+      "flagY": 65,
+      "flagHeight": 9,
+      "flagColor": "green",
+      "spawn": {
+        "x": -206.5,
+        "y": 64,
+        "z": 240.5
+      },
+      "terrainPrepared": true,
+      "visualValidation": false
+    },
+    {
+      "x": 280.0,
+      "z": 200.0,
+      "groundY": 68.0,
+      "minY": 62.0,
+      "maxY": 73.0,
+      "wetSamples": 0.0,
+      "samples": 25.0,
+      "biome": "minecraft:birch_forest",
+      "score": 14.2,
+      "team": "Jaune",
+      "radius": 80.0,
+      "flagY": 70,
+      "flagHeight": 9,
+      "flagColor": "yellow",
+      "spawn": {
+        "x": 273.5,
+        "y": 69,
+        "z": 200.5
+      },
+      "terrainPrepared": true,
+      "visualValidation": false
+    }
+  ],
+  "monuments": [
+    {
+      "id": "cercle-des-quatre-vents",
+      "x": 80,
+      "y": 68,
+      "z": -48,
+      "radius": 19,
+      "placed": true
+    },
+    {
+      "id": "temple-des-racines",
+      "x": -80,
+      "y": 105,
+      "z": -352,
+      "radius": 19,
+      "placed": true
+    },
+    {
+      "id": "mine-des-brumes",
+      "x": 360,
+      "y": 70,
+      "z": 0,
+      "radius": 30,
+      "placed": true
+    },
+    {
+      "id": "tour-des-vents",
+      "x": 40,
+      "y": 70,
+      "z": 350,
+      "radius": 19,
+      "placed": true
+    },
+    {
+      "id": "camp-des-eclaireurs",
+      "x": -320,
+      "y": 71,
+      "z": 48,
+      "radius": 19,
+      "placed": true
+    },
+    {
+      "id": "sanctuaire-des-sources",
+      "x": 40,
+      "y": 66,
+      "z": 175,
+      "radius": 19,
+      "placed": true
+    },
+    {
+      "id": "crypte-des-veilleurs",
+      "x": -80,
+      "y": 70,
+      "z": -223,
+      "radius": 26,
+      "placed": true,
+      "guardians": [
+        "0a121a24-40d4-4408-bfa3-837fc43a8557",
+        "ead81575-1460-4099-8b84-5bbdf554d124"
+      ]
+    }
+  ],
+  "supplies": [
+    {
+      "id": "supply-1",
+      "zone": "Carrefour nord-ouest",
+      "x": -100,
+      "y": 67,
+      "z": -100
+    },
+    {
+      "id": "supply-2",
+      "zone": "Carrefour nord-est",
+      "x": 140,
+      "y": 65,
+      "z": -100
+    },
+    {
+      "id": "supply-3",
+      "zone": "Carrefour sud-ouest",
+      "x": -100,
+      "y": 70,
+      "z": 100
+    },
+    {
+      "id": "supply-4",
+      "zone": "Carrefour sud-est",
+      "x": 60,
+      "y": 71,
+      "z": 100
+    },
+    {
+      "id": "supply-5",
+      "zone": "Lisière nord",
+      "x": 0,
+      "y": 80,
+      "z": -480
+    },
+    {
+      "id": "supply-6",
+      "zone": "Crête est",
+      "x": 400,
+      "y": 64,
+      "z": 0
+    },
+    {
+      "id": "supply-7",
+      "zone": "Vallon sud",
+      "x": 0,
+      "y": 73,
+      "z": 480
+    },
+    {
+      "id": "supply-8",
+      "zone": "Bois ouest",
+      "x": -520,
+      "y": 74,
+      "z": 0
+    }
+  ],
+  "landscape": [
+    {
+      "type": "lac",
+      "x": 0,
+      "y": 95,
+      "z": 265,
+      "radius": 13
+    },
+    {
+      "type": "cascade_rocaille",
+      "x": 24,
+      "y": 69,
+      "z": 175
+    },
+    {
+      "type": "rochers",
+      "x": -402,
+      "y": 96,
+      "z": -385
+    },
+    {
+      "type": "rochers",
+      "x": -473,
+      "y": 74,
+      "z": 347
+    },
+    {
+      "type": "rochers",
+      "x": -203,
+      "y": 70,
+      "z": -55
+    },
+    {
+      "type": "rochers",
+      "x": -306,
+      "y": 77,
+      "z": 194
+    },
+    {
+      "type": "rochers",
+      "x": 294,
+      "y": 62,
+      "z": 103
+    },
+    {
+      "type": "rochers",
+      "x": -478,
+      "y": 71,
+      "z": 434
+    },
+    {
+      "type": "rochers",
+      "x": -373,
+      "y": 100,
+      "z": 217
+    },
+    {
+      "type": "rochers",
+      "x": 375,
+      "y": 70,
+      "z": 50
+    },
+    {
+      "type": "rochers",
+      "x": 230,
+      "y": 62,
+      "z": -32
+    },
+    {
+      "type": "rochers",
+      "x": 264,
+      "y": 69,
+      "z": -326
+    },
+    {
+      "type": "rochers",
+      "x": -115,
+      "y": 73,
+      "z": -527
+    },
+    {
+      "type": "rochers",
+      "x": 206,
+      "y": 74,
+      "z": -475
+    },
+    {
+      "type": "rochers",
+      "x": -254,
+      "y": 81,
+      "z": 73
+    },
+    {
+      "type": "rochers",
+      "x": -289,
+      "y": 69,
+      "z": 489
+    },
+    {
+      "type": "rochers",
+      "x": 308,
+      "y": 99,
+      "z": 431
+    },
+    {
+      "type": "rochers",
+      "x": -485,
+      "y": 83,
+      "z": -114
+    },
+    {
+      "type": "rochers",
+      "x": 112,
+      "y": 62,
+      "z": -70
+    },
+    {
+      "type": "rochers",
+      "x": 254,
+      "y": 63,
+      "z": 304
+    },
+    {
+      "type": "rochers",
+      "x": -246,
+      "y": 125,
+      "z": -404
+    }
+  ],
+  "changedBlocks": 464985,
+  "peakQueuedOperations": 133032,
+  "worstConstructionSliceMs": 12.7414,
+  "visualValidation": false,
+  "prebuiltForts": 0
+}

@@ -1,5 +1,38 @@
 # Architecture
 
+## Corrections de la v2
+
+`GameplayRules` centralise les décisions pures PvE/PvP, minage et rassemblement.
+`Protections` ne bloque plus des causes environnementales entières au jour 1.
+`DamageAttribution` utilise la source Paper et des marqueurs persistants sur chunks
+et entités pour les actes attribuables. Le minage adverse reste refusé après J3 ;
+les listes d'explosion conservent les défenses avant assauts et toujours les objectifs.
+
+`TeamTeleportService` valide tous les spawns, charge leurs chunks et limite le transfert
+administratif à l'avant-partie ou la pause confirmée. `ChunkLeases` partage les tickets
+entre ce service et `SupplyService`. Le filtre `ItemBan` est conservé, configuré avec
+les deux nouveaux matériaux ; aucune modification du moteur de capture.
+
+`TerrainCleanup` contrôle supports et connexion au tronc. L'outil temporaire
+`FKMapV2Corrections`, issu des sources de test, ne travaille que dans `map-v2-fixes`
+avant la partie. Il ne reconstruit pas le terrain et ne remplit aucun coffre.
+Voir [V2_CORRECTIONS.md](V2_CORRECTIONS.md).
+
+## Extension carte v2
+
+La v2 ajoute un `SupplyService` dans FKAmis et deux composants purs : `SupplyClock`
+pour le temps actif et `LootTable` pour les poids et budgets. Ils utilisent la section
+`supplies` du même instantané atomique ; aucun second plugin de ravitaillement n'est installé.
+Le moteur de capture et les règles de phases restent inchangés. Les coffres réservés
+sont explicitement exclus de la déclaration d'objectif et du déplacement des territoires.
+
+`FKMapV2Builder` est un **outil de chantier séparé**, compilé depuis les sources de
+test, exécuté uniquement dans `runtime/map-v2`, puis retiré des plugins. Ses accès
+réfléchis servent à préparer les territoires et points de départ avant une partie ;
+ils ne font pas partie du JAR de jeu. Les modifications du monde sont réparties sur
+plusieurs ticks, avec préchargement asynchrone des chunks existants. La partie n'est
+pas utilisée comme éditeur en cours de jeu. Voir [MAP_V2](MAP_V2.md) et [LOOT_SYSTEM](LOOT_SYSTEM.md).
+
 ## Deux plugins de jeu
 
 Paper fournit le serveur, les sauvegardes vanilla et spark intégré. FallenKingdom de

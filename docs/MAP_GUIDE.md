@@ -1,5 +1,19 @@
 # Carte naturelle
 
+La variante nettoyée est `runtime/map-v2-fixes`, avec les mêmes centres et monuments.
+Les opérations ponctuelles et limites de recette figurent dans [V2_CORRECTIONS.md](V2_CORRECTIONS.md).
+
+## Version compacte actuelle
+
+La candidate v2 se trouve dans `runtime/map-v2`, avec une bordure de **1 200 blocs**,
+quatre terrains de rayon 80, quatre drapeaux et sept monuments réellement placés.
+Le guide de chantier et les comparaisons techniques sont dans [MAP_V2.md](MAP_V2.md).
+Utiliser [le carnet d'inspection](MAP_V2_INSPECTION.md) pour les coordonnées relevées.
+Le profil historique de 1 800 blocs reste conservé dans `runtime/local`.
+
+Les indications de génération ci-dessous restent celles du monde source et de son
+profil historique. Elles ne doivent pas écraser une carte v2 déjà construite.
+
 ## Méthode retenue
 
 Génération vanilla Minecraft 26.2 avec graine fixe, structures vanilla actives et
@@ -14,8 +28,9 @@ la graine ; elle doit être inspectée, et n'est jamais déduite du seul numéro
 | Vanilla + schémas | Quelques ruines choisies | Butin et dépendance WorldEdit à vérifier | Option ultérieure, aucun schéma fourni |
 | WorldPainter / générateur dédié | Contrôle du relief | Travail manuel, couches minières/structures et compatibilité à vérifier | Non nécessaire pour huit joueurs |
 
-`maps/manifest.json` documente la graine proposée, la bordure et les quatre zones
-candidates. Ce manifeste ne prétend pas qu'un monde existe sur un nouveau clone.
+`maps/v1-manifest.json` conserve la graine et les anciennes zones candidates.
+`maps/manifest.json` référence la candidate v2 construite dans ce workspace.
+Ces manifestes ne prétendent pas qu'un monde existe sur un nouveau clone.
 Le monde effectivement généré se trouve dans `runtime/<nom>/world` ; consulter le
 rapport de tests pour distinguer génération exécutée et inspection manuelle restante.
 

@@ -170,6 +170,12 @@ final class ItemBan implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST) public void consume(PlayerItemConsumeEvent e) {
         if (denied(e.getItem())) e.setCancelled(true);
     }
+    @EventHandler(priority = EventPriority.HIGHEST) public void glide(EntityToggleGlideEvent e) {
+        if(e.isGliding()&&banned.contains(Material.ELYTRA))e.setCancelled(true);
+    }
+    @EventHandler(priority = EventPriority.HIGHEST) public void equip(org.bukkit.event.block.BlockDispenseArmorEvent e) {
+        if(denied(e.getItem()))e.setCancelled(true);
+    }
     @EventHandler(priority = EventPriority.HIGHEST) public void damage(EntityDamageByEntityEvent e) {
         if (e.getDamager() instanceof Player p && denied(p.getInventory().getItemInMainHand())) e.setCancelled(true);
     }

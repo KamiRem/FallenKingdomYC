@@ -1,11 +1,30 @@
 # Règlement de la partie
 
+## Compléments de la carte v2
+
+La carte compacte mesure 1 200 blocs de côté. Les quatre zones de rayon 80 sont
+aménagées et portent un drapeau décoratif ; les forts et salles secrètes restent
+entièrement construits par les équipes. Le drapeau n'est pas un objectif de capture.
+
+Sept monuments neutres offrent des récompenses fixes à usage unique, sans recharge
+automatique. La crypte contient deux gardiens créés une seule fois. Les ressources
+des monuments peuvent être récoltées selon les règles normales de la zone neutre.
+
+Toutes les 30 minutes actives, jusqu'à deux supports de ravitaillement reçoivent des
+lots. Clic droit pour récupérer tout le lot, avec des cases libres ; aucune récupération
+pendant une pause. Les coffres fixes ne servent pas de stockage personnel et ne peuvent
+pas être déplacés. Les sites tournent lorsque possible et les lots expirent après
+dix minutes actives. Les règles détaillées et budgets figurent dans [LOOT_SYSTEM.md](LOOT_SYSTEM.md).
+
+Les jours, PvP, assauts, éliminations et interdiction de la netherite gardent les
+mêmes règles que ci-dessous. Ni les monuments ni les ravitaillements ne révèlent les objectifs.
+
 ## Royaumes et construction
 
 Quatre royaumes de deux joueurs. Les emplacements et ressources sont inspectés avant
 le départ. Aucun château, mur, tour ou salle n'est donné. Les joueurs récoltent leurs
 matériaux, construisent leurs forts, creusent et aménagent leur propre territoire sur
-toute la hauteur du monde. Rayon initial proposé : 100 blocs, carré inclusif.
+toute la hauteur du monde. Sur la v2, rayon de 80 blocs, carré inclusif.
 
 La pose hors de sa base suit les règles classiques du plugin : torches, feu, panneaux
 et exceptions natives ; la TNT devient disponible au jour 3. Les expéditions doivent
@@ -33,12 +52,16 @@ rythme vanilla pendant la session. Dormir ou attendre ne débloque jamais le PvP
 
 Le friendly fire est interdit, y compris les projectiles et effets de potions
 attribuables. Au jour 1, certains dégâts sans attribution fiable (lave, feu, poison,
-explosions) sont aussi bloqués : les pièges indirects ne doivent pas contourner le PvP.
+explosions) ne sont plus bloqués globalement : le **PvE et les dangers naturels sont
+entièrement actifs dès J1**, y compris zombies, squelettes, creepers naturels, chute,
+noyade, feu, lave, faim et effets de mobs. Les attaques et pièges attribués à un joueur
+respectent les restrictions PvP. Les soins entre joueurs restent possibles.
 Avant les assauts, les distributeurs sont désactivés par prudence ; les transferts
 de conteneurs ne traversent pas les limites territoriales.
 
-Les dégâts environnementaux restants du survival (chutes, mobs, faim) restent en jeu
-hors pause. La difficulté est normale. Les morts n'éliminent pas un royaume.
+La difficulté est normale. Les morts n'éliminent pas un royaume. Les pistons ne
+permettent pas d'extraire les murs à travers les frontières, même après J3. Les mains,
+outils et TNT non amorcée ne donnent aucune exception au refus de casse adverse.
 
 ## Salle secrète et capture
 
@@ -73,6 +96,8 @@ armures et modèle d'amélioration. Les recettes, table de forge, butins, invent
 shulkers, bundles, équipement de mobs, ramassages et transferts sont filtrés. Les
 conteneurs non ouverts ne sont pas tous parcourus au démarrage ; ils sont filtrés
 avant usage ou transfert. Les objets autorisés sont conservés.
+Les **élytres (`ELYTRA`) et pommes dorées enchantées (`ENCHANTED_GOLDEN_APPLE`)** sont
+également interdites. Les pommes dorées ordinaires (`GOLDEN_APPLE`) restent autorisées.
 
 ## Sessions
 

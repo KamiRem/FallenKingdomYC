@@ -1,5 +1,23 @@
 # Compatibilité et provenance
 
+Les corrections de gameplay conservent Paper 26.2 build 135, Java 25 et FallenKingdom
+2.24.9, sans modification du JAR tiers ni dépendance de jeu supplémentaire. Le JAR
+FKAmis corrigé est identifié par son empreinte dans `v2-fixes-delivery.json`.
+Les outils de nettoyage et de recette sont retirés de la candidate après usage.
+
+## Contrôle carte v2 — 7 novembre 2026
+
+La copie v2 utilise les mêmes Paper 26.2 build 135, FallenKingdom 2.24.9 et Java 25.
+Le complément est recompilé contre la même API fixe. Aucun WorldEdit, FAWE, générateur
+ou plugin de ravitaillement tiers n'est ajouté au profil de jeu. Les formats JSON de
+structures sont des créations originales, chargées par l'outil Paper séparé et
+contrôlées sur les blocs réels après placement. Ce ne sont pas des fichiers `.schem`.
+
+Les compatibilités **déclarées** des solutions alternatives et leurs licences sont
+référencées dans [MAP_V2.md](MAP_V2.md) et [LOOT_SYSTEM.md](LOOT_SYSTEM.md) ; elles ne
+sont pas présentées comme des chargements locaux effectués. Le statut non maintenu
+de Paper 26.2 et la nécessité d'une recette de migration restent ceux indiqués ci-dessous.
+
 Vérification du **6 novembre 2026**. Les versions exactes installables sont enregistrées
 dans `configs/artifacts.lock.json`, avec liens officiels et empreintes. Ne pas remplacer
 les numéros par `latest` dans les scripts d'installation.

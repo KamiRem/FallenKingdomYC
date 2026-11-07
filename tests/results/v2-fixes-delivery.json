@@ -1,0 +1,31 @@
+{
+  "checkedAtUtc": "2026-11-07T02:32:55.272521+00:00",
+  "sources": {
+    "local": {
+      "unchanged": true,
+      "comparedFiles": 268
+    },
+    "map-v2": {
+      "unchanged": true,
+      "comparedFiles": 278
+    }
+  },
+  "initialV2Backup": "backups\\map-v2\\fk-20261107T013518704466Z.zip",
+  "initialV2BackupSha256": "f387e19190aa327f79d0108c0fb921977fbc0d841a462389bc57f1a5f1a2c3f7",
+  "candidate": "runtime/map-v2-fixes",
+  "jarSha256": "5245f0a20426b9e15c38b55a8acf87d56d3fbfd54b4d146720a738d670981d6a",
+  "archive": "dist\\fallenkingdom-map-v2-fixes-20261107T023228Z.zip",
+  "archiveSha256": "ca112b60e94751ae1c2c96bb64270cadd32c747ade760db30f538b07bd442713",
+  "archiveBytes": 369577744,
+  "archiveFiles": 284,
+  "cleanedNaturalBlocks": 6547,
+  "worldChecks": 22,
+  "gameplayChecks": 112,
+  "authenticatedPlayers": 0,
+  "visualValidation": false,
+  "officialGameStarted": false,
+  "plugins": [
+    "FKAmis-1.0.0.jar",
+    "FallenKingdom-2.24.9.jar"
+  ]
+}

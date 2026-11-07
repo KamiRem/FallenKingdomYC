@@ -1,0 +1,17 @@
+{
+  "checkedAtUtc": "2026-11-07T01:08:52.446892+00:00",
+  "originalInstance": "runtime/local",
+  "unchanged": true,
+  "comparedFiles": 268,
+  "initialBackup": "backups\\local\\fk-20261107T002410011936Z.zip",
+  "backupSha256": "55ff29761743e15589e0af6cac351adbf6d695e585cfd542789200815910b622",
+  "backupManifestFiles": 268,
+  "candidateWorldFiles": 125,
+  "candidateLevelDatSha256": "ea34f9beaa9704e48cc54759784f53a255b4eb108be48d6ea82f98c9058aab87",
+  "candidateJarSha256": "9c1fa63582f3df6c85fd2c342f4f055852e6db3bb55a22817d7c396c07087b9c",
+  "plugins": [
+    "FKAmis-1.0.0.jar",
+    "FallenKingdom-2.24.9.jar"
+  ],
+  "note": "Empreintes intégrales comparées à froid ; verrous natifs exclus par iter_files. Aucune bascule de local."
+}

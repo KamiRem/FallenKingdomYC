@@ -1,0 +1,5 @@
+name: FKMapV2Corrections
+version: 1.0.0
+main: fr.fkamis.MapV2Corrections
+api-version: '1.21'
+depend: [FKAmis]

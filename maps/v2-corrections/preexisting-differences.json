@@ -1,0 +1,175 @@
+{
+  "source": "runtime/map-v2",
+  "sourceBackupSha256": "f387e19190aa327f79d0108c0fb921977fbc0d841a462389bc57f1a5f1a2c3f7",
+  "differences": [
+    {
+      "monument": "mine-des-brumes",
+      "x": 360,
+      "y": 61,
+      "z": 20,
+      "plan": "minecraft:cobblestone_stairs",
+      "source": "minecraft:stone"
+    },
+    {
+      "monument": "mine-des-brumes",
+      "x": 360,
+      "y": 61,
+      "z": 23,
+      "plan": "minecraft:stone",
+      "source": "minecraft:air"
+    },
+    {
+      "monument": "mine-des-brumes",
+      "x": 360,
+      "y": 61,
+      "z": 24,
+      "plan": "minecraft:cobblestone_stairs",
+      "source": "minecraft:air"
+    },
+    {
+      "monument": "mine-des-brumes",
+      "x": 360,
+      "y": 62,
+      "z": 18,
+      "plan": "minecraft:cobblestone_stairs",
+      "source": "minecraft:stone"
+    },
+    {
+      "monument": "mine-des-brumes",
+      "x": 360,
+      "y": 62,
+      "z": 19,
+      "plan": "minecraft:stone",
+      "source": "minecraft:cobblestone_stairs"
+    },
+    {
+      "monument": "mine-des-brumes",
+      "x": 360,
+      "y": 63,
+      "z": 16,
+      "plan": "minecraft:cobblestone_stairs",
+      "source": "minecraft:stone"
+    },
+    {
+      "monument": "mine-des-brumes",
+      "x": 360,
+      "y": 63,
+      "z": 17,
+      "plan": "minecraft:stone",
+      "source": "minecraft:cobblestone_stairs"
+    },
+    {
+      "monument": "mine-des-brumes",
+      "x": 360,
+      "y": 64,
+      "z": 14,
+      "plan": "minecraft:cobblestone_stairs",
+      "source": "minecraft:stone"
+    },
+    {
+      "monument": "mine-des-brumes",
+      "x": 360,
+      "y": 64,
+      "z": 15,
+      "plan": "minecraft:stone",
+      "source": "minecraft:cobblestone_stairs"
+    },
+    {
+      "monument": "mine-des-brumes",
+      "x": 360,
+      "y": 65,
+      "z": 12,
+      "plan": "minecraft:cobblestone_stairs",
+      "source": "minecraft:stone"
+    },
+    {
+      "monument": "mine-des-brumes",
+      "x": 360,
+      "y": 65,
+      "z": 13,
+      "plan": "minecraft:stone",
+      "source": "minecraft:cobblestone_stairs"
+    },
+    {
+      "monument": "mine-des-brumes",
+      "x": 360,
+      "y": 66,
+      "z": 12,
+      "plan": "minecraft:air",
+      "source": "minecraft:cobblestone_stairs"
+    },
+    {
+      "monument": "mine-des-brumes",
+      "x": 360,
+      "y": 67,
+      "z": 10,
+      "plan": "minecraft:air",
+      "source": "minecraft:cobblestone_stairs"
+    },
+    {
+      "monument": "mine-des-brumes",
+      "x": 360,
+      "y": 68,
+      "z": 8,
+      "plan": "minecraft:air",
+      "source": "minecraft:cobblestone_stairs"
+    },
+    {
+      "monument": "mine-des-brumes",
+      "x": 360,
+      "y": 69,
+      "z": 6,
+      "plan": "minecraft:air",
+      "source": "minecraft:cobblestone_stairs"
+    },
+    {
+      "monument": "crypte-des-veilleurs",
+      "x": -81,
+      "y": 55,
+      "z": -214,
+      "plan": "minecraft:stone_brick_stairs",
+      "source": "minecraft:air"
+    },
+    {
+      "monument": "crypte-des-veilleurs",
+      "x": -81,
+      "y": 56,
+      "z": -214,
+      "plan": "minecraft:air",
+      "source": "minecraft:deepslate_tiles"
+    },
+    {
+      "monument": "crypte-des-veilleurs",
+      "x": -80,
+      "y": 55,
+      "z": -214,
+      "plan": "minecraft:stone_brick_stairs",
+      "source": "minecraft:air"
+    },
+    {
+      "monument": "crypte-des-veilleurs",
+      "x": -80,
+      "y": 56,
+      "z": -214,
+      "plan": "minecraft:air",
+      "source": "minecraft:deepslate_tiles"
+    },
+    {
+      "monument": "crypte-des-veilleurs",
+      "x": -79,
+      "y": 55,
+      "z": -214,
+      "plan": "minecraft:stone_brick_stairs",
+      "source": "minecraft:air"
+    },
+    {
+      "monument": "crypte-des-veilleurs",
+      "x": -79,
+      "y": 56,
+      "z": -214,
+      "plan": "minecraft:air",
+      "source": "minecraft:deepslate_tiles"
+    }
+  ],
+  "note": "Lecture seule du monde source après inspection utilisateur ; aucune réparation ni modification du monde."
+}

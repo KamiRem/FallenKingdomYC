@@ -1,5 +1,123 @@
 # Tests et recette
 
+## Corrections de la v2 — 7 novembre 2026
+
+Candidate : `runtime/map-v2-fixes`. Les deux sources `local` et `map-v2` sont
+conservées. Le nettoyage a retiré 6 547 blocs naturels invalides, avec comptage par
+type/zone, comparaison des monuments et drapeaux et dernier passage à zéro.
+Voir `tests/results/v2-fixes-cleanup-total.json`.
+
+```powershell
+.\scripts\build.ps1 -Corrections -MapV2 -Probe
+python -m unittest discover -s tests -v
+python -u scripts/gameplay_probe.py --name probe-v2-fixes-recette-neuve
+python -u scripts/map_v2.py verify --name map-v2-fixes
+python -u scripts/map_v2_qa.py --source map-v2-fixes --name map-v2-qa-fixes-recette-neuve
+```
+
+La suite Java comprend maintenant **19 tests**, dont six politiques supplémentaires :
+PvE pendant toutes les phases, PvP J2 hors base, friendly fire, pause/élimination,
+minage adverse permanent et rassemblement confirmé. Les **12 tests Python** restent
+réussis. La recette existante des phases a aussi passé 23 contrôles et 5 au redémarrage
+sur `probe-v2-fixes-regression` avec le JAR corrigé.
+
+`v2-fixes-gameplay.json` décrit la recette des listeners Paper/FallenKingdom/FKAmis :
+fleurs/herbes/buissons flottants, feuilles orphelines, arbre et plante suspendue valides,
+idempotence ; zombie, flèche de squelette, creeper naturel, environnement J1 ; attaques
+attribuées et pièges identifiés ; PvP J2/J3 et friendly fire ; casse adverse des trois
+jours, casse propriétaire, **véritables explosions** sans brèche J1/J2 et avec brèche J3,
+coffre objectif préservé ; objets et pommes ordinaires ; destinations, permissions,
+déconnectés, sans équipe, spectateurs, pause, spawn invalide et annulation externe.
+
+Les huit `Player` de cette recette sont des **interfaces de fixture**, jamais des
+comptes connectés. Les annulations passent par la chaîne réelle des listeners, mais
+le mouvement réseau, les inventaires d'un véritable client et la santé d'un joueur
+authentifié restent à tester. Les blocs, mobs et explosions sont réels dans la copie
+de recette. Un marqueur SUCCESS accompagné d'une ERROR n'est pas accepté par le script.
+
+| Contrôle final des corrections | Résultat |
+|---|---|
+| Gameplay sur `probe-v2-fixes-8` | 112 contrôles, zéro ERROR/SEVERE ; aucun client authentifié |
+| Monde corrigé après redémarrage | 22 contrôles ; 21 aménagements préexistants conservés ; six butins fixes exacts |
+| Ravitaillements avec tickets partagés | 42 contrôles initiaux, puis 6 dans la restauration complète |
+| Mesures ravitaillement initial / restauration | 19,77 / 19,93 TPS ; 0,80 / 0,82 ms par tick ; zéro joueur, attente de 200 ticks |
+| Sources conservées | local : 268 fichiers identiques ; map-v2 : 278 identiques |
+| Archive de la candidate | 284 fichiers, manifeste et SHA-256 vérifiés ; `v2-fixes-delivery.json` |
+
+Incidents conservés : première copie de nettoyage interrompue après une passe,
+restaurée depuis la sauvegarde initiale sous le nom de livraison ; hauteur de balayage
+corrigée pour inclure les fleurs ; chunks de téléportation désormais retenus jusqu'au
+transfert. Les premières interfaces de fixture manquaient `getEyeLocation` et leur
+retrait provoquait une résolution de profils sur le thread de jeu ; ces problèmes
+de recette sont corrigés. Les journaux des essais ne sont pas déclarés sans erreur.
+Le contrôle des plans a également relevé 21 différences déjà présentes dans les
+escaliers de la source. Leur origine n'est pas déduite : elles sont consignées par
+lecture des régions, puis préservées et vérifiées au lieu d'être reconstruites.
+
+À faire en jeu : visite visuelle du nettoyage, huit comptes authentifiés, dégâts
+réels et morts PvE, inventaires pleins/curseur lors du rassemblement, combat/siège et
+captures complètes. Voir [V2_CORRECTIONS.md](V2_CORRECTIONS.md) et le carnet de visite.
+
+## Refonte v2 — recette du 7 novembre 2026
+
+La candidate est `runtime/map-v2` ; les tests de ravitaillement modifient uniquement
+sa copie `runtime/map-v2-qa-final`. Aucun compte authentifié n'est simulé comme preuve
+de test multijoueur. Les compteurs sont accélérés par la recette technique, pas par
+une modification du profil livré de 1 800 secondes.
+
+```powershell
+.\scripts\build.ps1 -MapV2 -Probe
+python -m unittest discover -s tests -v
+python -u scripts/map_v2.py verify
+python -u scripts/map_v2_qa.py --name map-v2-qa-final
+python scripts/map_v2_delivery.py
+```
+
+Ne pas réexécuter la recette sur une copie ayant déjà servi : son état de test a été
+conservé pour examen. Choisir un nouveau nom commençant par `map-v2-qa`.
+
+Les 13 tests Java couvrent les 7 règles antérieures et 6 tests de ravitaillement :
+1 800 secondes actives, gel avant partie/pause/victoire/sans participant, compteur
+conservé, 100 000 catégories tirées, plafonds sur 10 000 événements, catalogue interdit.
+Les 12 tests Python de sauvegarde/restauration restent réussis.
+
+| Contrôle v2 exécuté | Résultat |
+|---|---|
+| Monde réel après redémarrage | 21 contrôles réussis, dont drapeaux, surfaces centrales, sept monuments et six butins fixes exacts |
+| Ravitaillements sur Paper | 42 contrôles initiaux réussis ; état de partie simulé, événements API, aucun client |
+| Après restauration complète à froid | 6 contrôles réussis ; lot réservé non réattribuable, lot actif et minuteur conservés |
+| Mesure initiale / reprise | 19,93 / 19,85 TPS ; 0,83 / 1,17 ms par tick ; 0 joueur, attente de 200 ticks par phase |
+| Journaux finaux monde et deux phases de ravitaillement | Chargement des deux plugins confirmé, aucune ERROR/SEVERE ; avertissement Paper ancien toujours présent |
+| Conservation de local | 268 fichiers comparés, tous identiques à l'empreinte initiale |
+| Export privé de la candidate | 277 fichiers, manifeste interne et SHA-256 vérifiés ; `map-v2-delivery.json` |
+
+Les rapports réels sont `tests/results/map-v2-world.json`, `map-v2-supply-initial.json`,
+`map-v2-supply-restart.json`, `map-v2-supply-restoration.json` et `map-v2-preservation.json`.
+La phase de redémarrage utilise une restauration complète à froid dans un nouveau
+dossier, avec un lot déjà réservé et un autre actif. Les mesures TPS/MSPT y sont
+explicitement associées au nombre de joueurs et à la durée ; elles ne prouvent pas
+une charge à huit joueurs. La recette existante des phases a également été exécutée
+sur `runtime/probe-v2-regression` : 23 contrôles initiaux et 5 au redémarrage réussis.
+Le code de capture n'a pas été modifié.
+
+Incidents de chantier corrigés et conservés : un sondage synchrone initial a dépassé
+le watchdog ; le chargement est désormais asynchrone et les opérations de chantier
+découpées. La première construction plaçait plusieurs lieux dans des dépressions
+proches de l'eau ; elle est conservée sous `runtime/map-v2-build-1`, puis remplacée
+comme candidate par un nouveau chantier sur des points secs mesurés. Aucun monde
+n'a été supprimé. Les journaux finaux sont contrôlés séparément de ces essais.
+Le contrôle renforcé du contenu a ensuite détecté que l'actualisation d'un état de
+coffre effaçait le lot ajouté à son inventaire réel : l'écriture utilise désormais
+l'inventaire du snapshot avant `update`. Les six coffres encore vides ont fait
+l'objet d'une réparation ciblée après sauvegarde, sans reconstruire le terrain.
+
+Restent à exécuter avec clients : inspection esthétique, ressources et temps de trajet,
+entrée réelle de la crypte et échelle de la tour, clic droit sur lots, double clic,
+inventaire plein, déconnexion pendant attribution, permissions de joueurs non OP,
+assauts/captures et TPS/MSPT à huit joueurs. Le carnet `MAP_V2_INSPECTION.md` fournit
+les vraies téléportations et la liste des vérifications. Les confirmations de terrain
+restent décochées jusqu'à cette inspection.
+
 Les résultats de ce document concernent les commandes réellement exécutées. Les
 contrôles de code, tests unitaires, événements déclenchés sur serveur et essais de
 vrais joueurs sont distingués. Une compilation ne prouve pas la sécurité de tous
