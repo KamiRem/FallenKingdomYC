@@ -1,0 +1,42 @@
+{
+  "atUtc": "2026-11-07T13:00:00.005027+00:00",
+  "source": "runtime/map-v2-fixes",
+  "sourceUnchanged": true,
+  "sourceFilesVerified": 285,
+  "fullBackup": "backups/map-v2-fixes/fk-20261107T123041264839Z.zip",
+  "fullBackupSha256": "049d307047506cf2449defb3417841b4c9e8b8fcc02a04f85c33a494dc8f7d60",
+  "package": "dist/fallenkingdom-preproduction-26.2-20261107T125953Z.zip",
+  "packageSha256": "4156b79fe8d89b2037b049759f0eafd426cdf3adb8d0656d91a0e72fdfc36aa9",
+  "packageFiles": 175,
+  "worldFilesUnchanged": 121,
+  "restoredInstance": "runtime/preproduction-ready",
+  "restoredByteIdentical": true,
+  "excludedFileCounts": {
+    "caches_logs_histories": 125,
+    "access_and_account_lists": 5,
+    "plugin_caches_telemetry": 3,
+    "visitor_profiles": 4
+  },
+  "nativeVisitorCacheCleared": true,
+  "initialState": {
+    "day": 0,
+    "started": false,
+    "roster": 0,
+    "objectives": 0,
+    "bases": 4,
+    "monuments": 7,
+    "lootChestsVerified": 6,
+    "supplySites": 8,
+    "supplyRemainingSeconds": 1800,
+    "supplyEvent": 0
+  },
+  "runtime": {
+    "paper.jar": "ef3dbc68b013deafdbbee3bebf1ba351671ebcda94a8f136809b7532d5ba2fe1",
+    "plugins/FallenKingdom-2.24.9.jar": "9127a92a5ad621f74b29ab8e53b6785d4ee30dd15f720c82c64f2c6a5973ba3b",
+    "plugins/FKAmis-1.0.0.jar": "5245f0a20426b9e15c38b55a8acf87d56d3fbfd54b4d146720a738d670981d6a"
+  },
+  "visualValidation": "attested_by_user_in_production_preparation_request",
+  "authenticatedPlayerTest": "pending",
+  "officialGameStarted": false,
+  "hostingOrdered": false
+}

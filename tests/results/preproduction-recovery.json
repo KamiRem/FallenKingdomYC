@@ -1,0 +1,8 @@
+{
+  "backup": "runtime/preproduction/.fk-backups/fk-20261107T125308018122Z.zip",
+  "sha256": "c4d5a01c841fc59f8a4860b139f5ccfb202a03da685930fabca44ef7935ff722",
+  "restored": "runtime/preproduction-recovery",
+  "filesCompared": 287,
+  "byteIdenticalToArchive": true,
+  "officialGameStarted": false
+}

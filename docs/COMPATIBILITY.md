@@ -1,5 +1,10 @@
 # Compatibilité et provenance
 
+Actualisation du 7 novembre : lire [l’audit de préproduction](PREPRODUCTION_AUDIT.md)
+et [le résultat du test Paper 26.3](../tests/results/paper-26.3-migration.json).
+Le paquet de référence reste 26.2 ; les essais de migration isolés ne remplacent pas
+la recette à huit comptes et ne modifient pas `runtime/map-v2-fixes`.
+
 Les corrections de gameplay conservent Paper 26.2 build 135, Java 25 et FallenKingdom
 2.24.9, sans modification du JAR tiers ni dépendance de jeu supplémentaire. Le JAR
 FKAmis corrigé est identifié par son empreinte dans `v2-fixes-delivery.json`.

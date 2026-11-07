@@ -1,0 +1,53 @@
+{
+  "atUtc": "2026-11-07T12:57:12.843967+00:00",
+  "branch": "test/paper-26.3-preprod",
+  "paper": "26.3-244",
+  "java": "openjdk version \"25.0.5\" 2026-10-20 LTS",
+  "smokePassed": true,
+  "authenticatedPlayers": 0,
+  "simulatedPlayersInGameplayProbe": 8,
+  "officialGameStarted": false,
+  "productionAdopted": false,
+  "checks": [
+    {
+      "suite": "core",
+      "phase": "initial",
+      "passed": true,
+      "assertions": 23,
+      "errors": []
+    },
+    {
+      "suite": "core",
+      "phase": "restart",
+      "passed": true,
+      "assertions": 5,
+      "errors": []
+    },
+    {
+      "suite": "gameplay",
+      "phase": "initial",
+      "passed": true,
+      "assertions": 112,
+      "errors": []
+    },
+    {
+      "suite": "supplies",
+      "phase": "initial",
+      "passed": true,
+      "assertions": 43,
+      "errors": []
+    },
+    {
+      "suite": "supplies",
+      "phase": "restart",
+      "passed": true,
+      "assertions": 6,
+      "errors": []
+    }
+  ],
+  "previousHarnessFailure": "Supply probe expected.json parent folder absent; fixture preparation corrected, production JARs unchanged.",
+  "passed": true,
+  "assertions": 189,
+  "realEightPlayerAcceptance": "pending",
+  "declaredNativeCompatibility": "FallenKingdom 2.24.9 declares 26.2; 26.3 not declared"
+}

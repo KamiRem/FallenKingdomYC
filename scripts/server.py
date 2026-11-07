@@ -216,10 +216,15 @@ def iter_files(root: Path):
             yield path
 
 
-def create_archive(root: Path, output: Path):
+def create_archive(root: Path, output: Path, excluded_roots: tuple[Path, ...] = ()):
     if output.exists():
         raise RuntimeError("L'archive cible existe déjà.")
-    files = list(iter_files(root))
+    # Les sauvegardes portables peuvent résider dans un dossier réservé du serveur.
+    # Elles ne doivent jamais embarquer les sauvegardes précédentes.
+    excluded = tuple(path.resolve() for path in excluded_roots)
+    files = [path for path in iter_files(root)
+             if path.relative_to(root).as_posix() != "BACKUP_MANIFEST.json"
+             and not any(path.resolve().is_relative_to(folder) for folder in excluded)]
     manifest = {str(path.relative_to(root)).replace("\\", "/"): digest(path) for path in files}
     output.parent.mkdir(parents=True, exist_ok=True)
     temporary = output.with_suffix(".zip.part")
@@ -290,7 +295,7 @@ def restore(root: Path, archive: Path):
                     target.parent.mkdir(parents=True, exist_ok=True)
                     with source.open(item) as src, target.open("xb") as dst:
                         shutil.copyfileobj(src, dst)
-    print(f"Restauration terminée : {root}. Reprise en pause. Vérifier avant de remplacer la production.")
+    print(f"Restauration terminée : {root}. État d'origine conservé ; isoler le réseau avant vérification.")
 
 
 def import_world(root: Path, source: Path):

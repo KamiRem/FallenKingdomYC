@@ -1,12 +1,24 @@
 # Fallen Kingdom privé — huit amis
 
+La **préproduction** est préparée à partir de `runtime/map-v2-fixes`, visuellement
+approuvée par le propriétaire et conservée intacte. Commencer par
+[l’audit](docs/PREPRODUCTION_AUDIT.md), le [choix d’hébergement](docs/HOSTING_COMPARISON.md)
+et le [guide de transfert](docs/HOST_INSTALLATION.md). Le ZIP privé et ses empreintes
+sont identifiés dans [le rapport de livraison](tests/results/preproduction-package.json).
+La [recette réelle à huit](docs/MULTIPLAYER_ACCEPTANCE.md) et le
+[lancement propre](docs/OFFICIAL_LAUNCH.md) restent des étapes humaines.
+Paper 26.2 est hors maintenance ; la branche `test/paper-26.3-preprod` teste la
+migration sur copies, sans adoption automatique ni rétrogradation.
+Aucun service n’est commandé et aucune partie officielle n’est lancée.
+
 Les **corrections de la v2** sont préparées dans `runtime/map-v2-fixes` : nettoyage
 des supports naturels, PvE actif dès J1, minage adverse interdit en permanence,
 élytres et pommes enchantées interdites, `/fka teams tpall [confirm]`.
 `runtime/local` et `runtime/map-v2` sont conservés. Voir [le bilan des corrections](docs/V2_CORRECTIONS.md).
 
 ```powershell
-.\scripts\server.ps1 start -Name map-v2-fixes -Port 25579
+# Utiliser la copie de recette ; conserver la référence map-v2-fixes arrêtée.
+.\scripts\server.ps1 start -Name preproduction -Port 25580
 ```
 
 Le **premier chantier v2**, conservé dans `runtime/map-v2`, possède une bordure de 1 200 blocs,
@@ -15,8 +27,9 @@ monuments et ravitaillements toutes les 30 minutes actives. L'instance historiqu
 `runtime/local` est conservée. Lire [la livraison v2](docs/MAP_V2.md),
 [le fonctionnement du butin](docs/LOOT_SYSTEM.md) et [le carnet d'inspection](docs/MAP_V2_INSPECTION.md).
 
-Les terrains attendent la validation visuelle et la recette avec les joueurs avant
-le démarrage officiel. Les sections ci-dessous décrivent aussi le profil historique.
+La validation visuelle de `map-v2-fixes` a été donnée dans la demande de préparation
+de production ; la recette avec huit comptes reste à faire avant le démarrage officiel.
+Les sections ci-dessous décrivent aussi les profils historiques.
 
 Projet Windows prêt à installer : **Paper 26.2 build 135**, **Java 25**,
 **FallenKingdom 2.24.9** de syldium et complément indépendant **FKAmis 1.0.0**.
