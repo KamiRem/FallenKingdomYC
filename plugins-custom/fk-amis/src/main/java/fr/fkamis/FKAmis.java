@@ -44,6 +44,8 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
     TeamTeleportService teamTeleports;
     ChunkLeases chunkLeases;
     private ConfigurationSection savedSupplies;
+    Administrators administrators;
+    private NativeAdminBridge nativeAdminBridge;
 
     TeamManager teams() { return FkPI.getInstance().getTeamManager(); }
     List<String> expectedTeams() { return getConfig().getStringList("teams"); }
@@ -51,15 +53,27 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
     boolean frozen() { return !state.running(); }
     boolean eliminated(Player player) {
         String team = roster.get(player.getUniqueId());
-        return team == null || state.eliminated.contains(team);
+        return !isAdministrator(player) && team != null && state.eliminated.contains(team);
+    }
+    boolean isAdministrator(Player p) { return administrators != null && administrators.contains(p); }
+    boolean activeParticipant(Player p) { return !isAdministrator(p) && roster.containsKey(p.getUniqueId()) && !eliminated(p); }
+    boolean mayAdmin(CommandSender sender) { return sender instanceof ConsoleCommandSender || sender instanceof Player p && isAdministrator(p); }
+    GameMode desiredMode(Player p) {
+        return GameMode.valueOf(PlayerRoles.mode(isAdministrator(p),roster.containsKey(p.getUniqueId()),eliminated(p),state.started).name());
+    }
+    void applyMode(Player p) {
+        GameMode desired=desiredMode(p);
+        if (p.getGameMode()!=desired) p.setGameMode(desired);
+        if (isAdministrator(p)) p.setAllowFlight(true);
     }
     boolean blocked(Player player) {
-        if (!state.started && player.hasPermission("fkamis.admin") && player.getGameMode() == GameMode.CREATIVE) return false;
-        return frozen() || eliminated(player) || player.getGameMode() != GameMode.SURVIVAL;
+        if (isAdministrator(player)) return false;
+        return frozen() || !activeParticipant(player) || player.getGameMode() != GameMode.SURVIVAL;
     }
     Team team(Player p) { return teams().getTeam(roster.get(p.getUniqueId())); }
     Team territory(Location at) { return teams().getBase(at).map(Base::getTeam).orElse(null); }
     boolean protectedAt(Player player, Location at) {
+        if (isAdministrator(player)) return false;
         Team owner = territory(at);
         return blocked(player) || (owner != null && !owner.equals(team(player)) && !state.assaults(assaultDay()));
     }
@@ -85,6 +99,8 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
                     || getConfig().getDouble("capture-radius") > 8 || getConfig().getInt("border-size") < 600 || getConfig().getInt("border-size") > 4000)
                 throw new IllegalStateException("Configuration des phases/captures invalide.");
             loadState();
+            administrators = new Administrators(this);
+            require(administrators.ids().stream().noneMatch(roster::containsKey),"Un arbitre ne peut pas appartenir au roster ; corriger via console avant partie.");
             for (int i = 0; i < expectedTeams().size(); i++) {
                 String name = expectedTeams().get(i);
                 Team t = teams().getTeam(name);
@@ -97,6 +113,8 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
             Objects.requireNonNull(getCommand("fka")).setExecutor(this);
             Objects.requireNonNull(getCommand("fka")).setTabCompleter(this);
             getServer().getPluginManager().registerEvents(this, this);
+            getServer().getPluginManager().registerEvents(administrators, this);
+            nativeAdminBridge = new NativeAdminBridge(this);
             chunkLeases = new ChunkLeases(this);
             damageAttribution = new DamageAttribution(this);
             teamTeleports = new TeamTeleportService(this);
@@ -117,7 +135,7 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
             }
             ready = true;
             saveState();
-            for (Player p : Bukkit.getOnlinePlayers()) reconcilePlayer(p);
+            for (Player p : Bukkit.getOnlinePlayers()) { administrators.attach(p); reconcilePlayer(p); }
             Bukkit.getScheduler().runTaskTimer(this, this::tick, 20, 20);
             Bukkit.getScheduler().runTaskTimer(this, this::captureTick, 1, 1);
             getLogger().info("FKAmis prêt : quatre royaumes, phases manuelles, reprise en pause.");
@@ -135,6 +153,7 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
         rules.setRule(Rule.END_CAP, state.endOpen ? 1 : Integer.MAX_VALUE);
         rules.setRule(Rule.FRIENDLY_FIRE, false);
         rules.setRule(Rule.DEEP_PAUSE, true);
+        rules.setRule(Rule.DEATH_LIMIT, 0); // Morts illimitées, seule la capture élimine un royaume.
         rules.setRule(Rule.RESPAWN_AT_HOME, true);
         rules.setRule(Rule.CHEST_LIMIT, 0);
         rules.setRule(Rule.VERTICAL_LIMIT, 0);
@@ -143,7 +162,9 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
         // Garde la construction FK classique : base personnelle + liste limitée hors base.
         // Objectif explicite et capture contrôlée remplacent la détection globale de tous les coffres.
         FkPI.getInstance().getChestsRoomsManager().setEnabled(false);
+        silenceTips();
     }
+    void silenceTips() { if (getConfig().getBoolean("disable-native-tips",true)) Fk.getInstance().getTipsManager().cancelBroadcasts(); }
 
     private void nativeCommand(String command) {
         internalCommand = true;
@@ -174,6 +195,7 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
         }
         getServer().getServerTickManager().setFrozen(state.started && frozen());
         captures.values().forEach(CaptureClock::reset);
+        silenceTips();
         updateDisplay();
     }
 
@@ -189,13 +211,12 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
     }
 
     private void tick() {
-        if (supplies != null) supplies.tick(Bukkit.getOnlinePlayers().stream().anyMatch(p -> !eliminated(p) && !p.isDead()));
+        if (supplies != null) supplies.tick(Bukkit.getOnlinePlayers().stream().anyMatch(p -> activeParticipant(p) && !p.isDead()));
         // Pas d'horloge de jours, pas de progression hors session.
         Fk.getInstance().getGame().stopTimer();
         itemBan.sweep();
         for (Player p : Bukkit.getOnlinePlayers()) {
-            if (eliminated(p) && p.getGameMode() != GameMode.SPECTATOR
-                    && (state.started || !p.hasPermission("fkamis.admin"))) p.setGameMode(GameMode.SPECTATOR);
+            applyMode(p);
         }
         if (state.running()) {
             for (var entry : objectives.entrySet()) {
@@ -216,7 +237,7 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
             Location center = objectives.get(defender).clone().add(.5, 1, .5);
             double radius = getConfig().getDouble("capture-radius");
             List<Player> nearby = center.getWorld().getNearbyPlayers(center, radius).stream()
-                    .filter(p -> !p.isDead() && !blocked(p) && p.getLocation().distanceSquared(center) <= radius * radius
+                    .filter(p -> activeParticipant(p) && !p.isDead() && !blocked(p) && p.getLocation().distanceSquared(center) <= radius * radius
                             && p.hasLineOfSight(center.clone().add(0, .01, 0))).toList();
             Map<String, Long> counts = new HashMap<>();
             for (Player p : nearby) counts.merge(roster.get(p.getUniqueId()), 1L, Long::sum);
@@ -243,7 +264,7 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
     void resetCaptures() { captures.values().forEach(CaptureClock::reset); }
 
     void checkCaptureMovement(Player player, Location destination) {
-        if (!state.assaults(assaultDay()) || eliminated(player)) return;
+        if (!state.assaults(assaultDay()) || !activeParticipant(player)) return;
         String movingTeam = roster.get(player.getUniqueId());
         double radius = getConfig().getDouble("capture-radius");
         for (var e : captures.entrySet()) {
@@ -279,7 +300,7 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
         state.eliminate(defender, expectedTeams());
         captures.values().forEach(CaptureClock::reset);
         saveState(); // L'élimination est durable avant le prochain tick.
-        for (Player p : Bukkit.getOnlinePlayers()) if (eliminated(p)) p.setGameMode(GameMode.SPECTATOR);
+        for (Player p : Bukkit.getOnlinePlayers()) if (eliminated(p)) applyMode(p);
         Bukkit.broadcastMessage("§cLe royaume " + defender + " est éliminé.");
         if (!state.winner.isEmpty()) Bukkit.broadcastMessage("§6Victoire du royaume " + state.winner + " !");
         syncNative(); saveState();
@@ -287,6 +308,7 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
 
     @Override public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         try {
+            if (args.length>0&&args[0].equalsIgnoreCase("admin")) { administrators.command(sender,args); return true; }
             if (args.length > 0 && args[0].equalsIgnoreCase("supply")) return supplies.command(sender, args);
             if (args.length == 0 || args[0].equalsIgnoreCase("status")) {
                 sender.sendMessage("§6Jour " + state.day + " | " + (state.running() ? "en cours" : "en pause / installation")
@@ -295,7 +317,7 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
             }
             if (args[0].equalsIgnoreCase("help")) {
                 sender.sendMessage("/fka status ; /fka supply status ; /fka room register (coffre ciblé, message privé)");
-                if (sender.hasPermission("fkamis.admin")) sender.sendMessage(
+                if (mayAdmin(sender)) sender.sendMessage(
                         "Admin : assign <pseudo connecté> <équipe>, unassign <pseudo>, territory <équipe> <rayon>, "
                         + "terrain <équipe> confirm, spawn <équipe>, start [override], pause, resume, nextday, "
                         + "end <open|close>, room <validate|invalidate|inspect> <équipe>, teams tpall [confirm], win <équipe>, save, pregen, survey");
@@ -304,12 +326,14 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
             if (args[0].equalsIgnoreCase("room") && args.length == 2 && args[1].equalsIgnoreCase("register")) {
                 registerRoom(player(sender)); return true;
             }
-            require(sender.hasPermission("fkamis.admin"), "Permission fkamis.admin requise.");
+            require(mayAdmin(sender), "Permission fkamis.admin requise : rôle arbitre UUID ou console.");
+            if (sender instanceof Player arbiter) administrators.audit(arbiter.getUniqueId(),"COMMANDE fka "+String.join(" ",args));
             switch (args[0].toLowerCase(Locale.ROOT)) {
                 case "teams" -> { teamTeleports.command(sender,args); return true; }
                 case "assign" -> {
                     require(args.length == 3 && !state.started, "Usage avant partie : assign <pseudo connecté> <équipe>");
                     Player p = Objects.requireNonNull(Bukkit.getPlayerExact(args[1]), "Joueur non connecté.");
+                    require(!isAdministrator(p),"L'arbitre ne peut pas rejoindre une équipe.");
                     Team t = getTeam(args[2]);
                     require(!roster.containsKey(p.getUniqueId()), "Retirer d'abord le joueur de son équipe.");
                     require(t.getPlayers().size() < 2, "Deux joueurs maximum par équipe.");
@@ -322,7 +346,7 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
                     UUID id = rosterNames.entrySet().stream().filter(e -> e.getValue().equalsIgnoreCase(args[1]))
                             .map(Map.Entry::getKey).findFirst().orElseThrow(() -> new IllegalArgumentException("Joueur absent."));
                     teams().removePlayerOfHisTeam(rosterNames.remove(id)); roster.remove(id);
-                    Player p = Bukkit.getPlayer(id); if (p != null) p.setGameMode(GameMode.SPECTATOR);
+                    Player p = Bukkit.getPlayer(id); if (p != null) applyMode(p);
                 }
                 case "territory" -> {
                     require(args.length == 3 && !state.started, "Usage avant partie : territory <équipe> <rayon>");
@@ -370,7 +394,7 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
                         require(override || !Objects.requireNonNull(p).isOp(), "Retirer OP aux participants avant le lancement.");
                     }
                     state.start(expectedTeams().stream().map(t -> getTeam(t).getPlayers().size()).toList(), override);
-                    for (Player p : Bukkit.getOnlinePlayers()) if (!eliminated(p)) {
+                    for (Player p : Bukkit.getOnlinePlayers()) if (activeParticipant(p)) {
                         p.closeInventory(); p.setGameMode(GameMode.SURVIVAL); p.teleport(spawns.get(roster.get(p.getUniqueId())));
                     }
                     syncNative(); Bukkit.broadcastMessage("§6Début de la partie : jour 1, préparation !");
@@ -393,7 +417,7 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
                 }
                 case "end" -> {
                     require(args.length == 2 && (args[1].equals("open") || args[1].equals("close")), "Usage : end <open|close>");
-                    if (args[1].equals("close")) require(Bukkit.getOnlinePlayers().stream().noneMatch(p -> p.getWorld().getEnvironment() == World.Environment.THE_END), "Faire revenir les joueurs de l'End avant sa fermeture.");
+                    if (args[1].equals("close")) require(Bukkit.getOnlinePlayers().stream().noneMatch(p -> activeParticipant(p) && p.getWorld().getEnvironment() == World.Environment.THE_END), "Faire revenir les joueurs de l'End avant sa fermeture.");
                     state.endOpen = args[1].equals("open"); configureNative(); syncNative();
                 }
                 case "room" -> {
@@ -433,14 +457,14 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
                 default -> throw new IllegalArgumentException("Commande inconnue : /fka help");
             }
             saveState(); updateDisplay(); sender.sendMessage("§aOpération enregistrée.");
-        } catch (IllegalArgumentException | IllegalStateException | NullPointerException ex) {
+        } catch (Exception ex) {
             sender.sendMessage("§c" + ex.getMessage());
         }
         return true;
     }
 
     private void registerRoom(Player p) {
-        require(state.running() && state.day < assaultDay() && !eliminated(p), "Enregistrer pendant la préparation, avant les assauts.");
+        require(state.running() && state.day < assaultDay() && activeParticipant(p), "Enregistrer pendant la préparation, avant les assauts.");
         Block block = p.getTargetBlockExact(5);
         require(block != null && block.getType() == Material.CHEST, "Cibler un coffre ordinaire à cinq blocs maximum.");
         require(supplies == null || !supplies.managed(block.getLocation()), "Un coffre de ravitaillement ne peut pas devenir un objectif secret.");
@@ -458,7 +482,7 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
 
     private void pregen(CommandSender sender) {
         require(!state.started && !pregenerating, "Prégénération réservée à l'installation ; tâche déjà active possible.");
-        require(Bukkit.getOnlinePlayers().stream().noneMatch(p -> !p.hasPermission("fkamis.admin")), "Aucun joueur pendant la prégénération.");
+        require(Bukkit.getOnlinePlayers().stream().allMatch(this::isAdministrator), "Aucun joueur pendant la prégénération.");
         World world = Objects.requireNonNull(Bukkit.getWorld("world"));
         int r = (getConfig().getInt("border-size") / 2 + 32) >> 4;
         var chunks = new ArrayDeque<int[]>();
@@ -591,7 +615,7 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
         }
     }
 
-    private void reconcilePlayer(Player p) {
+    void reconcilePlayer(Player p) {
         String name = roster.get(p.getUniqueId());
         if (name != null) {
             String previous = rosterNames.get(p.getUniqueId());
@@ -600,8 +624,8 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
                 teams().addPlayer(p.getName(), name); rosterNames.put(p.getUniqueId(), p.getName()); saveState();
             }
         }
-        if (eliminated(p) && (state.started || !p.hasPermission("fkamis.admin"))) p.setGameMode(GameMode.SPECTATOR);
-        else if (state.started) p.setGameMode(GameMode.SURVIVAL);
+        applyMode(p);
+        if (isAdministrator(p)) return;
         itemBan.clean(p.getInventory());
         World.Environment environment = p.getWorld().getEnvironment();
         if ((environment == World.Environment.NETHER && state.day < getConfig().getInt("nether-day"))
@@ -617,17 +641,21 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
         }
     }
 
-    @EventHandler public void onJoin(PlayerJoinEvent e) { Bukkit.getScheduler().runTask(this, () -> reconcilePlayer(e.getPlayer())); }
+    @EventHandler public void onJoin(PlayerJoinEvent e) { Bukkit.getScheduler().runTask(this, () -> { if (e.getPlayer().isOnline()) { administrators.attach(e.getPlayer()); reconcilePlayer(e.getPlayer()); } }); }
+    @EventHandler public void onWorldChanged(PlayerChangedWorldEvent e) { Bukkit.getScheduler().runTask(this,()->{ if(e.getPlayer().isOnline()) reconcilePlayer(e.getPlayer()); }); }
     @EventHandler public void onQuit(PlayerQuitEvent e) {
+        administrators.detach(e.getPlayer());
+        if (!activeParticipant(e.getPlayer())) return;
         captures.values().forEach(CaptureClock::reset);
-        if (state.running() && roster.containsKey(e.getPlayer().getUniqueId()) && !eliminated(e.getPlayer())) {
+        if (state.running() && activeParticipant(e.getPlayer())) {
             state.paused = true; syncNative(); saveState();
             Bukkit.broadcastMessage("§eDéconnexion d'un participant : partie mise en pause. Reprise administrative requise.");
         }
     }
     @EventHandler(priority = EventPriority.HIGHEST) public void onRespawn(PlayerRespawnEvent e) {
         String name = roster.get(e.getPlayer().getUniqueId());
-        if (name != null && !state.eliminated.contains(name) && safeSpawn(name)) e.setRespawnLocation(spawns.get(name));
+        if (activeParticipant(e.getPlayer()) && !e.isBedSpawn() && !e.isAnchorSpawn() && safeSpawn(name)) e.setRespawnLocation(spawns.get(name));
+        Bukkit.getScheduler().runTask(this,()->{ if(e.getPlayer().isOnline()) applyMode(e.getPlayer()); });
     }
 
     private boolean forbiddenNative(String input) {
@@ -651,15 +679,17 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
     }
 
     @Override public List<String> onTabComplete(CommandSender s, Command c, String alias, String[] args) {
-        if (!s.hasPermission("fkamis.admin")) return args.length == 1 ? List.of("status", "help", "room", "supply") : args.length == 2 && args[0].equals("supply") ? List.of("status") : List.of();
+        if (!mayAdmin(s)) return args.length == 1 ? List.of("status", "help", "room", "supply") : args.length == 2 && args[0].equals("supply") ? List.of("status") : List.of();
         if (args.length == 2 && args[0].equals("supply")) return List.of("status", "list", "enable", "disable", "reload", "test", "add", "remove").stream().filter(a -> a.startsWith(args[1])).toList();
         if (args.length == 2 && args[0].equalsIgnoreCase("teams")) return List.of("tpall");
         if (args.length == 3 && args[0].equalsIgnoreCase("teams") && args[1].equalsIgnoreCase("tpall")) return List.of("confirm");
-        if (args.length == 1) return List.of("status", "help", "supply", "teams", "assign", "unassign", "territory", "terrain", "spawn", "start", "pause", "resume", "nextday", "end", "room", "win", "save", "pregen", "survey").stream().filter(t -> t.startsWith(args[0])).toList();
+        if (args.length == 1) return List.of("admin", "status", "help", "supply", "teams", "assign", "unassign", "territory", "terrain", "spawn", "start", "pause", "resume", "nextday", "end", "room", "win", "save", "pregen", "survey").stream().filter(t -> t.startsWith(args[0])).toList();
         return List.of();
     }
 
     @Override public void onDisable() {
+        if (administrators!=null) administrators.close();
+        if (nativeAdminBridge!=null) nativeAdminBridge.close();
         if (!ready) return;
         state.paused = true;
         Fk.getInstance().getGame().stopTimer();

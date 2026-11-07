@@ -1,4 +1,4 @@
-param([switch]$SkipTests, [switch]$Probe, [switch]$MapV2, [switch]$Corrections)
+param([switch]$SkipTests, [switch]$Probe, [switch]$MapV2, [switch]$Corrections, [switch]$Migration, [switch]$Administration)
 $ErrorActionPreference = 'Stop'
 $repo = Split-Path -Parent $PSScriptRoot
 Set-Location -LiteralPath $repo
@@ -17,6 +17,20 @@ if ($Probe) {
     Copy-Item tests/probe-plugin.yml .cache/probe/plugin.yml
     & "$($jdk.FullName)/bin/jar.exe" --create --file .cache/FKRuntimeProbe.jar -C .cache/probe .
     if ($LASTEXITCODE -ne 0) { throw 'Création du JAR de recette impossible.' }
+}
+if ($Migration) {
+    New-Item -ItemType Directory -Force .cache/migration-native/fr/fkamis | Out-Null
+    Copy-Item plugins-custom/fk-amis/target/test-classes/fr/fkamis/MigrationNativeProbe*.class .cache/migration-native/fr/fkamis/
+    Copy-Item tests/migration-native-plugin.yml .cache/migration-native/plugin.yml
+    & "$($jdk.FullName)/bin/jar.exe" --create --file .cache/FKMigrationNativeProbe.jar -C .cache/migration-native .
+    if ($LASTEXITCODE -ne 0) { throw 'Création de la recette native de migration impossible.' }
+}
+if ($Administration) {
+    New-Item -ItemType Directory -Force .cache/admin-respawn/fr/fkamis | Out-Null
+    Copy-Item plugins-custom/fk-amis/target/test-classes/fr/fkamis/AdminRespawnProbe*.class .cache/admin-respawn/fr/fkamis/
+    Copy-Item tests/admin-respawn-plugin.yml .cache/admin-respawn/plugin.yml
+    & "$($jdk.FullName)/bin/jar.exe" --create --file .cache/FKAdminRespawnProbe.jar -C .cache/admin-respawn .
+    if ($LASTEXITCODE -ne 0) { throw 'Création de la recette administrateur impossible.' }
 }
 if ($MapV2) {
     New-Item -ItemType Directory -Force .cache/map-v2-builder/fr/fkamis | Out-Null

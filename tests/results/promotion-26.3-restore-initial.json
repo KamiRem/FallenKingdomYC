@@ -1,0 +1,9 @@
+{
+  "archive": "dist/fallenkingdom-preproduction-26.2-20261107T125953Z.zip",
+  "sha256": "4156b79fe8d89b2037b049759f0eafd426cdf3adb8d0656d91a0e72fdfc36aa9",
+  "restoredInstance": "runtime/preproduction-26-3",
+  "filesCompared": 175,
+  "byteIdenticalBeforeVersionChange": true,
+  "paper": "26.3-244",
+  "fkamisSha256": "9201a72528b8f6699f394c3e495ab7192bde312614f7f3d2bad88edaf9a8ea37"
+}

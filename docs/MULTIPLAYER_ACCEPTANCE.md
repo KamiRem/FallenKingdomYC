@@ -7,7 +7,7 @@ de cette recette humaine.
 
 ## Préparer la session
 
-Prévoir 2 à 3 heures, une préproduction issue du ZIP initial, un point de sauvegarde
+Prévoir 2 à 3 heures, huit clients Java **26.3** et une préproduction issue du ZIP initial **26.3**, un point de sauvegarde
 à froid, huit clients Java de la version choisie, deux comptes par équipe Rouge,
 Bleue, Verte, Jaune. L’un des huit peut piloter la console du panel depuis son navigateur ;
 aucun compte de jeu ne reste OP. Garder une feuille privée avec pseudos réels,
@@ -29,6 +29,7 @@ numéro d’anomalie si échec. Ne pas cocher « réussi » à partir d’un anc
 |---|---|---|
 | Accès | Connexion des huit officiels, tentative hors whitelist, vérification OP | 8 authentifiés, quatre binômes, accès refusé au neuvième, participants non OP |
 | Téléportation | Prévisualisation puis confirmation, cas temporaire hors ligne | Tous aux bons spawns sûrs ; avertissement explicite pour absent, pas de téléportation silencieuse dangereuse |
+| Chat/interfaces | Chaque binôme échange un message privé ; vérifier les six non-destinataires, puis le préfixe `!` global ; afficher aide, règles, équipes et tableau de bord | Livraison privée aux alliés seulement, global reçu, interfaces lisibles sans exception ; preuve réseau réelle |
 | Spawns | Chaque binôme meurt en recette puis réapparaît ; essayer lit personnel | Réapparition conforme à la règle au royaume, sans suffocation ni chute |
 | Carte/butin | Visiter bases, drapeaux, sept monuments, six coffres ; prendre un lot puis revenir/redémarrer | Carte intacte, butin initial exact, lot retiré non recréé automatiquement |
 | J1 PvE | Chaque équipe combat un zombie/squelette ; vérifier dégâts de chute/feu | Mobs actifs et dégâts reçus dès J1 |

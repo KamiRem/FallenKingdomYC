@@ -4,14 +4,19 @@ La préparation n’a lancé aucune partie officielle. Ne pas nettoyer un monde 
 joué par suppression de fichiers d’inventaire ou édition des seuls compteurs FKAmis :
 coffres pillés, constructions, entités, états natifs et progression divergeraient.
 
+Profil courant : `fallenkingdom-preproduction-26.3.zip`, MineStrator MyBox Perf 8,
+Java 25 Performance, mémoire panel environ 6154M, `server-ip=` vide et port 22880.
+Le ZIP 26.2 et la référence restent conservés ; ils ne sont pas la source de cette
+préparation officielle 26.3. Ne pas effectuer de downgrade de monde.
+
 ## Repartir de l’archive initiale validée
 
 1. Terminer et signer la recette à huit, traiter les anomalies et mesurer les performances
-   sur l’hôte choisi. Une migration de version exige sa propre recette sur copie et
-   une décision explicite ; le paquet 26.2 n’est pas une validation de 26.3.
+   sur l’hôte choisi. Le profil retenu est désormais Paper 26.3-244 / Java 25 ;
+   conserver exactement les versions et empreintes du nouveau paquet, sans mélange 26.2/26.3.
 2. Mettre la préproduction en pause, sauvegarder à froid et conserver cette archive comme
    preuve de recette. Arrêter le service et désactiver son redémarrage automatique.
-3. Restaurer **le ZIP initial scellé**, identifié dans `preproduction-package.json`,
+3. Restaurer **le ZIP initial scellé Paper 26.3**, identifié dans `preproduction-package-26.3.json`,
    dans un espace neuf « officiel-prêt ». Employer la procédure de restauration complète.
    Ne pas restaurer la dernière sauvegarde de recette pour obtenir un état vierge.
    Ne pas modifier `runtime/map-v2-fixes` ni les historiques.

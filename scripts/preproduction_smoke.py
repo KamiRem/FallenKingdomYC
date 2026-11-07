@@ -93,7 +93,7 @@ def smoke(root: Path, report_path: Path, java: Path, port: int):
             report['warnings'] = [line.strip() for line in full_log if re.search(r'\bWARN\b', line)]
             report['errors'] = [line.strip() for line in full_log if re.search(r'\b(ERROR|SEVERE)\b', line)]
             report['idleMetricsOnly'] = [line.strip() for line in full_log if
-                                        any(marker in line for marker in ('TPS from', 'Server tick times', 'avg/min/max'))]
+                                        any(marker in line for marker in ('TPS from', 'Server tick times', 'avg/min/max', '◴'))]
             state = (root / 'plugins/FKAmis/state.yml').read_text(encoding='utf-8')
             report['stillDayZero'] = bool(re.search(r'^day: 0$', state, re.M))
             report['notStarted'] = bool(re.search(r'^started: false$', state, re.M))

@@ -1,5 +1,26 @@
 # Architecture
 
+## Rôles, réapparitions et compatibilité native
+
+`PlayerRoles` décide du mode à partir du rôle UUID, de l'attribution et des captures,
+jamais du nombre de morts. `Administrators` stocke les UUID atomiquement dans
+`admins.yml`, gère les permissions temporaires, les confirmations console, les
+autorisations sensibles d'une action/60 secondes et `admin-audit.log`. Les UUID
+restent hors du roster et le fichier d'état existant n'est pas migré.
+
+`NativeAdminBridge` enveloppe uniquement les registrations de protection FK 2.24.9
+identifiées. Il délègue les callbacks originaux aux mêmes priorités pour les
+participants, les ignore pour les arbitres concernés et restaure les handlers
+natifs à l'arrêt. Il ne remet jamais globalement un événement tiers à non annulé.
+Le respawn natif différé est remplacé par une seule décision FKAmis qui respecte
+le lit/ancre valide. Les événements de mode, connexion, respawn, monde et le tick
+convergent vers la même politique. `DeathLimit` natif est zéro.
+
+Les filtres de captures, présence, lots et rassemblement utilisent les participants
+actifs ; ni arbitre ni spectateur ne réinitialise une capture. `CaptureClock` et les
+seuils de capture restent inchangés. `TipsManager.cancelBroadcasts()` désactive
+seulement la tâche des conseils, sans modifier le JAR tiers ou filtrer le chat.
+
 ## Corrections de la v2
 
 `GameplayRules` centralise les décisions pures PvE/PvP, minage et rassemblement.
@@ -104,7 +125,7 @@ prévenir les assauts hors présence des défenseurs. Une capture en cours est r
 |---|---|
 | WorldEdit | Inutile pour une génération naturelle et aucun fort préconstruit ; possible outil ponctuel après nouvelle vérification de version |
 | WorldGuard | Double emploi avec les territoires natifs et le complément |
-| LuckPerms | Inutile avec un seul rôle de console et `fkamis.admin` réservé OP ; à ajouter si un compte arbitre distinct doit recevoir des droits fins |
+| LuckPerms | Non requis : rôle arbitre UUID géré directement par FKAmis, sans OP automatique |
 | Plugin de sauvegarde | Remplacé par des archives à froid et un verrou OS ; pas de copie à chaud incertaine |
 | Générateur de terrain | Génération vanilla récente, sans dépendance et avec structures naturelles limitées par inspection |
 | Carte web/Dynmap | Inutile ; risques de révélation des salles et consommation mémoire supplémentaire |

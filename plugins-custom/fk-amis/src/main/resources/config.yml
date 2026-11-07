@@ -1,4 +1,5 @@
 pvp-day: 2
+disable-native-tips: true
 assault-day: 3
 nether-day: 2
 border-size: 1800

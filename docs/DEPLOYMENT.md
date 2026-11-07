@@ -1,28 +1,42 @@
-# Déploiement de la version approuvée
+# Déployer le profil retenu : Paper 26.3 sur MineStrator
 
-La préparation du **7 novembre 2026** remplace les anciens conseils de transfert et
-les comparaisons tarifaires du 6 novembre. `runtime/map-v2-fixes` reste une référence
-intacte, visuellement approuvée par le propriétaire. Ne pas la démarrer pour la recette.
+## Serveur déjà installé : appliquer la livraison ciblée
 
-- [Audit : versions, maintenance, sécurité et résultats réellement exécutés](PREPRODUCTION_AUDIT.md).
-- [Hébergement : MyBox Perf 8 à 23,99 € TTC/mois, alternative MyBox 8 à 13,99 €](HOSTING_COMPARISON.md).
-- [Installation pas à pas : Java 25, JAR custom, SFTP, mémoire, whitelist et console](HOST_INSTALLATION.md).
-- [Recette avec huit comptes authentifiés et mesures de charge](MULTIPLAYER_ACCEPTANCE.md).
-- [Sauvegarde et restauration intégrales à froid](BACKUP_RESTORE.md).
-- [Lancement propre depuis une nouvelle restauration de l’archive initiale](OFFICIAL_LAUNCH.md).
-- [Checklist avant lancement humain](PRODUCTION_CHECKLIST.md).
+Ne pas retransférer le monde. Utiliser **`dist/fallenkingdom-admin-update.zip`** :
+JAR FKAmis et empreinte, maintenance compatible dix places et patch limité aux
+clés de configuration. Sauvegarder intégralement à froid avant intervention.
+Conserver `world/`, `state.yml`, territoires, `supplies.yml`, whitelist et
+`admins.yml` existant. Aucun `/reload`. Voir [la procédure et le retour arrière](ADMIN_UPDATE.md).
 
-Le paquet privé exact, son SHA-256 et le contrôle des fichiers sont dans
-[preproduction-package.json](../tests/results/preproduction-package.json). Il contient
-les mondes/dimensions, deux plugins de production, configurations, état initial,
-coordonnées de ravitaillement, références de butin et maintenance portable. Les accès
-administrateur et comptes de visite sont exclus ; aucun monde n’est publié dans Git.
+Mettre `max-players=10`, `gamemode=survival`, `force-gamemode=false` ; conserver
+authentification/whitelist, Paper 26.3, Java 25 Performance et le port 22880.
+Whitelist : huit participants **plus l'arbitre**, rôles attribués par UUID via console.
+Le guide complet ci-dessous concerne une installation initiale ; le serveur en
+place reçoit seulement cette mise à jour ciblée.
 
-Le ZIP de référence reste **Paper 26.2-135**, hors maintenance. La branche de test
-`test/paper-26.3-preprod` vérifie Paper 26.3-244 sur des copies indépendantes ; ses
-fixtures ne doivent pas être transférées sur l’hébergement. Aucun downgrade d’un
-monde converti, aucune mise à jour automatique du JAR. La recette à huit et la
-validation de version restent requises avant une partie officielle.
+Le paquet courant est **`dist/fallenkingdom-preproduction-26.3.zip`**, avec son
+`.zip.sha256` et son rapport `tests/results/preproduction-package-26.3.json`.
+Le profil est Paper **26.3 build 244 STABLE**, Java 25 Performance, FallenKingdom
+officiel 2.24.9 et FKAmis 1.0.0 compilé contre l’API 26.3. Aucun JAR de chantier ou
+recette n’est inclus. La copie locale propre est `runtime/preproduction-26-3`.
 
-Aucun abonnement commandé, aucun fichier de serveur distant modifié, aucune partie
-officielle lancée pendant cette préparation.
+Le propriétaire a choisi **MineStrator MyBox Perf 8**, mémoire panel environ **6154M**,
+port **22880**. Le service distant est annoncé vide/arrêté ; aucun accès distant
+n’a été effectué. Le paquet contient déjà `server-ip=` vide, `server-port=22880`,
+`level-name=world` et la whitelist/authentification obligatoires.
+
+1. Lire [l’audit et les limites de compatibilité](PREPRODUCTION_AUDIT.md).
+2. Appliquer [le transfert SFTP, Java/JAR et démarrage MineBoard](HOST_INSTALLATION.md).
+3. Prouver [une sauvegarde/restauration complète à froid](BACKUP_RESTORE.md).
+4. Effectuer [la recette humaine à huit et les mesures de charge](MULTIPLAYER_ACCEPTANCE.md).
+5. Repartir du ZIP 26.3 initial selon [OFFICIAL_LAUNCH.md](OFFICIAL_LAUNCH.md), puis
+   signer [la checklist](PRODUCTION_CHECKLIST.md) avant toute commande de lancement officiel.
+
+La référence `runtime/map-v2-fixes`, `runtime/local`, `runtime/map-v2`, le ZIP 26.2
+et les sauvegardes historiques sont intacts. Les fixtures sous `.cache/` ne sont
+jamais des sources de déploiement. Une carte convertie en 26.3 ne doit pas être
+rouverte en 26.2 : retrouver l’ancien état exige une nouvelle restauration de
+l’archive 26.2 et ses JAR, dans un espace distinct, sans écrasement.
+
+Le [comparatif d’hébergement daté](HOSTING_COMPARISON.md) reste disponible comme
+historique du choix ; il ne faut plus commander un autre service pour cette installation.

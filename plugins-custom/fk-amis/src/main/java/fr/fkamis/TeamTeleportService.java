@@ -43,7 +43,7 @@ final class TeamTeleportService {
                 &&floor.getBlockData().isFaceSturdy(BlockFace.UP,BlockSupport.FULL)
                 &&!danger.contains(feet.getType())&&!danger.contains(head.getType())&&!danger.contains(floor.getType());
     }
-    private boolean eligible(Player p){return p.isOnline()&&!p.isDead()&&p.getGameMode()!=GameMode.SPECTATOR&&!plugin.eliminated(p);}
+    private boolean eligible(Player p){return p.isOnline()&&!p.isDead()&&p.getGameMode()!=GameMode.SPECTATOR&&plugin.activeParticipant(p);}
     private CompletableFuture<Chunk> loadPinned(Location at){
         return at.getWorld().getChunkAtAsync(at.getBlockX()>>4,at.getBlockZ()>>4,false).thenCompose(chunk->{
             CompletableFuture<Chunk> ready=new CompletableFuture<>();
@@ -59,7 +59,7 @@ final class TeamTeleportService {
     }
     // Collection injectée exclusivement par la recette API, sans faux compte connecté.
     void begin(CommandSender sender,boolean confirm,Collection<? extends Player> online){
-        require(sender.hasPermission("fkamis.admin"),"Permission fkamis.admin requise.");
+        require(plugin.mayAdmin(sender),"Permission fkamis.admin requise : rôle arbitre UUID ou console.");
         require(!pending,"Un rassemblement est déjà en préparation.");
         require(!plugin.state.started||confirm,"Partie commencée : confirmer avec /fka teams tpall confirm pendant la pause.");
         require(GameplayRules.mayGather(plugin.state.started,plugin.state.paused,!plugin.state.winner.isEmpty(),confirm),"Rassemblement autorisé avant partie ou en pause administrative, jamais pendant un combat ni après victoire.");

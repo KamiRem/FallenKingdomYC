@@ -1,114 +1,76 @@
-# Fallen Kingdom privé — huit amis
+# Fallen Kingdom privé — huit participants et un arbitre
 
-La **préproduction** est préparée à partir de `runtime/map-v2-fixes`, visuellement
-approuvée par le propriétaire et conservée intacte. Commencer par
-[l’audit](docs/PREPRODUCTION_AUDIT.md), le [choix d’hébergement](docs/HOSTING_COMPARISON.md)
-et le [guide de transfert](docs/HOST_INSTALLATION.md). Le ZIP privé et ses empreintes
-sont identifiés dans [le rapport de livraison](tests/results/preproduction-package.json).
-La [recette réelle à huit](docs/MULTIPLAYER_ACCEPTANCE.md) et le
-[lancement propre](docs/OFFICIAL_LAUNCH.md) restent des étapes humaines.
-Paper 26.2 est hors maintenance ; la branche `test/paper-26.3-preprod` teste la
-migration sur copies, sans adoption automatique ni rétrogradation.
-Aucun service n’est commandé et aucune partie officielle n’est lancée.
+La nouvelle [mise à jour arbitre, survie et tips](docs/ADMIN_UPDATE.md) se déploie
+avec `dist/fallenkingdom-admin-update.zip`, sans retransfert de carte ni remplacement
+de `state.yml`. Voir `tests/results/admin-update-delivery.json` pour la nouvelle
+empreinte FKAmis et les résultats. Dix places techniques, whitelist stricte, rôle
+arbitre UUID distinct du statut OP ; morts illimitées avant capture du royaume.
 
-Les **corrections de la v2** sont préparées dans `runtime/map-v2-fixes` : nettoyage
-des supports naturels, PvE actif dès J1, minage adverse interdit en permanence,
-élytres et pommes enchantées interdites, `/fka teams tpall [confirm]`.
-`runtime/local` et `runtime/map-v2` sont conservés. Voir [le bilan des corrections](docs/V2_CORRECTIONS.md).
+Le projet utilise désormais **Paper 26.3 build 244 STABLE**, **Java 25**,
+**FallenKingdom officiel 2.24.9** et **FKAmis 1.0.0 compilé contre l’API 26.3**.
+La carte corrigée a été restaurée depuis l’archive initiale puis convertie dans
+`runtime/preproduction-26-3`, avec contrôles des blocs, coffres et dimensions.
+Aucune mécanique réécrite, aucune reconstruction ni recharge de butin.
 
-```powershell
-# Utiliser la copie de recette ; conserver la référence map-v2-fixes arrêtée.
-.\scripts\server.ps1 start -Name preproduction -Port 25580
-```
+Le paquet à transférer est **`dist/fallenkingdom-preproduction-26.3.zip`**.
+Son SHA-256, ses versions et les résultats sont dans
+[le rapport de livraison 26.3](tests/results/preproduction-package-26.3.json).
+Il ne contient que les deux plugins de production, sans comptes/inventaires de test,
+identifiants d’hébergement, logs locaux ou plugins de chantier/recette.
 
-Le **premier chantier v2**, conservé dans `runtime/map-v2`, possède une bordure de 1 200 blocs,
-royaumes voisins à environ 408–482 blocs, terrains aménagés, quatre drapeaux, sept
-monuments et ravitaillements toutes les 30 minutes actives. L'instance historique
-`runtime/local` est conservée. Lire [la livraison v2](docs/MAP_V2.md),
-[le fonctionnement du butin](docs/LOOT_SYSTEM.md) et [le carnet d'inspection](docs/MAP_V2_INSPECTION.md).
+Le propriétaire a choisi **MineStrator MyBox Perf 8**, Java 25 Performance,
+environ **6154M** de mémoire Java gérés par le panel et le port **22880**.
+Le paquet contient déjà le bon port, `server-ip=` vide et `level-name=world`.
+L’agent n’a pas accédé à l’hébergement et n’a lancé aucune partie officielle.
 
-La validation visuelle de `map-v2-fixes` a été donnée dans la demande de préparation
-de production ; la recette avec huit comptes reste à faire avant le démarrage officiel.
-Les sections ci-dessous décrivent aussi les profils historiques.
+- [Audit technique, résultats et limites](docs/PREPRODUCTION_AUDIT.md).
+- [Transfert MineStrator étape par étape](docs/HOST_INSTALLATION.md).
+- [Recette réelle avec huit comptes authentifiés](docs/MULTIPLAYER_ACCEPTANCE.md).
+- [Sauvegardes et restauration complète](docs/BACKUP_RESTORE.md).
+- [Préparation d’une partie officielle propre](docs/OFFICIAL_LAUNCH.md).
+- [Checklist finale](docs/PRODUCTION_CHECKLIST.md).
 
-Projet Windows prêt à installer : **Paper 26.2 build 135**, **Java 25**,
-**FallenKingdom 2.24.9** de syldium et complément indépendant **FKAmis 1.0.0**.
-Quatre équipes de deux, forts entièrement construits par les joueurs, objectifs
-secrets enregistrés par leur équipe, phases avancées uniquement par l'administrateur.
+Les références `runtime/local`, `runtime/map-v2`, `runtime/map-v2-fixes`, le ZIP
+26.2 et les sauvegardes historiques sont conservés intacts. La branche de test
+`test/paper-26.3-preprod` et ses résultats précédents restent disponibles ; les
+fixtures `.cache/` ne doivent jamais être déployées. Aucun downgrade d’un monde converti.
 
-Le dossier `runtime/local` contient l'installation locale. Les mondes, JAR téléchargés,
-outils, identités et objectifs sont exclus de Git. Sur un nouveau clone, les scripts
-les reconstruisent. L'EULA reste à `false` jusqu'à une acceptation explicite.
+## Validation disponible
 
-Dans ce workspace, la carte **123456789** a réellement été prégénérée sur 1 800 × 1 800
-blocs, puis sauvegardée et restaurée en test. Le serveur est arrêté après les essais.
-L'EULA a été acceptée explicitement pendant la préparation. Pour reprendre ici :
-`.\scripts\server.ps1 start`. Les étapes d'installation ci-dessous concernent une
-nouvelle copie du dépôt ; elles refusent de remplacer une partie existante.
+La migration initiale avait passé 19 tests Java, 21 Python et 217 assertions ;
+son archive reste inchangée. La révision actuelle ajoute le rôle d'arbitre, la
+politique de réapparition et l'arrêt des tips, avec **24 tests Java et 24 Python**
+et une nouvelle recette Paper détaillée dans `admin-update-delivery.json`.
+Le moteur de capture reste inchangé ; le JAR FallenKingdom officiel aussi.
 
-## Démarrage sous Windows
+**Aucun client authentifié pendant ces essais.** Les huit interfaces Player du probe
+gameplay ne remplacent pas huit personnes connectées. Chat réseau, interfaces clients,
+inspection visuelle 26.3 et mesures TPS/MSPT/RAM/ping sur l’hôte restent à valider.
+FallenKingdom 2.24.9 déclare encore 26.2 ; la compatibilité technique locale 26.3
+constatée et cette réserve sont détaillées dans l’audit.
 
-Python 3.11+ et PowerShell sont nécessaires. Depuis la racine du dépôt :
-
-```powershell
-.\scripts\bootstrap.ps1
-.\scripts\build.ps1
-.\scripts\server.ps1 install
-# Après lecture et acceptation personnelle de https://www.minecraft.net/eula :
-.\scripts\server.ps1 accept-eula -Accept
-.\scripts\server.ps1 start
-```
-
-Connexion locale avec un client **Minecraft Java 26.2** : `127.0.0.1:25565`.
-Dans la console : `whitelist add VotrePseudo`, puis `op VotrePseudo` pour préparer
-la carte. L'authentification officielle reste active. Aucun mod client requis.
-
-Avant de jouer, suivre [l'installation](docs/INSTALLATION.md), inspecter les quatre
-terrains, définir les territoires et attribuer les huit comptes. **Aucun lancement
-officiel n'a été effectué et aucun terrain n'est déclaré équilibré automatiquement.**
-
-## Règles initiales
-
-| Phase | PvP | Assauts | Nether |
-|---|---|---|---|
-| Jour 1 | fermé | fermés | fermé |
-| Jour 2 | hors territoires protégés | fermés | ouvert |
-| Jour 3 et suivants | ouvert | ouverts, capture en 60 secondes | ouvert |
-
-L'End est fermé jusqu'à décision administrative. Netherite, débris antiques et modèle
-d'amélioration en netherite sont interdits dans toutes les dimensions. Les élytres et
-pommes dorées enchantées sont aussi interdites ; les pommes dorées ordinaires
-restent autorisées. Les mobs et dangers naturels restent actifs dès le jour 1.
-La construction
-FK classique limite la pose hors de sa base ; le minage adverse reste interdit, les
-défenses sont ouvertes à la TNT au jour 3. Voir [le règlement](docs/GAME_RULES.md).
-
-## Administration et maintenance
+## Reprendre localement sans toucher aux références
 
 ```powershell
-.\scripts\server.ps1 validate
-.\scripts\server.ps1 check-logs
-# Dans la console du serveur : fka pause, puis stop. Attendre sa fermeture.
-.\scripts\server.ps1 backup
-.\scripts\server.ps1 restore -Name restauration -Source 'C:\chemin\sauvegarde.zip'
-.\scripts\server.ps1 export
+./scripts/server.ps1 validate -Name preproduction-admin-update
+./scripts/server.ps1 start -Name preproduction-admin-update -Port 25588
 ```
 
-Le lancement par le script crée une sauvegarde vérifiée après chaque arrêt propre.
-Une sauvegarde pendant l'exécution est refusée. La restauration crée une nouvelle
-instance et conserve l'original. Les archives de déploiement sont **privées**.
+Client local **Minecraft Java 26.3**, `127.0.0.1:25588`. La whitelist est vide au
+départ : ajouter les comptes depuis la console, sans OP les participants. Le port
+25588 ci-dessus est une surcharge locale ; le paquet destiné à MineStrator conserve 22880.
+Le démarrage technique ne lance pas la partie ; ne saisir `fka start` que sur la
+bonne copie de recette ou, après validation, lors du lancement officiel humain.
 
-## Documentation
+## Développement
 
-- [Architecture et réutilisation de FallenKingdom](docs/ARCHITECTURE.md)
-- [Installation Windows](docs/INSTALLATION.md)
-- [Carte naturelle et territoires](docs/MAP_GUIDE.md)
-- [Commandes administrateur](docs/ADMIN_GUIDE.md)
-- [Guide des huit joueurs](docs/PLAYER_GUIDE.md)
-- [Règlement détaillé](docs/GAME_RULES.md)
-- [Hébergement, déploiement et sauvegardes](docs/DEPLOYMENT.md)
-- [Versions, sources et licences](docs/COMPATIBILITY.md)
-- [Tests exécutés et recette multijoueur restante](docs/TEST_PLAN.md)
+Python 3.11+, Java 25, Maven 3.9.11 ; outils Windows portables disponibles localement.
+Sur une nouvelle installation : `./scripts/bootstrap.ps1`, puis `./scripts/build.ps1`.
+Les téléchargements sont figés par versions/hashes, jamais `latest`. L’EULA d’une
+installation neuve reste non acceptée jusqu’à décision explicite de son propriétaire.
+Les mondes, profils joueurs, objectifs, JAR téléchargés, sauvegardes et ZIP sont privés,
+exclus de Git. La carte approuvée ne se reconstruit pas depuis les seuls fichiers Git.
 
-Les vérifications automatiques ne remplacent pas une partie de recette avec les
-clients authentifiés. Le suivi des opérations manuelles figure dans le plan de tests.
+Voir [le plan des tests](docs/TEST_PLAN.md), [la compatibilité/licences](docs/COMPATIBILITY.md),
+[les règles](docs/GAME_RULES.md), [le guide admin](docs/ADMIN_GUIDE.md) et
+[le fonctionnement du butin](docs/LOOT_SYSTEM.md).

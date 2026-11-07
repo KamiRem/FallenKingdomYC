@@ -17,7 +17,7 @@ import org.bukkit.inventory.meta.*;
 import java.util.*;
 import java.util.regex.Pattern;
 
-/** Filtrage ciblé : les objets autorisés et les conteneurs sont conservés. */
+/** Filtrage ciblÃ© : les objets autorisÃ©s et les conteneurs sont conservÃ©s. */
 final class ItemBan implements Listener {
     private final FKAmis plugin;
     private final Set<Material> banned = EnumSet.noneOf(Material.class);
@@ -31,7 +31,7 @@ final class ItemBan implements Listener {
         }
         for (String name : plugin.getConfig().getStringList("extra-banned")) {
             Material m = Material.matchMaterial(name);
-            if (m == null) throw new IllegalArgumentException("Matériau interdit inconnu : " + name);
+            if (m == null) throw new IllegalArgumentException("MatÃ©riau interdit inconnu : " + name);
             banned.add(m);
         }
         for (Material material : banned) commandPatterns.add(Pattern.compile(
@@ -49,18 +49,19 @@ final class ItemBan implements Listener {
         return commandPatterns.stream().anyMatch(p -> p.matcher(line).find());
     }
     @EventHandler(priority = EventPriority.HIGHEST) public void command(ServerCommandEvent e) {
-        if (forbiddenCommand(e.getCommand())) { e.setCancelled(true); e.getSender().sendMessage("Objet interdit : commande refusée."); }
+        if (forbiddenCommand(e.getCommand())) { e.setCancelled(true); e.getSender().sendMessage("Objet interdit : commande refusÃ©e."); }
     }
     @EventHandler(priority = EventPriority.HIGHEST) public void command(PlayerCommandPreprocessEvent e) {
-        if (forbiddenCommand(e.getMessage())) { e.setCancelled(true); e.getPlayer().sendMessage("§cObjet interdit : commande refusée."); }
+        if (plugin.isAdministrator(e.getPlayer())) return;
+        if (forbiddenCommand(e.getMessage())) { e.setCancelled(true); e.getPlayer().sendMessage("Â§cObjet interdit : commande refusÃ©e."); }
     }
 
     ItemStack sanitize(ItemStack item) { return sanitize(item, 0); }
     private ItemStack sanitize(ItemStack item, int depth) {
         if (item == null || denied(item)) return null;
-        // Les conteneurs imbriqués vanilla restent très peu profonds. Ne jamais supprimer
-        // un objet autorisé pour une profondeur anormale : bloquer plutôt l'utilisation.
-        if (depth > 32) throw new IllegalStateException("Objet imbriqué anormal : inspection administrative requise.");
+        // Les conteneurs imbriquÃ©s vanilla restent trÃ¨s peu profonds. Ne jamais supprimer
+        // un objet autorisÃ© pour une profondeur anormale : bloquer plutÃ´t l'utilisation.
+        if (depth > 32) throw new IllegalStateException("Objet imbriquÃ© anormal : inspection administrative requise.");
         ItemMeta meta = item.getItemMeta();
         if (meta instanceof BlockStateMeta block && block.getBlockState() instanceof Container box) {
             Inventory inventory = box.getInventory();
@@ -81,6 +82,7 @@ final class ItemBan implements Listener {
     }
     void sweep() {
         for (Player p : Bukkit.getOnlinePlayers()) {
+            if (plugin.isAdministrator(p)) continue;
             clean(p.getInventory()); clean(p.getEnderChest());
             p.setItemOnCursor(sanitize(p.getItemOnCursor()));
             clean(p.getOpenInventory().getTopInventory());
@@ -103,7 +105,7 @@ final class ItemBan implements Listener {
     }
     private void later(Player player) {
         Bukkit.getScheduler().runTask(plugin, () -> {
-            if (player.isOnline()) { clean(player.getInventory()); player.setItemOnCursor(sanitize(player.getItemOnCursor())); }
+            if (player.isOnline() && !plugin.isAdministrator(player)) { clean(player.getInventory()); player.setItemOnCursor(sanitize(player.getItemOnCursor())); }
         });
     }
     @EventHandler(priority = EventPriority.HIGHEST) public void craft(PrepareItemCraftEvent e) {
@@ -119,15 +121,18 @@ final class ItemBan implements Listener {
         if (denied(e.getCurrentItem())) e.setCancelled(true);
     }
     @EventHandler(priority = EventPriority.HIGHEST) public void click(InventoryClickEvent e) {
+        if (e.getWhoClicked() instanceof Player p && plugin.isAdministrator(p)) return;
         if (denied(e.getCurrentItem()) || denied(e.getCursor()) ||
                 (e.getHotbarButton() >= 0 && denied(e.getWhoClicked().getInventory().getItem(e.getHotbarButton())))) e.setCancelled(true);
         if (e.getWhoClicked() instanceof Player p) later(p);
     }
     @EventHandler(priority = EventPriority.HIGHEST) public void drag(InventoryDragEvent e) {
+        if (e.getWhoClicked() instanceof Player p && plugin.isAdministrator(p)) return;
         if (e.getNewItems().values().stream().anyMatch(this::denied) || denied(e.getOldCursor())) e.setCancelled(true);
         if (e.getWhoClicked() instanceof Player p) later(p);
     }
     @EventHandler(priority = EventPriority.HIGHEST) public void open(InventoryOpenEvent e) {
+        if (e.getPlayer() instanceof Player p && plugin.isAdministrator(p)) return;
         clean(e.getInventory());
         if (e.getInventory() instanceof MerchantInventory inventory) {
             Merchant merchant = inventory.getMerchant();
@@ -158,26 +163,31 @@ final class ItemBan implements Listener {
         if (denied(e.getRecipe().getResult()) || e.getRecipe().getIngredients().stream().anyMatch(this::denied)) e.setCancelled(true);
     }
     @EventHandler(priority = EventPriority.HIGHEST) public void breakBlock(BlockBreakEvent e) {
+        if (plugin.isAdministrator(e.getPlayer())) return;
         if (banned.contains(e.getBlock().getType()) || denied(e.getPlayer().getInventory().getItemInMainHand())) e.setCancelled(true);
     }
     @EventHandler(priority = EventPriority.HIGHEST) public void place(BlockPlaceEvent e) {
+        if (plugin.isAdministrator(e.getPlayer())) return;
         if (banned.contains(e.getBlock().getType()) || denied(e.getItemInHand())) e.setCancelled(true);
     }
     @EventHandler(priority = EventPriority.HIGHEST) public void use(PlayerInteractEvent e) {
+        if (plugin.isAdministrator(e.getPlayer())) return;
         if (denied(e.getItem())) e.setCancelled(true);
         later(e.getPlayer());
     }
     @EventHandler(priority = EventPriority.HIGHEST) public void consume(PlayerItemConsumeEvent e) {
+        if (plugin.isAdministrator(e.getPlayer())) return;
         if (denied(e.getItem())) e.setCancelled(true);
     }
     @EventHandler(priority = EventPriority.HIGHEST) public void glide(EntityToggleGlideEvent e) {
+        if(e.getEntity() instanceof Player p&&plugin.isAdministrator(p))return;
         if(e.isGliding()&&banned.contains(Material.ELYTRA))e.setCancelled(true);
     }
     @EventHandler(priority = EventPriority.HIGHEST) public void equip(org.bukkit.event.block.BlockDispenseArmorEvent e) {
         if(denied(e.getItem()))e.setCancelled(true);
     }
     @EventHandler(priority = EventPriority.HIGHEST) public void damage(EntityDamageByEntityEvent e) {
-        if (e.getDamager() instanceof Player p && denied(p.getInventory().getItemInMainHand())) e.setCancelled(true);
+        if (e.getDamager() instanceof Player p && !plugin.isAdministrator(p) && denied(p.getInventory().getItemInMainHand())) e.setCancelled(true);
     }
     @EventHandler(priority = EventPriority.HIGHEST) public void death(EntityDeathEvent e) {
         e.getDrops().removeIf(this::denied);
@@ -186,6 +196,7 @@ final class ItemBan implements Listener {
     }
     @EventHandler public void held(PlayerItemHeldEvent e) { later(e.getPlayer()); }
     @EventHandler public void swap(PlayerSwapHandItemsEvent e) {
+        if (plugin.isAdministrator(e.getPlayer())) return;
         if (denied(e.getMainHandItem()) || denied(e.getOffHandItem())) e.setCancelled(true);
         later(e.getPlayer());
     }

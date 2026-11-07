@@ -1,5 +1,19 @@
 # Guide des huit joueurs
 
+## Survie, morts et arbitrage
+
+Vous jouez avec un client **Minecraft Java 26.3**. Nouveau joueur au jour 0 :
+SURVIVAL, sans participation avant attribution. Un participant d'équipe active
+réapparaît en SURVIVAL après zombie, lave, chute, PvP ou assaut, sans limite de vies.
+Le lit/ancre valide est respecté ; à défaut le point sûr de l'équipe est utilisé.
+Une mort ne retire ni équipe ni progression.
+
+Seule la capture complète du coffre élimine le royaume. Ses deux membres passent
+en SPECTATOR et y restent après mort, reconnexion ou redémarrage. L'arbitre en
+CREATIVE est un neuvième compte hors équipe : il ne capture/conteste pas, ne récupère
+pas les lots et son départ ne met pas la partie en pause. Les conseils périodiques
+sont supprimés, les annonces de jours, lots, captures et victoire sont conservées.
+
 Sur la **carte v2**, les royaumes sont plus proches. Votre drapeau indique le centre
 d'un terrain préparé ; il faut toujours construire votre fort et cacher votre objectif.
 Les ruines, mine, camp, sanctuaire, tour et crypte se trouvent en zone neutre.
@@ -11,7 +25,7 @@ plusieurs cases libres pour récupérer le lot entier. Le compteur s'arrête pen
 pauses et sans participant. `/fka supply status` indique le temps restant. Le butin
 reste modeste ; le minage et la construction demeurent essentiels.
 
-Utilisez Minecraft Java **26.2**, sans mod obligatoire. Donnez votre pseudo à
+Utilisez Minecraft Java **26.3**, sans mod obligatoire. Donnez votre pseudo à
 l'administrateur, rejoignez une fois pour l'attribution du compte, puis attendez le départ.
 Vous jouez en Rouge, Bleue, Verte ou Jaune, par équipes de deux.
 
@@ -48,5 +62,5 @@ spectateur pour les survivants. La dernière équipe active gagne.
 
 `/fka status` montre le jour et les royaumes restants. `/fk team list` affiche les
 équipes. Le chat FallenKingdom est en équipe par défaut ; préfixer un message par `!`
-pour le chat global. Une déconnexion met la partie en pause pour que les autres
+pour le chat global. La déconnexion d’un participant actif met la partie en pause pour que les autres
 royaumes ne soient pas attaqués en votre absence.

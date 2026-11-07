@@ -1,14 +1,14 @@
 {
-  "verifiedOn": "2026-11-06",
-  "minecraft": "26.2",
+  "verifiedOn": "2026-11-07",
+  "minecraft": "26.3",
   "java": 25,
   "artifacts": [
     {
-      "hash": "ef3dbc68b013deafdbbee3bebf1ba351671ebcda94a8f136809b7532d5ba2fe1",
+      "hash": "9601f9a26a2a52a0f2c807cf1abf691f96ee4fb287878313b601cebc2c51eabf",
       "algorithm": "SHA256",
       "name": "paper",
-      "url": "https://fill-data.papermc.io/v1/objects/ef3dbc68b013deafdbbee3bebf1ba351671ebcda94a8f136809b7532d5ba2fe1/paper-26.2-135.jar",
-      "path": ".cache/artifacts/paper-26.2-135.jar"
+      "url": "https://fill-data.papermc.io/v1/objects/9601f9a26a2a52a0f2c807cf1abf691f96ee4fb287878313b601cebc2c51eabf/paper-26.3-244.jar",
+      "path": ".cache/artifacts/paper-26.3-244.jar"
     },
     {
       "hash": "9127a92a5ad621f74b29ab8e53b6785d4ee30dd15f720c82c64f2c6a5973ba3b",
@@ -31,5 +31,7 @@
       "url": "https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/3.9.11/apache-maven-3.9.11-bin.zip",
       "path": ".cache/artifacts/apache-maven-3.9.11-bin.zip"
     }
-  ]
+  ],
+  "paperBuild": 244,
+  "paperChannel": "STABLE"
 }

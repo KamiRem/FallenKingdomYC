@@ -1,132 +1,164 @@
-# Installation sur un hébergeur Minecraft
+# Transfert du paquet 26.3 vers MineStrator
 
-Préparation du 7 novembre 2026. Aucun hébergement commandé ni fichier distant modifié.
-Le paquet initial reste Paper **26.2 build 135**, hors maintenance : destiné à la
-recette isolée. Lire l’audit avant de décider du lancement public ou d’une migration.
-Ne jamais démarrer un monde converti en 26.3 avec un JAR 26.2.
+## Mise à jour du service existant
 
-## 1. Commander soi-même après choix
+Le monde est déjà installé : **ne pas renvoyer le paquet monde**. Suivre
+[ADMIN_UPDATE.md](ADMIN_UPDATE.md) pour `fallenkingdom-admin-update.zip` :
+pause/save/stop, backup complet à froid, remplacement du seul FKAmis et de son
+empreinte, clés de configuration ciblées et maintenance adaptée. Aucun écrasement
+de `state.yml`, des territoires ou des données des joueurs. Conserver les rôles
+`admins.yml` existants ; la console configure le neuvième compte arbitre par UUID.
+`max-players=10`, `gamemode=survival`, `force-gamemode=false`, whitelist obligatoire
+pour les huit participants et l'arbitre. La mémoire 6154M, Java 25 Performance et
+le port 22880 restent ceux du panel. Les étapes suivantes décrivent l'installation
+initiale, pas une opération à rejouer sur le monde en place.
 
-Voir [le comparatif](HOSTING_COMPARISON.md). Choix proposé : MyBox Perf 8, France,
-cycle **un mois**, 23,99 € TTC. Alternative : MyBox 8, 13,99 € TTC, sous le budget
-prévu. Vérifier le récapitulatif final, le renouvellement et les options : aucun
-engagement long ni code promotionnel n’est nécessaire au prix retenu.
-Conserver les identifiants du panel/SFTP dans un gestionnaire de mots de passe.
-Activer la double authentification si proposée. Ne les mettre ni dans Git ni dans
-le paquet. Un essai gratuit n’a pas été créé par l’agent.
+Le propriétaire a choisi **MyBox Perf 8**, service de 8 Go, **Java 25 Performance**,
+heap annoncée d’environ **6154M**, port principal **22880**. Le serveur distant est
+annoncé vide et arrêté. Ces informations viennent du propriétaire ; l’agent n’a
+accédé ni au panel ni au SFTP et n’a modifié aucun fichier distant.
 
-## 2. Préparer un service vide et arrêté
+## 1. Choisir le bon paquet et vérifier son empreinte
 
-Créer une instance **de préproduction**, désactiver son démarrage automatique,
-attendre l’état arrêté. Si le panel génère un monde par défaut, l’archiver puis
-utiliser un nouvel espace vide ; ne pas fusionner deux mondes. Noter le port de jeu
-et l’adresse attribués. Ne pas activer de proxy, Geyser, ViaVersion ou plugins ajoutés
-automatiquement. Les huit clients utiliseront Minecraft Java **26.2**, comptes officiels.
+Utiliser exclusivement `dist/fallenkingdom-preproduction-26.3.zip` et son
+`.zip.sha256`. Le SHA-256 de confiance et les résultats de restauration sont dans
+`tests/results/preproduction-package-26.3.json`. Garder une copie du ZIP et de ce
+rapport hors de l’hébergement. Ne pas transférer un dossier probe, la branche de
+fixtures, une ancienne archive 26.2 ou le dossier Git complet.
 
-## 3. Java et JAR
+Sous PowerShell :
 
-Dans MineBoard : Paramètres → Hébergement, sélectionner **Java 25**, puis le fichier
-de démarrage **paper.jar**. Le [guide officiel custom/JVM](https://minestrator.com/blog/article/installer-version-custom-minecraft-serveur-minestrator)
-documente ces deux sélections. Ne pas employer l’installateur « dernière version »
-sur les fichiers transférés, ni une mise à jour automatique de Paper ou des plugins.
-Sur un autre panel, rechercher « Startup / Server JAR / Java image ».
+```powershell
+Get-FileHash .\dist\fallenkingdom-preproduction-26.3.zip -Algorithm SHA256
+```
 
-## 4. Vérifier et transférer le paquet privé
-
-Le chemin exact et le SHA-256 du ZIP figurent dans `tests/results/preproduction-package.json`
-du dépôt. Conserver ce rapport et le fichier `.zip.sha256` hors de l’hébergement.
-Sous PowerShell : `Get-FileHash '<archive.zip>' -Algorithm SHA256` doit correspondre.
-Extraire dans un dossier **neuf**, vérifier avant toute personnalisation :
+Comparer exactement au rapport, puis extraire dans un dossier local **neuf**.
+Si Python 3.11+ est disponible sur le PC, depuis le dossier extrait :
 
 ```text
 python maintenance/host_ops.py verify-baseline
 python maintenance/host_ops.py check
 ```
 
-SFTP uniquement : relever serveur, port SFTP et empreinte de clé dans le panel,
-vérifier cette empreinte, transférer tous les fichiers extraits à la racine du service.
-Inclure les fichiers cachés utiles ; ne pas envoyer le dépôt, `.tools`, `.cache`,
-les historiques ou les sauvegardes privées de référence. Ne pas imbriquer un dossier
-supplémentaire : `paper.jar`, `server.properties` et `world/` doivent être au même niveau.
-Le monde moderne contient **ses trois dimensions dans `world/dimensions/minecraft/`** ;
-ne pas les déplacer vers des dossiers `world_nether`/`world_the_end`.
+Le premier contrôle décrit l’état initial : il devient naturellement différent
+après personnalisation ou jeu. Ne pas remplacer des fichiers de partie jouée pour
+le faire repasser. Le manifeste interne d’archive couvre aussi ce manifeste initial.
 
-Le manifeste SHA-256 couvre tous les fichiers initiaux, le manifeste d’archive couvre
-aussi ce manifeste. Si Python est absent du panel, effectuer ces contrôles sur le PC,
-puis retélécharger les fichiers distants dans un autre dossier pour comparer leurs
-SHA-256 avant le premier démarrage. Ne pas remplacer un fichier joué pour « réparer »
-un manifeste initial devenu différent : il décrit uniquement la livraison initiale.
+## 2. Préparer le panel sans générer un autre monde
 
-## 5. Port et mémoire après choix de l’hôte
+Laisser le service arrêté, désactiver les relances planifiées pendant le transfert.
+Conserver **Java 25 Performance** et la mémoire actuelle d’environ **6154M** ; ne pas
+la doubler avec des options JVM contradictoires et ne pas allouer toute la limite
+8 Go à la heap. Le surplus sert à la mémoire native, threads et conteneur.
+Vérifier la commande effective après démarrage. Ne pas installer « dernière version »
+de Paper, de pack ou de plugins et désactiver leur mise à jour automatique.
 
-La livraison conserve l’écoute locale de la référence : `127.0.0.1:25579`.
-**Après choix de l’hébergeur**, sur la copie transférée et arrêtée, utiliser :
+Le paquet est déjà configuré :
 
-```text
-python maintenance/host_ops.py configure --port PORT_ATTRIBUE
+```properties
+server-ip=
+server-port=22880
+level-name=world
+online-mode=true
+white-list=true
+enforce-whitelist=true
+max-players=10
+enable-rcon=false
+enable-query=false
+enable-command-block=false
 ```
 
-Remplacer `PORT_ATTRIBUE` par le nombre du panel. Sans Python, changer seulement
-`server-ip=` (vide), `server-port=<port attribué>`. Si l’hôte impose une IP d’écoute
-interne, suivre sa valeur documentée. Garder `online-mode=true`, `white-list=true`,
-`enforce-whitelist=true`, `max-players=8`, RCON/query/command blocks désactivés.
-Ne pas recopier l’IP locale du PC sur le serveur hébergé.
+Ne pas renseigner l’IP publique comme IP d’écoute interne. Ne pas remettre 25565 ou
+25579 à la place du port attribué. Si MineStrator impose une propriété interne,
+suivre sa valeur documentée sur cette seule copie. Aucun proxy/crossplay n’est requis.
 
-Pour un service de **8 Go**, cible initiale : `-Xms1G -Xmx6G`, avec environ 2 Go de
-marge pour mémoire native, threads et conteneur. La limite du panel doit rester 8 Go.
-Vérifier les paramètres JVM réellement appliqués et l’usage total ; certains panels
-imposent leur propre heap. Si la heap n’est pas réglable, demander au support comment
-réserver cette marge **avant de valider la commande**. Ne pas modifier les mécaniques
-de jeu pour masquer un manque de CPU. Vue 8, simulation 6 conservées.
+## 3. Transférer tous les fichiers par SFTP
 
-## 6. Démarrage
+Depuis MineBoard, relever hôte SFTP, port SFTP, utilisateur et empreinte de clé.
+Le **port SFTP est distinct du port de jeu 22880**. Vérifier la clé dans WinSCP ou
+FileZilla, conserver le mot de passe dans un gestionnaire privé. Aucun secret ne
+doit entrer dans Git, un document de recette ou le paquet.
 
-Le panel peut exécuter directement l’équivalent de :
+Transférer le contenu du dossier extrait directement à la racine du service vide.
+On doit obtenir cette structure, sans dossier supplémentaire englobant :
 
 ```text
-java -Xms1G -Xmx6G -jar paper.jar --nogui
+paper.jar
+server.properties
+eula.txt
+artifacts.lock.json
+FKAmis.sha256
+RUNTIME_LOCK.json
+DEPLOYMENT_MANIFEST.json
+world/
+  dimensions/minecraft/overworld/
+  dimensions/minecraft/the_nether/
+  dimensions/minecraft/the_end/
+plugins/
+  FallenKingdom-2.24.9.jar
+  FKAmis-1.0.0.jar
+  FallenKingdom/
+  FKAmis/
+maintenance/
 ```
 
-L’écoute et le port viennent alors de `server.properties`. Aucun script Python n’est
-requis pour jouer. Si le panel accepte une commande personnalisée **et Python 3.11+**,
-`start.sh` utilise `SERVER_PORT` et `HEAP_GB=6`, conserve le verrou commun et sauvegarde
-après arrêt propre. Ne pas lancer simultanément script et bouton Java du panel.
-Le script Windows local : `./start.ps1 -Port 25580 -Memory 4` écoute seulement sur loopback.
-La JVM Linux du fournisseur remplace le JDK Windows local, qui n’est pas livré.
-Paper téléchargera ses bibliothèques/cache adaptés à la plateforme au premier lancement :
-un accès HTTPS sortant et de l’espace libre sont nécessaires.
+Inclure les autres fichiers du ZIP, notamment configurations Paper/Bukkit/Spigot,
+références, notices et fichiers cachés utiles. **Ne pas déplacer les dimensions**
+vers `world_nether`/`world_the_end`. Les bibliothèques/caches de plateforme ne sont
+pas livrés : Paper les retéléchargera par HTTPS au premier démarrage.
+L’EULA est copiée depuis l’acceptation explicite existante ; aucun script n’accepte
+de nouvelles conditions à votre place.
 
-L’EULA a été copiée après l’acceptation explicite du propriétaire pour les tests
-locaux. Lire personnellement [l’EULA](https://www.minecraft.net/eula) et les conditions
-de l’hébergeur pour cet usage ; aucun script n’accepte de nouvelles conditions à votre place.
+Si le panel extrait lui-même le ZIP, vérifier l’arborescence et les empreintes
+avant tout démarrage. Sans Python distant, vérifier localement puis retélécharger
+les fichiers distants dans un autre dossier pour comparaison SHA-256. Ne pas
+fusionner avec un monde généré par un installateur : conserver cet éventuel monde
+à part et utiliser un espace vide, sans effacement d’une partie existante.
 
-## 7. Authentification et permissions
+## 4. Sélectionner le JAR et démarrer techniquement
 
-La whitelist et la liste OP livrées sont **vides**. Depuis la console du panel :
-`whitelist on`, puis `whitelist add <pseudo officiel>` pour chacun des huit comptes.
-Vérifier `whitelist list`. Administrer depuis la console du panel : aucun participant
-ne doit rester OP. `fka assign <pseudo connecté> <Rouge|Bleue|Verte|Jaune>` attribue les
-équipes, deux membres chacune. Ne pas utiliser `fk game start` ni `fka start override`.
-Un compte hors whitelist doit être refusé. Les accès panel/SFTP ne sont pas ceux des joueurs.
+MineBoard → **Paramètres → Hébergement** : sélectionner exactement **paper.jar**
+comme fichier de démarrage et conserver **Java 25 Performance**. Le
+[guide officiel MineStrator](https://minestrator.com/blog/article/installer-version-custom-minecraft-serveur-minestrator)
+documente ce choix de fichier et de Java. Le panel gère environ 6154M ; l’équivalent
+d’une commande manuelle serait `java -Xms1G -Xmx6154M -jar paper.jar --nogui`.
+Ne pas remplacer le lancement du panel par `start.sh` si Python ou les commandes
+personnalisées ne sont pas disponibles. Les scripts fournis restent facultatifs.
 
-## 8. Contrôles console et journaux
+Démarrer une fois depuis le panel. Cela démarre le **serveur**, pas la partie FK.
+Dans la console et `logs/latest.log`, vérifier : Java 25, Paper **26.3-244**,
+FallenKingdom **2.24.9**, FKAmis **1.0.0**, puis `Done`. Les deux plugins doivent
+être actifs ; aucun probe/outil de chantier ne doit être chargé. Spark éventuellement
+intégré à Paper ne correspond pas à un JAR de diagnostic ajouté par le projet.
+Lire tous les WARN et refuser toute ERROR/SEVERE bloquante ou plugin désactivé.
 
-Vérifier Java 25, Paper 26.2-135, les messages d’activation de FallenKingdom **2.24.9**
-et FKAmis **1.0.0**, puis `Done`. `plugins` doit montrer les deux plugins actifs.
-Spark éventuellement intégré à Paper est une fonction de Paper, aucun JAR diagnostic
-supplémentaire n’est fourni. Contrôler `logs/latest.log` : aucun ERROR/SEVERE,
-exception répétée, échec d’authentification réseau ou plugin désactivé. Lire les WARN,
-notamment l’avertissement attendu de version Paper ancienne.
-`fka status` : jour 0, installation/pause ; `fka supply status` : configuration active,
-aucun événement consommé. Contrôler les quatre bases, drapeaux, sept monuments,
-coffres et huit sites avec la feuille de recette. Ne pas reconstruire/prégénérer.
+Console : `version`, `plugins`, `fka status`, `fka supply status`.
+Attendu : jour **0**, installation/pause, aucun roster ni objectif, ravitaillement
+activé avec délai initial 1 800 secondes actives, mode test désactivé. Ne pas lancer
+`fka start`, `fka start override`, `fk game start`, `pregen` ou un constructeur de carte
+pour vérifier l’installation.
 
-## 9. Sauvegardes puis invitation
+## 5. Préparer l’accès des huit vrais comptes
 
-Activer/vérifier les sauvegardes automatiques du fournisseur ; elles complètent les
-[sauvegardes à froid](BACKUP_RESTORE.md). Faire un arrêt propre et un point complet
-avant la session, télécharger une copie externe, prouver une restauration dans un
-espace séparé. Inviter les sept amis seulement après ces contrôles et suivre
-[la recette à huit](MULTIPLAYER_ACCEPTANCE.md). Le démarrage technique du serveur
-ne lance pas la partie : `fka start` sera une action humaine de recette ou de lancement,
-sur l’instance appropriée.
+La whitelist et les OP livrés sont vides. Depuis la console : `whitelist on`,
+puis `whitelist add <pseudo_officiel>` pour chaque compte. `whitelist list` doit
+contenir les huit participants et le compte arbitre prévus. Ne pas désactiver online-mode et ne pas OP les
+participants. Administrer depuis la console du panel.
+Les clients doivent utiliser **Minecraft Java 26.3**. Adresse : celle indiquée par
+le panel, port **22880**. Tester aussi le refus d’un compte hors whitelist.
+Les mots de passe du panel/SFTP ne sont jamais ceux à distribuer aux joueurs.
+
+## 6. Sauvegarder avant invitation et jouer uniquement la recette
+
+Vérifier SmartBackup dans le panel, puis effectuer un point complet à froid :
+`fka pause`, `fka save`, `stop`, attendre l’arrêt total, sauvegarder et télécharger
+une copie externe. Prouver une restauration dans un espace distinct selon
+[BACKUP_RESTORE.md](BACKUP_RESTORE.md). Un snapshot pendant l’exécution ne remplace
+pas cette preuve de cohérence monde/plugins.
+
+Inviter les sept amis et suivre [MULTIPLAYER_ACCEPTANCE.md](MULTIPLAYER_ACCEPTANCE.md).
+Les quatre binômes se configurent par `fka assign <pseudo_connecté> <équipe>` ;
+inspecter/confirmer les terrains, prévisualiser puis confirmer `/fka teams tpall`.
+Le lancement de la **recette** sera une action humaine sur la copie dédiée.
+Après validation, le lancement officiel repartira d’une restauration du ZIP 26.3
+initial, jamais d’un nettoyage partiel du monde de recette.

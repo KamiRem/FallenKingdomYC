@@ -164,7 +164,7 @@ public final class GameplayProbe extends JavaPlugin {
             String material=(String)call(entry,"material",new Class<?>[]{});check(!Set.of("ELYTRA","ENCHANTED_GOLDEN_APPLE").contains(material)&&!material.contains("NETHERITE"),"table de ravitaillement autorisée : "+material);
         }
     }
-    private CommandSender sender(boolean admin){return (CommandSender)Proxy.newProxyInstance(getClassLoader(),new Class<?>[]{CommandSender.class},(p,m,a)->{
+    private CommandSender sender(boolean admin){return (CommandSender)Proxy.newProxyInstance(getClassLoader(),new Class<?>[]{admin?org.bukkit.command.ConsoleCommandSender.class:CommandSender.class},(p,m,a)->{
         if(m.getName().equals("hasPermission")||m.getName().equals("isOp"))return admin;if(m.getName().equals("getName"))return "FixtureAdmin";
         if(m.getName().equals("sendMessage")&&a!=null)messages.add(Arrays.toString(a));return defaultValue(m.getReturnType());});}
     private void begin(boolean confirm)throws Exception{List<Player> selected=new ArrayList<>(actors.stream().map(a->a.player).toList());selected.add(unassigned.player);call(teleports,"begin",new Class<?>[]{CommandSender.class,boolean.class,Collection.class},sender(true),confirm,selected);}

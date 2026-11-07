@@ -1,0 +1,283 @@
+{
+  "atUtc": "2026-11-07T17:37:39.099947+00:00",
+  "package": "dist/fallenkingdom-admin-update.zip",
+  "packageSha256": "2ca28d0433298efa415203c2b37aeb3afc3f4264f130e1b4180b86c2adbde995",
+  "packageFiles": 17,
+  "plugin": "dist/admin-update/FKAmis-1.0.0.jar",
+  "pluginSha256": "7da3f775c434ee1addc7a67f063e3b076ab8d5b95d5ad5fbf307357cd3642d30",
+  "paper": "26.3-244",
+  "java": 25,
+  "fallenkingdom": "2.24.9",
+  "thirdPartyJarModified": false,
+  "unitTests": {
+    "java": 24,
+    "python": 24,
+    "failures": 0
+  },
+  "technicalSuites": [
+    {
+      "suite": "admin",
+      "attempt": 4,
+      "authenticatedPlayers": 0,
+      "fkamisSha256": "7da3f775c434ee1addc7a67f063e3b076ab8d5b95d5ad5fbf307357cd3642d30",
+      "checks": [
+        {
+          "phase": "initial",
+          "assertions": 45,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        },
+        {
+          "phase": "restart",
+          "assertions": 6,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        }
+      ],
+      "passed": true
+    },
+    {
+      "suite": "core",
+      "attempt": 3,
+      "authenticatedPlayers": 0,
+      "fkamisSha256": "7da3f775c434ee1addc7a67f063e3b076ab8d5b95d5ad5fbf307357cd3642d30",
+      "checks": [
+        {
+          "phase": "initial",
+          "assertions": 23,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        },
+        {
+          "phase": "restart",
+          "assertions": 5,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        }
+      ],
+      "passed": true
+    },
+    {
+      "suite": "gameplay",
+      "attempt": 3,
+      "authenticatedPlayers": 0,
+      "fkamisSha256": "7da3f775c434ee1addc7a67f063e3b076ab8d5b95d5ad5fbf307357cd3642d30",
+      "checks": [
+        {
+          "phase": "initial",
+          "assertions": 112,
+          "passed": true,
+          "errors": [],
+          "warnings": [
+            "\u001b[33;1m[18:33:10 WARN]: [FKAmis] teams tpall annulé : Apparition dangereuse ou modifiée : Bleue ; aucun rassemblement effectué.",
+            "\u001b[33;1m[18:33:11 WARN]: [FKAmis] teams tpall annulé : Apparition dangereuse ou modifiée : Bleue ; aucun rassemblement effectué."
+          ]
+        }
+      ],
+      "passed": true
+    },
+    {
+      "suite": "supplies",
+      "attempt": 3,
+      "authenticatedPlayers": 0,
+      "fkamisSha256": "7da3f775c434ee1addc7a67f063e3b076ab8d5b95d5ad5fbf307357cd3642d30",
+      "checks": [
+        {
+          "phase": "initial",
+          "assertions": 43,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        },
+        {
+          "phase": "restart",
+          "assertions": 6,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        }
+      ],
+      "passed": true
+    },
+    {
+      "suite": "native",
+      "attempt": 3,
+      "authenticatedPlayers": 0,
+      "fkamisSha256": "7da3f775c434ee1addc7a67f063e3b076ab8d5b95d5ad5fbf307357cd3642d30",
+      "checks": [
+        {
+          "phase": "initial",
+          "assertions": 28,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        }
+      ],
+      "passed": true
+    }
+  ],
+  "technicalAssertions": 268,
+  "authenticatedPlayers": 0,
+  "simulatedPlayerActors": 9,
+  "containsWorld": false,
+  "containsLiveStateOrAdmins": false,
+  "humanTestsRemaining": [
+    "nine_authenticated_clients",
+    "real_respawn_and_bed",
+    "real_admin_permissions_and_flight",
+    "captured_player_reconnect",
+    "tips_absent_after_three_minutes",
+    "host_performance"
+  ],
+  "rehearsal": {
+    "passed": true,
+    "instance": "runtime/preproduction-admin-update",
+    "coldBackup": "runtime/preproduction-admin-update/.fk-updates/before-admin-update-20261107T173741068522Z.zip",
+    "coldBackupSha256": "4529b5b5a3be6cb6674ded9292e577e8bc21875199ccd47210c73ee47eb4d922",
+    "protectedFilesComparedDuringPatch": 123,
+    "worldStateAndExistingAdminsUnchangedDuringPatch": true,
+    "initialStateAfterStartup": {
+      "day": 0,
+      "started": false,
+      "roster": 0,
+      "objectives": 0,
+      "bases": 4,
+      "monuments": 7,
+      "lootChestsVerified": 6,
+      "supplySites": 8,
+      "supplyRemainingSeconds": 1800,
+      "supplyEvent": 0
+    },
+    "worldIntegrity": {
+      "regionFilesByteIdentical": 70,
+      "regionFilesSemanticallyChecked": 6,
+      "chunksByteIdentical": 5194,
+      "chunksSemanticallyChecked": 9,
+      "initialChunksMissing": 0,
+      "newChunks": 0,
+      "terrainAndContainerChanges": [],
+      "entityInventoryChanges": [],
+      "worldMetadataFilesChanged": [
+        "world/dimensions/minecraft/overworld/data/minecraft/game_rules.dat",
+        "world/dimensions/minecraft/overworld/data/minecraft/weather.dat",
+        "world/dimensions/minecraft/overworld/data/minecraft/world_clocks.dat",
+        "world/dimensions/minecraft/overworld/data/paper/level_overrides.dat",
+        "world/dimensions/minecraft/the_end/data/minecraft/world_clocks.dat",
+        "world/dimensions/minecraft/the_end/data/paper/level_overrides.dat",
+        "world/dimensions/minecraft/the_nether/data/minecraft/world_clocks.dat",
+        "world/dimensions/minecraft/the_nether/data/paper/level_overrides.dat",
+        "world/level.dat",
+        "world/level.dat_old"
+      ],
+      "passed": true
+    },
+    "startup": {
+      "atUtc": "2026-11-07T17:37:45.652858+00:00",
+      "instance": "preproduction-admin-update",
+      "authenticatedPlayers": 0,
+      "simulatedPlayers": 0,
+      "officialGameStarted": false,
+      "commands": [
+        "version",
+        "plugins",
+        "fka status",
+        "fka supply status",
+        "tps",
+        "mspt",
+        "list",
+        "stop"
+      ],
+      "passed": true,
+      "java": "openjdk version \"25.0.5\" 2026-10-20 LTS",
+      "runningBackupRefused": true,
+      "exitCode": 0,
+      "warnings": [],
+      "errors": [],
+      "idleMetricsOnly": [
+        "[18:37:57 INFO]: \u001b[33mTPS from last 1m, 5m, 15m: \u001b[0m\u001b[92m20,0\u001b[0m, \u001b[92m20,0\u001b[0m, \u001b[92m20,0\u001b[0m",
+        "[18:37:57 INFO]: \u001b[33mServer tick times \u001b[93m(\u001b[37mavg\u001b[93m/\u001b[37mmin\u001b[93m/\u001b[37mmax\u001b[93m)\u001b[33m from last 5s\u001b[37m,\u001b[33m 10s\u001b[37m,\u001b[33m 1m\u001b[93m:\u001b[0m",
+        "[18:37:57 INFO]: \u001b[33m◴ \u001b[37m\u001b[92m39,7\u001b[37m/\u001b[92m39,7\u001b[37m/\u001b[92m39,7\u001b[93m, \u001b[92m39,7\u001b[37m/\u001b[92m39,7\u001b[37m/\u001b[92m39,7\u001b[93m, \u001b[92m39,7\u001b[37m/\u001b[92m39,7\u001b[37m/\u001b[92m39,7\u001b[0m"
+      ],
+      "stillDayZero": true,
+      "notStarted": true
+    },
+    "rollbackInstance": "runtime/preproduction-admin-rollback",
+    "rollbackFilesCompared": 177,
+    "rollbackStartup": {
+      "atUtc": "2026-11-07T17:38:00.849035+00:00",
+      "instance": "preproduction-admin-rollback",
+      "authenticatedPlayers": 0,
+      "simulatedPlayers": 0,
+      "officialGameStarted": false,
+      "commands": [
+        "version",
+        "plugins",
+        "fka status",
+        "fka supply status",
+        "tps",
+        "mspt",
+        "list",
+        "stop"
+      ],
+      "passed": true,
+      "java": "openjdk version \"25.0.5\" 2026-10-20 LTS",
+      "runningBackupRefused": true,
+      "exitCode": 0,
+      "warnings": [],
+      "errors": [],
+      "idleMetricsOnly": [
+        "[18:38:12 INFO]: \u001b[33mTPS from last 1m, 5m, 15m: \u001b[0m\u001b[92m20,0\u001b[0m, \u001b[92m20,0\u001b[0m, \u001b[92m20,0\u001b[0m",
+        "[18:38:12 INFO]: \u001b[33mServer tick times \u001b[93m(\u001b[37mavg\u001b[93m/\u001b[37mmin\u001b[93m/\u001b[37mmax\u001b[93m)\u001b[33m from last 5s\u001b[37m,\u001b[33m 10s\u001b[37m,\u001b[33m 1m\u001b[93m:\u001b[0m",
+        "[18:38:12 INFO]: \u001b[33m◴ \u001b[37m\u001b[93m47,4\u001b[37m/\u001b[93m47,4\u001b[37m/\u001b[93m47,4, 47,4\u001b[37m/\u001b[93m47,4\u001b[37m/\u001b[93m47,4, 47,4\u001b[37m/\u001b[93m47,4\u001b[37m/\u001b[93m47,4\u001b[0m"
+      ],
+      "stillDayZero": true,
+      "notStarted": true
+    }
+  },
+  "remoteHostingTouched": false,
+  "officialGameStarted": false,
+  "passed": true,
+  "preservation": {
+    "passed": true,
+    "referenceFilesCompared": {
+      "local": 268,
+      "map-v2": 278,
+      "map-v2-fixes": 285,
+      "preproduction-26-3": 291
+    },
+    "historicalArchivesCompared": 23,
+    "initialPaper26_3PackageUnchanged": true
+  },
+  "configurationChanges": {
+    "server.properties": {
+      "max-players": "10",
+      "gamemode": "survival",
+      "force-gamemode": "false"
+    },
+    "plugins/FKAmis/config.yml": {
+      "disable-native-tips": true
+    },
+    "privateAdministratorFile": "plugins/FKAmis/admins.yml, created only if missing, never shipped or overwritten",
+    "stateMigrationRequired": false
+  },
+  "causes": [
+    "FKAmis previously treated an unassigned player as eliminated",
+    "join and periodic mode enforcement imposed SPECTATOR",
+    "native respawn could schedule a delayed team teleport overriding another destination"
+  ],
+  "tipsOrigin": "Official FallenKingdom 2.24.9 TipsManager, asynchronous prestart timer every 3 minutes; cancelled using its public API, without chat filtering",
+  "captureEngineSourceChanged": false,
+  "contentAudit": {
+    "passed": true,
+    "onlyPluginAndMaintenancePayload": true,
+    "noWorldOrLiveStateOrAccountData": true,
+    "noThirdPartyJarModified": true,
+    "docsMatchRepository": true,
+    "pythonSyntaxValid": true
+  },
+  "packageSizeBytes": 165737
+}

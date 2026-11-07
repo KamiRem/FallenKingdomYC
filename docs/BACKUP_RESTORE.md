@@ -5,6 +5,12 @@ et les **sauvegardes de partie** pour reprendre une progression. Leurs versions 
 SHA-256 doivent être conservés avec leur date UTC. Ne jamais injecter l’inventaire,
 `state.yml` ou les régions d’une archive dans un autre instant de jeu.
 
+Profil courant : **Paper 26.3-244 / Java 25**, paquet initial
+`dist/fallenkingdom-preproduction-26.3.zip`, rapport
+`tests/results/preproduction-package-26.3.json`. Restaurer une sauvegarde 26.3
+avec ses JAR 26.3 ; l’ancien ZIP 26.2 reste conservé pour une restauration 26.2
+séparée, jamais pour remplacer seulement le JAR d’un monde converti.
+
 ## Sauvegarde à froid
 
 1. Annoncer la maintenance, lancer `fka pause`, puis `fka save` dans la console.

@@ -227,7 +227,8 @@ final class SupplyService implements Listener {
             sender.sendMessage("§eRavitaillement " + (enabled ? "activé" : "désactivé") + " ; prochain : " + clock.remaining
                     + " secondes actives ; coffres : " + activeCount() + "/" + maxActive); return true;
         }
-        if (!sender.hasPermission("fkamis.admin")) throw new IllegalArgumentException("Permission fkamis.admin requise.");
+        if (!plugin.mayAdmin(sender)) throw new IllegalArgumentException("Permission fkamis.admin requise : rôle arbitre UUID ou console.");
+        if (sender instanceof Player p) plugin.administrators.audit(p.getUniqueId(),"COMMANDE fka "+String.join(" ",args));
         switch (action) {
             case "list" -> sites.values().forEach(s -> sender.sendMessage(s.id + " : " + s.location.getBlockX() + " " + s.location.getBlockY() + " " + s.location.getBlockZ()
                     + " ; " + s.zone + " ; " + (drops.containsKey(s.id) ? drops.get(s.id).status : "INACTIF")));
@@ -294,6 +295,7 @@ final class SupplyService implements Listener {
         e.setCancelled(true);
         if (e.getHand() != EquipmentSlot.HAND || e.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         Player p = e.getPlayer();
+        if (plugin.isAdministrator(p)) { p.sendMessage("§7Arbitre : consultation via /fka supply list ; aucune attribution de lot."); return; }
         if (denied || !plugin.state.running() || plugin.blocked(p) || !enabled) { p.sendMessage("§eRavitaillement indisponible pendant la pause ou hors partie."); return; }
         Site site = sites.values().stream().filter(s -> FKAmis.sameBlock(s.location, e.getClickedBlock().getLocation())).findFirst().orElseThrow();
         Drop drop = drops.get(site.id);
@@ -311,9 +313,11 @@ final class SupplyService implements Listener {
     }
     @EventHandler(priority = EventPriority.HIGHEST) public void open(InventoryOpenEvent e) { if (managed(e.getInventory())) e.setCancelled(true); }
     @EventHandler(priority = EventPriority.HIGHEST) public void transfer(InventoryMoveItemEvent e) { if (managed(e.getSource()) || managed(e.getDestination())) e.setCancelled(true); }
-    @EventHandler(priority = EventPriority.HIGHEST) public void breakBlock(BlockBreakEvent e) { if (managed(e.getBlock().getLocation())) e.setCancelled(true); }
+    @EventHandler(priority = EventPriority.HIGHEST) public void breakBlock(BlockBreakEvent e) {
+        if (managed(e.getBlock().getLocation())&&!plugin.administrators.sensitive(e.getPlayer(),e.getBlock().getLocation())) e.setCancelled(true);
+    }
     @EventHandler(priority = EventPriority.HIGHEST) public void place(BlockPlaceEvent e) {
-        if (managed(e.getBlock().getLocation())) e.setCancelled(true);
+        if (managed(e.getBlock().getLocation())&&!plugin.administrators.sensitive(e.getPlayer(),e.getBlock().getLocation())) e.setCancelled(true);
         if (e.getBlock().getType() == Material.CHEST || e.getBlock().getType() == Material.TRAPPED_CHEST)
             for (var face : List.of(org.bukkit.block.BlockFace.NORTH, org.bukkit.block.BlockFace.SOUTH, org.bukkit.block.BlockFace.EAST, org.bukkit.block.BlockFace.WEST))
                 if (managed(e.getBlock().getRelative(face).getLocation())) e.setCancelled(true);

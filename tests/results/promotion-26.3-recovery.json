@@ -1,0 +1,8 @@
+{
+  "archive": "backups/preproduction-26-3/fk-20261107T162813216630Z.zip",
+  "sha256": "b58bfaf19be206c22bffdd430b7b292759d0a43b07ffeb07baf1e631e7bc8f00",
+  "filesCompared": 291,
+  "byteIdenticalBeforeRestart": true,
+  "restoredInstance": "runtime/preproduction-26-3-recovery",
+  "restartPassed": true
+}

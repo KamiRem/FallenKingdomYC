@@ -149,10 +149,12 @@ def properties(path: Path) -> dict[str, str]:
 def validate(root: Path):
     config = properties(root / "server.properties")
     required = {"online-mode": "true", "white-list": "true", "enforce-whitelist": "true",
-                "enable-rcon": "false", "enable-command-block": "false", "max-players": "8"}
+                "enable-rcon": "false", "enable-command-block": "false"}
     for key, expected in required.items():
         if config.get(key) != expected:
             raise RuntimeError(f"Configuration refusée : {key} doit être {expected}.")
+    if config.get("max-players") not in ("8", "10"):
+        raise RuntimeError("Profil privé : 8 places historiques ou 10 places pour huit participants et un arbitre.")
     if properties(root / "eula.txt").get("eula") != "true":
         raise RuntimeError("EULA non acceptée. Aucune modification automatique.")
     for path in [root / "paper.jar", root / "plugins/FallenKingdom-2.24.9.jar", root / "plugins/FKAmis-1.0.0.jar"]:

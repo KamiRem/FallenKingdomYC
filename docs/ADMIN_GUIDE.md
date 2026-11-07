@@ -1,8 +1,23 @@
 # Administration
 
+## Arbitre UUID et réapparitions — profil courant
+
+Le guide actuel est [ADMIN_UPDATE.md](ADMIN_UPDATE.md). Un arbitre hors équipe
+rejoint en CREATIVE, huit participants jouent en SURVIVAL, dix places techniques
+sont prévues avec whitelist stricte. OP ne suffit pas : autoriser l'UUID officiel
+via la console `fka admin grant UUID confirm`. `fka admin uuid PseudoConnecte`
+affiche cet UUID ; `revoke UUID confirm` retire le rôle. Les autorisations privées
+sont dans `plugins/FKAmis/admins.yml`, distinct de l'état de partie.
+
+Les morts sont illimitées tant que le royaume est actif. Seule une capture complète
+élimine l'équipe et impose SPECTATOR de façon persistante. Les tips natifs sont
+désactivés ; les annonces de partie restent conservées. La mise à jour se fait
+serveur arrêté, par JAR/configuration ciblés, sans retransfert de carte ni état écrasé.
+Les références map-v2 et map-v2-fixes ci-dessous restent historiques et intactes.
+
 ## Variante v2 corrigée
 
-Utiliser `runtime/map-v2-fixes` pour les corrections, sans remplacer les deux instances
+Historique : `runtime/map-v2-fixes` a été utilisé pour les corrections, sans remplacer les deux instances
 précédentes. Voir [V2_CORRECTIONS.md](V2_CORRECTIONS.md) pour le nettoyage et les preuves.
 Le profil ajoute `ELYTRA` et `ENCHANTED_GOLDEN_APPLE` à `extra-banned` ; garder
 `GOLDEN_APPLE` autorisée et `ban-netherite-family: true`.
@@ -27,7 +42,7 @@ documentées avec leur syntaxe et permissions dans [LOOT_SYSTEM.md](LOOT_SYSTEM.
 fonctionne que sur une copie marquée `test-mode: true` avant tout démarrage de partie.
 La configuration livrée garde ce mode de test à `false`.
 
-Les commandes `/fka` sensibles demandent `fkamis.admin` (OP par défaut). La console
+Les commandes `/fka` sensibles demandent le rôle explicite UUID d’arbitre (OP seul insuffisant). La console
 possède ce droit ; les participants doivent rester non OP. Les équipes sont exactement
 `Rouge`, `Bleue`, `Verte`, `Jaune`. Les arguments d'équipe respectent la casse.
 

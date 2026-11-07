@@ -1,0 +1,60 @@
+{
+  "checks": [
+    {
+      "suite": "native",
+      "phase": "initial",
+      "assertions": 28,
+      "passed": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "suite": "core",
+      "phase": "initial",
+      "assertions": 23,
+      "passed": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "suite": "core",
+      "phase": "restart",
+      "assertions": 5,
+      "passed": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "suite": "gameplay",
+      "phase": "initial",
+      "assertions": 112,
+      "passed": true,
+      "errors": [],
+      "warnings": [
+        "\u001b[33;1m[17:29:27 WARN]: [FKAmis] teams tpall annulé : Apparition dangereuse ou modifiée : Bleue ; aucun rassemblement effectué.",
+        "\u001b[33;1m[17:29:28 WARN]: [FKAmis] teams tpall annulé : Apparition dangereuse ou modifiée : Bleue ; aucun rassemblement effectué."
+      ]
+    },
+    {
+      "suite": "supplies",
+      "phase": "initial",
+      "assertions": 43,
+      "passed": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "suite": "supplies",
+      "phase": "restart",
+      "assertions": 6,
+      "passed": true,
+      "errors": [],
+      "warnings": []
+    }
+  ],
+  "authenticatedPlayers": 0,
+  "gameplaySimulatedPlayers": 8,
+  "chatSimulatedActors": 2,
+  "fkamisSha256": "9201a72528b8f6699f394c3e495ab7192bde312614f7f3d2bad88edaf9a8ea37",
+  "passed": true
+}

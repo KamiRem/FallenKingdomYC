@@ -1,5 +1,22 @@
 # Règlement de la partie
 
+## Priorité : morts illimitées et élimination par capture
+
+Aucune limite de vies. Tant que le royaume reste actif, toute mort individuelle
+(PvE, environnement, PvP, défense ou assaut) laisse le joueur dans son équipe, avec
+réapparition SURVIVAL au lit/ancre valide ou au point sûr d'équipe. Seule la capture
+complète de son objectif provoque l'élimination persistante et le mode SPECTATOR.
+Entrer dans un château ou commencer une capture ne suffit pas. Le moteur reste :
+deux attaquants de même équipe, 2,5 blocs, ligne de vue, 60 secondes consécutives,
+contestation par un défenseur et interruptions existantes.
+
+Huit participants et un arbitre supplémentaire en CREATIVE : l'arbitre UUID n'a
+aucune équipe, aucun poids de capture, présence active ou victoire. Son départ et
+celui d'un spectateur ne doivent pas interrompre le combat des participants.
+Les protections de jeu restent imposées aux OP ordinaires. Les corrections
+destructives d'objectifs/sites exigent une intervention administrative explicite
+et journalisée, en pause ; voir [le guide](ADMIN_UPDATE.md).
+
 ## Compléments de la carte v2
 
 La carte compacte mesure 1 200 blocs de côté. Les quatre zones de rayon 80 sont

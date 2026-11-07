@@ -1,0 +1,23 @@
+{
+  "suite": "admin",
+  "attempt": 4,
+  "authenticatedPlayers": 0,
+  "fkamisSha256": "7da3f775c434ee1addc7a67f063e3b076ab8d5b95d5ad5fbf307357cd3642d30",
+  "checks": [
+    {
+      "phase": "initial",
+      "assertions": 45,
+      "passed": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "phase": "restart",
+      "assertions": 6,
+      "passed": true,
+      "errors": [],
+      "warnings": []
+    }
+  ],
+  "passed": true
+}

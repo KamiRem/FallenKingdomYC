@@ -31,6 +31,21 @@ def nbt(data):
     kind=number('b');string();return tag(kind)
 
 
+def normalized_state(value):
+    """Palettes 26.2 (Name/Properties) et 26.3 (ID abrégé ou id/properties).
+
+    Les listes NBT hétérogènes enveloppent leurs chaînes dans une clé vide.
+    """
+    if isinstance(value, str): return {'Name': value}
+    if '' in value: return normalized_state(value[''])
+    name = value.get('Name', value.get('id'))
+    if not isinstance(name, str): raise ValueError('Entrée de palette inconnue.')
+    result = {'Name': name}
+    properties = value.get('Properties', value.get('properties', {}))
+    if properties: result['Properties'] = properties
+    return result
+
+
 class Reader:
     def __init__(self,root):self.root=root;self.chunks={}
     def chunk(self,cx,cz):
@@ -50,10 +65,10 @@ class Reader:
         section=next((s for s in chunk['sections'] if s['Y']==y//16),None)
         if not section or 'block_states' not in section:return 'minecraft:air'
         states=section['block_states'];palette=states['palette']
-        if len(palette)==1:return palette[0]['Name']
+        if len(palette)==1:return normalized_state(palette[0])['Name']
         bits=max(4,(len(palette)-1).bit_length());per=64//bits;index=(y%16)*256+(z%16)*16+(x%16)
         value=((states['data'][index//per]&((1<<64)-1))>>((index%per)*bits))&((1<<bits)-1)
-        return palette[value]['Name']
+        return normalized_state(palette[value])['Name']
 
 
 def main():
