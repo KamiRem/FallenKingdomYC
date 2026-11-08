@@ -1,0 +1,133 @@
+{
+  "authenticatedPlayers": 0,
+  "fkamisSha256": "fd12c43c0f33fa84f4721d49de2c248c7cd1609f0c502403dc8155975ecc0cee",
+  "passed": true,
+  "logical": {
+    "schema": 1,
+    "operation": "logical",
+    "backup": "C:\\Users\\youne\\Documents\\GitHub\\FallenKingdomYC\\.cache\\vn\\runtime\\probe-vnext-3\\.fk-resets\\before-reset-20261108T204728609743Z.zip",
+    "backupSha256": "d262ee4f3e4722e10673c7976eaf1a6c9bd4a84319fb21d04dd45524a2e54f6e",
+    "worldFilesUnchanged": 121,
+    "previousMatchId": "78b0da7d-e406-48a1-b71e-537cbd55601a",
+    "worldOrInventoriesRestored": false,
+    "protectedFilesCompared": 135
+  },
+  "logicalRestart": {
+    "passed": true,
+    "assertions": 8,
+    "errors": []
+  },
+  "baseline": {
+    "schema": 1,
+    "sha256": "d75d9299fbe08cf5cbe7a3e6ec7da6e13a1c0d7cfe93e018fa12deb0b6488a70",
+    "pluginSha256": "fd12c43c0f33fa84f4721d49de2c248c7cd1609f0c502403dc8155975ecc0cee",
+    "paperSha256": "9601f9a26a2a52a0f2c807cf1abf691f96ee4fb287878313b601cebc2c51eabf",
+    "policies": {
+      "plugins/FKAmis/config.yml": "4bc899e84aa1bfda26871a9456b4f8e87be31923f5e069087bdda25ee815f3d1",
+      "plugins/FKAmis/admins.yml": "ae0d62c7fb96b327507fdcfb8ae262d57f83186845ec5fd7ed65a51ae3ed8671",
+      "plugins/FKAmis/supplies.yml": "7153dcfda08d38940f3cb10daf9c67e3b00aaaa283e5a1c665a5e49529f97d1d",
+      "server.properties": "fd269a13c1cd65b4fdbe0ae538f9ad60b66793b334ca5a44626984fa1e2fead9",
+      "whitelist.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "ops.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "banned-players.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "banned-ips.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "checks": {
+      "bases": 4,
+      "monuments": 7,
+      "monumentBlocksChecked": 6689,
+      "supplySites": 8,
+      "lootChestsVerified": 6,
+      "day": 0,
+      "started": false
+    },
+    "approvedInitial": true,
+    "atUtc": "2026-11-08T20:48:25.772376+00:00",
+    "testFixtureOnly": true,
+    "visuallyInspected": false
+  },
+  "differentPoliciesRefused": true,
+  "fullRestore": {
+    "schema": 1,
+    "operation": "restore-approved-initial",
+    "backup": "C:\\Users\\youne\\Documents\\GitHub\\FallenKingdomYC\\.cache\\vn\\runtime\\probe-vnext-3\\.fk-resets\\before-reset-20261108T204826683198Z.zip",
+    "backupSha256": "77c033fb06f4ffc7c07e937dfc685b755b91638d4350d8b65fe8cabcf4c97e42",
+    "destination": "C:\\Users\\youne\\Documents\\GitHub\\FallenKingdomYC\\.cache\\vn\\runtime\\preproduction-vnext-restored-3",
+    "restoredFiles": 294,
+    "checks": {
+      "bases": 4,
+      "monuments": 7,
+      "monumentBlocksChecked": 6689,
+      "supplySites": 8,
+      "lootChestsVerified": 6,
+      "day": 0,
+      "started": false
+    },
+    "oldInstanceAndHistoryPreserved": true
+  },
+  "fullRestoreStartup": {
+    "atUtc": "2026-11-08T20:48:49.409471+00:00",
+    "instance": "preproduction-vnext-restored-3",
+    "authenticatedPlayers": 0,
+    "simulatedPlayers": 0,
+    "officialGameStarted": false,
+    "commands": [
+      "version",
+      "plugins",
+      "fka status",
+      "fka supply status",
+      "tps",
+      "mspt",
+      "list",
+      "stop"
+    ],
+    "passed": true,
+    "java": "openjdk version \"25.0.5\" 2026-10-20 LTS",
+    "runningBackupRefused": true,
+    "exitCode": 0,
+    "warnings": [],
+    "errors": [],
+    "idleMetricsOnly": [
+      "[21:49:00 INFO]: \u001b[33mTPS from last 1m, 5m, 15m: \u001b[0m\u001b[91m1,7\u001b[0m, \u001b[91m1,7\u001b[0m, \u001b[91m1,7\u001b[0m",
+      "[21:49:00 INFO]: \u001b[33mServer tick times \u001b[93m(\u001b[37mavg\u001b[93m/\u001b[37mmin\u001b[93m/\u001b[37mmax\u001b[93m)\u001b[33m from last 5s\u001b[37m,\u001b[33m 10s\u001b[37m,\u001b[33m 1m\u001b[93m:\u001b[0m",
+      "[21:49:00 INFO]: \u001b[33m◴ \u001b[37m\u001b[91m596,2\u001b[37m/\u001b[91m596,2\u001b[37m/\u001b[91m596,2\u001b[93m, \u001b[91m596,2\u001b[37m/\u001b[91m596,2\u001b[37m/\u001b[91m596,2\u001b[93m, \u001b[91m596,2\u001b[37m/\u001b[91m596,2\u001b[37m/\u001b[91m596,2\u001b[0m"
+    ],
+    "stillDayZero": true,
+    "notStarted": true
+  },
+  "resetRollback": {
+    "passed": true,
+    "allRestoredFilesCompared": 306,
+    "onlyPendingRequestAndCandidateRemoved": true,
+    "startup": {
+      "atUtc": "2026-11-08T21:00:10.459750+00:00",
+      "instance": "preproduction-vnext-reset-rollback-3",
+      "authenticatedPlayers": 0,
+      "simulatedPlayers": 0,
+      "officialGameStarted": false,
+      "commands": [
+        "version",
+        "plugins",
+        "fka status",
+        "fka supply status",
+        "tps",
+        "mspt",
+        "list",
+        "stop"
+      ],
+      "passed": true,
+      "java": "openjdk version \"25.0.5\" 2026-10-20 LTS",
+      "runningBackupRefused": true,
+      "exitCode": 0,
+      "warnings": [],
+      "errors": [],
+      "idleMetricsOnly": [
+        "[22:00:26 INFO]: \u001b[33mTPS from last 1m, 5m, 15m: \u001b[0m\u001b[91m1,1\u001b[0m, \u001b[91m1,1\u001b[0m, \u001b[91m1,1\u001b[0m",
+        "[22:00:26 INFO]: \u001b[33mServer tick times \u001b[93m(\u001b[37mavg\u001b[93m/\u001b[37mmin\u001b[93m/\u001b[37mmax\u001b[93m)\u001b[33m from last 5s\u001b[37m,\u001b[33m 10s\u001b[37m,\u001b[33m 1m\u001b[93m:\u001b[0m",
+        "[22:00:26 INFO]: \u001b[33m◴ \u001b[37m\u001b[91m912,6\u001b[37m/\u001b[91m912,6\u001b[37m/\u001b[91m912,6\u001b[93m, \u001b[91m912,6\u001b[37m/\u001b[91m912,6\u001b[37m/\u001b[91m912,6\u001b[93m, \u001b[91m912,6\u001b[37m/\u001b[91m912,6\u001b[37m/\u001b[91m912,6\u001b[0m"
+      ],
+      "stillDayZero": false,
+      "notStarted": false
+    }
+  }
+}

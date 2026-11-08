@@ -36,10 +36,9 @@ final class NativeAdminBridge {
                         && plugin.territory(place.getBlock().getLocation())==null
                         && plugin.state.running() && !plugin.blocked(place.getPlayer())
                         && (!(place instanceof BlockMultiPlaceEvent multi) || multi.getReplacedBlockStates().stream().allMatch(b->plugin.territory(b.getLocation())==null))) return;
-                boolean cancelled=event instanceof Cancellable c && c.isCancelled();
+                if(plugin.diagnostics!=null&&event instanceof EntityDamageEvent damage)plugin.diagnostics.damage(damage,"BEFORE_NATIVE_"+name);
                 nativeHandler.callEvent(event);
-                if(plugin.getConfig().getBoolean("damage-debug",false) && event instanceof EntityDamageEvent damage && damage.isCancelled() && !cancelled)
-                    plugin.getLogger().info("DAMAGE refus natif="+name+" cause="+damage.getCause());
+                if(plugin.diagnostics!=null&&event instanceof EntityDamageEvent damage)plugin.diagnostics.damage(damage,"AFTER_NATIVE_"+name);
             },nativeHandler.getPriority(),plugin,nativeHandler.isIgnoringCancelled());
             list.unregister(nativeHandler); list.register(wrapper); entries.add(new Entry(list,nativeHandler,wrapper));
         }

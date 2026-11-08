@@ -1,6 +1,18 @@
 # Règlement de la partie
 
-## Révision gameplay courante
+## Règles VNext
+
+Le [guide VNext](FKAMIS_VNEXT.md) complète les règles ci-dessous. Une BossBar suit
+la capture et une alerte prévient les défenseurs, avec anti-spam. Les monuments,
+supports de ravitaillement et le petit centre sûr sont protégés du sabotage,
+sans recharge des butins. Le PvE reste actif, y compris les creepers. Après une
+réapparition pour décès, cinq secondes de protection PvP réciproque s'appliquent
+par défaut ; elles interdisent aussi la contribution offensive à une capture.
+Reconnexion, TP et changement de monde ne prolongent pas ce délai. Les arbitres
+UUID et les éliminés gardent leurs rôles distincts. Les statistiques sont observées
+depuis l'activation de la collecte ; une partie antérieure est signalée partielle.
+
+## Base gameplay réutilisée
 
 Voir [GAMEPLAY_UPDATE.md](GAMEPLAY_UPDATE.md) pour la livraison ciblée, les causes,
 les limites de preuve, l'installation et le rollback. Le rapport définitif est

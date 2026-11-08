@@ -1,0 +1,1103 @@
+{
+  "atUtc": "2026-11-08T21:05:10.713729+00:00",
+  "branch": "feature/fkamis-vnext",
+  "baseCommit": "fb17bc0",
+  "previousPluginSha256": "83e721d8ac12feefdb590976747f88d6825b3243976c7e9f10b1cc35fac5239d",
+  "package": "dist/fallenkingdom-vnext-update.zip",
+  "plugin": "dist/vnext/FKAmis-1.0.0.jar",
+  "pluginSha256": "fd12c43c0f33fa84f4721d49de2c248c7cd1609f0c502403dc8155975ecc0cee",
+  "paper": "26.3-244",
+  "java": 25,
+  "fallenkingdom": "2.24.9",
+  "thirdPartyJarModified": false,
+  "remoteHostingTouched": false,
+  "unitTests": {
+    "java": {
+      "tests": 46,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "python": {
+      "tests": 38,
+      "failures": 0
+    }
+  },
+  "technicalSuites": [
+    {
+      "suite": "admin",
+      "attempt": 2,
+      "format": 2,
+      "authenticatedPlayers": 0,
+      "fkamisSha256": "fd12c43c0f33fa84f4721d49de2c248c7cd1609f0c502403dc8155975ecc0cee",
+      "checks": [
+        {
+          "phase": "0",
+          "assertions": 45,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        },
+        {
+          "phase": "1",
+          "assertions": 6,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        }
+      ],
+      "passed": true
+    },
+    {
+      "suite": "core",
+      "attempt": 2,
+      "format": 2,
+      "authenticatedPlayers": 0,
+      "fkamisSha256": "fd12c43c0f33fa84f4721d49de2c248c7cd1609f0c502403dc8155975ecc0cee",
+      "checks": [
+        {
+          "phase": "0",
+          "assertions": 23,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        },
+        {
+          "phase": "1",
+          "assertions": 5,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        }
+      ],
+      "passed": true
+    },
+    {
+      "suite": "gameplay",
+      "attempt": 2,
+      "format": 2,
+      "authenticatedPlayers": 0,
+      "fkamisSha256": "fd12c43c0f33fa84f4721d49de2c248c7cd1609f0c502403dc8155975ecc0cee",
+      "checks": [
+        {
+          "phase": "0",
+          "assertions": 112,
+          "passed": true,
+          "errors": [],
+          "warnings": [
+            "\u001b[33;1m[21:51:08 WARN]: [FKAmis] teams tpall annulé : Apparition dangereuse ou modifiée : Bleue ; aucun rassemblement effectué.",
+            "\u001b[33;1m[21:51:08 WARN]: [FKAmis] teams tpall annulé : Apparition dangereuse ou modifiée : Bleue ; aucun rassemblement effectué."
+          ]
+        }
+      ],
+      "passed": true
+    },
+    {
+      "suite": "supplies",
+      "attempt": 2,
+      "format": 2,
+      "authenticatedPlayers": 0,
+      "fkamisSha256": "fd12c43c0f33fa84f4721d49de2c248c7cd1609f0c502403dc8155975ecc0cee",
+      "checks": [
+        {
+          "phase": "0",
+          "assertions": 43,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        },
+        {
+          "phase": "1",
+          "assertions": 6,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        }
+      ],
+      "passed": true
+    },
+    {
+      "suite": "native",
+      "attempt": 2,
+      "format": 2,
+      "authenticatedPlayers": 0,
+      "fkamisSha256": "fd12c43c0f33fa84f4721d49de2c248c7cd1609f0c502403dc8155975ecc0cee",
+      "checks": [
+        {
+          "phase": "0",
+          "assertions": 28,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        }
+      ],
+      "passed": true
+    },
+    {
+      "suite": "features",
+      "attempt": 1,
+      "format": 1,
+      "authenticatedPlayers": 0,
+      "fkamisSha256": "fd12c43c0f33fa84f4721d49de2c248c7cd1609f0c502403dc8155975ecc0cee",
+      "checks": [
+        {
+          "phase": "0",
+          "assertions": 14,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        },
+        {
+          "phase": "1",
+          "assertions": 67,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        },
+        {
+          "phase": "2",
+          "assertions": 15,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        }
+      ],
+      "passed": true
+    },
+    {
+      "suite": "features",
+      "attempt": 1,
+      "format": 2,
+      "authenticatedPlayers": 0,
+      "fkamisSha256": "fd12c43c0f33fa84f4721d49de2c248c7cd1609f0c502403dc8155975ecc0cee",
+      "checks": [
+        {
+          "phase": "0",
+          "assertions": 14,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        },
+        {
+          "phase": "1",
+          "assertions": 67,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        },
+        {
+          "phase": "2",
+          "assertions": 15,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        }
+      ],
+      "passed": true
+    },
+    {
+      "suite": "features",
+      "attempt": 1,
+      "format": 3,
+      "authenticatedPlayers": 0,
+      "fkamisSha256": "fd12c43c0f33fa84f4721d49de2c248c7cd1609f0c502403dc8155975ecc0cee",
+      "checks": [
+        {
+          "phase": "0",
+          "assertions": 14,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        },
+        {
+          "phase": "1",
+          "assertions": 68,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        },
+        {
+          "phase": "2",
+          "assertions": 15,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        }
+      ],
+      "passed": true
+    },
+    {
+      "suite": "features",
+      "attempt": 1,
+      "format": 4,
+      "authenticatedPlayers": 0,
+      "fkamisSha256": "fd12c43c0f33fa84f4721d49de2c248c7cd1609f0c502403dc8155975ecc0cee",
+      "checks": [
+        {
+          "phase": "0",
+          "assertions": 14,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        },
+        {
+          "phase": "1",
+          "assertions": 68,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        },
+        {
+          "phase": "2",
+          "assertions": 15,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        }
+      ],
+      "passed": true
+    },
+    {
+      "suite": "vnext",
+      "attempt": 3,
+      "format": 2,
+      "authenticatedPlayers": 0,
+      "fkamisSha256": "fd12c43c0f33fa84f4721d49de2c248c7cd1609f0c502403dc8155975ecc0cee",
+      "checks": [
+        {
+          "phase": "0",
+          "assertions": 16,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        },
+        {
+          "phase": "1",
+          "assertions": 81,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        },
+        {
+          "phase": "2",
+          "assertions": 5,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        }
+      ],
+      "passed": true
+    }
+  ],
+  "technicalAssertions": 764,
+  "skeletonDiagnosis": {
+    "cause": "ItemBan réécrivait l’arc inchangé chaque seconde ; onEquipItem/reassessWeaponGoal réinitialisait le cycle IA avant le tir.",
+    "correction": "Nettoyage sur clone, écriture seulement des cases et équipements modifiés, protections de dégâts conservées.",
+    "baseline": {
+      "passed": true,
+      "kind": "baseline",
+      "attempt": 2,
+      "fkamisSha256": "83e721d8ac12feefdb590976747f88d6825b3243976c7e9f10b1cc35fac5239d",
+      "authenticatedClients": 0,
+      "errors": [],
+      "cases": [
+        {
+          "case": "baseline_ia_golem",
+          "shots": 0,
+          "hits": 0,
+          "damageEvents": 0,
+          "healthBefore": 100.0,
+          "healthAfter": 100.0,
+          "victimType": "IRON_GOLEM",
+          "skeletonTicksLived": 239,
+          "hasAI": true,
+          "hasTarget": true,
+          "lineOfSight": true
+        },
+        {
+          "case": "sans_balaye_equipement",
+          "shots": 4,
+          "hits": 3,
+          "damageEvents": 3,
+          "healthBefore": 100.0,
+          "healthAfter": 90.0,
+          "victimType": "IRON_GOLEM",
+          "skeletonTicksLived": 240,
+          "hasAI": true,
+          "hasTarget": true,
+          "lineOfSight": true
+        },
+        {
+          "case": "arc_identique_reapplique_chaque_seconde",
+          "shots": 0,
+          "hits": 0,
+          "damageEvents": 0,
+          "healthBefore": 100.0,
+          "healthAfter": 100.0,
+          "victimType": "IRON_GOLEM",
+          "skeletonTicksLived": 240,
+          "hasAI": true,
+          "hasTarget": true,
+          "lineOfSight": true
+        },
+        {
+          "case": "ia_vers_participant_survival_j1",
+          "shots": 4,
+          "hits": 4,
+          "damageEvents": 4,
+          "healthBefore": 20.0,
+          "healthAfter": 4.0,
+          "victimType": "PLAYER",
+          "skeletonTicksLived": 240,
+          "hasAI": true,
+          "hasTarget": true,
+          "lineOfSight": true
+        }
+      ]
+    },
+    "fixed": {
+      "passed": true,
+      "kind": "fixed",
+      "attempt": 6,
+      "fkamisSha256": "fd12c43c0f33fa84f4721d49de2c248c7cd1609f0c502403dc8155975ecc0cee",
+      "authenticatedClients": 0,
+      "errors": [],
+      "cases": [
+        {
+          "case": "baseline_ia_golem",
+          "shots": 4,
+          "hits": 4,
+          "damageEvents": 4,
+          "healthBefore": 100.0,
+          "healthAfter": 85.0,
+          "victimType": "IRON_GOLEM",
+          "skeletonTicksLived": 238,
+          "hasAI": true,
+          "hasTarget": true,
+          "lineOfSight": true
+        },
+        {
+          "case": "ia_vers_participant_survival_j1",
+          "shots": 4,
+          "hits": 3,
+          "damageEvents": 3,
+          "healthBefore": 20.0,
+          "healthAfter": 9.0,
+          "victimType": "PLAYER",
+          "skeletonTicksLived": 240,
+          "hasAI": true,
+          "hasTarget": true,
+          "lineOfSight": true
+        },
+        {
+          "case": "squelette_natural_j2_armure_fer",
+          "day": 2,
+          "territory": "null",
+          "mode": "SURVIVAL",
+          "playerPosition": [
+            160.5,
+            200.0,
+            158.5
+          ],
+          "shotsOrLaunches": 4,
+          "hits": 3,
+          "damageEvents": 3,
+          "cancelledDamageEvents": 0,
+          "healthBefore": 20.0,
+          "healthAfter": 8.0,
+          "expectedHealthLoss": true
+        },
+        {
+          "case": "squelette_natural_j3_base",
+          "day": 3,
+          "territory": "§x§f§f§5§5§5§5Rouge",
+          "mode": "SURVIVAL",
+          "playerPosition": [
+            -239.5,
+            200.0,
+            -239.5
+          ],
+          "shotsOrLaunches": 4,
+          "hits": 3,
+          "damageEvents": 3,
+          "cancelledDamageEvents": 0,
+          "healthBefore": 20.0,
+          "healthAfter": 9.0,
+          "expectedHealthLoss": true
+        },
+        {
+          "case": "squelette_commande_summon_j1",
+          "day": 1,
+          "territory": "null",
+          "mode": "SURVIVAL",
+          "playerPosition": [
+            160.5,
+            200.0,
+            158.5
+          ],
+          "shotsOrLaunches": 4,
+          "hits": 1,
+          "damageEvents": 1,
+          "cancelledDamageEvents": 0,
+          "healthBefore": 20.0,
+          "healthAfter": 16.0,
+          "expectedHealthLoss": true
+        },
+        {
+          "case": "zombie_ia_melee_j1",
+          "day": 1,
+          "territory": "null",
+          "mode": "SURVIVAL",
+          "playerPosition": [
+            160.5,
+            200.0,
+            158.5
+          ],
+          "shotsOrLaunches": 0,
+          "hits": 0,
+          "damageEvents": 5,
+          "cancelledDamageEvents": 0,
+          "healthBefore": 20.0,
+          "healthAfter": 5.0,
+          "expectedHealthLoss": true
+        },
+        {
+          "case": "creeper_explosion_physique_j2",
+          "day": 2,
+          "territory": "null",
+          "mode": "SURVIVAL",
+          "playerPosition": [
+            160.5,
+            200.0,
+            158.5
+          ],
+          "shotsOrLaunches": 0,
+          "hits": 0,
+          "damageEvents": 1,
+          "cancelledDamageEvents": 0,
+          "healthBefore": 20.0,
+          "healthAfter": 12.4375,
+          "expectedHealthLoss": true
+        },
+        {
+          "case": "fleche_joueur_j1_refusee",
+          "day": 1,
+          "territory": "null",
+          "mode": "SURVIVAL",
+          "playerPosition": [
+            160.5,
+            200.0,
+            158.5
+          ],
+          "shotsOrLaunches": 1,
+          "hits": 1,
+          "damageEvents": 1,
+          "cancelledDamageEvents": 1,
+          "healthBefore": 20.0,
+          "healthAfter": 20.0,
+          "expectedHealthLoss": false
+        },
+        {
+          "case": "fleche_joueur_j2_neutre",
+          "day": 2,
+          "territory": "null",
+          "mode": "SURVIVAL",
+          "playerPosition": [
+            160.5,
+            200.0,
+            158.5
+          ],
+          "shotsOrLaunches": 1,
+          "hits": 1,
+          "damageEvents": 1,
+          "cancelledDamageEvents": 0,
+          "healthBefore": 20.0,
+          "healthAfter": 16.0,
+          "expectedHealthLoss": true
+        },
+        {
+          "case": "fleche_joueur_j2_base_refusee",
+          "day": 2,
+          "territory": "§x§f§f§5§5§5§5Rouge",
+          "mode": "SURVIVAL",
+          "playerPosition": [
+            -239.5,
+            200.0,
+            -239.5
+          ],
+          "shotsOrLaunches": 1,
+          "hits": 1,
+          "damageEvents": 1,
+          "cancelledDamageEvents": 1,
+          "healthBefore": 20.0,
+          "healthAfter": 20.0,
+          "expectedHealthLoss": false
+        },
+        {
+          "case": "fleche_joueur_j3_base",
+          "day": 3,
+          "territory": "§x§f§f§5§5§5§5Rouge",
+          "mode": "SURVIVAL",
+          "playerPosition": [
+            -239.5,
+            200.0,
+            -239.5
+          ],
+          "shotsOrLaunches": 1,
+          "hits": 1,
+          "damageEvents": 1,
+          "cancelledDamageEvents": 0,
+          "healthBefore": 20.0,
+          "healthAfter": 16.0,
+          "expectedHealthLoss": true
+        },
+        {
+          "case": "distributeur_reel_attribue_j3",
+          "day": 3,
+          "territory": "null",
+          "mode": "SURVIVAL",
+          "playerPosition": [
+            160.5,
+            200.0,
+            158.5
+          ],
+          "shotsOrLaunches": 1,
+          "hits": 1,
+          "damageEvents": 1,
+          "cancelledDamageEvents": 0,
+          "healthBefore": 20.0,
+          "healthAfter": 17.0,
+          "expectedHealthLoss": true
+        },
+        {
+          "case": "squelette_apres_respawn_grace_pvp",
+          "day": 3,
+          "territory": "null",
+          "mode": "SURVIVAL",
+          "playerPosition": [
+            160.5,
+            200.0,
+            158.5
+          ],
+          "shotsOrLaunches": 2,
+          "hits": 2,
+          "damageEvents": 2,
+          "cancelledDamageEvents": 0,
+          "healthBefore": 20.0,
+          "healthAfter": 13.0,
+          "expectedHealthLoss": true
+        },
+        {
+          "case": "arbitre_creatif_fleche_physique",
+          "day": 3,
+          "territory": "null",
+          "mode": "CREATIVE",
+          "playerPosition": [
+            160.5,
+            200.0,
+            158.5
+          ],
+          "shotsOrLaunches": 1,
+          "hits": 1,
+          "damageEvents": 0,
+          "cancelledDamageEvents": 0,
+          "healthBefore": 20.0,
+          "healthAfter": 20.0,
+          "expectedHealthLoss": false
+        },
+        {
+          "case": "elimine_spectateur_fleche_physique",
+          "day": 3,
+          "territory": "null",
+          "mode": "SPECTATOR",
+          "playerPosition": [
+            160.5,
+            200.0,
+            158.5
+          ],
+          "shotsOrLaunches": 1,
+          "hits": 0,
+          "damageEvents": 0,
+          "cancelledDamageEvents": 0,
+          "healthBefore": 20.0,
+          "healthAfter": 20.0,
+          "expectedHealthLoss": false
+        }
+      ]
+    }
+  },
+  "features": {
+    "reset": "implemented_and_cold_rehearsed",
+    "captureUi": "implemented_technical_tests_human_ui_pending",
+    "placesAndRespawn": "implemented",
+    "configuration": "implemented_atomic_journal",
+    "statistics": "implemented_uuid_versioned_history",
+    "information": "implemented_shared_state_no_secret_positions"
+  },
+  "resetAndRestore": {
+    "authenticatedPlayers": 0,
+    "fkamisSha256": "fd12c43c0f33fa84f4721d49de2c248c7cd1609f0c502403dc8155975ecc0cee",
+    "passed": true,
+    "logical": {
+      "schema": 1,
+      "operation": "logical",
+      "backup": "C:\\Users\\youne\\Documents\\GitHub\\FallenKingdomYC\\.cache\\vn\\runtime\\probe-vnext-3\\.fk-resets\\before-reset-20261108T204728609743Z.zip",
+      "backupSha256": "d262ee4f3e4722e10673c7976eaf1a6c9bd4a84319fb21d04dd45524a2e54f6e",
+      "worldFilesUnchanged": 121,
+      "previousMatchId": "78b0da7d-e406-48a1-b71e-537cbd55601a",
+      "worldOrInventoriesRestored": false,
+      "protectedFilesCompared": 135
+    },
+    "logicalRestart": {
+      "passed": true,
+      "assertions": 8,
+      "errors": []
+    },
+    "baseline": {
+      "schema": 1,
+      "sha256": "d75d9299fbe08cf5cbe7a3e6ec7da6e13a1c0d7cfe93e018fa12deb0b6488a70",
+      "pluginSha256": "fd12c43c0f33fa84f4721d49de2c248c7cd1609f0c502403dc8155975ecc0cee",
+      "paperSha256": "9601f9a26a2a52a0f2c807cf1abf691f96ee4fb287878313b601cebc2c51eabf",
+      "policies": {
+        "plugins/FKAmis/config.yml": "4bc899e84aa1bfda26871a9456b4f8e87be31923f5e069087bdda25ee815f3d1",
+        "plugins/FKAmis/admins.yml": "ae0d62c7fb96b327507fdcfb8ae262d57f83186845ec5fd7ed65a51ae3ed8671",
+        "plugins/FKAmis/supplies.yml": "7153dcfda08d38940f3cb10daf9c67e3b00aaaa283e5a1c665a5e49529f97d1d",
+        "server.properties": "fd269a13c1cd65b4fdbe0ae538f9ad60b66793b334ca5a44626984fa1e2fead9",
+        "whitelist.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "ops.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "banned-players.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "banned-ips.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "checks": {
+        "bases": 4,
+        "monuments": 7,
+        "monumentBlocksChecked": 6689,
+        "supplySites": 8,
+        "lootChestsVerified": 6,
+        "day": 0,
+        "started": false
+      },
+      "approvedInitial": true,
+      "atUtc": "2026-11-08T20:48:25.772376+00:00",
+      "testFixtureOnly": true,
+      "visuallyInspected": false
+    },
+    "differentPoliciesRefused": true,
+    "fullRestore": {
+      "schema": 1,
+      "operation": "restore-approved-initial",
+      "backup": "C:\\Users\\youne\\Documents\\GitHub\\FallenKingdomYC\\.cache\\vn\\runtime\\probe-vnext-3\\.fk-resets\\before-reset-20261108T204826683198Z.zip",
+      "backupSha256": "77c033fb06f4ffc7c07e937dfc685b755b91638d4350d8b65fe8cabcf4c97e42",
+      "destination": "C:\\Users\\youne\\Documents\\GitHub\\FallenKingdomYC\\.cache\\vn\\runtime\\preproduction-vnext-restored-3",
+      "restoredFiles": 294,
+      "checks": {
+        "bases": 4,
+        "monuments": 7,
+        "monumentBlocksChecked": 6689,
+        "supplySites": 8,
+        "lootChestsVerified": 6,
+        "day": 0,
+        "started": false
+      },
+      "oldInstanceAndHistoryPreserved": true
+    },
+    "fullRestoreStartup": {
+      "atUtc": "2026-11-08T20:48:49.409471+00:00",
+      "instance": "preproduction-vnext-restored-3",
+      "authenticatedPlayers": 0,
+      "simulatedPlayers": 0,
+      "officialGameStarted": false,
+      "commands": [
+        "version",
+        "plugins",
+        "fka status",
+        "fka supply status",
+        "tps",
+        "mspt",
+        "list",
+        "stop"
+      ],
+      "passed": true,
+      "java": "openjdk version \"25.0.5\" 2026-10-20 LTS",
+      "runningBackupRefused": true,
+      "exitCode": 0,
+      "warnings": [],
+      "errors": [],
+      "idleMetricsOnly": [
+        "[21:49:00 INFO]: \u001b[33mTPS from last 1m, 5m, 15m: \u001b[0m\u001b[91m1,7\u001b[0m, \u001b[91m1,7\u001b[0m, \u001b[91m1,7\u001b[0m",
+        "[21:49:00 INFO]: \u001b[33mServer tick times \u001b[93m(\u001b[37mavg\u001b[93m/\u001b[37mmin\u001b[93m/\u001b[37mmax\u001b[93m)\u001b[33m from last 5s\u001b[37m,\u001b[33m 10s\u001b[37m,\u001b[33m 1m\u001b[93m:\u001b[0m",
+        "[21:49:00 INFO]: \u001b[33m◴ \u001b[37m\u001b[91m596,2\u001b[37m/\u001b[91m596,2\u001b[37m/\u001b[91m596,2\u001b[93m, \u001b[91m596,2\u001b[37m/\u001b[91m596,2\u001b[37m/\u001b[91m596,2\u001b[93m, \u001b[91m596,2\u001b[37m/\u001b[91m596,2\u001b[37m/\u001b[91m596,2\u001b[0m"
+      ],
+      "stillDayZero": true,
+      "notStarted": true
+    },
+    "resetRollback": {
+      "passed": true,
+      "allRestoredFilesCompared": 306,
+      "onlyPendingRequestAndCandidateRemoved": true,
+      "startup": {
+        "atUtc": "2026-11-08T21:00:10.459750+00:00",
+        "instance": "preproduction-vnext-reset-rollback-3",
+        "authenticatedPlayers": 0,
+        "simulatedPlayers": 0,
+        "officialGameStarted": false,
+        "commands": [
+          "version",
+          "plugins",
+          "fka status",
+          "fka supply status",
+          "tps",
+          "mspt",
+          "list",
+          "stop"
+        ],
+        "passed": true,
+        "java": "openjdk version \"25.0.5\" 2026-10-20 LTS",
+        "runningBackupRefused": true,
+        "exitCode": 0,
+        "warnings": [],
+        "errors": [],
+        "idleMetricsOnly": [
+          "[22:00:26 INFO]: \u001b[33mTPS from last 1m, 5m, 15m: \u001b[0m\u001b[91m1,1\u001b[0m, \u001b[91m1,1\u001b[0m, \u001b[91m1,1\u001b[0m",
+          "[22:00:26 INFO]: \u001b[33mServer tick times \u001b[93m(\u001b[37mavg\u001b[93m/\u001b[37mmin\u001b[93m/\u001b[37mmax\u001b[93m)\u001b[33m from last 5s\u001b[37m,\u001b[33m 10s\u001b[37m,\u001b[33m 1m\u001b[93m:\u001b[0m",
+          "[22:00:26 INFO]: \u001b[33m◴ \u001b[37m\u001b[91m912,6\u001b[37m/\u001b[91m912,6\u001b[37m/\u001b[91m912,6\u001b[93m, \u001b[91m912,6\u001b[37m/\u001b[91m912,6\u001b[37m/\u001b[91m912,6\u001b[93m, \u001b[91m912,6\u001b[37m/\u001b[91m912,6\u001b[37m/\u001b[91m912,6\u001b[0m"
+        ],
+        "stillDayZero": false,
+        "notStarted": false
+      }
+    }
+  },
+  "inventoryRestoration": {
+    "passed": true,
+    "fkamisSha256": "fd12c43c0f33fa84f4721d49de2c248c7cd1609f0c502403dc8155975ecc0cee",
+    "authenticatedClients": 0,
+    "realNmsProfile": true,
+    "inventoryItem": "minecraft:bread",
+    "inventoryCount": 7,
+    "profileFilesCompared": 1,
+    "backupSha256": "81cc6553a17f5ddf6804d46baf72fb8ce2e30340930773aec5892c25a90a6114",
+    "allRestoredFilesCompared": 295
+  },
+  "updateAndRollback": {
+    "backup": "C:\\Users\\youne\\Documents\\GitHub\\FallenKingdomYC\\.cache\\vn\\runtime\\preproduction-vnext-update-4\\.fk-updates\\before-vnext-20261108T210142667862Z.zip",
+    "backupSha256": "2fa88f8f145b42f94ba4366a652025eb940818a62a58ed33ce042c3cf27d7e41",
+    "protectedFiles": 140,
+    "worldStateRolesAndPropertiesUnchanged": true,
+    "serverLeftStopped": true,
+    "passed": true,
+    "fkamisSha256": "fd12c43c0f33fa84f4721d49de2c248c7cd1609f0c502403dc8155975ecc0cee",
+    "instance": ".cache/vn/runtime/preproduction-vnext-update-4",
+    "referenceFilesUnchanged": 296,
+    "startup": {
+      "atUtc": "2026-11-08T21:01:54.856022+00:00",
+      "instance": "preproduction-vnext-update-4",
+      "authenticatedPlayers": 0,
+      "simulatedPlayers": 0,
+      "officialGameStarted": false,
+      "commands": [
+        "version",
+        "plugins",
+        "fka status",
+        "fka supply status",
+        "tps",
+        "mspt",
+        "list",
+        "stop"
+      ],
+      "passed": true,
+      "java": "openjdk version \"25.0.5\" 2026-10-20 LTS",
+      "idleSettleSeconds": 30,
+      "idleHeapInfo": "33208:\ngarbage-first heap   total reserved 4194304K, committed 1048576K, used 438575K [0x0000000700000000, 0x0000000800000000)\n region size 2048K, 110 young (225280K), 39 survivors (79872K)",
+      "runningBackupRefused": true,
+      "exitCode": 0,
+      "warnings": [],
+      "errors": [],
+      "idleMetricsOnly": [
+        "[22:02:38 INFO]: \u001b[33mTPS from last 1m, 5m, 15m: \u001b[0m\u001b[92m20,0\u001b[0m, \u001b[92m20,0\u001b[0m, \u001b[92m20,0\u001b[0m",
+        "[22:02:38 INFO]: \u001b[33mServer tick times \u001b[93m(\u001b[37mavg\u001b[93m/\u001b[37mmin\u001b[93m/\u001b[37mmax\u001b[93m)\u001b[33m from last 5s\u001b[37m,\u001b[33m 10s\u001b[37m,\u001b[33m 1m\u001b[93m:\u001b[0m",
+        "[22:02:38 INFO]: \u001b[33m◴ \u001b[37m\u001b[92m0,7\u001b[37m/\u001b[92m0,3\u001b[37m/\u001b[92m14,1\u001b[93m, \u001b[92m0,7\u001b[37m/\u001b[92m0,3\u001b[37m/\u001b[92m14,1\u001b[93m, \u001b[92m1,5\u001b[37m/\u001b[92m0,3\u001b[37m/\u001b[91m86,5\u001b[0m"
+      ],
+      "stillDayZero": true,
+      "notStarted": true
+    },
+    "worldIntegrity": {
+      "regionFilesByteIdentical": 62,
+      "regionFilesSemanticallyChecked": 14,
+      "chunksByteIdentical": 8641,
+      "chunksSemanticallyChecked": 258,
+      "initialChunksMissing": 0,
+      "newChunks": 0,
+      "terrainAndContainerChanges": [],
+      "entityInventoryChanges": [],
+      "worldMetadataFilesChanged": [
+        "world/dimensions/minecraft/overworld/data/minecraft/game_rules.dat",
+        "world/dimensions/minecraft/overworld/data/minecraft/raids.dat",
+        "world/dimensions/minecraft/overworld/data/minecraft/weather.dat",
+        "world/dimensions/minecraft/overworld/data/minecraft/world_clocks.dat",
+        "world/dimensions/minecraft/overworld/data/paper/level_overrides.dat",
+        "world/dimensions/minecraft/the_end/data/minecraft/game_rules.dat",
+        "world/dimensions/minecraft/the_end/data/minecraft/raids.dat",
+        "world/dimensions/minecraft/the_end/data/minecraft/world_clocks.dat",
+        "world/dimensions/minecraft/the_end/data/paper/level_overrides.dat",
+        "world/dimensions/minecraft/the_nether/data/minecraft/game_rules.dat",
+        "world/dimensions/minecraft/the_nether/data/minecraft/raids.dat",
+        "world/dimensions/minecraft/the_nether/data/minecraft/world_clocks.dat",
+        "world/dimensions/minecraft/the_nether/data/paper/level_overrides.dat",
+        "world/level.dat",
+        "world/level.dat_old"
+      ],
+      "passed": true
+    },
+    "unknownStateFieldPreserved": true,
+    "rollbackInstance": ".cache/vn/runtime/preproduction-vnext-rollback-4",
+    "fixtureRandomTickSpeed": 0,
+    "fixturePreparation": {
+      "atUtc": "2026-11-08T21:01:20.236328+00:00",
+      "instance": "preproduction-vnext-update-4",
+      "authenticatedPlayers": 0,
+      "simulatedPlayers": 0,
+      "officialGameStarted": false,
+      "commands": [
+        "gamerule minecraft:random_tick_speed 0",
+        "version",
+        "plugins",
+        "fka status",
+        "fka supply status",
+        "tps",
+        "mspt",
+        "list",
+        "stop"
+      ],
+      "passed": true,
+      "java": "openjdk version \"25.0.5\" 2026-10-20 LTS",
+      "runningBackupRefused": true,
+      "exitCode": 0,
+      "warnings": [],
+      "errors": [],
+      "idleMetricsOnly": [
+        "[22:01:40 INFO]: \u001b[33mTPS from last 1m, 5m, 15m: \u001b[0m\u001b[91m0,9\u001b[0m, \u001b[91m0,9\u001b[0m, \u001b[91m0,9\u001b[0m",
+        "[22:01:40 INFO]: \u001b[33mServer tick times \u001b[93m(\u001b[37mavg\u001b[93m/\u001b[37mmin\u001b[93m/\u001b[37mmax\u001b[93m)\u001b[33m from last 5s\u001b[37m,\u001b[33m 10s\u001b[37m,\u001b[33m 1m\u001b[93m:\u001b[0m",
+        "[22:01:40 INFO]: \u001b[33m◴ \u001b[37m\u001b[91m1097,6\u001b[37m/\u001b[91m1097,6\u001b[37m/\u001b[91m1097,6\u001b[93m, \u001b[91m1097,6\u001b[37m/\u001b[91m1097,6\u001b[37m/\u001b[91m1097,6\u001b[93m, \u001b[91m1097,6\u001b[37m/\u001b[91m1097,6\u001b[37m/\u001b[91m1097,6\u001b[0m"
+      ],
+      "stillDayZero": true,
+      "notStarted": true
+    },
+    "productionRandomTickSpeedChangedByUpdater": false,
+    "rollbackFilesCompared": 296,
+    "rollbackStartup": {
+      "atUtc": "2026-11-08T21:02:50.287042+00:00",
+      "instance": "preproduction-vnext-rollback-4",
+      "authenticatedPlayers": 0,
+      "simulatedPlayers": 0,
+      "officialGameStarted": false,
+      "commands": [
+        "version",
+        "plugins",
+        "fka status",
+        "fka supply status",
+        "tps",
+        "mspt",
+        "list",
+        "stop"
+      ],
+      "passed": true,
+      "java": "openjdk version \"25.0.5\" 2026-10-20 LTS",
+      "runningBackupRefused": true,
+      "exitCode": 0,
+      "warnings": [],
+      "errors": [],
+      "idleMetricsOnly": [
+        "[22:03:03 INFO]: \u001b[33mTPS from last 1m, 5m, 15m: \u001b[0m\u001b[91m8,2\u001b[0m, \u001b[91m8,2\u001b[0m, \u001b[91m8,2\u001b[0m",
+        "[22:03:03 INFO]: \u001b[33mServer tick times \u001b[93m(\u001b[37mavg\u001b[93m/\u001b[37mmin\u001b[93m/\u001b[37mmax\u001b[93m)\u001b[33m from last 5s\u001b[37m,\u001b[33m 10s\u001b[37m,\u001b[33m 1m\u001b[93m:\u001b[0m",
+        "[22:03:03 INFO]: \u001b[33m◴ \u001b[37m\u001b[91m67,5\u001b[37m/\u001b[92m0,3\u001b[37m/\u001b[91m413,7\u001b[93m, \u001b[91m67,5\u001b[37m/\u001b[92m0,3\u001b[37m/\u001b[91m413,7\u001b[93m, \u001b[91m67,5\u001b[37m/\u001b[92m0,3\u001b[37m/\u001b[91m413,7\u001b[0m"
+      ],
+      "stillDayZero": true,
+      "notStarted": true
+    },
+    "rollbackPluginSha256": "83e721d8ac12feefdb590976747f88d6825b3243976c7e9f10b1cc35fac5239d",
+    "serverPortChangedByUpdater": false
+  },
+  "startupRefusals": {
+    "passed": true,
+    "authenticatedPlayers": 0,
+    "fkamisSha256": "fd12c43c0f33fa84f4721d49de2c248c7cd1609f0c502403dc8155975ecc0cee",
+    "checks": [
+      {
+        "case": "future",
+        "passed": true,
+        "stateAndPoliciesUnchanged": true,
+        "expectedStartupRefusal": "Version VNext future ou invalide",
+        "expectedErrorsObserved": 1
+      },
+      {
+        "case": "reset-pending",
+        "passed": true,
+        "stateAndPoliciesUnchanged": true,
+        "expectedStartupRefusal": "Réinitialisation confirmée en attente",
+        "expectedErrorsObserved": 1
+      }
+    ]
+  },
+  "technicalPerformance": {
+    "regionLookupMeanNsWithReflection": 468.84,
+    "bossBarUpdateTwoSimulatedViewersMeanNs": 3245.35,
+    "statisticsSerialization16MembersMeanNs": 155003.6,
+    "heapUsedBytes": 760217600,
+    "tps": [
+      12.09299628710008,
+      12.09299628710008,
+      12.09299628710008
+    ],
+    "averageMspt": 24.16040789473684,
+    "authenticatedPlayers": 0,
+    "scope": "Micro-mesures locales, interfaces simulées ; pas une mesure multijoueur ni MineStrator.",
+    "metricsIncludeStartupAndSynchronousFixtureWork": true,
+    "idleMeasurement": "Voir updateAndRollback.startup : stabilisation séparée de trente secondes, zéro joueur authentifié."
+  },
+  "preservation": {
+    "runtime/local": {
+      "files": 268,
+      "identical": true
+    },
+    "runtime/map-v2": {
+      "files": 278,
+      "identical": true
+    },
+    "runtime/map-v2-fixes": {
+      "files": 285,
+      "identical": true
+    },
+    "runtime/preproduction-26-3": {
+      "files": 291,
+      "identical": true
+    },
+    "runtime/preproduction-admin-update": {
+      "files": 296,
+      "identical": true
+    },
+    "runtime/preproduction-admin-rollback": {
+      "files": 294,
+      "identical": true
+    },
+    "historicalArchivesCompared": 7,
+    "additionalHistoricalArchivesCompared": 23,
+    "vnextBaseArchivesCompared": 10
+  },
+  "authenticatedPlayers": 0,
+  "maximumSimulatedParticipants": 16,
+  "containsWorld": false,
+  "containsLiveStateOrAdmins": false,
+  "containsProbePlugins": false,
+  "officialGameStarted": false,
+  "migration": {
+    "stateSchema": 1,
+    "extensionVersion": 1,
+    "additive": true,
+    "unknownFieldsPreserved": true,
+    "futureVersionRefused": true,
+    "fullColdBackupRequired": true
+  },
+  "humanTestsRemaining": [
+    "connexions_authentifiees_4_a_16_et_arbitre",
+    "tirs_arc_client_et_sante_armures",
+    "bossbar_titres_sons_alertes_defenseurs",
+    "respawn_lits_inventaires_reconnexion",
+    "inspection_visuelle_7_monuments_8_sites_et_salles",
+    "approbation_humaine_reference_initiale",
+    "tps_mspt_ram_ping_charge_sur_hebergement"
+  ],
+  "productionAcceptance": "human_recipe_pending",
+  "automatedValidationPassed": true,
+  "documentation": "docs/FKAMIS_VNEXT.md",
+  "rollback": "Sauvegarde complète avant mise à jour, restauration entière dans une destination neuve, même Paper 26.3-244.",
+  "commandsAdded": [
+    "reset status|prepare|confirm <token>|cancel",
+    "config list|get|set|validate|defaults|diff",
+    "stats [match|player pseudo|team équipe|leaderboard]",
+    "info [teams|phases|supplies]"
+  ],
+  "newConfigKey": {
+    "respawn-protection-seconds": 5
+  },
+  "existingParametersReused": true,
+  "testedPayloadArchiveSha256": "8d70d93340c12627ac7cb80a419ec266dc81fb415d8225417b522e80ee7eaab2",
+  "runtimePayloadUnchangedSinceRehearsal": true,
+  "modifiedFiles": [
+    "README.md",
+    "configs/vnext/new-match-reference.json",
+    "deployment/apply_vnext_update.py",
+    "deployment/host_ops.py",
+    "deployment/new_match.py",
+    "docs/ADMIN_GUIDE.md",
+    "docs/ARCHITECTURE.md",
+    "docs/BACKUP_RESTORE.md",
+    "docs/DEPLOYMENT.md",
+    "docs/FKAMIS_VNEXT.md",
+    "docs/GAME_RULES.md",
+    "docs/TEST_PLAN.md",
+    "plugins-custom/fk-amis/src/main/java/fr/fkamis/AtomicData.java",
+    "plugins-custom/fk-amis/src/main/java/fr/fkamis/CaptureDisplay.java",
+    "plugins-custom/fk-amis/src/main/java/fr/fkamis/ConfigCommands.java",
+    "plugins-custom/fk-amis/src/main/java/fr/fkamis/DamageAttribution.java",
+    "plugins-custom/fk-amis/src/main/java/fr/fkamis/DamageDiagnostics.java",
+    "plugins-custom/fk-amis/src/main/java/fr/fkamis/FKAmis.java",
+    "plugins-custom/fk-amis/src/main/java/fr/fkamis/GameSettings.java",
+    "plugins-custom/fk-amis/src/main/java/fr/fkamis/ItemBan.java",
+    "plugins-custom/fk-amis/src/main/java/fr/fkamis/MatchInformation.java",
+    "plugins-custom/fk-amis/src/main/java/fr/fkamis/MatchStatistics.java",
+    "plugins-custom/fk-amis/src/main/java/fr/fkamis/NativeAdminBridge.java",
+    "plugins-custom/fk-amis/src/main/java/fr/fkamis/ProtectedPlaces.java",
+    "plugins-custom/fk-amis/src/main/java/fr/fkamis/Protections.java",
+    "plugins-custom/fk-amis/src/main/java/fr/fkamis/ResetPlan.java",
+    "plugins-custom/fk-amis/src/main/java/fr/fkamis/ResetService.java",
+    "plugins-custom/fk-amis/src/main/java/fr/fkamis/RespawnProtection.java",
+    "plugins-custom/fk-amis/src/main/java/fr/fkamis/SettingsTransaction.java",
+    "plugins-custom/fk-amis/src/main/java/fr/fkamis/Statistics.java",
+    "plugins-custom/fk-amis/src/main/java/fr/fkamis/SupplyService.java",
+    "plugins-custom/fk-amis/src/main/resources/config.yml",
+    "plugins-custom/fk-amis/src/main/resources/landmark-bounds.json",
+    "plugins-custom/fk-amis/src/test/java/fr/fkamis/PvEPhysicsProbe.java",
+    "plugins-custom/fk-amis/src/test/java/fr/fkamis/VNextProbe.java",
+    "plugins-custom/fk-amis/src/test/java/fr/fkamis/VNextTest.java",
+    "scripts/build.ps1",
+    "scripts/map_reader.py",
+    "scripts/preproduction_smoke.py",
+    "scripts/v2_reference.py",
+    "scripts/vnext_delivery.py",
+    "scripts/vnext_physics.py",
+    "scripts/vnext_refusal_tests.py",
+    "scripts/vnext_restore_tests.py",
+    "scripts/vnext_tests.py",
+    "tests/physics-plugin.yml",
+    "tests/results/vnext-admin.json",
+    "tests/results/vnext-core.json",
+    "tests/results/vnext-delivery.json",
+    "tests/results/vnext-features-1.json",
+    "tests/results/vnext-features-2.json",
+    "tests/results/vnext-features-3.json",
+    "tests/results/vnext-features-4.json",
+    "tests/results/vnext-fixture-preparation-4.json",
+    "tests/results/vnext-gameplay.json",
+    "tests/results/vnext-initial-smoke-3.json",
+    "tests/results/vnext-inventory-restore.json",
+    "tests/results/vnext-native.json",
+    "tests/results/vnext-physics-baseline.json",
+    "tests/results/vnext-physics-fixed.json",
+    "tests/results/vnext-refusals.json",
+    "tests/results/vnext-reset-restore.json",
+    "tests/results/vnext-reset-rollback-smoke.json",
+    "tests/results/vnext-restored-smoke-3.json",
+    "tests/results/vnext-rollback-smoke-4.json",
+    "tests/results/vnext-supplies.json",
+    "tests/results/vnext-update-rollback.json",
+    "tests/results/vnext-update-smoke-4.json",
+    "tests/results/vnext-vnext.json",
+    "tests/test_new_match.py",
+    "tests/test_vnext_update.py",
+    "tests/vnext-plugin.yml"
+  ],
+  "packageSha256": "1797fc4f9e6750052ca417d23f6b805e11909d324a9f98bf738a5d4d06f74db6",
+  "packageFiles": 46,
+  "packageBytes": 309915,
+  "sealed": true
+}

@@ -1,0 +1,20 @@
+{
+  "suite": "gameplay",
+  "attempt": 2,
+  "format": 2,
+  "authenticatedPlayers": 0,
+  "fkamisSha256": "fd12c43c0f33fa84f4721d49de2c248c7cd1609f0c502403dc8155975ecc0cee",
+  "checks": [
+    {
+      "phase": "0",
+      "assertions": 112,
+      "passed": true,
+      "errors": [],
+      "warnings": [
+        "\u001b[33;1m[21:51:08 WARN]: [FKAmis] teams tpall annulé : Apparition dangereuse ou modifiée : Bleue ; aucun rassemblement effectué.",
+        "\u001b[33;1m[21:51:08 WARN]: [FKAmis] teams tpall annulé : Apparition dangereuse ou modifiée : Bleue ; aucun rassemblement effectué."
+      ]
+    }
+  ],
+  "passed": true
+}

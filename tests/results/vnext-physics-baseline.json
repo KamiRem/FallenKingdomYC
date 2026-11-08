@@ -1,0 +1,62 @@
+{
+  "passed": true,
+  "kind": "baseline",
+  "attempt": 2,
+  "fkamisSha256": "83e721d8ac12feefdb590976747f88d6825b3243976c7e9f10b1cc35fac5239d",
+  "authenticatedClients": 0,
+  "errors": [],
+  "cases": [
+    {
+      "case": "baseline_ia_golem",
+      "shots": 0,
+      "hits": 0,
+      "damageEvents": 0,
+      "healthBefore": 100.0,
+      "healthAfter": 100.0,
+      "victimType": "IRON_GOLEM",
+      "skeletonTicksLived": 239,
+      "hasAI": true,
+      "hasTarget": true,
+      "lineOfSight": true
+    },
+    {
+      "case": "sans_balaye_equipement",
+      "shots": 4,
+      "hits": 3,
+      "damageEvents": 3,
+      "healthBefore": 100.0,
+      "healthAfter": 90.0,
+      "victimType": "IRON_GOLEM",
+      "skeletonTicksLived": 240,
+      "hasAI": true,
+      "hasTarget": true,
+      "lineOfSight": true
+    },
+    {
+      "case": "arc_identique_reapplique_chaque_seconde",
+      "shots": 0,
+      "hits": 0,
+      "damageEvents": 0,
+      "healthBefore": 100.0,
+      "healthAfter": 100.0,
+      "victimType": "IRON_GOLEM",
+      "skeletonTicksLived": 240,
+      "hasAI": true,
+      "hasTarget": true,
+      "lineOfSight": true
+    },
+    {
+      "case": "ia_vers_participant_survival_j1",
+      "shots": 4,
+      "hits": 4,
+      "damageEvents": 4,
+      "healthBefore": 20.0,
+      "healthAfter": 4.0,
+      "victimType": "PLAYER",
+      "skeletonTicksLived": 240,
+      "hasAI": true,
+      "hasTarget": true,
+      "lineOfSight": true
+    }
+  ]
+}

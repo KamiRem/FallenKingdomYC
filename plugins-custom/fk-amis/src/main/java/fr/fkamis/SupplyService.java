@@ -64,6 +64,7 @@ final class SupplyService implements Listener {
                         Status.valueOf(section.getString(id + ".status")), items));
             }
         }
+        if(!plugin.state.started && activeCount()==0 && clock.remaining>interval)clock.remaining=interval; // reprise d'une configuration avant partie.
         if (clock.remaining < 1 || clock.remaining > interval || activeCount() > maxActive) throw new IllegalStateException("Minuteur de ravitaillement corrompu.");
         loadSites();
     }
@@ -133,6 +134,10 @@ final class SupplyService implements Listener {
     }
 
     int activeCount() { return (int) drops.values().stream().filter(d -> d.status == Status.ACTIVE).count(); }
+    void changeInterval(int seconds){
+        if(plugin.state.started||activeCount()>0||seconds<lifetime||seconds<60||seconds>86400)throw new IllegalArgumentException("Intervalle modifiable seulement avant partie, sans lot actif et au moins égal à leur durée.");
+        interval=seconds;clock.remaining=seconds;
+    }
     boolean managed(Location location) { return sites.values().stream().anyMatch(s -> FKAmis.sameBlock(s.location, location)); }
     boolean managed(Inventory inventory) {
         if (inventory.getLocation() != null && managed(inventory.getLocation())) return true;

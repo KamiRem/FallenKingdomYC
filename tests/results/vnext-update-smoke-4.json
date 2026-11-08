@@ -1,0 +1,32 @@
+{
+  "atUtc": "2026-11-08T21:01:54.856022+00:00",
+  "instance": "preproduction-vnext-update-4",
+  "authenticatedPlayers": 0,
+  "simulatedPlayers": 0,
+  "officialGameStarted": false,
+  "commands": [
+    "version",
+    "plugins",
+    "fka status",
+    "fka supply status",
+    "tps",
+    "mspt",
+    "list",
+    "stop"
+  ],
+  "passed": true,
+  "java": "openjdk version \"25.0.5\" 2026-10-20 LTS",
+  "idleSettleSeconds": 30,
+  "idleHeapInfo": "33208:\ngarbage-first heap   total reserved 4194304K, committed 1048576K, used 438575K [0x0000000700000000, 0x0000000800000000)\n region size 2048K, 110 young (225280K), 39 survivors (79872K)",
+  "runningBackupRefused": true,
+  "exitCode": 0,
+  "warnings": [],
+  "errors": [],
+  "idleMetricsOnly": [
+    "[22:02:38 INFO]: \u001b[33mTPS from last 1m, 5m, 15m: \u001b[0m\u001b[92m20,0\u001b[0m, \u001b[92m20,0\u001b[0m, \u001b[92m20,0\u001b[0m",
+    "[22:02:38 INFO]: \u001b[33mServer tick times \u001b[93m(\u001b[37mavg\u001b[93m/\u001b[37mmin\u001b[93m/\u001b[37mmax\u001b[93m)\u001b[33m from last 5s\u001b[37m,\u001b[33m 10s\u001b[37m,\u001b[33m 1m\u001b[93m:\u001b[0m",
+    "[22:02:38 INFO]: \u001b[33m◴ \u001b[37m\u001b[92m0,7\u001b[37m/\u001b[92m0,3\u001b[37m/\u001b[92m14,1\u001b[93m, \u001b[92m0,7\u001b[37m/\u001b[92m0,3\u001b[37m/\u001b[92m14,1\u001b[93m, \u001b[92m1,5\u001b[37m/\u001b[92m0,3\u001b[37m/\u001b[91m86,5\u001b[0m"
+  ],
+  "stillDayZero": true,
+  "notStarted": true
+}

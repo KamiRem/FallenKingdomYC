@@ -50,11 +50,21 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
     CaptureGeometry captureGeometry;
     LobbyMobs lobbyMobs;
     Announcements announcements;
+    DamageDiagnostics diagnostics;
+    ProtectedPlaces protectedPlaces;
+    RespawnProtection respawnProtection;
+    CaptureDisplay captureDisplay;
+    ConfigCommands configCommands;
+    MatchInformation information;
+    Statistics statistics;
+    ResetService resets;
+    private YamlConfiguration preservedState=new YamlConfiguration();
 
     TeamManager teams() { return FkPI.getInstance().getTeamManager(); }
     List<String> expectedTeams() { return getConfig().getStringList("teams"); }
     int assaultDay() { return getConfig().getInt("assault-day"); }
     int playersPerTeam() { return getConfig().getInt("players-per-team",2); }
+    String rosterName(UUID id) { return rosterNames.getOrDefault(id,id.toString()); }
     long teamSize(String name) { return roster.values().stream().filter(name::equals).count(); }
     int requiredAttackers(String name) { return TeamCapacity.attackers(getConfig().getInt("capture-players"),teamSize(name)); }
     boolean frozen() { return !state.running(); }
@@ -99,6 +109,8 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
 
     @Override public void onEnable() {
         try {
+            if(Files.exists(getDataFolder().toPath().resolve("reset-request.json")))throw new IllegalStateException("Réinitialisation confirmée en attente : terminer la maintenance à froid ou utiliser host_ops.py reset-cancel, sans démarrage automatique.");
+            SettingsTransaction.recover(getDataFolder().toPath());
             saveDefaultConfig();
             require(getConfig().get("players-per-team",2) instanceof Integer,"players-per-team doit être un entier entre 1 et 4.");
             TeamCapacity.validate(playersPerTeam());
@@ -131,6 +143,8 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
             nativeAdminBridge = new NativeAdminBridge(this);
             chunkLeases = new ChunkLeases(this);
             damageAttribution = new DamageAttribution(this);
+            diagnostics=new DamageDiagnostics(this);
+            getServer().getPluginManager().registerEvents(diagnostics,this);
             teamTeleports = new TeamTeleportService(this);
             getServer().getPluginManager().registerEvents(new Protections(this), this);
             getServer().getPluginManager().registerEvents(damageAttribution, this);
@@ -145,6 +159,18 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
             lobbyMobs=new LobbyMobs(this);
             getServer().getPluginManager().registerEvents(lobbyMobs,this);
             lobbyMobs.synchronize();
+            protectedPlaces=new ProtectedPlaces(this);
+            respawnProtection=new RespawnProtection(this,preservedState.getConfigurationSection("vnext.respawn-protection"));
+            captureDisplay=new CaptureDisplay(this);
+            configCommands=new ConfigCommands(this);
+            configCommands.validate(configCommands.values());
+            information=new MatchInformation(this);
+            statistics=new Statistics(this,preservedState.getString("vnext.statistics-json"));
+            resets=new ResetService(this);
+            getServer().getPluginManager().registerEvents(protectedPlaces,this);
+            getServer().getPluginManager().registerEvents(respawnProtection,this);
+            getServer().getPluginManager().registerEvents(captureDisplay,this);
+            getServer().getPluginManager().registerEvents(statistics,this);
             World world = Objects.requireNonNull(Bukkit.getWorld("world"), "Monde world absent");
             world.getWorldBorder().setCenter(0, 0);
             world.getWorldBorder().setSize(getConfig().getInt("border-size"));
@@ -155,10 +181,12 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
                 }
             }
             ready = true;
-            saveState();
+            if(!saveState())return;
+            if(statistics.model.finishedAt!=0 && preservedState.contains("vnext.statistics-json"))statistics.export("result");
             for (Player p : Bukkit.getOnlinePlayers()) { administrators.attach(p); reconcilePlayer(p); }
             Bukkit.getScheduler().runTaskTimer(this, this::tick, 20, 20);
             Bukkit.getScheduler().runTaskTimer(this, this::captureTick, 1, 1);
+            diagnostics.describeHandlers();
             getLogger().info("FKAmis prêt : quatre royaumes, phases manuelles, reprise en pause.");
         } catch (Exception ex) {
             getLogger().log(Level.SEVERE, "Démarrage refusé ; conserver les fichiers et restaurer une sauvegarde.", ex);
@@ -185,6 +213,7 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
         FkPI.getInstance().getChestsRoomsManager().setEnabled(false);
         silenceTips();
     }
+    void refreshRules(){configureNative();syncNative();}
     void silenceTips() { if (getConfig().getBoolean("disable-native-tips",true)) Fk.getInstance().getTipsManager().cancelBroadcasts(); }
 
     private void nativeCommand(String command) {
@@ -194,6 +223,7 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
     }
 
     private void syncNative() {
+        if(statistics!=null)statistics.pulse();
         Game game = Fk.getInstance().getGame();
         Map<World, Long> times = new HashMap<>();
         for (World world : Bukkit.getWorlds()) {
@@ -215,7 +245,7 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
             e.getKey().setGameRule(GameRules.ADVANCE_TIME, state.running() || !state.started);
         }
         getServer().getServerTickManager().setFrozen(state.started && frozen());
-        captures.values().forEach(CaptureClock::reset);
+        resetCaptures();
         silenceTips();
         if(lobbyMobs!=null) lobbyMobs.synchronize();
         updateDisplay();
@@ -233,6 +263,9 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
     }
 
     private void tick() {
+        if(resets!=null&&resets.stopping)return;
+        if(statistics!=null)statistics.tick();
+        if(respawnProtection!=null)respawnProtection.tick();
         if (supplies != null) supplies.tick(Bukkit.getOnlinePlayers().stream().anyMatch(p -> activeParticipant(p) && !p.isDead()));
         // Pas d'horloge de jours, pas de progression hors session.
         Fk.getInstance().getGame().stopTimer();
@@ -253,7 +286,7 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
     }
 
     private void captureTick() {
-        if (!state.assaults(assaultDay())) { captures.values().forEach(CaptureClock::reset); return; }
+        if (!state.assaults(assaultDay())) { resetCaptures(); return; }
         for (String defender : expectedTeams()) {
             if (state.eliminated.contains(defender)) continue;
             Location objective=objectives.get(defender);
@@ -271,6 +304,7 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
             double radius=getConfig().getDouble("capture-radius");
             Set<String> reachable=captureGeometry.reachable(objective,radius);
             List<? extends Player> nearby=candidates.stream().filter(p->activeParticipant(p) && p.isOnline() && !p.isDead() && !blocked(p)
+                    && (defender.equals(roster.get(p.getUniqueId()))||respawnProtection==null||!respawnProtection.active(p.getUniqueId()))
                     && captureGeometry.inside(objective,p.getLocation(),radius,reachable)).toList();
             Map<String, Long> counts = new HashMap<>();
             for (Player p : nearby) if(activeParticipant(p) && !p.isDead() && !blocked(p)) counts.merge(roster.get(p.getUniqueId()), 1L, Long::sum);
@@ -283,9 +317,8 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
             boolean won = clock.advance(candidate, counts.containsKey(defender), getConfig().getInt("capture-seconds") * 20);
             if (!clock.attacker.isEmpty() && !clock.attacker.equals(previous)) notifyTeams(defender, clock.attacker, "§cCapture engagée ! Défendez votre objectif.");
             if (priorTicks > 0 && clock.elapsedTicks == 0) notifyTeams(defender, previous, "§eCapture interrompue.");
-            if(!clock.attacker.isEmpty() && clock.elapsedTicks%20==0) for(Player p:nearby)
-                if(clock.attacker.equals(roster.get(p.getUniqueId()))) p.sendActionBar(net.kyori.adventure.text.Component.text("Capture : "+(clock.elapsedTicks/20)+" / "+getConfig().getInt("capture-seconds")+" s"));
-            if (won) { eliminate(defender); return; }
+            captureDisplay.update(defender,clock,nearby,counts.containsKey(defender));
+            if (won) { eliminate(defender,clock.attacker,captureDisplay.contributors(defender)); return; }
     }
 
     private void notifyTeams(String a, String b, String message) {
@@ -295,7 +328,7 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
         }
     }
 
-    void resetCaptures() { captures.values().forEach(CaptureClock::reset); }
+    void resetCaptures() { captures.values().forEach(CaptureClock::reset);if(captureDisplay!=null)captureDisplay.clearAll(); }
 
     boolean roomValid(String name) {
         Location objective = objectives.get(name);
@@ -310,17 +343,36 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
     }
 
     private void eliminate(String defender) {
+        eliminate(defender,"",Set.of());
+    }
+    private void eliminate(String defender,String attacker,Set<UUID> contributors) {
+        if(!attacker.isEmpty())statistics.capture(attacker,defender,contributors);
         state.eliminate(defender, expectedTeams());
-        captures.values().forEach(CaptureClock::reset);
-        saveState(); // L'élimination est durable avant le prochain tick.
+        statistics.eliminated(defender);
+        if(!state.winner.isEmpty())statistics.finish(state.winner);
+        resetCaptures();
+        if(!saveState())return; // Élimination et statistiques durables avant toute annonce.
         for (Player p : Bukkit.getOnlinePlayers()) if (eliminated(p)) applyMode(p);
-        Bukkit.broadcastMessage("§cLe royaume " + defender + " est éliminé.");
-        if (!state.winner.isEmpty()) Bukkit.broadcastMessage("§6Victoire du royaume " + state.winner + " !");
+        Bukkit.broadcastMessage(attacker.isEmpty()?"§cLe royaume " + defender + " est éliminé.":"§cCapture : "+attacker+" a capturé le royaume "+defender+" !");
+        if (!state.winner.isEmpty()) {
+            Bukkit.broadcastMessage("§6Victoire du royaume " + state.winner + " !");
+            publishResults();
+        }
         syncNative(); saveState();
+    }
+    private void publishResults(){
+        try{statistics.export("result");Bukkit.broadcastMessage("§6"+statistics.summary());
+            Bukkit.broadcastMessage("§eClassement : "+expectedTeams().stream().sorted(Comparator.comparingInt(t->statistics.model.team(t).rank())).map(t->t+" #"+statistics.model.team(t).rank()).toList());
+        }catch(Exception error){getLogger().log(Level.SEVERE,"Historique non archivé ; arrêt pour préserver les données.",error);getServer().shutdown();}
     }
 
     @Override public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         try {
+            if(resets!=null&&resets.stopping)throw new IllegalArgumentException("Arrêt confirmé pour réinitialisation ; exécuter la maintenance à froid.");
+            if(args.length>0&&args[0].equalsIgnoreCase("config")){configCommands.command(sender,args);return true;}
+            if(args.length>0&&args[0].equalsIgnoreCase("reset")){resets.command(sender,args);return true;}
+            if(args.length>0&&args[0].equalsIgnoreCase("stats")){statistics.command(sender,args);return true;}
+            if(args.length>0&&args[0].equalsIgnoreCase("info")){information.command(sender,args);return true;}
             if (args.length>0&&args[0].equalsIgnoreCase("admin")) { administrators.command(sender,args); return true; }
             if (args.length > 0 && args[0].equalsIgnoreCase("supply")) return supplies.command(sender, args);
             if (args.length > 0 && args[0].equalsIgnoreCase("announce")) { announcements.command(sender,args); return true; }
@@ -330,11 +382,11 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
                 return true;
             }
             if (args[0].equalsIgnoreCase("help")) {
-                sender.sendMessage("/fka status ; /fka supply status ; /fka room register (coffre ciblé, message privé)");
+                sender.sendMessage("/fka status ; /fka info [teams|phases|supplies] ; /fka stats [player pseudo|team équipe|leaderboard|match] ; /fka supply status ; /fka room register");
                 if (mayAdmin(sender)) sender.sendMessage(
                         "Admin : assign <pseudo connecté> <équipe>, unassign <pseudo>, territory <équipe> <rayon>, "
                         + "terrain <équipe> confirm, spawn <équipe>, start [override], pause, resume, nextday, "
-                        + "end <open|close>, room <validate|invalidate|inspect> <équipe>, teams tpall [confirm], announce <message>, win <équipe>, save, pregen, survey");
+                        + "end <open|close>, room <validate|invalidate|inspect> <équipe>, teams tpall [confirm], announce <message>, config list|get|set|validate|defaults|diff, reset status|prepare|confirm|cancel, win <équipe>, save, pregen, survey");
                 return true;
             }
             if (args[0].equalsIgnoreCase("room") && args.length == 2 && args[1].equalsIgnoreCase("register")) {
@@ -460,7 +512,7 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
                 case "win" -> {
                     require(args.length == 2 && state.started && state.winner.isEmpty(), "Usage en partie : win <équipe>");
                     String name = getTeam(args[1]).getName(); require(!state.eliminated.contains(name), "Équipe déjà éliminée.");
-                    state.winner = name; state.paused = true; syncNative();
+                    state.winner = name; state.paused = true; statistics.finish(name);syncNative();
                     Bukkit.broadcastMessage("§6Victoire administrative du royaume " + name + " !");
                 }
                 case "save" -> {
@@ -473,8 +525,10 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
                 default -> throw new IllegalArgumentException("Commande inconnue : /fka help");
             }
             saveState(); updateDisplay(); sender.sendMessage("§aOpération enregistrée.");
+            if(args[0].equalsIgnoreCase("win"))publishResults();
         } catch (Exception ex) {
             sender.sendMessage("§c" + ex.getMessage());
+            if(resets!=null&&resets.stopping)getServer().shutdown();
         }
         return true;
     }
@@ -565,6 +619,8 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
         }
         YamlConfiguration yaml = new YamlConfiguration(); yaml.load(file.toFile());
         require(yaml.getInt("schema") == 1, "Schéma de sauvegarde invalide.");
+        require(yaml.getInt("vnext.version",1)==1,"Version VNext future ou invalide ; aucune migration automatique.");
+        preservedState=AtomicData.copy(yaml);
         state.day = yaml.getInt("day"); state.started = yaml.getBoolean("started"); state.paused = true;
         savedSupplies = yaml.getConfigurationSection("supplies");
         state.endOpen = yaml.getBoolean("end-open"); state.winner = yaml.getString("winner", "");
@@ -607,31 +663,39 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
         yaml.set(key + ".yaw", l.getYaw()); yaml.set(key + ".pitch", l.getPitch());
     }
 
-    void saveState() {
-        if (!ready) return;
-        try {
-            YamlConfiguration yaml = new YamlConfiguration();
+    YamlConfiguration snapshot() {
+            YamlConfiguration yaml = AtomicData.copy(preservedState);
             yaml.set("schema", 1); yaml.set("day", state.day); yaml.set("started", state.started);
             yaml.set("players-per-team",playersPerTeam());
             yaml.set("end-open", state.endOpen); yaml.set("winner", state.winner);
             yaml.set("eliminated", new ArrayList<>(state.eliminated));
             yaml.set("validated", new ArrayList<>(validated)); yaml.set("terrain-validated", new ArrayList<>(terrainValidated));
+            yaml.set("objectives",null);yaml.set("roster",null);
+            for(String name:objectives.keySet())if(preservedState.isConfigurationSection("objectives."+name))AtomicData.overlay(yaml.createSection("objectives."+name),preservedState.getConfigurationSection("objectives."+name));
             for (var e : objectives.entrySet()) writeLocation(yaml, "objectives." + e.getKey(), e.getValue());
             for (var e : spawns.entrySet()) writeLocation(yaml, "spawns." + e.getKey(), e.getValue());
             for (var e : roster.entrySet()) {
+                if(preservedState.isConfigurationSection("roster."+e.getKey()))AtomicData.overlay(yaml.createSection("roster."+e.getKey()),preservedState.getConfigurationSection("roster."+e.getKey()));
                 yaml.set("roster." + e.getKey() + ".team", e.getValue());
                 yaml.set("roster." + e.getKey() + ".name", rosterNames.get(e.getKey()));
             }
-            FkPI.getInstance().save(yaml.createSection("native"));
-            if (supplies != null) supplies.save(yaml.createSection("supplies"));
-            Path temporary = getDataFolder().toPath().resolve("state.yml.tmp");
-            Files.writeString(temporary, yaml.saveToString(), StandardCharsets.UTF_8);
-            try (FileChannel channel = FileChannel.open(temporary, StandardOpenOption.WRITE)) { channel.force(true); }
-            Files.move(temporary, getDataFolder().toPath().resolve("state.yml"), StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);
+            var nativeData=new YamlConfiguration();FkPI.getInstance().save(nativeData);
+            ConfigurationSection nativeSection=yaml.getConfigurationSection("native");if(nativeSection==null)nativeSection=yaml.createSection("native");AtomicData.overlay(nativeSection,nativeData);
+            if (supplies != null) {var supplyData=new YamlConfiguration();supplies.save(supplyData);ConfigurationSection section=yaml.getConfigurationSection("supplies");if(section==null)section=yaml.createSection("supplies");AtomicData.overlay(section,supplyData);}
+            yaml.set("vnext.version",1);
+            if(statistics!=null)yaml.set("vnext.statistics-json",statistics.model.json());
+            if(respawnProtection!=null){yaml.set("vnext.respawn-protection",null);respawnProtection.save(yaml.createSection("vnext.respawn-protection"));}
+            return yaml;
+    }
+    boolean saveState() {
+        if (!ready) return false;
+        try {
+            var yaml=snapshot();AtomicData.write(getDataFolder().toPath().resolve("state.yml"),yaml.saveToString());preservedState=yaml;return true;
         } catch (IOException ex) {
             state.paused = true;
             getLogger().log(Level.SEVERE, "Écriture atomique impossible, arrêt de sécurité. Ne pas supprimer state.yml.", ex);
             getServer().shutdown();
+            return false;
         }
     }
 
@@ -661,12 +725,13 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
         }
     }
 
-    @EventHandler public void onJoin(PlayerJoinEvent e) { Bukkit.getScheduler().runTask(this, () -> { if (e.getPlayer().isOnline()) { administrators.attach(e.getPlayer()); reconcilePlayer(e.getPlayer()); } }); }
+    @EventHandler public void onJoin(PlayerJoinEvent e) { Bukkit.getScheduler().runTask(this, () -> { if (e.getPlayer().isOnline()) { administrators.attach(e.getPlayer()); reconcilePlayer(e.getPlayer());statistics.pulse(); } }); }
     @EventHandler public void onWorldChanged(PlayerChangedWorldEvent e) { Bukkit.getScheduler().runTask(this,()->{ if(e.getPlayer().isOnline()) reconcilePlayer(e.getPlayer()); }); }
     @EventHandler public void onQuit(PlayerQuitEvent e) {
+        if(statistics!=null)statistics.pulse();
         administrators.detach(e.getPlayer());
         if (!activeParticipant(e.getPlayer())) return;
-        captures.values().forEach(CaptureClock::reset);
+        resetCaptures();
         if (state.running() && activeParticipant(e.getPlayer())) {
             state.paused = true; syncNative(); saveState();
             Bukkit.broadcastMessage("§eDéconnexion d'un participant : partie mise en pause. Reprise administrative requise.");
@@ -674,7 +739,7 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
     }
     @EventHandler(priority = EventPriority.HIGHEST) public void onRespawn(PlayerRespawnEvent e) {
         if (activeParticipant(e.getPlayer()) && !e.isBedSpawn() && !e.isAnchorSpawn()) {
-            try { e.setRespawnLocation(centralSpawn.resolve()); }
+            try { Location at=centralSpawn.resolve();protectedPlaces.updateCenter(at);e.setRespawnLocation(at); }
             catch(IllegalStateException error) { state.paused=true; syncNative(); saveState(); getLogger().log(Level.SEVERE,"Réapparition centrale impossible ; arrêt pour sécuriser le centre.",error); getServer().shutdown(); }
         }
         Bukkit.getScheduler().runTask(this,()->{ if(e.getPlayer().isOnline()) applyMode(e.getPlayer()); });
@@ -701,15 +766,23 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
     }
 
     @Override public List<String> onTabComplete(CommandSender s, Command c, String alias, String[] args) {
-        if (!mayAdmin(s)) return args.length == 1 ? List.of("status", "help", "room", "supply") : args.length == 2 && args[0].equals("supply") ? List.of("status") : List.of();
+        if(args.length==2&&args[0].equals("info"))return List.of("teams","phases","supplies");
+        if(args.length==2&&args[0].equals("stats"))return List.of("player","team","leaderboard","match");
+        if(args.length==3&&args[0].equals("stats")&&args[1].equals("team"))return expectedTeams();
+        if (!mayAdmin(s)) return args.length == 1 ? List.of("status", "help", "room", "supply","info","stats") : args.length == 2 && args[0].equals("supply") ? List.of("status") : List.of();
+        if(args.length==2&&args[0].equals("config"))return List.of("list","get","set","validate","defaults","diff");
+        if(args.length==3&&args[0].equals("config"))return java.util.stream.Stream.concat(GameSettings.DEFAULTS.keySet().stream(),java.util.stream.Stream.of("damage-debug")).sorted().toList();
+        if(args.length==2&&args[0].equals("reset"))return List.of("status","prepare","confirm","cancel");
         if (args.length == 2 && args[0].equals("supply")) return List.of("status", "list", "enable", "disable", "reload", "test", "add", "remove").stream().filter(a -> a.startsWith(args[1])).toList();
         if (args.length == 2 && args[0].equalsIgnoreCase("teams")) return List.of("tpall");
         if (args.length == 3 && args[0].equalsIgnoreCase("teams") && args[1].equalsIgnoreCase("tpall")) return List.of("confirm");
-        if (args.length == 1) return List.of("admin", "announce", "status", "help", "supply", "teams", "assign", "unassign", "territory", "terrain", "spawn", "start", "pause", "resume", "nextday", "end", "room", "win", "save", "pregen", "survey").stream().filter(t -> t.startsWith(args[0])).toList();
+        if (args.length == 1) return List.of("admin", "announce", "config","reset","stats","info","status", "help", "supply", "teams", "assign", "unassign", "territory", "terrain", "spawn", "start", "pause", "resume", "nextday", "end", "room", "win", "save", "pregen", "survey").stream().filter(t -> t.startsWith(args[0])).toList();
         return List.of();
     }
 
     @Override public void onDisable() {
+        if(statistics!=null)statistics.pulse();
+        if(captureDisplay!=null)captureDisplay.clearAll();
         if (administrators!=null) administrators.close();
         if (nativeAdminBridge!=null) nativeAdminBridge.close();
         if (!ready) return;

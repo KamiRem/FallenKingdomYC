@@ -56,7 +56,9 @@ final class ItemBan implements Listener {
         if (forbiddenCommand(e.getMessage())) { e.setCancelled(true); e.getPlayer().sendMessage("Â§cObjet interdit : commande refusÃ©e."); }
     }
 
-    ItemStack sanitize(ItemStack item) { return sanitize(item, 0); }
+    // Les miroirs CraftItemStack peuvent viser l'objet utilisé en ce moment.
+    // Nettoyer une copie puis écrire seulement une différence effective.
+    ItemStack sanitize(ItemStack item) { return sanitize(item == null ? null : item.clone(), 0); }
     private ItemStack sanitize(ItemStack item, int depth) {
         if (item == null || denied(item)) return null;
         // Les conteneurs imbriquÃ©s vanilla restent trÃ¨s peu profonds. Ne jamais supprimer
@@ -78,13 +80,17 @@ final class ItemBan implements Listener {
     }
 
     void clean(Inventory inventory) {
-        for (int i = 0; i < inventory.getSize(); i++) inventory.setItem(i, sanitize(inventory.getItem(i)));
+        for (int i = 0; i < inventory.getSize(); i++) {
+            ItemStack original=inventory.getItem(i),cleaned=sanitize(original);
+            if (!Objects.equals(original,cleaned)) inventory.setItem(i,cleaned);
+        }
     }
     void sweep() {
         for (Player p : Bukkit.getOnlinePlayers()) {
             if (plugin.isAdministrator(p)) continue;
             clean(p.getInventory()); clean(p.getEnderChest());
-            p.setItemOnCursor(sanitize(p.getItemOnCursor()));
+            ItemStack cursor=p.getItemOnCursor(),cleanedCursor=sanitize(cursor);
+            if(!Objects.equals(cursor,cleanedCursor))p.setItemOnCursor(cleanedCursor);
             clean(p.getOpenInventory().getTopInventory());
         }
         for (World world : Bukkit.getWorlds()) {
@@ -95,17 +101,24 @@ final class ItemBan implements Listener {
             for (LivingEntity entity : world.getLivingEntities()) {
                 if (entity instanceof Player || entity.getEquipment() == null) continue;
                 EntityEquipment equipment = entity.getEquipment();
-                equipment.setItemInMainHand(sanitize(equipment.getItemInMainHand()));
-                equipment.setItemInOffHand(sanitize(equipment.getItemInOffHand()));
+                ItemStack main=equipment.getItemInMainHand(),cleanMain=sanitize(main);
+                ItemStack off=equipment.getItemInOffHand(),cleanOff=sanitize(off);
+                if(!Objects.equals(main,cleanMain))equipment.setItemInMainHand(cleanMain);
+                if(!Objects.equals(off,cleanOff))equipment.setItemInOffHand(cleanOff);
                 ItemStack[] armor = equipment.getArmorContents();
-                for (int i = 0; i < armor.length; i++) armor[i] = sanitize(armor[i]);
-                equipment.setArmorContents(armor);
+                ItemStack[] cleanedArmor=armor.clone();boolean changed=false;
+                for (int i = 0; i < armor.length; i++) {cleanedArmor[i]=sanitize(armor[i]);changed|=!Objects.equals(armor[i],cleanedArmor[i]);}
+                if(changed)equipment.setArmorContents(cleanedArmor);
+                if(plugin.diagnostics!=null)plugin.diagnostics.equipment(entity,changed||!Objects.equals(main,cleanMain)||!Objects.equals(off,cleanOff));
             }
         }
     }
     private void later(Player player) {
         Bukkit.getScheduler().runTask(plugin, () -> {
-            if (player.isOnline() && !plugin.isAdministrator(player)) { clean(player.getInventory()); player.setItemOnCursor(sanitize(player.getItemOnCursor())); }
+            if (player.isOnline() && !plugin.isAdministrator(player)) {
+                clean(player.getInventory());ItemStack cursor=player.getItemOnCursor(),cleaned=sanitize(cursor);
+                if(!Objects.equals(cursor,cleaned))player.setItemOnCursor(cleaned);
+            }
         });
     }
     @EventHandler(priority = EventPriority.HIGHEST) public void craft(PrepareItemCraftEvent e) {

@@ -64,7 +64,7 @@ def backup(root: Path) -> Path:
         check(root)
         stamp = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
         target = folder / f'fk-{stamp}.zip'
-        lib.create_archive(root, target, excluded_roots=(folder,))
+        lib.create_archive(root, target, excluded_roots=(folder,root/'.fk-updates',root/'.fk-resets'))
     print(f'Sauvegarde à froid vérifiée : {target}')
     return target
 
@@ -104,12 +104,15 @@ def start(root: Path, memory: int, port: int, host: str):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=['verify-baseline', 'check', 'configure', 'backup', 'restore', 'start'])
+    parser.add_argument('action', choices=['verify-baseline', 'check', 'configure', 'backup', 'restore', 'start','reset-logical','reset-cancel','seal-initial','restore-initial'])
     parser.add_argument('--port', type=int)
     parser.add_argument('--memory', type=int, default=6)
     parser.add_argument('--host', choices=['127.0.0.1', '0.0.0.0'], default='127.0.0.1')
     parser.add_argument('--archive', type=Path)
     parser.add_argument('--destination', type=Path)
+    parser.add_argument('--token')
+    parser.add_argument('--approve-initial',action='store_true')
+    parser.add_argument('--reference',type=Path,default=Path(__file__).with_name('new-match-reference.json'))
     args = parser.parse_args()
     if args.action == 'verify-baseline': verify(ROOT)
     elif args.action == 'check': check(ROOT)
@@ -124,6 +127,19 @@ def main():
     elif args.action == 'start':
         if args.port is None: parser.error('--port requis')
         start(ROOT, args.memory, args.port, args.host)
+    else:
+        import new_match
+        if args.action=='reset-cancel':result=new_match.cancel(ROOT)
+        elif args.action=='seal-initial':
+            if args.archive is None:parser.error('--archive hors instance requis')
+            result=new_match.seal_baseline(ROOT,args.archive,args.reference,args.approve_initial)
+        else:
+            if not args.token:parser.error('--token issu de fka reset confirm requis')
+            if args.action=='reset-logical':result=new_match.logical(ROOT,args.token)
+            else:
+                if args.archive is None or args.destination is None:parser.error('--archive et --destination neuve requis')
+                result=new_match.restore_initial(ROOT,args.token,args.archive,args.destination,args.reference)
+        print(json.dumps(result,indent=2,ensure_ascii=False))
 
 
 if __name__ == '__main__':

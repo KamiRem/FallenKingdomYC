@@ -27,6 +27,8 @@ final class Protections implements Listener {
     private UUID source(Entity entity) { return plugin.damageAttribution.owner(entity); }
     private boolean noCombat(UUID attacker, Player defender) {
         if (plugin.isAdministrator(defender) || plugin.administrators.contains(attacker)) return true;
+        if(attacker!=null&&!attacker.equals(defender.getUniqueId())&&plugin.respawnProtection!=null
+                &&(plugin.respawnProtection.active(attacker)||plugin.respawnProtection.active(defender.getUniqueId())))return true;
         Player online=attacker==null?null:Bukkit.getPlayer(attacker);
         String team=attacker==null?null:plugin.roster.get(attacker);
         GameplayRules.Side source=attacker==null?null:new GameplayRules.Side(team,team!=null&&!plugin.state.eliminated.contains(team)
@@ -133,12 +135,15 @@ final class Protections implements Listener {
         }
     }
     @EventHandler(priority = EventPriority.HIGHEST) public void damage(EntityDamageEvent e) {
+        if(plugin.diagnostics!=null)plugin.diagnostics.damage(e,"BEFORE_FKAMIS_PROTECTIONS");
+        try {
         if (e.getEntity() instanceof Player arbiter && plugin.isAdministrator(arbiter)) { e.setCancelled(true); return; }
         UUID owner=plugin.damageAttribution.damageOwner(e);
         if (!(e.getEntity() instanceof Player)&&plugin.administrators.contains(owner)) return;
         if (plugin.frozen()) e.setCancelled(true);
         if (e.getEntity() instanceof Player p && plugin.eliminated(p)) e.setCancelled(true);
         if(e.getEntity() instanceof Player p&&noCombat(plugin.damageAttribution.damageOwner(e),p))e.setCancelled(true);
+        } finally {if(plugin.diagnostics!=null)plugin.diagnostics.damage(e,"AFTER_FKAMIS_PROTECTIONS");}
     }
     @EventHandler(priority = EventPriority.HIGHEST) public void combat(EntityDamageByEntityEvent e) {
         if (plugin.administrators.contains(source(e.getDamager()))) {

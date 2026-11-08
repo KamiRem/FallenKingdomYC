@@ -1,6 +1,17 @@
 # Administration
 
-## Révision gameplay courante
+## Administration VNext
+
+Le [guide VNext](FKAMIS_VNEXT.md) décrit les commandes et procédures courantes.
+Arbitre UUID/console : `fka config list|get|set|validate|defaults|diff` et
+`fka reset status|prepare|confirm <jeton>|cancel`. La configuration structurante
+reste verrouillée après départ ; `damage-debug` peut être activé temporairement.
+Le reset confirmé arrête le serveur puis exige la maintenance à froid ; il ne
+remplace aucun monde ou inventaire à chaud. `fka stats [match|player pseudo|team
+équipe|leaderboard]` et `fka info [teams|phases|supplies]` sont publics, sans coordonnées
+secrètes. OP seul ne confère pas le rôle arbitre. Historique et sauvegardes restent privés.
+
+## Base gameplay réutilisée
 
 Voir [GAMEPLAY_UPDATE.md](GAMEPLAY_UPDATE.md) pour la livraison ciblée, les causes,
 les limites de preuve, l'installation et le rollback. Le rapport définitif est

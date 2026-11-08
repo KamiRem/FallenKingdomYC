@@ -1,5 +1,18 @@
 # Sauvegarder et restaurer sans mélanger les états
 
+## Réinitialisation VNext
+
+Voir la [procédure VNext](FKAMIS_VNEXT.md) avant `fka reset prepare/confirm`.
+La confirmation nécessite zéro joueur, arrête proprement Paper et crée seulement
+une demande à froid. `host_ops.py reset-logical --token ...` sauvegarde puis change
+la progression seule : constructions, inventaires et butins pris restent conservés.
+`seal-initial --approve-initial` puis `restore-initial` concernent une référence
+initiale VNext explicitement approuvée et une destination vide. Aucun mélange
+d'inventaires en cours et de carte initiale n'est effectué. Rôles et règles divergents
+refusent la restauration. Les historiques restent dans l'ancienne instance archivée.
+Les sauvegardes `.fk-backups`, `.fk-updates` et `.fk-resets` ne s'emboîtent pas.
+Pour annuler une demande en attente, utiliser `host_ops.py reset-cancel` à froid.
+
 Deux archives distinctes : la **référence initiale scellée** pour repartir proprement,
 et les **sauvegardes de partie** pour reprendre une progression. Leurs versions et
 SHA-256 doivent être conservés avec leur date UTC. Ne jamais injecter l’inventaire,

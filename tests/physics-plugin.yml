@@ -1,0 +1,5 @@
+name: FKPvEPhysicsProbe
+version: 1.0.0
+main: fr.fkamis.PvEPhysicsProbe
+api-version: '26.3'
+depend: [FKAmis]

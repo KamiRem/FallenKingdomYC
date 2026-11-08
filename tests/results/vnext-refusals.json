@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "authenticatedPlayers": 0,
+  "fkamisSha256": "fd12c43c0f33fa84f4721d49de2c248c7cd1609f0c502403dc8155975ecc0cee",
+  "checks": [
+    {
+      "case": "future",
+      "passed": true,
+      "stateAndPoliciesUnchanged": true,
+      "expectedStartupRefusal": "Version VNext future ou invalide",
+      "expectedErrorsObserved": 1
+    },
+    {
+      "case": "reset-pending",
+      "passed": true,
+      "stateAndPoliciesUnchanged": true,
+      "expectedStartupRefusal": "Réinitialisation confirmée en attente",
+      "expectedErrorsObserved": 1
+    }
+  ]
+}

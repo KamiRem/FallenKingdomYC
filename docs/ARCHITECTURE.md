@@ -1,6 +1,28 @@
 # Architecture
 
-## Révision gameplay courante
+## Révision VNext courante
+
+Voir [FKAMIS_VNEXT.md](FKAMIS_VNEXT.md). `ItemBan` ne remplace que les équipements
+réellement modifiés, préservant le cycle de tir des squelettes. `DamageDiagnostics`
+observe la chaîne tir/impact/dégâts/santé avec débit borné. La production utilise
+l'API Paper ; les corps NMS ne sont présents que dans le JAR de recette séparé.
+
+`CaptureDisplay` affiche le même `CaptureClock`, avec alertes et contributeurs.
+`ProtectedPlaces` indexe de petites emprises par chunk. `RespawnProtection` persiste
+une échéance absolue par UUID pour le PvP réciproque, sans bloquer le PvE.
+`ConfigCommands`, `GameSettings`, `AtomicData` et `SettingsTransaction` valident et
+enregistrent les règles sans perdre les clés inconnues. L'intervalle des lots reste
+dans `supplies.yml`. `MatchInformation` lit les mêmes états et compteurs.
+
+`MatchStatistics` constitue le modèle unique UUID ; `Statistics` collecte après
+protections et exporte les historiques. Le snapshot atomique `state.yml` conserve
+`schema: 1` avec `vnext.version: 1`, statistiques et grâce. `ResetService` prépare
+un candidat sans l'appliquer à chaud ; `maintenance/new_match.py` utilise le verrou
+partagé pour sauvegarder puis appliquer à froid ou restaurer un point initial entier.
+Les versions futures sont refusées, les clés inconnues conservées. Les anciennes
+sections de cette page décrivent la base toujours réutilisée.
+
+## Base gameplay réutilisée
 
 Voir [GAMEPLAY_UPDATE.md](GAMEPLAY_UPDATE.md) pour la livraison ciblée, les causes,
 les limites de preuve, l'installation et le rollback. Le rapport définitif est

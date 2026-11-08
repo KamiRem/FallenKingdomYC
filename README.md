@@ -1,11 +1,12 @@
 # Fallen Kingdom privé — quatre royaumes et un arbitre
 
-La livraison courante est la [mise à jour gameplay](docs/GAMEPLAY_UPDATE.md) :
-`dist/fallenkingdom-gameplay-update.zip`, sans monde ni état de partie. Elle ajoute
-les huit demandes, dont les formats de 1 à 4 joueurs par équipe (défaut 2) et
-`/fka announce`. Les preuves et limites sont dans
-[le rapport courant](tests/results/gameplay-update-delivery.json). Ne pas remplacer
-le monde ni `state.yml`. Aucun accès à l'hébergement n'a été effectué.
+La livraison courante est [FKAmis VNext](docs/FKAMIS_VNEXT.md) :
+`dist/fallenkingdom-vnext-update.zip`, sans monde ni état de partie. Elle corrige
+le cycle de tir des squelettes et ajoute reset sécurisé, BossBars/alertes,
+protections des lieux et du respawn, configuration, statistiques et informations.
+Les preuves et limites sont dans [le rapport courant](tests/results/vnext-delivery.json).
+La [livraison gameplay](docs/GAMEPLAY_UPDATE.md) reste la base historique conservée.
+Ne pas remplacer le monde ni `state.yml`. Aucun accès à l'hébergement n'a été effectué.
 
 La précédente [mise à jour arbitre, survie et tips](docs/ADMIN_UPDATE.md) se déploie
 avec `dist/fallenkingdom-admin-update.zip`, sans retransfert de carte ni remplacement
@@ -44,12 +45,20 @@ fixtures `.cache/` ne doivent jamais être déployées. Aucun downgrade d’un m
 
 ## Validation disponible
 
-La campagne gameplay courante passe **32 tests Java, 28 Python et 654 assertions
+VNext passe **46 tests Java, 38 Python et 764 assertions Paper**, plus quinze cas
+physiques avec mesures de santé. Installation ciblée, migration additive, refus de
+versions futures, reset à froid et restauration/rollback entiers sont contrôlés.
+Les rapports détaillent les micro-mesures et la stabilisation locale à vide ; la
+charge et le rendu avec des comptes authentifiés restent à valider humainement.
+
+La campagne gameplay précédente passe **32 tests Java, 28 Python et 654 assertions
 Paper** sur le même JAR, dont les formats de 1 à 4 membres par équipe. Les deux
 configurations de capacité incompatibles sont aussi testées en refus de démarrage.
 Les essais réels d'installation, sauvegarde et rollback figurent dans le rapport.
-Le problème client des impacts de squelette n'a pas été reproduit avec le précédent
-binaire : sa cause reste à établir en recette humaine, avec diagnostic disponible.
+VNext reproduit désormais la cause : réécrire chaque seconde le même arc réinitialise
+le comportement de tir. Le correctif n'écrit que les équipements modifiés. Les
+rapports physiques montrent des tirs et une baisse réelle de santé d'un corps
+`ServerPlayer`, sans client authentifié. Voir les chiffres du rapport VNext.
 
 La migration initiale avait passé 19 tests Java, 21 Python et 217 assertions ;
 son archive reste inchangée. La révision actuelle ajoute le rôle d'arbitre, la

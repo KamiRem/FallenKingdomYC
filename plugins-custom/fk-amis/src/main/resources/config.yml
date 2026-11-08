@@ -1,5 +1,6 @@
 pvp-day: 2
 players-per-team: 2
+respawn-protection-seconds: 5
 # Diagnostic temporaire console des dégâts ; désactiver après investigation.
 damage-debug: false
 disable-native-tips: true

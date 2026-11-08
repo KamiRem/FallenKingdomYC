@@ -1,6 +1,24 @@
 # Validation finale du profil Paper 26.3
 
-## Révision gameplay courante
+## Campagne VNext courante
+
+Voir [FKAMIS_VNEXT.md](FKAMIS_VNEXT.md) et `tests/results/vnext-delivery.json`.
+`build.ps1 -VNext -Physics -Probe -Corrections -MapV2 -Migration -Administration -Features`
+compile les outils séparés et exécute les tests Java ; `python -m unittest discover -s tests`
+exécute les tests Python. `scripts/vnext_tests.py` reprend les neuf recettes Paper,
+les quatre formats et les nouveaux services sur des copies conservées. Le paramètre
+`--attempt` exige une destination neuve. Les anciennes recettes fixent la grâce à
+zéro pour isoler leurs hypothèses ; la nouvelle recette vérifie son comportement.
+
+`vnext_physics.py` compare l'ancien binaire au correctif : IA naturelle, tirs,
+collisions, événements et santé réelle d'un corps NMS sans client authentifié.
+`vnext_restore_tests.py` vérifie reset à froid, politiques incompatibles refusées,
+référence initiale de fixture et restauration entière. `vnext_delivery.py` contrôle
+mise à jour et rollback complet. Les rapports précisent le SHA du JAR exécuté.
+Les micro-mesures locales ne prouvent pas la charge de seize clients sur l'hôte.
+La checklist réseau, visuelle, sonore et multijoueur reste humaine.
+
+## Campagne gameplay précédente
 
 Voir [GAMEPLAY_UPDATE.md](GAMEPLAY_UPDATE.md) pour la livraison ciblée, les causes,
 les limites de preuve, l'installation et le rollback. Le rapport définitif est

@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "fkamisSha256": "fd12c43c0f33fa84f4721d49de2c248c7cd1609f0c502403dc8155975ecc0cee",
+  "authenticatedClients": 0,
+  "realNmsProfile": true,
+  "inventoryItem": "minecraft:bread",
+  "inventoryCount": 7,
+  "profileFilesCompared": 1,
+  "backupSha256": "81cc6553a17f5ddf6804d46baf72fb8ce2e30340930773aec5892c25a90a6114",
+  "allRestoredFilesCompared": 295
+}

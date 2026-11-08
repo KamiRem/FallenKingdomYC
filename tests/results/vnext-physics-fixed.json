@@ -1,0 +1,270 @@
+{
+  "passed": true,
+  "kind": "fixed",
+  "attempt": 6,
+  "fkamisSha256": "fd12c43c0f33fa84f4721d49de2c248c7cd1609f0c502403dc8155975ecc0cee",
+  "authenticatedClients": 0,
+  "errors": [],
+  "cases": [
+    {
+      "case": "baseline_ia_golem",
+      "shots": 4,
+      "hits": 4,
+      "damageEvents": 4,
+      "healthBefore": 100.0,
+      "healthAfter": 85.0,
+      "victimType": "IRON_GOLEM",
+      "skeletonTicksLived": 238,
+      "hasAI": true,
+      "hasTarget": true,
+      "lineOfSight": true
+    },
+    {
+      "case": "ia_vers_participant_survival_j1",
+      "shots": 4,
+      "hits": 3,
+      "damageEvents": 3,
+      "healthBefore": 20.0,
+      "healthAfter": 9.0,
+      "victimType": "PLAYER",
+      "skeletonTicksLived": 240,
+      "hasAI": true,
+      "hasTarget": true,
+      "lineOfSight": true
+    },
+    {
+      "case": "squelette_natural_j2_armure_fer",
+      "day": 2,
+      "territory": "null",
+      "mode": "SURVIVAL",
+      "playerPosition": [
+        160.5,
+        200.0,
+        158.5
+      ],
+      "shotsOrLaunches": 4,
+      "hits": 3,
+      "damageEvents": 3,
+      "cancelledDamageEvents": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 8.0,
+      "expectedHealthLoss": true
+    },
+    {
+      "case": "squelette_natural_j3_base",
+      "day": 3,
+      "territory": "§x§f§f§5§5§5§5Rouge",
+      "mode": "SURVIVAL",
+      "playerPosition": [
+        -239.5,
+        200.0,
+        -239.5
+      ],
+      "shotsOrLaunches": 4,
+      "hits": 3,
+      "damageEvents": 3,
+      "cancelledDamageEvents": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 9.0,
+      "expectedHealthLoss": true
+    },
+    {
+      "case": "squelette_commande_summon_j1",
+      "day": 1,
+      "territory": "null",
+      "mode": "SURVIVAL",
+      "playerPosition": [
+        160.5,
+        200.0,
+        158.5
+      ],
+      "shotsOrLaunches": 4,
+      "hits": 1,
+      "damageEvents": 1,
+      "cancelledDamageEvents": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 16.0,
+      "expectedHealthLoss": true
+    },
+    {
+      "case": "zombie_ia_melee_j1",
+      "day": 1,
+      "territory": "null",
+      "mode": "SURVIVAL",
+      "playerPosition": [
+        160.5,
+        200.0,
+        158.5
+      ],
+      "shotsOrLaunches": 0,
+      "hits": 0,
+      "damageEvents": 5,
+      "cancelledDamageEvents": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 5.0,
+      "expectedHealthLoss": true
+    },
+    {
+      "case": "creeper_explosion_physique_j2",
+      "day": 2,
+      "territory": "null",
+      "mode": "SURVIVAL",
+      "playerPosition": [
+        160.5,
+        200.0,
+        158.5
+      ],
+      "shotsOrLaunches": 0,
+      "hits": 0,
+      "damageEvents": 1,
+      "cancelledDamageEvents": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 12.4375,
+      "expectedHealthLoss": true
+    },
+    {
+      "case": "fleche_joueur_j1_refusee",
+      "day": 1,
+      "territory": "null",
+      "mode": "SURVIVAL",
+      "playerPosition": [
+        160.5,
+        200.0,
+        158.5
+      ],
+      "shotsOrLaunches": 1,
+      "hits": 1,
+      "damageEvents": 1,
+      "cancelledDamageEvents": 1,
+      "healthBefore": 20.0,
+      "healthAfter": 20.0,
+      "expectedHealthLoss": false
+    },
+    {
+      "case": "fleche_joueur_j2_neutre",
+      "day": 2,
+      "territory": "null",
+      "mode": "SURVIVAL",
+      "playerPosition": [
+        160.5,
+        200.0,
+        158.5
+      ],
+      "shotsOrLaunches": 1,
+      "hits": 1,
+      "damageEvents": 1,
+      "cancelledDamageEvents": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 16.0,
+      "expectedHealthLoss": true
+    },
+    {
+      "case": "fleche_joueur_j2_base_refusee",
+      "day": 2,
+      "territory": "§x§f§f§5§5§5§5Rouge",
+      "mode": "SURVIVAL",
+      "playerPosition": [
+        -239.5,
+        200.0,
+        -239.5
+      ],
+      "shotsOrLaunches": 1,
+      "hits": 1,
+      "damageEvents": 1,
+      "cancelledDamageEvents": 1,
+      "healthBefore": 20.0,
+      "healthAfter": 20.0,
+      "expectedHealthLoss": false
+    },
+    {
+      "case": "fleche_joueur_j3_base",
+      "day": 3,
+      "territory": "§x§f§f§5§5§5§5Rouge",
+      "mode": "SURVIVAL",
+      "playerPosition": [
+        -239.5,
+        200.0,
+        -239.5
+      ],
+      "shotsOrLaunches": 1,
+      "hits": 1,
+      "damageEvents": 1,
+      "cancelledDamageEvents": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 16.0,
+      "expectedHealthLoss": true
+    },
+    {
+      "case": "distributeur_reel_attribue_j3",
+      "day": 3,
+      "territory": "null",
+      "mode": "SURVIVAL",
+      "playerPosition": [
+        160.5,
+        200.0,
+        158.5
+      ],
+      "shotsOrLaunches": 1,
+      "hits": 1,
+      "damageEvents": 1,
+      "cancelledDamageEvents": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 17.0,
+      "expectedHealthLoss": true
+    },
+    {
+      "case": "squelette_apres_respawn_grace_pvp",
+      "day": 3,
+      "territory": "null",
+      "mode": "SURVIVAL",
+      "playerPosition": [
+        160.5,
+        200.0,
+        158.5
+      ],
+      "shotsOrLaunches": 2,
+      "hits": 2,
+      "damageEvents": 2,
+      "cancelledDamageEvents": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 13.0,
+      "expectedHealthLoss": true
+    },
+    {
+      "case": "arbitre_creatif_fleche_physique",
+      "day": 3,
+      "territory": "null",
+      "mode": "CREATIVE",
+      "playerPosition": [
+        160.5,
+        200.0,
+        158.5
+      ],
+      "shotsOrLaunches": 1,
+      "hits": 1,
+      "damageEvents": 0,
+      "cancelledDamageEvents": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 20.0,
+      "expectedHealthLoss": false
+    },
+    {
+      "case": "elimine_spectateur_fleche_physique",
+      "day": 3,
+      "territory": "null",
+      "mode": "SPECTATOR",
+      "playerPosition": [
+        160.5,
+        200.0,
+        158.5
+      ],
+      "shotsOrLaunches": 1,
+      "hits": 0,
+      "damageEvents": 0,
+      "cancelledDamageEvents": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 20.0,
+      "expectedHealthLoss": false
+    }
+  ]
+}

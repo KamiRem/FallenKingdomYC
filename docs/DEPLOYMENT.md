@@ -1,6 +1,18 @@
 # Déployer le profil retenu : Paper 26.3 sur MineStrator
 
-## Révision gameplay courante
+## Livraison ciblée VNext courante
+
+Lire les dix étapes du [guide VNext](FKAMIS_VNEXT.md), le rapport
+`tests/results/vnext-delivery.json` et les SHA-256 externes. Paquet courant :
+`dist/fallenkingdom-vnext-update.zip`. Arrêter, sauvegarder intégralement à froid,
+puis `python apply_vnext_update.py --server /chemin/instance`. Le JAR, les outils,
+les clés config manquantes et le registre sont mis à jour ; monde, progression,
+arbitres et ravitaillements restent conservés. Port 22880, Paper 26.3-244, Java 25
+et paramètres du panel restent ceux de l'hôte. Redémarrer en pause et vérifier
+les données avant recette humaine. Retour arrière par sauvegarde complète dans
+une destination neuve ; remplacer le seul JAR ne suffit pas après migration.
+
+## Livraison gameplay précédente
 
 Voir [GAMEPLAY_UPDATE.md](GAMEPLAY_UPDATE.md) pour la livraison ciblée, les causes,
 les limites de preuve, l'installation et le rollback. Le rapport définitif est

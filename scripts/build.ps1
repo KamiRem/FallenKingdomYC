@@ -1,4 +1,4 @@
-param([switch]$SkipTests, [switch]$Probe, [switch]$MapV2, [switch]$Corrections, [switch]$Migration, [switch]$Administration, [switch]$Features)
+param([switch]$SkipTests, [switch]$Probe, [switch]$MapV2, [switch]$Corrections, [switch]$Migration, [switch]$Administration, [switch]$Features, [switch]$Physics, [switch]$VNext)
 $ErrorActionPreference = 'Stop'
 $repo = Split-Path -Parent $PSScriptRoot
 Set-Location -LiteralPath $repo
@@ -62,4 +62,18 @@ if ($Features) {
     Copy-Item tests/features-plugin.yml .cache/features-probe/plugin.yml
     & "$($jdk.FullName)/bin/jar.exe" --create --file .cache/FKFeaturesProbe.jar -C .cache/features-probe .
     if ($LASTEXITCODE -ne 0) { throw 'Création de la recette des fonctionnalités impossible.' }
+}
+if ($Physics) {
+    New-Item -ItemType Directory -Force .cache/physics-probe/fr/fkamis | Out-Null
+    Copy-Item plugins-custom/fk-amis/target/test-classes/fr/fkamis/PvEPhysicsProbe*.class .cache/physics-probe/fr/fkamis/
+    Copy-Item tests/physics-plugin.yml .cache/physics-probe/plugin.yml
+    & "$($jdk.FullName)/bin/jar.exe" --create --file .cache/FKPvEPhysicsProbe.jar -C .cache/physics-probe .
+    if ($LASTEXITCODE -ne 0) { throw 'Création de la recette physique impossible.' }
+}
+if ($VNext) {
+    New-Item -ItemType Directory -Force .cache/vnext-probe/fr/fkamis | Out-Null
+    Copy-Item plugins-custom/fk-amis/target/test-classes/fr/fkamis/VNextProbe*.class .cache/vnext-probe/fr/fkamis/
+    Copy-Item tests/vnext-plugin.yml .cache/vnext-probe/plugin.yml
+    & "$($jdk.FullName)/bin/jar.exe" --create --file .cache/FKVNextProbe.jar -C .cache/vnext-probe .
+    if ($LASTEXITCODE -ne 0) { throw 'Création de la recette VNext impossible.' }
 }

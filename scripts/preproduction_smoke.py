@@ -16,7 +16,7 @@ import time
 import server
 
 
-def smoke(root: Path, report_path: Path, java: Path, port: int):
+def smoke(root: Path, report_path: Path, java: Path, port: int, settle_seconds: int = 0, fixture_commands: tuple[str,...] = (), expected_day: int = 0):
     root = root.resolve()
     if root == server.server_dir('map-v2-fixes') or not root.name.startswith(('preproduction', 'migration-')):
         raise RuntimeError('Essai réservé à une copie de préproduction/migration.')
@@ -62,8 +62,17 @@ def smoke(root: Path, report_path: Path, java: Path, port: int):
             wait('Done (')
             if not any('FKAmis pr' in line for line in full_log):
                 raise RuntimeError('FKAmis non activé ; migration non compatible.')
+            for value in fixture_commands:command(value)
+            if not 0 <= settle_seconds <= 60:raise ValueError('Stabilisation locale 0..60 secondes.')
+            if settle_seconds:
+                time.sleep(settle_seconds)
+                report['idleSettleSeconds']=settle_seconds
+                jcmd=java.with_name('jcmd.exe' if java.suffix=='.exe' else 'jcmd')
+                if jcmd.is_file():
+                    memory=subprocess.run([str(jcmd),str(process.pid),'GC.heap_info'],capture_output=True,text=True,timeout=15)
+                    report['idleHeapInfo']=memory.stdout.strip() if memory.returncode==0 else 'Indisponible'
             command('version'); command('plugins')
-            command('fka status'); wait('Jour 0')
+            command('fka status'); wait('Jour '+str(expected_day))
             command('fka supply status')
             command('tps'); command('mspt')
             # Une barrière console laisse traiter les commandes de mesure précédentes.
