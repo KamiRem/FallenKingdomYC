@@ -50,6 +50,10 @@ final class DamageAttribution implements Listener {
         return null;
     }
     UUID damageOwner(EntityDamageEvent e){
+        // Le tireur réel est prioritaire pour un projectile, jamais le joueur victime
+        // ni une source indirecte sans rapport. Conserve les marqueurs de distributeur.
+        Entity direct=e instanceof EntityDamageByEntityEvent by?by.getDamager():e.getDamageSource().getDirectEntity();
+        if(direct instanceof Projectile projectile && projectile.getShooter() instanceof Mob) return owner(projectile);
         UUID who=owner(e.getDamageSource().getCausingEntity());
         if(who==null)who=owner(e.getDamageSource().getDirectEntity());
         if(who==null&&e instanceof EntityDamageByEntityEvent by)who=owner(by.getDamager());
@@ -73,6 +77,13 @@ final class DamageAttribution implements Listener {
             if(until!=null&&until>=e.getEntity().getWorld().getGameTime()&&value!=null)who=UUID.fromString(value);
         }
         return who;
+    }
+    @EventHandler(priority=EventPriority.MONITOR) public void diagnostic(EntityDamageEvent e) {
+        if(!plugin.getConfig().getBoolean("damage-debug",false) || !(e.getEntity() instanceof Player)) return;
+        Entity direct=e instanceof EntityDamageByEntityEvent by?by.getDamager():e.getDamageSource().getDirectEntity();
+        String shooter=direct instanceof Projectile p?String.valueOf(p.getShooter()==null?"inconnu":p.getShooter().getClass().getSimpleName()):"aucun";
+        plugin.getLogger().info("DAMAGE cause="+e.getCause()+" direct="+(direct==null?"aucun":direct.getType())+" tireur="+shooter
+                +" sourceJoueur="+(damageOwner(e)!=null)+" annule="+e.isCancelled()+" degats="+e.getFinalDamage());
     }
     private void burn(Entity entity,UUID owner,float duration){
         var pdc=entity.getPersistentDataContainer();

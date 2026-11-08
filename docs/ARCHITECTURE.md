@@ -1,25 +1,49 @@
 # Architecture
 
+## Révision gameplay courante
+
+Voir [GAMEPLAY_UPDATE.md](GAMEPLAY_UPDATE.md) pour la livraison ciblée, les causes,
+les limites de preuve, l'installation et le rollback. Le rapport définitif est
+`tests/results/gameplay-update-delivery.json`. Paper 26.3-244 / Java 25 / FK 2.24.9
+inchangé ; 1 à 4 membres par équipe (défaut 2), arbitre UUID indépendant, lit valide
+ou centre sûr pour les morts, construction neutre libre, capture sans condition de
+regard, locator bar désactivée, mobs suspendus au jour 0 et `/fka announce <message>`.
+Les guides des anciennes livraisons restent historiques.
+
 ## Rôles, réapparitions et compatibilité native
 
 `PlayerRoles` décide du mode à partir du rôle UUID, de l'attribution et des captures,
 jamais du nombre de morts. `Administrators` stocke les UUID atomiquement dans
 `admins.yml`, gère les permissions temporaires, les confirmations console, les
 autorisations sensibles d'une action/60 secondes et `admin-audit.log`. Les UUID
-restent hors du roster et le fichier d'état existant n'est pas migré.
+restent hors du roster. Le schéma d'état reste 1, avec une clé additionnelle de capacité ; aucune identité ou appartenance n'est réinitialisée.
 
 `NativeAdminBridge` enveloppe uniquement les registrations de protection FK 2.24.9
 identifiées. Il délègue les callbacks originaux aux mêmes priorités pour les
 participants, les ignore pour les arbitres concernés et restaure les handlers
 natifs à l'arrêt. Il ne remet jamais globalement un événement tiers à non annulé.
-Le respawn natif différé est remplacé par une seule décision FKAmis qui respecte
-le lit/ancre valide. Les événements de mode, connexion, respawn, monde et le tick
+Le respawn natif différé est remplacé par une seule décision FKAmis : lit/ancre valide ou centre sûr via `SafeCentralSpawn`, sans toucher aux spawns de départ. Les événements de mode, connexion, respawn, monde et le tick
 convergent vers la même politique. `DeathLimit` natif est zéro.
 
 Les filtres de captures, présence, lots et rassemblement utilisent les participants
-actifs ; ni arbitre ni spectateur ne réinitialise une capture. `CaptureClock` et les
-seuils de capture restent inchangés. `TipsManager.cancelBroadcasts()` désactive
+actifs ; ni arbitre ni spectateur ne réinitialise une capture. `CaptureClock` conserve les 1 200 ticks ; le seuil se base désormais sur l’effectif officiel et `CaptureGeometry` remplace le regard. `TipsManager.cancelBroadcasts()` désactive
 seulement la tâche des conseils, sans modifier le JAR tiers ou filtrer le chat.
+
+## Services de la révision gameplay
+
+`TeamCapacity` valide la configuration (1 à 4) et sa compatibilité avec le roster
+UUID enregistré ; le nombre connecté ne réduit pas le seuil de capture.
+`CaptureGeometry` calcule les cellules horizontales debout reliées au coffre, avec
+distance 3D et niveau commun, sans aucun appel de ligne de vue. `CaptureClock`
+reste le compteur continu. La validation humaine des salles reste obligatoire.
+
+`LobbyMobs` conserve les mobs existants avec leurs UUID et un journal de propriétés
+dans leur PDC, les suspend et les masque à J0 ; les restaurations suivent le
+chargement des chunks et le départ effectif. `SPAWN_MOBS` et `LOCATOR_BAR` sont des
+gamerules Paper 26.3. `SafeCentralSpawn` ne génère aucun chunk et ne modifie aucun
+bloc ; il cherche un carré sûr existant dans les 16 blocs autour du centre.
+`Announcements` utilise des composants Adventure littéraux, des titres et un son,
+avec autorité UUID/console et journalisation, sans désérialisation de balises.
 
 ## Corrections de la v2
 
@@ -44,7 +68,7 @@ Voir [V2_CORRECTIONS.md](V2_CORRECTIONS.md).
 La v2 ajoute un `SupplyService` dans FKAmis et deux composants purs : `SupplyClock`
 pour le temps actif et `LootTable` pour les poids et budgets. Ils utilisent la section
 `supplies` du même instantané atomique ; aucun second plugin de ravitaillement n'est installé.
-Le moteur de capture et les règles de phases restent inchangés. Les coffres réservés
+La v2 initiale conservait le moteur de capture ; la révision courante remplace son filtre visuel par CaptureGeometry et adapte le seuil, sans changer CaptureClock. Les coffres réservés
 sont explicitement exclus de la déclaration d'objectif et du déplacement des territoires.
 
 `FKMapV2Builder` est un **outil de chantier séparé**, compilé depuis les sources de
@@ -63,7 +87,7 @@ sans recompilation ni modification.
 
 FKAmis complète les besoins propres à cette partie :
 
-- Répartition de quatre équipes et deux comptes maximum, indexés par UUID authentifié.
+- Répartition de quatre équipes et un à quatre comptes (players-per-team), indexés par UUID authentifié.
 - Territoires définis après inspection sans appeler la génération de drapeau ou mur.
 - Phases logiques manuelles, indépendantes de la nuit et de l'horloge réelle.
 - Validation des terrains avant lancement, puis objectifs avant l'ouverture des assauts.

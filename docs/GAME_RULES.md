@@ -1,16 +1,26 @@
 # Règlement de la partie
 
+## Révision gameplay courante
+
+Voir [GAMEPLAY_UPDATE.md](GAMEPLAY_UPDATE.md) pour la livraison ciblée, les causes,
+les limites de preuve, l'installation et le rollback. Le rapport définitif est
+`tests/results/gameplay-update-delivery.json`. Paper 26.3-244 / Java 25 / FK 2.24.9
+inchangé ; 1 à 4 membres par équipe (défaut 2), arbitre UUID indépendant, lit valide
+ou centre sûr pour les morts, construction neutre libre, capture sans condition de
+regard, locator bar désactivée, mobs suspendus au jour 0 et `/fka announce <message>`.
+Les guides des anciennes livraisons restent historiques.
+
 ## Priorité : morts illimitées et élimination par capture
 
 Aucune limite de vies. Tant que le royaume reste actif, toute mort individuelle
 (PvE, environnement, PvP, défense ou assaut) laisse le joueur dans son équipe, avec
-réapparition SURVIVAL au lit/ancre valide ou au point sûr d'équipe. Seule la capture
+réapparition SURVIVAL au lit/ancre valide ou au centre sûr. Seule la capture
 complète de son objectif provoque l'élimination persistante et le mode SPECTATOR.
 Entrer dans un château ou commencer une capture ne suffit pas. Le moteur reste :
-deux attaquants de même équipe, 2,5 blocs, ligne de vue, 60 secondes consécutives,
+min(2, effectif officiel) attaquants de même équipe, 2,5 blocs, proximité accessible sans regard, 60 secondes consécutives,
 contestation par un défenseur et interruptions existantes.
 
-Huit participants et un arbitre supplémentaire en CREATIVE : l'arbitre UUID n'a
+Quatre à seize participants et un arbitre supplémentaire en CREATIVE : l'arbitre UUID n'a
 aucune équipe, aucun poids de capture, présence active ou victoire. Son départ et
 celui d'un spectateur ne doivent pas interrompre le combat des participants.
 Les protections de jeu restent imposées aux OP ordinaires. Les corrections
@@ -24,7 +34,7 @@ aménagées et portent un drapeau décoratif ; les forts et salles secrètes res
 entièrement construits par les équipes. Le drapeau n'est pas un objectif de capture.
 
 Sept monuments neutres offrent des récompenses fixes à usage unique, sans recharge
-automatique. La crypte contient deux gardiens créés une seule fois. Les ressources
+automatique. La crypte contient deux gardiens créés une seule fois, masqués/suspendus à J0 puis réactivés au départ. Les ressources
 des monuments peuvent être récoltées selon les règles normales de la zone neutre.
 
 Toutes les 30 minutes actives, jusqu'à deux supports de ravitaillement reçoivent des
@@ -38,14 +48,14 @@ mêmes règles que ci-dessous. Ni les monuments ni les ravitaillements ne révè
 
 ## Royaumes et construction
 
-Quatre royaumes de deux joueurs. Les emplacements et ressources sont inspectés avant
+Quatre royaumes de un à quatre joueurs, configurés avant partie (défaut deux). Les emplacements et ressources sont inspectés avant
 le départ. Aucun château, mur, tour ou salle n'est donné. Les joueurs récoltent leurs
 matériaux, construisent leurs forts, creusent et aménagent leur propre territoire sur
 toute la hauteur du monde. Sur la v2, rayon de 80 blocs, carré inclusif.
 
-La pose hors de sa base suit les règles classiques du plugin : torches, feu, panneaux
-et exceptions natives ; la TNT devient disponible au jour 3. Les expéditions doivent
-donc être préparées. Le minage chez l'adversaire reste interdit même après le jour 3 :
+La construction et les coffres ordinaires sont libres en zone neutre dès J1. La TNT
+reste soumise aux assauts J3 ; les objectifs et supports de ravitaillement restent
+protégés. Les exceptions natives autorisées dans une base ennemie sont conservées. Le minage chez l'adversaire reste interdit même après le jour 3 :
 les brèches se font par TNT, accès existants et stratégies autorisées. Les tunnels
 peuvent être creusés en terrain neutre ; ne pas miner la partie du tunnel dans une
 base adverse. Les joueurs peuvent librement creuser et construire leur propre base.
@@ -84,20 +94,20 @@ outils et TNT non amorcée ne donnent aucune exception au refus de casse adverse
 
 Chaque royaume choisit et cache un coffre objectif ordinaire dans son territoire.
 La salle doit être accessible légalement, permettre à deux attaquants de se tenir
-près du coffre et offrir une ligne de vue sur celui-ci. Pas de salle scellée sans
+près du coffre et offrir un espace debout relié aux faces du coffre, sans condition de regard. Pas de salle scellée sans
 issue, coque invulnérable, protection extérieure permanente ou exploitation de la bordure.
 
 Les autres coffres ne sont pas des objectifs. Ne pas déplacer le coffre déclaré.
 L'emplacement reste secret et doit être enregistré avec `/fka room register`, puis
 inspecté et validé avant le jour 3. L'administrateur gère cette inspection en privé.
 
-Deux membres **de la même équipe**, en survie, vivants et connectés, doivent rester
-dans un rayon de 2,5 blocs autour de l'objectif avec une ligne de vue pendant 60 secondes
+Min(2, effectif officiel) membres **de la même équipe**, en survie, vivants et connectés, doivent rester
+dans un rayon de 2,5 blocs autour de l'objectif dans un espace accessible adjacent au même niveau pendant 60 secondes
 de ticks serveur. Un défenseur dans cette zone conteste la capture. Un second royaume
 attaquant dans la zone, une sortie, une mort, une déconnexion ou une pause remet la
 progression à zéro. Une baisse de TPS allonge le temps réel : elle ne raccourcit pas la capture.
 
-Une capture annonce l'élimination du royaume. Les deux comptes deviennent spectateurs,
+Une capture annonce l'élimination du royaume. Tous les membres deviennent spectateurs,
 y compris après reconnexion. Ils n'interagissent plus et ne doivent pas transmettre
 d'informations aux survivants. Après la troisième élimination, le dernier royaume gagne.
 

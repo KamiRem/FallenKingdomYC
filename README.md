@@ -1,6 +1,13 @@
-# Fallen Kingdom privé — huit participants et un arbitre
+# Fallen Kingdom privé — quatre royaumes et un arbitre
 
-La nouvelle [mise à jour arbitre, survie et tips](docs/ADMIN_UPDATE.md) se déploie
+La livraison courante est la [mise à jour gameplay](docs/GAMEPLAY_UPDATE.md) :
+`dist/fallenkingdom-gameplay-update.zip`, sans monde ni état de partie. Elle ajoute
+les huit demandes, dont les formats de 1 à 4 joueurs par équipe (défaut 2) et
+`/fka announce`. Les preuves et limites sont dans
+[le rapport courant](tests/results/gameplay-update-delivery.json). Ne pas remplacer
+le monde ni `state.yml`. Aucun accès à l'hébergement n'a été effectué.
+
+La précédente [mise à jour arbitre, survie et tips](docs/ADMIN_UPDATE.md) se déploie
 avec `dist/fallenkingdom-admin-update.zip`, sans retransfert de carte ni remplacement
 de `state.yml`. Voir `tests/results/admin-update-delivery.json` pour la nouvelle
 empreinte FKAmis et les résultats. Dix places techniques, whitelist stricte, rôle
@@ -12,7 +19,7 @@ La carte corrigée a été restaurée depuis l’archive initiale puis convertie
 `runtime/preproduction-26-3`, avec contrôles des blocs, coffres et dimensions.
 Aucune mécanique réécrite, aucune reconstruction ni recharge de butin.
 
-Le paquet à transférer est **`dist/fallenkingdom-preproduction-26.3.zip`**.
+La référence complète initiale historique est **`dist/fallenkingdom-preproduction-26.3.zip`** ; elle ne sert pas à mettre à jour une partie existante.
 Son SHA-256, ses versions et les résultats sont dans
 [le rapport de livraison 26.3](tests/results/preproduction-package-26.3.json).
 Il ne contient que les deux plugins de production, sans comptes/inventaires de test,
@@ -37,11 +44,18 @@ fixtures `.cache/` ne doivent jamais être déployées. Aucun downgrade d’un m
 
 ## Validation disponible
 
+La campagne gameplay courante passe **32 tests Java, 28 Python et 654 assertions
+Paper** sur le même JAR, dont les formats de 1 à 4 membres par équipe. Les deux
+configurations de capacité incompatibles sont aussi testées en refus de démarrage.
+Les essais réels d'installation, sauvegarde et rollback figurent dans le rapport.
+Le problème client des impacts de squelette n'a pas été reproduit avec le précédent
+binaire : sa cause reste à établir en recette humaine, avec diagnostic disponible.
+
 La migration initiale avait passé 19 tests Java, 21 Python et 217 assertions ;
 son archive reste inchangée. La révision actuelle ajoute le rôle d'arbitre, la
 politique de réapparition et l'arrêt des tips, avec **24 tests Java et 24 Python**
 et une nouvelle recette Paper détaillée dans `admin-update-delivery.json`.
-Le moteur de capture reste inchangé ; le JAR FallenKingdom officiel aussi.
+Ces nombres décrivent la livraison précédente. La révision gameplay adapte la géométrie et le seuil de capture ; le JAR officiel reste inchangé. Consulter le rapport courant pour les nouveaux résultats.
 
 **Aucun client authentifié pendant ces essais.** Les huit interfaces Player du probe
 gameplay ne remplacent pas huit personnes connectées. Chat réseau, interfaces clients,

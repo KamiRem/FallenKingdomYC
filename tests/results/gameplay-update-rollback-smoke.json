@@ -1,0 +1,30 @@
+{
+  "atUtc": "2026-11-08T15:34:01.186307+00:00",
+  "instance": "preproduction-gameplay-rollback",
+  "authenticatedPlayers": 0,
+  "simulatedPlayers": 0,
+  "officialGameStarted": false,
+  "commands": [
+    "version",
+    "plugins",
+    "fka status",
+    "fka supply status",
+    "tps",
+    "mspt",
+    "list",
+    "stop"
+  ],
+  "passed": true,
+  "java": "openjdk version \"25.0.5\" 2026-10-20 LTS",
+  "runningBackupRefused": true,
+  "exitCode": 0,
+  "warnings": [],
+  "errors": [],
+  "idleMetricsOnly": [
+    "[16:34:13 INFO]: \u001b[33mTPS from last 1m, 5m, 15m: \u001b[0m\u001b[92m20,0\u001b[0m, \u001b[92m20,0\u001b[0m, \u001b[92m20,0\u001b[0m",
+    "[16:34:13 INFO]: \u001b[33mServer tick times \u001b[93m(\u001b[37mavg\u001b[93m/\u001b[37mmin\u001b[93m/\u001b[37mmax\u001b[93m)\u001b[33m from last 5s\u001b[37m,\u001b[33m 10s\u001b[37m,\u001b[33m 1m\u001b[93m:\u001b[0m",
+    "[16:34:13 INFO]: \u001b[33m◴ \u001b[37m\u001b[93m44,0\u001b[37m/\u001b[93m44,0\u001b[37m/\u001b[93m44,0, 44,0\u001b[37m/\u001b[93m44,0\u001b[37m/\u001b[93m44,0, 44,0\u001b[37m/\u001b[93m44,0\u001b[37m/\u001b[93m44,0\u001b[0m"
+  ],
+  "stillDayZero": true,
+  "notStarted": true
+}

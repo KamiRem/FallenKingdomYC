@@ -15,11 +15,16 @@ final class MatchState {
     boolean assaults(int unlockDay) { return running() && day >= unlockDay; }
 
     void start(Collection<Integer> sizes, boolean override) {
+        start(sizes, override, 2);
+    }
+
+    void start(Collection<Integer> sizes, boolean override, int capacity) {
         if (started) throw new IllegalStateException("La partie a déjà commencé.");
-        if (sizes.size() != 4 || sizes.stream().anyMatch(n -> n > 2 || n < 0))
-            throw new IllegalStateException("Il faut exactement quatre équipes de deux joueurs maximum.");
-        if (!override && sizes.stream().anyMatch(n -> n != 2))
-            throw new IllegalStateException("Répartir huit joueurs, ou utiliser start override explicitement.");
+        TeamCapacity.validate(capacity);
+        if (sizes.size() != 4 || sizes.stream().anyMatch(n -> n > capacity || n < 0))
+            throw new IllegalStateException("Il faut quatre équipes de " + capacity + " joueur(s) maximum.");
+        if (!override && sizes.stream().anyMatch(n -> n != capacity))
+            throw new IllegalStateException("Répartir " + (4 * capacity) + " participants dans quatre équipes complètes, ou utiliser start override explicitement.");
         started = true; paused = false; day = 1;
     }
 

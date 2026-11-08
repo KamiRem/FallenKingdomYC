@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "case": "started",
+      "configuredCapacity": 3,
+      "expectedRefusal": "Partie déjà commencée",
+      "passed": true,
+      "stateByteIdentical": true
+    },
+    {
+      "case": "prestart",
+      "configuredCapacity": 1,
+      "expectedRefusal": "inférieur à un effectif enregistré",
+      "passed": true,
+      "stateByteIdentical": true
+    }
+  ],
+  "fkamisSha256": "83e721d8ac12feefdb590976747f88d6825b3243976c7e9f10b1cc35fac5239d",
+  "authenticatedPlayers": 0,
+  "negativeTestsExpectedStartupRefusal": true
+}

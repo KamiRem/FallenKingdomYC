@@ -1,0 +1,24 @@
+{
+  "suite": "supplies",
+  "attempt": 3,
+  "format": 2,
+  "authenticatedPlayers": 0,
+  "fkamisSha256": "83e721d8ac12feefdb590976747f88d6825b3243976c7e9f10b1cc35fac5239d",
+  "checks": [
+    {
+      "phase": "0",
+      "assertions": 43,
+      "passed": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "phase": "1",
+      "assertions": 6,
+      "passed": true,
+      "errors": [],
+      "warnings": []
+    }
+  ],
+  "passed": true
+}

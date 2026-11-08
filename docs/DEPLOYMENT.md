@@ -1,5 +1,15 @@
 # Déployer le profil retenu : Paper 26.3 sur MineStrator
 
+## Révision gameplay courante
+
+Voir [GAMEPLAY_UPDATE.md](GAMEPLAY_UPDATE.md) pour la livraison ciblée, les causes,
+les limites de preuve, l'installation et le rollback. Le rapport définitif est
+`tests/results/gameplay-update-delivery.json`. Paper 26.3-244 / Java 25 / FK 2.24.9
+inchangé ; 1 à 4 membres par équipe (défaut 2), arbitre UUID indépendant, lit valide
+ou centre sûr pour les morts, construction neutre libre, capture sans condition de
+regard, locator bar désactivée, mobs suspendus au jour 0 et `/fka announce <message>`.
+Les guides des anciennes livraisons restent historiques.
+
 ## Serveur déjà installé : appliquer la livraison ciblée
 
 Ne pas retransférer le monde. Utiliser **`dist/fallenkingdom-admin-update.zip`** :

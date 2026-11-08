@@ -1,4 +1,7 @@
 pvp-day: 2
+players-per-team: 2
+# Diagnostic temporaire console des dégâts ; désactiver après investigation.
+damage-debug: false
 disable-native-tips: true
 assault-day: 3
 nether-day: 2

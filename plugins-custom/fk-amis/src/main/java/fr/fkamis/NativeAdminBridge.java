@@ -29,7 +29,17 @@ final class NativeAdminBridge {
                 if (name.equals("RespawnListener")&&event instanceof PlayerRespawnEvent) return;
                 Player actor=actor(event);
                 if (actor!=null&&plugin.isAdministrator(actor)) return;
+                // Seul le refus natif de blocs ordinaires hors base est remplacé.
+                // La TNT conserve ses garde-fous natifs ; les autres plugins restent autorités.
+                if(name.equals("BlockListener") && event instanceof BlockPlaceEvent place
+                        && place.getBlock().getType()!=org.bukkit.Material.TNT
+                        && plugin.territory(place.getBlock().getLocation())==null
+                        && plugin.state.running() && !plugin.blocked(place.getPlayer())
+                        && (!(place instanceof BlockMultiPlaceEvent multi) || multi.getReplacedBlockStates().stream().allMatch(b->plugin.territory(b.getLocation())==null))) return;
+                boolean cancelled=event instanceof Cancellable c && c.isCancelled();
                 nativeHandler.callEvent(event);
+                if(plugin.getConfig().getBoolean("damage-debug",false) && event instanceof EntityDamageEvent damage && damage.isCancelled() && !cancelled)
+                    plugin.getLogger().info("DAMAGE refus natif="+name+" cause="+damage.getCause());
             },nativeHandler.getPriority(),plugin,nativeHandler.isIgnoringCancelled());
             list.unregister(nativeHandler); list.register(wrapper); entries.add(new Entry(list,nativeHandler,wrapper));
         }

@@ -1,4 +1,4 @@
-param([switch]$SkipTests, [switch]$Probe, [switch]$MapV2, [switch]$Corrections, [switch]$Migration, [switch]$Administration)
+param([switch]$SkipTests, [switch]$Probe, [switch]$MapV2, [switch]$Corrections, [switch]$Migration, [switch]$Administration, [switch]$Features)
 $ErrorActionPreference = 'Stop'
 $repo = Split-Path -Parent $PSScriptRoot
 Set-Location -LiteralPath $repo
@@ -55,4 +55,11 @@ if ($Corrections) {
     Copy-Item tests/gameplay-probe-plugin.yml .cache/gameplay-probe/plugin.yml
     & "$($jdk.FullName)/bin/jar.exe" --create --file .cache/FKGameplayProbe.jar -C .cache/gameplay-probe .
     if ($LASTEXITCODE -ne 0) { throw 'Création de la recette gameplay impossible.' }
+}
+if ($Features) {
+    New-Item -ItemType Directory -Force .cache/features-probe/fr/fkamis | Out-Null
+    Copy-Item plugins-custom/fk-amis/target/test-classes/fr/fkamis/FeaturesProbe*.class .cache/features-probe/fr/fkamis/
+    Copy-Item tests/features-plugin.yml .cache/features-probe/plugin.yml
+    & "$($jdk.FullName)/bin/jar.exe" --create --file .cache/FKFeaturesProbe.jar -C .cache/features-probe .
+    if ($LASTEXITCODE -ne 0) { throw 'Création de la recette des fonctionnalités impossible.' }
 }

@@ -1,10 +1,19 @@
 # Administration
 
+## Révision gameplay courante
+
+Voir [GAMEPLAY_UPDATE.md](GAMEPLAY_UPDATE.md) pour la livraison ciblée, les causes,
+les limites de preuve, l'installation et le rollback. Le rapport définitif est
+`tests/results/gameplay-update-delivery.json`. Paper 26.3-244 / Java 25 / FK 2.24.9
+inchangé ; 1 à 4 membres par équipe (défaut 2), arbitre UUID indépendant, lit valide
+ou centre sûr pour les morts, construction neutre libre, capture sans condition de
+regard, locator bar désactivée, mobs suspendus au jour 0 et `/fka announce <message>`.
+Les guides des anciennes livraisons restent historiques.
+
 ## Arbitre UUID et réapparitions — profil courant
 
 Le guide actuel est [ADMIN_UPDATE.md](ADMIN_UPDATE.md). Un arbitre hors équipe
-rejoint en CREATIVE, huit participants jouent en SURVIVAL, dix places techniques
-sont prévues avec whitelist stricte. OP ne suffit pas : autoriser l'UUID officiel
+rejoint en CREATIVE ; 4 à 16 participants jouent en SURVIVAL. Le format actuel de huit participants utilise dix places ; prévoir vingt places pour seize participants, avec whitelist stricte. OP ne suffit pas : autoriser l'UUID officiel
 via la console `fka admin grant UUID confirm`. `fka admin uuid PseudoConnecte`
 affiche cet UUID ; `revoke UUID confirm` retire le rôle. Les autorisations privées
 sont dans `plugins/FKAmis/admins.yml`, distinct de l'état de partie.
@@ -50,16 +59,17 @@ possède ce droit ; les participants doivent rester non OP. Les équipes sont ex
 
 | Commande | Usage et garde-fou |
 |---|---|
+| `/fka announce <message>` | Arbitre UUID/console ; titre, chat, son, texte simple 1–240 caractères |
 | `/fka help` | Aide adaptée aux permissions |
 | `/fka status` | Jour et royaumes actifs, aucune position d'objectif |
-| `/fka assign <pseudo connecté> <équipe>` | Avant lancement ; deux maximum, UUID du compte officiel |
+| `/fka assign <pseudo connecté> <équipe>` | Avant lancement ; capacité players-per-team, UUID du compte officiel |
 | `/fka unassign <pseudo>` | Retrait avant lancement |
 | `/fka territory <équipe> <rayon>` | Centre à votre position, monde world ; rayon 40–150, séparation et bordure contrôlées ; ne génère aucun bloc |
 | `/fka terrain <équipe> confirm` | Attestation d'inspection humaine avant lancement |
 | `/fka spawn <équipe>` | Point d'apparition à votre position dans le territoire, avant lancement |
 | `/fka teams tpall [confirm]` | Admin ou console ; avant partie ou en pause confirmée ; spawns sûrs, aucun changement d'équipe/inventaire |
-| `/fka start` | Quatre terrains confirmés, quatre équipes complètes, huit comptes connectés et non OP, apparitions sûres |
-| `/fka start override` | Dérogation explicite de l'administrateur pour répartition incomplète/présences/OP ; jamais plus de deux par équipe ; terrains toujours requis |
+| `/fka start` | Quatre terrains confirmés, quatre équipes complètes, 4 × players-per-team comptes connectés et non OP, apparitions sûres |
+| `/fka start override` | Dérogation explicite de l'administrateur pour répartition incomplète/présences/OP ; jamais au-delà de players-per-team par équipe ; terrains toujours requis |
 | `/fka pause` | Arrêt des interactions, déplacement et tick des mondes ; annulation des captures |
 | `/fka resume` | Reprise explicite ; objectifs valides exigés à partir du jour d'assaut |
 | `/fka nextday` | Avance d'une phase ; toutes les salles actives doivent être valides pour passer au jour 3 |
@@ -86,10 +96,10 @@ La console reste une autorité de confiance, capable de modifier le serveur et s
    n'est pas fourni par le serveur. Les autres coffres restent du stockage normal.
 3. L'arbitre consulte la position en privé avec `/fka room inspect Rouge`.
 4. Vérifier un accès survival légal, deux emplacements accessibles autour du coffre,
-   une ligne de vue sur l'objectif et la possibilité d'une brèche par TNT ou par un passage.
+   un espace debout relié aux faces de l'objectif, sans obligation de regard et la possibilité d'une brèche par TNT ou par un passage.
 5. `/fka room validate Rouge`, puis recommencer pour les autres royaumes.
 
-L'algorithme vérifie l'existence, le territoire et deux places debout proches. Il ne
+L'algorithme vérifie l'existence, le territoire et min(capture-players, players-per-team) places debout proches reliées aux faces du coffre. Il ne
 peut pas prouver qu'un labyrinthe est franchissable depuis l'extérieur : l'inspection
 humaine est obligatoire. Une nouvelle déclaration retire la validation précédente.
 Une salle validée devenue techniquement invalide déclenche une pause.
@@ -101,7 +111,7 @@ l'enfermer dans une protection permanente ou une coque d'obsidienne sans entrée
 ## Paramètres modifiables
 
 Serveur arrêté, modifier `plugins/FKAmis/config.yml`, puis redémarrer. Valeurs initiales :
-`pvp-day: 2`, `assault-day: 3`, `nether-day: 2`, `capture-seconds: 60`,
+`players-per-team: 2`, `damage-debug: false`, `pvp-day: 2`, `assault-day: 3`, `nether-day: 2`, `capture-seconds: 60`,
 `capture-players: 2`, `capture-radius: 2.5`, `border-size: 1800`.
 La durée accepte 1–3 600 secondes, le rayon un nombre fini entre 0 et 8 excluant 0,
 et la bordure 600–4 000 blocs. Ces bornes évitent une configuration incontrôlée.

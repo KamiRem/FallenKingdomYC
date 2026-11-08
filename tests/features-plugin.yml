@@ -1,0 +1,5 @@
+name: FKFeaturesProbe
+version: 1.0.0
+main: fr.fkamis.FeaturesProbe
+api-version: '26.3'
+depend: [FKAmis]

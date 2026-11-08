@@ -1,16 +1,26 @@
-# Guide des huit joueurs
+# Guide des participants
+
+## Révision gameplay courante
+
+Voir [GAMEPLAY_UPDATE.md](GAMEPLAY_UPDATE.md) pour la livraison ciblée, les causes,
+les limites de preuve, l'installation et le rollback. Le rapport définitif est
+`tests/results/gameplay-update-delivery.json`. Paper 26.3-244 / Java 25 / FK 2.24.9
+inchangé ; 1 à 4 membres par équipe (défaut 2), arbitre UUID indépendant, lit valide
+ou centre sûr pour les morts, construction neutre libre, capture sans condition de
+regard, locator bar désactivée, mobs suspendus au jour 0 et `/fka announce <message>`.
+Les guides des anciennes livraisons restent historiques.
 
 ## Survie, morts et arbitrage
 
 Vous jouez avec un client **Minecraft Java 26.3**. Nouveau joueur au jour 0 :
 SURVIVAL, sans participation avant attribution. Un participant d'équipe active
 réapparaît en SURVIVAL après zombie, lave, chute, PvP ou assaut, sans limite de vies.
-Le lit/ancre valide est respecté ; à défaut le point sûr de l'équipe est utilisé.
+Le lit/ancre valide est respecté ; à défaut le centre sûr près de 0,0 est utilisé.
 Une mort ne retire ni équipe ni progression.
 
-Seule la capture complète du coffre élimine le royaume. Ses deux membres passent
+Seule la capture complète du coffre élimine le royaume. Tous ses membres passent
 en SPECTATOR et y restent après mort, reconnexion ou redémarrage. L'arbitre en
-CREATIVE est un neuvième compte hors équipe : il ne capture/conteste pas, ne récupère
+CREATIVE est un compte supplémentaire hors équipe : il ne capture/conteste pas, ne récupère
 pas les lots et son départ ne met pas la partie en pause. Les conseils périodiques
 sont supprimés, les annonces de jours, lots, captures et victoire sont conservées.
 
@@ -27,11 +37,10 @@ reste modeste ; le minage et la construction demeurent essentiels.
 
 Utilisez Minecraft Java **26.3**, sans mod obligatoire. Donnez votre pseudo à
 l'administrateur, rejoignez une fois pour l'attribution du compte, puis attendez le départ.
-Vous jouez en Rouge, Bleue, Verte ou Jaune, par équipes de deux.
+Vous jouez en Rouge, Bleue, Verte ou Jaune, par équipes de un à quatre, selon le format choisi (deux par défaut).
 
 Construisez tout vous-mêmes : terrain de départ naturel, aucun fort fourni. Vous pouvez
-creuser et bâtir dans votre base. Le Fallen Kingdom classique limite les blocs posables
-à l'extérieur : emportez les ressources et préparez vos expéditions.
+creuser et bâtir dans votre base et en zone neutre dès J1, installer des coffres ordinaires, établis et fours. Les bases ennemies, objectifs et sites de ravitaillement gardent leurs protections ; la TNT attend J3.
 
 | Jour | À retenir |
 |---|---|
@@ -52,9 +61,13 @@ l'intérieur de votre territoire. Il faut pouvoir y entrer et se tenir à deux p
 coffre. En le visant, utilisez `/fka room register`, puis demandez une inspection privée.
 Les coordonnées ne sont pas annoncées aux autres joueurs.
 
-Pour capturer : les deux membres de votre équipe doivent tenir 60 secondes près du
-coffre adverse, à 2,5 blocs maximum, avec une ligne de vue. Un défenseur à proximité,
-un autre royaume attaquant, une sortie, une mort ou une déconnexion interrompt la capture.
+Pour capturer : deux membres de la même équipe (un en format solo) doivent rester
+60 secondes à 2,5 blocs maximum du coffre, au même niveau dans un espace debout relié
+à celui-ci. Vous pouvez regarder ailleurs ou tourner le dos. Ni murs ni étages
+séparés ne permettent de capturer. Un défenseur conteste, un autre royaume attaquant
+bloque ; si une sortie ou une mort laisse trop peu d'attaquants, la progression
+repart de zéro. Une déconnexion déclenche la pause selon les règles habituelles.
+Un allié supplémentaire qui se déplace loin de la salle n'interrompt pas la capture.
 Ne minez pas les blocs adverses : utilisez la TNT au jour 3 et les accès du fort.
 
 Une équipe capturée devient spectatrice. Aucun conseil ou repérage depuis le mode

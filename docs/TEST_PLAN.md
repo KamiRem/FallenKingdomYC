@@ -1,8 +1,45 @@
 # Validation finale du profil Paper 26.3
 
-## Mise à jour arbitre/survie/tips
+## Révision gameplay courante
 
-La recette courante figure dans `tests/results/admin-update-delivery.json`.
+Voir [GAMEPLAY_UPDATE.md](GAMEPLAY_UPDATE.md) pour la livraison ciblée, les causes,
+les limites de preuve, l'installation et le rollback. Le rapport définitif est
+`tests/results/gameplay-update-delivery.json`. Paper 26.3-244 / Java 25 / FK 2.24.9
+inchangé ; 1 à 4 membres par équipe (défaut 2), arbitre UUID indépendant, lit valide
+ou centre sûr pour les morts, construction neutre libre, capture sans condition de
+regard, locator bar désactivée, mobs suspendus au jour 0 et `/fka announce <message>`.
+Les guides des anciennes livraisons restent historiques.
+
+## Résultats gameplay courants
+
+- Java : 32 tests JUnit, zéro échec/erreur.
+- Python : 28 tests, zéro échec.
+- Paper 26.3-244, même JAR : 654 assertions (formats solo 96, binômes 96,
+  trios 97, quatuors 97, arbitre 51, phases 28, gameplay 112, ravitaillements 49,
+  intégration native 28), zéro échec final.
+- Comparaison distincte du précédent JAR : cinq assertions PvE/PvP/pause passent,
+  l'événement de flèche squelette signalé n'y est pas bloqué non plus.
+- Capacité : deux démarrages refusés volontairement, capacité changée en cours de
+  partie et diminution sous roster, avec state.yml byte pour byte préservé.
+- Seuls avertissements des suites normales : deux spawns dangereux volontaires
+  du probe gameplay. Les logs d'erreurs des refus de capacité sont attendus.
+
+Les premiers essais ont détecté une ambiguïté Comparator à la compilation, un
+chemin de fixture non normalisé et un chemin de restauration trop long sous Windows.
+Ils ont été corrigés ; leurs traces restent privées dans .cache et ne sont pas
+présentées comme une recette réussie. Aucun de ces probes n'est livré en production.
+La nouvelle réinitialisation sélective évite les captures annulées par un troisième
+allié éloigné et par la mort d'un défenseur hors salle.
+
+Les appels Player restent des doubles ; ils vérifient le moteur et les callbacks
+serveur, pas une session réseau. La checklist de GAMEPLAY_UPDATE.md est obligatoire
+pour le rendu client, les lits/impacts réels, les permissions authentifiées et la
+performance à seize participants. L'installation réelle du paquet et son rollback
+sont consignés dans le rapport définitif, sans contact avec MineStrator.
+
+## Historique — mise à jour arbitre/survie/tips
+
+La recette de cette précédente livraison figure dans `tests/results/admin-update-delivery.json`.
 Construction : `./scripts/build.ps1 -Probe -MapV2 -Corrections -Migration -Administration`.
 Tests purs : **24 Java** et **24 Python**. `scripts/admin_tests.py` crée des copies
 neuves de l'archive 26.3, jamais une recette sur les références. Les tentatives sont

@@ -1,0 +1,528 @@
+{
+  "atUtc": "2026-11-08T15:33:37.545604+00:00",
+  "package": "dist/fallenkingdom-gameplay-update.zip",
+  "packageSha256": "f9302ec3b72761f4b08bc44d28bcbac39076c46d0bb24d9e869869e138a41bfa",
+  "packageFiles": 32,
+  "plugin": "dist/gameplay-update/FKAmis-1.0.0.jar",
+  "pluginSha256": "83e721d8ac12feefdb590976747f88d6825b3243976c7e9f10b1cc35fac5239d",
+  "paper": "26.3-244",
+  "java": 25,
+  "fallenkingdom": "2.24.9",
+  "thirdPartyJarModified": false,
+  "unitTests": {
+    "java": {
+      "tests": 32,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "python": {
+      "tests": 28,
+      "failures": 0
+    }
+  },
+  "technicalSuites": [
+    {
+      "suite": "features",
+      "attempt": 4,
+      "format": 1,
+      "authenticatedPlayers": 0,
+      "fkamisSha256": "83e721d8ac12feefdb590976747f88d6825b3243976c7e9f10b1cc35fac5239d",
+      "checks": [
+        {
+          "phase": "0",
+          "assertions": 14,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        },
+        {
+          "phase": "1",
+          "assertions": 67,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        },
+        {
+          "phase": "2",
+          "assertions": 15,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        }
+      ],
+      "passed": true
+    },
+    {
+      "suite": "features",
+      "attempt": 3,
+      "format": 2,
+      "authenticatedPlayers": 0,
+      "fkamisSha256": "83e721d8ac12feefdb590976747f88d6825b3243976c7e9f10b1cc35fac5239d",
+      "checks": [
+        {
+          "phase": "0",
+          "assertions": 14,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        },
+        {
+          "phase": "1",
+          "assertions": 67,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        },
+        {
+          "phase": "2",
+          "assertions": 15,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        }
+      ],
+      "passed": true
+    },
+    {
+      "suite": "features",
+      "attempt": 3,
+      "format": 3,
+      "authenticatedPlayers": 0,
+      "fkamisSha256": "83e721d8ac12feefdb590976747f88d6825b3243976c7e9f10b1cc35fac5239d",
+      "checks": [
+        {
+          "phase": "0",
+          "assertions": 14,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        },
+        {
+          "phase": "1",
+          "assertions": 68,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        },
+        {
+          "phase": "2",
+          "assertions": 15,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        }
+      ],
+      "passed": true
+    },
+    {
+      "suite": "features",
+      "attempt": 3,
+      "format": 4,
+      "authenticatedPlayers": 0,
+      "fkamisSha256": "83e721d8ac12feefdb590976747f88d6825b3243976c7e9f10b1cc35fac5239d",
+      "checks": [
+        {
+          "phase": "0",
+          "assertions": 14,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        },
+        {
+          "phase": "1",
+          "assertions": 68,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        },
+        {
+          "phase": "2",
+          "assertions": 15,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        }
+      ],
+      "passed": true
+    },
+    {
+      "suite": "admin",
+      "attempt": 3,
+      "format": 2,
+      "authenticatedPlayers": 0,
+      "fkamisSha256": "83e721d8ac12feefdb590976747f88d6825b3243976c7e9f10b1cc35fac5239d",
+      "checks": [
+        {
+          "phase": "0",
+          "assertions": 45,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        },
+        {
+          "phase": "1",
+          "assertions": 6,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        }
+      ],
+      "passed": true
+    },
+    {
+      "suite": "core",
+      "attempt": 3,
+      "format": 2,
+      "authenticatedPlayers": 0,
+      "fkamisSha256": "83e721d8ac12feefdb590976747f88d6825b3243976c7e9f10b1cc35fac5239d",
+      "checks": [
+        {
+          "phase": "0",
+          "assertions": 23,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        },
+        {
+          "phase": "1",
+          "assertions": 5,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        }
+      ],
+      "passed": true
+    },
+    {
+      "suite": "gameplay",
+      "attempt": 3,
+      "format": 2,
+      "authenticatedPlayers": 0,
+      "fkamisSha256": "83e721d8ac12feefdb590976747f88d6825b3243976c7e9f10b1cc35fac5239d",
+      "checks": [
+        {
+          "phase": "0",
+          "assertions": 112,
+          "passed": true,
+          "errors": [],
+          "warnings": [
+            "\u001b[33;1m[16:29:44 WARN]: [FKAmis] teams tpall annulé : Apparition dangereuse ou modifiée : Bleue ; aucun rassemblement effectué.",
+            "\u001b[33;1m[16:29:45 WARN]: [FKAmis] teams tpall annulé : Apparition dangereuse ou modifiée : Bleue ; aucun rassemblement effectué."
+          ]
+        }
+      ],
+      "passed": true
+    },
+    {
+      "suite": "supplies",
+      "attempt": 3,
+      "format": 2,
+      "authenticatedPlayers": 0,
+      "fkamisSha256": "83e721d8ac12feefdb590976747f88d6825b3243976c7e9f10b1cc35fac5239d",
+      "checks": [
+        {
+          "phase": "0",
+          "assertions": 43,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        },
+        {
+          "phase": "1",
+          "assertions": 6,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        }
+      ],
+      "passed": true
+    },
+    {
+      "suite": "native",
+      "attempt": 3,
+      "format": 2,
+      "authenticatedPlayers": 0,
+      "fkamisSha256": "83e721d8ac12feefdb590976747f88d6825b3243976c7e9f10b1cc35fac5239d",
+      "checks": [
+        {
+          "phase": "0",
+          "assertions": 28,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        }
+      ],
+      "passed": true
+    }
+  ],
+  "technicalAssertions": 654,
+  "capacityCompatibility": {
+    "passed": true,
+    "checks": [
+      {
+        "case": "started",
+        "configuredCapacity": 3,
+        "expectedRefusal": "Partie déjà commencée",
+        "passed": true,
+        "stateByteIdentical": true
+      },
+      {
+        "case": "prestart",
+        "configuredCapacity": 1,
+        "expectedRefusal": "inférieur à un effectif enregistré",
+        "passed": true,
+        "stateByteIdentical": true
+      }
+    ],
+    "fkamisSha256": "83e721d8ac12feefdb590976747f88d6825b3243976c7e9f10b1cc35fac5239d",
+    "authenticatedPlayers": 0,
+    "negativeTestsExpectedStartupRefusal": true
+  },
+  "skeletonInvestigation": {
+    "previousBinaryComparison": {
+      "suite": "baseline",
+      "attempt": 1,
+      "format": 2,
+      "authenticatedPlayers": 0,
+      "fkamisSha256": "7da3f775c434ee1addc7a67f063e3b076ab8d5b95d5ad5fbf307357cd3642d30",
+      "checks": [
+        {
+          "phase": "0",
+          "assertions": 5,
+          "passed": true,
+          "errors": [],
+          "warnings": []
+        }
+      ],
+      "passed": true
+    },
+    "reportedClientIssueReproduced": false,
+    "conclusion": "Les deux binaires autorisent les événements de flèches squelettes avec source Paper correcte ; cause de l’impact manquant signalé non établie sans recette client/logs de l’instance concernée.",
+    "defensiveChange": "Priorité explicite au tireur Mob du projectile, diagnostic temporaire optionnel, aucune annulation globalement levée."
+  },
+  "authenticatedPlayers": 0,
+  "maximumSimulatedParticipants": 16,
+  "maximumSimulatedArbiters": 1,
+  "containsWorld": false,
+  "containsLiveStateOrAdmins": false,
+  "remoteHostingTouched": false,
+  "officialGameStarted": false,
+  "humanTestsRemaining": [
+    "impacts_reels_squelette_et_pvp",
+    "morts_lits_et_inventaires_client",
+    "masquage_mobs_et_gardiens",
+    "locator_bar_et_annonces_client",
+    "assignation_et_17_comptes_authentifies",
+    "forts_geometrie_capture",
+    "performance_16_joueurs"
+  ],
+  "rehearsal": {
+    "passed": true,
+    "instance": "runtime/preproduction-gameplay-update-2",
+    "protectedFilesComparedDuringPatch": 134,
+    "worldStateRolesAndPropertiesUnchangedDuringPatch": true,
+    "coldBackup": "runtime/preproduction-gameplay-update-2/.fk-updates/before-gameplay-update-20261108T153531386753Z.zip",
+    "coldBackupSha256": "5e218a68002f83211511277c3f40cf6d6706436841f5376aed89acb1ffd3b971",
+    "previousRevisionMetadataConsistent": true,
+    "maxPlayersPreserved": 10,
+    "startup": {
+      "atUtc": "2026-11-08T15:35:36.049291+00:00",
+      "instance": "preproduction-gameplay-update-2",
+      "authenticatedPlayers": 0,
+      "simulatedPlayers": 0,
+      "officialGameStarted": false,
+      "commands": [
+        "version",
+        "plugins",
+        "fka status",
+        "fka supply status",
+        "tps",
+        "mspt",
+        "list",
+        "stop"
+      ],
+      "passed": true,
+      "java": "openjdk version \"25.0.5\" 2026-10-20 LTS",
+      "runningBackupRefused": true,
+      "exitCode": 0,
+      "warnings": [],
+      "errors": [],
+      "idleMetricsOnly": [
+        "[16:35:48 INFO]: \u001b[33mTPS from last 1m, 5m, 15m: \u001b[0m\u001b[91m2,3\u001b[0m, \u001b[91m2,3\u001b[0m, \u001b[91m2,3\u001b[0m",
+        "[16:35:48 INFO]: \u001b[33mServer tick times \u001b[93m(\u001b[37mavg\u001b[93m/\u001b[37mmin\u001b[93m/\u001b[37mmax\u001b[93m)\u001b[33m from last 5s\u001b[37m,\u001b[33m 10s\u001b[37m,\u001b[33m 1m\u001b[93m:\u001b[0m",
+        "[16:35:48 INFO]: \u001b[33m◴ \u001b[37m\u001b[91m435,0\u001b[37m/\u001b[91m435,0\u001b[37m/\u001b[91m435,0\u001b[93m, \u001b[91m435,0\u001b[37m/\u001b[91m435,0\u001b[37m/\u001b[91m435,0\u001b[93m, \u001b[91m435,0\u001b[37m/\u001b[91m435,0\u001b[37m/\u001b[91m435,0\u001b[0m"
+      ],
+      "stillDayZero": true,
+      "notStarted": true
+    },
+    "worldIntegrity": {
+      "regionFilesByteIdentical": 68,
+      "regionFilesSemanticallyChecked": 8,
+      "chunksByteIdentical": 5379,
+      "chunksSemanticallyChecked": 94,
+      "initialChunksMissing": 0,
+      "newChunks": 0,
+      "terrainAndContainerChanges": [],
+      "entityInventoryChanges": [],
+      "worldMetadataFilesChanged": [
+        "world/dimensions/minecraft/overworld/data/minecraft/game_rules.dat",
+        "world/dimensions/minecraft/overworld/data/minecraft/weather.dat",
+        "world/dimensions/minecraft/overworld/data/minecraft/world_clocks.dat",
+        "world/dimensions/minecraft/overworld/data/paper/level_overrides.dat",
+        "world/dimensions/minecraft/the_end/data/minecraft/game_rules.dat",
+        "world/dimensions/minecraft/the_end/data/minecraft/world_clocks.dat",
+        "world/dimensions/minecraft/the_end/data/paper/level_overrides.dat",
+        "world/dimensions/minecraft/the_nether/data/minecraft/game_rules.dat",
+        "world/dimensions/minecraft/the_nether/data/minecraft/world_clocks.dat",
+        "world/dimensions/minecraft/the_nether/data/paper/level_overrides.dat",
+        "world/level.dat",
+        "world/level.dat_old"
+      ],
+      "passed": true
+    },
+    "initialStateAfterStartup": {
+      "day": 0,
+      "started": false,
+      "roster": 0,
+      "objectives": 0,
+      "bases": 4,
+      "monuments": 7,
+      "lootChestsVerified": 6,
+      "supplySites": 8,
+      "supplyRemainingSeconds": 1800,
+      "supplyEvent": 0
+    },
+    "rollbackInstance": "runtime/preproduction-gameplay-rollback-2",
+    "rollbackFilesCompared": 177,
+    "rollbackStartup": {
+      "atUtc": "2026-11-08T15:35:53.874848+00:00",
+      "instance": "preproduction-gameplay-rollback-2",
+      "authenticatedPlayers": 0,
+      "simulatedPlayers": 0,
+      "officialGameStarted": false,
+      "commands": [
+        "version",
+        "plugins",
+        "fka status",
+        "fka supply status",
+        "tps",
+        "mspt",
+        "list",
+        "stop"
+      ],
+      "passed": true,
+      "java": "openjdk version \"25.0.5\" 2026-10-20 LTS",
+      "runningBackupRefused": true,
+      "exitCode": 0,
+      "warnings": [],
+      "errors": [],
+      "idleMetricsOnly": [
+        "[16:36:06 INFO]: \u001b[33mTPS from last 1m, 5m, 15m: \u001b[0m\u001b[92m20,0\u001b[0m, \u001b[92m20,0\u001b[0m, \u001b[92m20,0\u001b[0m",
+        "[16:36:06 INFO]: \u001b[33mServer tick times \u001b[93m(\u001b[37mavg\u001b[93m/\u001b[37mmin\u001b[93m/\u001b[37mmax\u001b[93m)\u001b[33m from last 5s\u001b[37m,\u001b[33m 10s\u001b[37m,\u001b[33m 1m\u001b[93m:\u001b[0m",
+        "[16:36:06 INFO]: \u001b[33m◴ \u001b[37m\u001b[93m44,3\u001b[37m/\u001b[93m44,3\u001b[37m/\u001b[93m44,3, 44,3\u001b[37m/\u001b[93m44,3\u001b[37m/\u001b[93m44,3, 44,3\u001b[37m/\u001b[93m44,3\u001b[37m/\u001b[93m44,3\u001b[0m"
+      ],
+      "stillDayZero": true,
+      "notStarted": true
+    }
+  },
+  "productionAcceptance": "human_recipe_pending",
+  "preservation": {
+    "runtime/local": {
+      "files": 268,
+      "identical": true
+    },
+    "runtime/map-v2": {
+      "files": 278,
+      "identical": true
+    },
+    "runtime/map-v2-fixes": {
+      "files": 285,
+      "identical": true
+    },
+    "runtime/preproduction-26-3": {
+      "files": 291,
+      "identical": true
+    },
+    "runtime/preproduction-admin-update": {
+      "files": 296,
+      "identical": true
+    },
+    "runtime/preproduction-admin-rollback": {
+      "files": 294,
+      "identical": true
+    },
+    "historicalArchivesCompared": 7,
+    "additionalHistoricalArchivesCompared": 23
+  },
+  "automatedValidationPassed": true,
+  "testedCandidatePackage": "dist/fallenkingdom-gameplay-update-tested-payload.zip",
+  "testedCandidateSha256": "ff5a0ca2905ed74acb86651f5f1d2fd35fc1a19513fdcf6a8131945e22809c1b",
+  "modifiedFiles": [
+    "README.md",
+    "deployment/apply_gameplay_update.py",
+    "docs/ADMIN_GUIDE.md",
+    "docs/ARCHITECTURE.md",
+    "docs/DEPLOYMENT.md",
+    "docs/GAMEPLAY_UPDATE.md",
+    "docs/GAME_RULES.md",
+    "docs/HOST_INSTALLATION.md",
+    "docs/MULTIPLAYER_ACCEPTANCE.md",
+    "docs/PLAYER_GUIDE.md",
+    "docs/TEST_PLAN.md",
+    "plugins-custom/fk-amis/src/main/java/fr/fkamis/Announcements.java",
+    "plugins-custom/fk-amis/src/main/java/fr/fkamis/CaptureGeometry.java",
+    "plugins-custom/fk-amis/src/main/java/fr/fkamis/DamageAttribution.java",
+    "plugins-custom/fk-amis/src/main/java/fr/fkamis/FKAmis.java",
+    "plugins-custom/fk-amis/src/main/java/fr/fkamis/LobbyMobs.java",
+    "plugins-custom/fk-amis/src/main/java/fr/fkamis/MatchState.java",
+    "plugins-custom/fk-amis/src/main/java/fr/fkamis/NativeAdminBridge.java",
+    "plugins-custom/fk-amis/src/main/java/fr/fkamis/Protections.java",
+    "plugins-custom/fk-amis/src/main/java/fr/fkamis/SafeCentralSpawn.java",
+    "plugins-custom/fk-amis/src/main/java/fr/fkamis/TeamCapacity.java",
+    "plugins-custom/fk-amis/src/main/resources/config.yml",
+    "plugins-custom/fk-amis/src/test/java/fr/fkamis/AnnouncementsTest.java",
+    "plugins-custom/fk-amis/src/test/java/fr/fkamis/FeaturesProbe.java",
+    "plugins-custom/fk-amis/src/test/java/fr/fkamis/TeamCapacityTest.java",
+    "scripts/build.ps1",
+    "scripts/features_compatibility.py",
+    "scripts/features_delivery.py",
+    "scripts/features_tests.py",
+    "scripts/server.py",
+    "tests/features-plugin.yml",
+    "tests/results/gameplay-update-admin.json",
+    "tests/results/gameplay-update-baseline.json",
+    "tests/results/gameplay-update-capacity-refusals.json",
+    "tests/results/gameplay-update-core.json",
+    "tests/results/gameplay-update-delivery.json",
+    "tests/results/gameplay-update-features-1.json",
+    "tests/results/gameplay-update-features-2.json",
+    "tests/results/gameplay-update-features-3.json",
+    "tests/results/gameplay-update-features-4.json",
+    "tests/results/gameplay-update-gameplay.json",
+    "tests/results/gameplay-update-native.json",
+    "tests/results/gameplay-update-rollback-smoke-2.json",
+    "tests/results/gameplay-update-rollback-smoke.json",
+    "tests/results/gameplay-update-smoke-2.json",
+    "tests/results/gameplay-update-smoke.json",
+    "tests/results/gameplay-update-supplies.json",
+    "tests/test_gameplay_update.py"
+  ],
+  "contentAudit": {
+    "world": false,
+    "liveState": false,
+    "playerIdentities": false,
+    "officialPlugin": false,
+    "probes": false,
+    "pythonCaches": false
+  },
+  "developmentIssuesResolved": [
+    "ambiguïté Comparator à la compilation",
+    "chemin de fixture normalisé",
+    "destination Windows raccourcie pour restauration des bibliothèques Maven",
+    "profil de répétition complété avec registre SHA et capacité correspondant au précédent JAR"
+  ],
+  "runtimePayloadUnchangedSinceRehearsal": true,
+  "sealed": true,
+  "packageBytes": 206019
+}

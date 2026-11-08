@@ -48,7 +48,8 @@ final class Protections implements Listener {
             if (plugin.objectiveAt(e.getBlock().getLocation())&&!plugin.administrators.sensitive(e.getPlayer(),e.getBlock().getLocation())) e.setCancelled(true);
             return;
         }
-        if (plugin.protectedAt(e.getPlayer(), e.getBlock().getLocation()) || plugin.objectiveAt(e.getBlock().getLocation())) e.setCancelled(true);
+        if (plugin.protectedAt(e.getPlayer(), e.getBlock().getLocation()) || plugin.objectiveAt(e.getBlock().getLocation())
+                || !plugin.mayPlace(e.getPlayer(),e.getBlock())) e.setCancelled(true);
     }
     @EventHandler(priority = EventPriority.HIGHEST) public void multiPlace(BlockMultiPlaceEvent e) {
         if (plugin.isAdministrator(e.getPlayer())) {
@@ -56,7 +57,7 @@ final class Protections implements Listener {
             return;
         }
         if (e.getReplacedBlockStates().stream().anyMatch(b -> plugin.protectedAt(e.getPlayer(), b.getLocation())
-                || plugin.objectiveAt(b.getLocation()))) e.setCancelled(true);
+                || plugin.objectiveAt(b.getLocation()) || !plugin.mayPlace(e.getPlayer(),b.getBlock()))) e.setCancelled(true);
     }
     @EventHandler(priority = EventPriority.HIGHEST) public void bucket(PlayerBucketEmptyEvent e) {
         if (plugin.protectedAt(e.getPlayer(), e.getBlock().getLocation())) e.setCancelled(true);
@@ -233,7 +234,8 @@ final class Protections implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST) public void move(PlayerMoveEvent e) {
         if (plugin.isAdministrator(e.getPlayer())) return;
         if (plugin.state.started && plugin.frozen() && e.hasChangedPosition()) e.setTo(e.getFrom());
-        if (e.hasChangedPosition() && e.getTo() != null) plugin.checkCaptureMovement(e.getPlayer(), e.getTo());
+        // La présence de capture est recalculée chaque tick ; un troisième allié
+        // en déplacement ailleurs ne doit jamais réinitialiser les deux attaquants.
     }
     private boolean dimensionClosed(World world) {
         return (world.getEnvironment() == World.Environment.NETHER && (!plugin.state.started
@@ -244,7 +246,6 @@ final class Protections implements Listener {
         if (plugin.isAdministrator(e.getPlayer())) return;
         if (e.getTo() != null && (dimensionClosed(e.getTo().getWorld()) || (plugin.state.started && plugin.frozen()
                 && !plugin.teamTeleports.allowsTeleport(e)&& !(plugin.returningToSafety && e.getTo().getWorld().getEnvironment() == World.Environment.NORMAL)))) e.setCancelled(true);
-        if (plugin.activeParticipant(e.getPlayer())) plugin.resetCaptures();
     }
     @EventHandler(priority = EventPriority.HIGHEST) public void portal(PlayerPortalEvent e) {
         if (plugin.isAdministrator(e.getPlayer())) return;
@@ -261,5 +262,4 @@ final class Protections implements Listener {
         if (plugin.returningToSafety||plugin.teamTeleports.allowsMode(e.getPlayer())) return;
         if (e.getNewGameMode()!=plugin.desiredMode(e.getPlayer())) e.setCancelled(true);
     }
-    @EventHandler public void death(PlayerDeathEvent e) { if (plugin.activeParticipant(e.getEntity())) plugin.resetCaptures(); }
 }

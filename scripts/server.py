@@ -153,8 +153,8 @@ def validate(root: Path):
     for key, expected in required.items():
         if config.get(key) != expected:
             raise RuntimeError(f"Configuration refusée : {key} doit être {expected}.")
-    if config.get("max-players") not in ("8", "10"):
-        raise RuntimeError("Profil privé : 8 places historiques ou 10 places pour huit participants et un arbitre.")
+    if not config.get("max-players", "").isdigit() or not 5 <= int(config["max-players"]) <= 20:
+        raise RuntimeError("Profil privé : entre 5 et 20 places ; prévoir participants + arbitre et garder la whitelist stricte.")
     if properties(root / "eula.txt").get("eula") != "true":
         raise RuntimeError("EULA non acceptée. Aucune modification automatique.")
     for path in [root / "paper.jar", root / "plugins/FallenKingdom-2.24.9.jar", root / "plugins/FKAmis-1.0.0.jar"]:

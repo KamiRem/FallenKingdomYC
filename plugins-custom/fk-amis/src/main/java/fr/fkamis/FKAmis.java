@@ -46,10 +46,17 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
     private ConfigurationSection savedSupplies;
     Administrators administrators;
     private NativeAdminBridge nativeAdminBridge;
+    SafeCentralSpawn centralSpawn;
+    CaptureGeometry captureGeometry;
+    LobbyMobs lobbyMobs;
+    Announcements announcements;
 
     TeamManager teams() { return FkPI.getInstance().getTeamManager(); }
     List<String> expectedTeams() { return getConfig().getStringList("teams"); }
     int assaultDay() { return getConfig().getInt("assault-day"); }
+    int playersPerTeam() { return getConfig().getInt("players-per-team",2); }
+    long teamSize(String name) { return roster.values().stream().filter(name::equals).count(); }
+    int requiredAttackers(String name) { return TeamCapacity.attackers(getConfig().getInt("capture-players"),teamSize(name)); }
     boolean frozen() { return !state.running(); }
     boolean eliminated(Player player) {
         String team = roster.get(player.getUniqueId());
@@ -80,6 +87,11 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
     boolean objectiveAt(Location at) {
         return objectives.values().stream().anyMatch(l -> sameBlock(l, at));
     }
+    boolean mayPlace(Player player,Block block) {
+        Team owner=territory(block.getLocation());
+        return owner==null || owner.equals(team(player)) || block.getType()==Material.TNT && state.assaults(assaultDay())
+                || fr.devsylone.fkpi.FkPI.getInstance().getRulesManager().getRule(Rule.ALLOWED_BLOCKS).isAllowed(block);
+    }
     static boolean sameBlock(Location a, Location b) {
         return a.getWorld().equals(b.getWorld()) && a.getBlockX() == b.getBlockX()
                 && a.getBlockY() == b.getBlockY() && a.getBlockZ() == b.getBlockZ();
@@ -88,13 +100,15 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
     @Override public void onEnable() {
         try {
             saveDefaultConfig();
+            require(getConfig().get("players-per-team",2) instanceof Integer,"players-per-team doit être un entier entre 1 et 4.");
+            TeamCapacity.validate(playersPerTeam());
             if (!"2.24.9".equals(Fk.getInstance().getDescription().getVersion()))
                 throw new IllegalStateException("FallenKingdom 2.24.9 requis : contrôler toute mise à jour.");
             if (new HashSet<>(expectedTeams()).size() != 4 || expectedTeams().size() != 4)
                 throw new IllegalStateException("Quatre noms d'équipes distincts requis.");
             if (getConfig().getInt("pvp-day") < 1 || assaultDay() < getConfig().getInt("pvp-day")
                     || getConfig().getInt("nether-day") < 1 || getConfig().getInt("capture-seconds") < 1 || getConfig().getInt("capture-seconds") > 3600
-                    || getConfig().getInt("capture-players") < 1 || getConfig().getInt("capture-players") > 2
+                    || getConfig().getInt("capture-players") < 1 || getConfig().getInt("capture-players") > 4
                     || !Double.isFinite(getConfig().getDouble("capture-radius")) || getConfig().getDouble("capture-radius") <= 0
                     || getConfig().getDouble("capture-radius") > 8 || getConfig().getInt("border-size") < 600 || getConfig().getInt("border-size") > 4000)
                 throw new IllegalStateException("Configuration des phases/captures invalide.");
@@ -124,6 +138,13 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
             getServer().getPluginManager().registerEvents(itemBan, this);
             supplies = new SupplyService(this, savedSupplies);
             getServer().getPluginManager().registerEvents(supplies, this);
+            captureGeometry=new CaptureGeometry(this);
+            centralSpawn=new SafeCentralSpawn(this);
+            centralSpawn.resolve();
+            announcements=new Announcements(this);
+            lobbyMobs=new LobbyMobs(this);
+            getServer().getPluginManager().registerEvents(lobbyMobs,this);
+            lobbyMobs.synchronize();
             World world = Objects.requireNonNull(Bukkit.getWorld("world"), "Monde world absent");
             world.getWorldBorder().setCenter(0, 0);
             world.getWorldBorder().setSize(getConfig().getInt("border-size"));
@@ -154,12 +175,12 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
         rules.setRule(Rule.FRIENDLY_FIRE, false);
         rules.setRule(Rule.DEEP_PAUSE, true);
         rules.setRule(Rule.DEATH_LIMIT, 0); // Morts illimitées, seule la capture élimine un royaume.
-        rules.setRule(Rule.RESPAWN_AT_HOME, true);
+        rules.setRule(Rule.RESPAWN_AT_HOME, false);
         rules.setRule(Rule.CHEST_LIMIT, 0);
         rules.setRule(Rule.VERTICAL_LIMIT, 0);
         rules.setRule(Rule.BLAST_PROOF_BASE, true);
         rules.getRule(Rule.CHARGED_CREEPERS).setValue(0, 0, 0);
-        // Garde la construction FK classique : base personnelle + liste limitée hors base.
+        // Hors base : autorisation neutre ciblée dans NativeAdminBridge, gardes TNT conservées.
         // Objectif explicite et capture contrôlée remplacent la détection globale de tous les coffres.
         FkPI.getInstance().getChestsRoomsManager().setEnabled(false);
         silenceTips();
@@ -196,6 +217,7 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
         getServer().getServerTickManager().setFrozen(state.started && frozen());
         captures.values().forEach(CaptureClock::reset);
         silenceTips();
+        if(lobbyMobs!=null) lobbyMobs.synchronize();
         updateDisplay();
     }
 
@@ -234,15 +256,26 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
         if (!state.assaults(assaultDay())) { captures.values().forEach(CaptureClock::reset); return; }
         for (String defender : expectedTeams()) {
             if (state.eliminated.contains(defender)) continue;
-            Location center = objectives.get(defender).clone().add(.5, 1, .5);
+            Location objective=objectives.get(defender);
+            if(objective==null || !roomValid(defender)) { resetCaptures(); return; }
+            Location center = objective.clone().add(.5, 1, .5);
             double radius = getConfig().getDouble("capture-radius");
-            List<Player> nearby = center.getWorld().getNearbyPlayers(center, radius).stream()
-                    .filter(p -> activeParticipant(p) && !p.isDead() && !blocked(p) && p.getLocation().distanceSquared(center) <= radius * radius
-                            && p.hasLineOfSight(center.clone().add(0, .01, 0))).toList();
+            advanceCapture(defender,center.getWorld().getNearbyPlayers(center, radius));
+            if(!state.running()) return;
+        }
+    }
+
+    void advanceCapture(String defender,Collection<? extends Player> candidates) {
+            if(!state.assaults(assaultDay()) || state.eliminated.contains(defender)) return;
+            Location objective=objectives.get(defender);
+            double radius=getConfig().getDouble("capture-radius");
+            Set<String> reachable=captureGeometry.reachable(objective,radius);
+            List<? extends Player> nearby=candidates.stream().filter(p->activeParticipant(p) && p.isOnline() && !p.isDead() && !blocked(p)
+                    && captureGeometry.inside(objective,p.getLocation(),radius,reachable)).toList();
             Map<String, Long> counts = new HashMap<>();
-            for (Player p : nearby) counts.merge(roster.get(p.getUniqueId()), 1L, Long::sum);
+            for (Player p : nearby) if(activeParticipant(p) && !p.isDead() && !blocked(p)) counts.merge(roster.get(p.getUniqueId()), 1L, Long::sum);
             List<String> attackers = counts.keySet().stream().filter(t -> !defender.equals(t)).toList();
-            String candidate = attackers.size() == 1 && counts.get(attackers.getFirst()) >= getConfig().getInt("capture-players")
+            String candidate = attackers.size() == 1 && requiredAttackers(attackers.getFirst())>0 && counts.get(attackers.getFirst()) >= requiredAttackers(attackers.getFirst())
                     ? attackers.getFirst() : null;
             CaptureClock clock = captures.computeIfAbsent(defender, k -> new CaptureClock());
             String previous = clock.attacker;
@@ -250,8 +283,9 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
             boolean won = clock.advance(candidate, counts.containsKey(defender), getConfig().getInt("capture-seconds") * 20);
             if (!clock.attacker.isEmpty() && !clock.attacker.equals(previous)) notifyTeams(defender, clock.attacker, "§cCapture engagée ! Défendez votre objectif.");
             if (priorTicks > 0 && clock.elapsedTicks == 0) notifyTeams(defender, previous, "§eCapture interrompue.");
+            if(!clock.attacker.isEmpty() && clock.elapsedTicks%20==0) for(Player p:nearby)
+                if(clock.attacker.equals(roster.get(p.getUniqueId()))) p.sendActionBar(net.kyori.adventure.text.Component.text("Capture : "+(clock.elapsedTicks/20)+" / "+getConfig().getInt("capture-seconds")+" s"));
             if (won) { eliminate(defender); return; }
-        }
     }
 
     private void notifyTeams(String a, String b, String message) {
@@ -263,21 +297,6 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
 
     void resetCaptures() { captures.values().forEach(CaptureClock::reset); }
 
-    void checkCaptureMovement(Player player, Location destination) {
-        if (!state.assaults(assaultDay()) || !activeParticipant(player)) return;
-        String movingTeam = roster.get(player.getUniqueId());
-        double radius = getConfig().getDouble("capture-radius");
-        for (var e : captures.entrySet()) {
-            CaptureClock clock = e.getValue();
-            if (clock.attacker.isEmpty()) continue;
-            Location center = objectives.get(e.getKey()).clone().add(.5, 1, .5);
-            boolean inside = destination.getWorld().equals(center.getWorld()) && destination.distanceSquared(center) <= radius * radius;
-            if ((clock.attacker.equals(movingTeam) && !inside) || (!clock.attacker.equals(movingTeam) && inside)) {
-                notifyTeams(e.getKey(), clock.attacker, "§eCapture interrompue."); clock.reset();
-            }
-        }
-    }
-
     boolean roomValid(String name) {
         Location objective = objectives.get(name);
         Team team = teams().getTeam(name);
@@ -285,15 +304,9 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
                 || !team.getBase().contains(objective)) return false;
         if (objective.getBlock().getType() != Material.CHEST) return false;
         if (!objective.clone().add(0, 1, 0).getBlock().isPassable()) return false;
-        // Deux joueurs doivent pouvoir se tenir près du coffre. L'accès depuis l'extérieur reste une inspection humaine.
-        int standable = 0;
-        for (int x = -2; x <= 2; x++) for (int z = -2; z <= 2; z++) {
-            Location feet = objective.clone().add(x, 0, z);
-            if (feet.getBlock().isPassable() && feet.clone().add(0, 1, 0).getBlock().isPassable()
-                    && feet.clone().subtract(0, 1, 0).getBlock().getType().isSolid()
-                    && team.getBase().contains(feet) && feet.distanceSquared(objective) <= 4) standable++;
-        }
-        return standable >= 2;
+        // Places accessibles reliées aux faces du coffre ; accès extérieur toujours inspecté humainement.
+        return captureGeometry!=null && captureGeometry.reachable(objective,getConfig().getDouble("capture-radius")).size()
+                >= Math.min(getConfig().getInt("capture-players"),playersPerTeam());
     }
 
     private void eliminate(String defender) {
@@ -310,6 +323,7 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
         try {
             if (args.length>0&&args[0].equalsIgnoreCase("admin")) { administrators.command(sender,args); return true; }
             if (args.length > 0 && args[0].equalsIgnoreCase("supply")) return supplies.command(sender, args);
+            if (args.length > 0 && args[0].equalsIgnoreCase("announce")) { announcements.command(sender,args); return true; }
             if (args.length == 0 || args[0].equalsIgnoreCase("status")) {
                 sender.sendMessage("§6Jour " + state.day + " | " + (state.running() ? "en cours" : "en pause / installation")
                         + " | Royaumes actifs : " + expectedTeams().stream().filter(t -> !state.eliminated.contains(t)).toList());
@@ -320,7 +334,7 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
                 if (mayAdmin(sender)) sender.sendMessage(
                         "Admin : assign <pseudo connecté> <équipe>, unassign <pseudo>, territory <équipe> <rayon>, "
                         + "terrain <équipe> confirm, spawn <équipe>, start [override], pause, resume, nextday, "
-                        + "end <open|close>, room <validate|invalidate|inspect> <équipe>, teams tpall [confirm], win <équipe>, save, pregen, survey");
+                        + "end <open|close>, room <validate|invalidate|inspect> <équipe>, teams tpall [confirm], announce <message>, win <équipe>, save, pregen, survey");
                 return true;
             }
             if (args[0].equalsIgnoreCase("room") && args.length == 2 && args[1].equalsIgnoreCase("register")) {
@@ -336,7 +350,7 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
                     require(!isAdministrator(p),"L'arbitre ne peut pas rejoindre une équipe.");
                     Team t = getTeam(args[2]);
                     require(!roster.containsKey(p.getUniqueId()), "Retirer d'abord le joueur de son équipe.");
-                    require(t.getPlayers().size() < 2, "Deux joueurs maximum par équipe.");
+                    require(teamSize(t.getName()) < playersPerTeam(), playersPerTeam()+" joueur(s) maximum par équipe (players-per-team).");
                     teams().addPlayer(p.getName(), t.getName());
                     roster.put(p.getUniqueId(), t.getName()); rosterNames.put(p.getUniqueId(), p.getName());
                     p.setGameMode(GameMode.SURVIVAL);
@@ -393,7 +407,9 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
                         require(override || p != null, "Tous les joueurs doivent être connectés, ou utiliser override.");
                         require(override || !Objects.requireNonNull(p).isOp(), "Retirer OP aux participants avant le lancement.");
                     }
-                    state.start(expectedTeams().stream().map(t -> getTeam(t).getPlayers().size()).toList(), override);
+                    centralSpawn.resolve();
+                    require(Bukkit.getMaxPlayers()>=4*playersPerTeam()+1,"Capacité serveur insuffisante : prévoir au moins "+(4*playersPerTeam()+1)+" places, idéalement 20 pour seize participants et un arbitre.");
+                    state.start(expectedTeams().stream().map(t -> (int)teamSize(t)).toList(), override,playersPerTeam());
                     for (Player p : Bukkit.getOnlinePlayers()) if (activeParticipant(p)) {
                         p.closeInventory(); p.setGameMode(GameMode.SURVIVAL); p.teleport(spawns.get(roster.get(p.getUniqueId())));
                     }
@@ -553,6 +569,8 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
         savedSupplies = yaml.getConfigurationSection("supplies");
         state.endOpen = yaml.getBoolean("end-open"); state.winner = yaml.getString("winner", "");
         state.eliminated.addAll(yaml.getStringList("eliminated"));
+        TeamCapacity.existing(playersPerTeam(),yaml.getInt("players-per-team",2),state.started,
+                List.of());
         require(state.day >= 0 && (state.started == (state.day > 0)) && expectedTeams().containsAll(state.eliminated)
                 && (state.winner.isEmpty() || expectedTeams().contains(state.winner)), "État logique corrompu.");
         ConfigurationSection nativeTeams = Objects.requireNonNull(yaml.getConfigurationSection("native"), "Équipes natives absentes.");
@@ -570,11 +588,12 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
         }
         for (String name : expectedTeams()) {
             Team t = teams().getTeam(name);
-            require(t != null && t.getPlayers().size() <= 2, "Équipes incohérentes.");
+            require(t != null, "Équipes incohérentes.");
             Set<String> names = new HashSet<>();
             roster.forEach((id, team) -> { if (name.equals(team)) names.add(rosterNames.get(id)); });
             require(names.equals(new HashSet<>(t.getPlayers())), "Identités et équipe native incohérentes.");
         }
+        TeamCapacity.existing(playersPerTeam(),yaml.getInt("players-per-team",2),state.started,expectedTeams().stream().map(t->(int)teamSize(t)).toList());
     }
 
     private Location readLocation(YamlConfiguration yaml, String key) {
@@ -593,6 +612,7 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
         try {
             YamlConfiguration yaml = new YamlConfiguration();
             yaml.set("schema", 1); yaml.set("day", state.day); yaml.set("started", state.started);
+            yaml.set("players-per-team",playersPerTeam());
             yaml.set("end-open", state.endOpen); yaml.set("winner", state.winner);
             yaml.set("eliminated", new ArrayList<>(state.eliminated));
             yaml.set("validated", new ArrayList<>(validated)); yaml.set("terrain-validated", new ArrayList<>(terrainValidated));
@@ -653,8 +673,10 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
         }
     }
     @EventHandler(priority = EventPriority.HIGHEST) public void onRespawn(PlayerRespawnEvent e) {
-        String name = roster.get(e.getPlayer().getUniqueId());
-        if (activeParticipant(e.getPlayer()) && !e.isBedSpawn() && !e.isAnchorSpawn() && safeSpawn(name)) e.setRespawnLocation(spawns.get(name));
+        if (activeParticipant(e.getPlayer()) && !e.isBedSpawn() && !e.isAnchorSpawn()) {
+            try { e.setRespawnLocation(centralSpawn.resolve()); }
+            catch(IllegalStateException error) { state.paused=true; syncNative(); saveState(); getLogger().log(Level.SEVERE,"Réapparition centrale impossible ; arrêt pour sécuriser le centre.",error); getServer().shutdown(); }
+        }
         Bukkit.getScheduler().runTask(this,()->{ if(e.getPlayer().isOnline()) applyMode(e.getPlayer()); });
     }
 
@@ -683,7 +705,7 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
         if (args.length == 2 && args[0].equals("supply")) return List.of("status", "list", "enable", "disable", "reload", "test", "add", "remove").stream().filter(a -> a.startsWith(args[1])).toList();
         if (args.length == 2 && args[0].equalsIgnoreCase("teams")) return List.of("tpall");
         if (args.length == 3 && args[0].equalsIgnoreCase("teams") && args[1].equalsIgnoreCase("tpall")) return List.of("confirm");
-        if (args.length == 1) return List.of("admin", "status", "help", "supply", "teams", "assign", "unassign", "territory", "terrain", "spawn", "start", "pause", "resume", "nextday", "end", "room", "win", "save", "pregen", "survey").stream().filter(t -> t.startsWith(args[0])).toList();
+        if (args.length == 1) return List.of("admin", "announce", "status", "help", "supply", "teams", "assign", "unassign", "territory", "terrain", "spawn", "start", "pause", "resume", "nextday", "end", "room", "win", "save", "pregen", "survey").stream().filter(t -> t.startsWith(args[0])).toList();
         return List.of();
     }
 
