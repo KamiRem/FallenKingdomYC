@@ -1,0 +1,5 @@
+name: FKVNext1Probe
+version: 1.0.0
+main: fr.fkamis.VNext1Probe
+api-version: '26.3'
+depend: [FKAmis]

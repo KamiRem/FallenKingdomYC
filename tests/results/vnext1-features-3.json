@@ -1,0 +1,31 @@
+{
+  "suite": "features",
+  "attempt": 1,
+  "format": 3,
+  "authenticatedPlayers": 0,
+  "fkamisSha256": "46703f7bbb5a6368b52cbac13f606857f6a9a619892e35c6c2d90b1777610442",
+  "checks": [
+    {
+      "phase": "0",
+      "assertions": 14,
+      "passed": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "phase": "1",
+      "assertions": 68,
+      "passed": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "phase": "2",
+      "assertions": 15,
+      "passed": true,
+      "errors": [],
+      "warnings": []
+    }
+  ],
+  "passed": true
+}

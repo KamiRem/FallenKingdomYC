@@ -145,7 +145,8 @@ public final class GameplayProbe extends JavaPlugin {
             check(day<3?wall.getType()==Material.STONE:wall.getType().isAir(),day<3?"explosion sans brèche avant assauts J"+day:"véritable explosion crée une brèche J3");
             check(objective.getType()==Material.CHEST,"coffre objectif survit à l'explosion J"+day);tnt.remove();
         }
-        Block edge=world.getBlockAt(281,180,-200);Block enemy=world.getBlockAt(280,180,-200);enemy.setType(Material.STONE,false);
+        int boundary=200+fr.devsylone.fkpi.FkPI.getInstance().getTeamManager().getTeam("Bleue").getBase().getRadius();
+        Block edge=world.getBlockAt(boundary+1,180,-200);Block enemy=world.getBlockAt(boundary,180,-200);enemy.setType(Material.STONE,false);
         var piston=new BlockPistonExtendEvent(edge,List.of(enemy),BlockFace.EAST);Bukkit.getPluginManager().callEvent(piston);
         check(piston.isCancelled(),"extraction de blocs adverses par piston refusée même J3");
         ((Map<String,Location>)field(companion,"objectives")).clear();

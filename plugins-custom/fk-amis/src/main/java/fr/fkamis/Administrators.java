@@ -116,7 +116,7 @@ final class Administrators implements Listener {
         root=root.substring(root.lastIndexOf(':')+1);
         // Ces commandes ne déclenchent pas BlockBreak/Place et pourraient contourner
         // les verrous des objectifs/sites : intervention explicite par console seulement.
-        if (Set.of("setblock","fill","clone","place","data","execute").contains(root)) {
+        if (Set.of("setblock","fill","clone","place","data","execute","waypoint","attribute","gamerule","worldborder").contains(root)) {
             e.setCancelled(true);e.getPlayer().sendMessage("§cModification avancée du monde : utiliser explicitement la console après sauvegarde. Les objectifs/sites restent protégés en jeu.");
         }
     }

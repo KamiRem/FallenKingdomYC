@@ -25,6 +25,7 @@ final class NativeAdminBridge {
                     "GoToNetherListener","PauseInteractionListener","InventoryListener","FoodListener","DisabledPotionsListener",
                     "PvpListener","DamageListener","RespawnListener","ChangeGamemodeListener").contains(name)) continue;
             RegisteredListener wrapper=new RegisteredListener(nativeHandler.getListener(),(listener,event)->{
+                if(event instanceof InventoryOpenEvent open&&open.getPlayer() instanceof Player viewer&&plugin.spectators!=null&&plugin.spectators.owns(viewer,open.getInventory()))return;
                 // FKAmis choisit la destination et le mode ; aucun ancien TP natif différé.
                 if (name.equals("RespawnListener")&&event instanceof PlayerRespawnEvent) return;
                 Player actor=actor(event);

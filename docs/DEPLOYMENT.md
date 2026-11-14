@@ -1,6 +1,22 @@
 # Déployer le profil retenu : Paper 26.3 sur MineStrator
 
-## Livraison ciblée VNext courante
+## Livraison ciblée VNext.1 courante
+
+Lire [le guide VNext.1](FKAMIS_VNEXT_1.md), `tests/results/vnext1-delivery.json`
+et les empreintes externes. Extraire `dist/fallenkingdom-vnext1-update.zip` hors
+instance, arrêter et sauvegarder tout le serveur, puis lancer
+`python apply_vnext1_update.py --server /chemin/instance`. L'outil refuse les
+objectifs incompatibles avec le rayon 40 avant toute écriture et sauvegarde à froid.
+Il conserve port 22880, paramètres panel et données ; seul `allow-flight=true` est
+imposé dans les propriétés. Redémarrer isolé en pause, inspecter, puis recette humaine.
+Un retour à VNext restaure toute la sauvegarde dans un dossier neuf.
+
+Pour une nouvelle carte, utiliser séparément `dist/fallenkingdom-map-v2.1-build.zip`
+sur une référence initiale approuvée, jamais sur une partie jouée. Inspecter la
+sortie et sceller avec `maintenance/new-match-reference-v2.1.json`. Aucun fichier
+de monde ne se trouve dans le paquet de mise à jour.
+
+## Livraison ciblée VNext précédente
 
 Lire les dix étapes du [guide VNext](FKAMIS_VNEXT.md), le rapport
 `tests/results/vnext-delivery.json` et les SHA-256 externes. Paquet courant :

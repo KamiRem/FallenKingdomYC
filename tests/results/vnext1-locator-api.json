@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "paperApi": "26.3.build.244-stable",
+  "apiJarSha256": "58b2a165c33a2cf18ab0c735102bafb7631581a99bafad475e5fbd2f553fe040",
+  "publicWaypointSignatures": [
+    "public abstract void setWaypointStyle(net.kyori.adventure.key.Key);",
+    "public abstract void setWaypointColor(org.bukkit.Color);",
+    "public abstract net.kyori.adventure.key.Key getWaypointStyle();",
+    "public abstract org.bukkit.Color getWaypointColor();",
+    "public static final org.bukkit.attribute.Attribute WAYPOINT_TRANSMIT_RANGE;",
+    "public static final org.bukkit.attribute.Attribute WAYPOINT_RECEIVE_RANGE;"
+  ],
+  "inference": "Aucune API publique de point fixe filtrable par destinataire trouvée dans les signatures Player/LivingEntity/Attribute inspectées. Ne prouve pas une impossibilité via protocole interne.",
+  "decision": "Locator Bar native false, portées de transmission/réception joueurs zéro ; repli ActionBar propre spawn.",
+  "productionNmsUsed": false,
+  "clientRenderingVerified": false,
+  "sources": [
+    "https://jd.papermc.io/paper/26.3/org/bukkit/entity/LivingEntity.html",
+    "https://jd.papermc.io/paper/26.3/org/bukkit/entity/Player.html"
+  ]
+}

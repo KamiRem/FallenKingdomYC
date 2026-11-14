@@ -1,4 +1,4 @@
-param([switch]$SkipTests, [switch]$Probe, [switch]$MapV2, [switch]$Corrections, [switch]$Migration, [switch]$Administration, [switch]$Features, [switch]$Physics, [switch]$VNext)
+param([switch]$SkipTests, [switch]$Probe, [switch]$MapV2, [switch]$Corrections, [switch]$Migration, [switch]$Administration, [switch]$Features, [switch]$Physics, [switch]$VNext, [switch]$VNext1)
 $ErrorActionPreference = 'Stop'
 $repo = Split-Path -Parent $PSScriptRoot
 Set-Location -LiteralPath $repo
@@ -76,4 +76,17 @@ if ($VNext) {
     Copy-Item tests/vnext-plugin.yml .cache/vnext-probe/plugin.yml
     & "$($jdk.FullName)/bin/jar.exe" --create --file .cache/FKVNextProbe.jar -C .cache/vnext-probe .
     if ($LASTEXITCODE -ne 0) { throw 'Création de la recette VNext impossible.' }
+}
+if ($VNext1) {
+    New-Item -ItemType Directory -Force .cache/vnext1-builder/fr/fkamis | Out-Null
+    Copy-Item plugins-custom/fk-amis/target/test-classes/fr/fkamis/MapV21Builder*.class .cache/vnext1-builder/fr/fkamis/
+    Copy-Item tests/map-v21-builder-plugin.yml .cache/vnext1-builder/plugin.yml
+    & "$($jdk.FullName)/bin/jar.exe" --create --file .cache/FKMapV21Builder.jar -C .cache/vnext1-builder .
+    if ($LASTEXITCODE -ne 0) { throw 'Création du constructeur V2.1 impossible.' }
+    New-Item -ItemType Directory -Force .cache/vnext1-probe/fr/fkamis | Out-Null
+    Copy-Item plugins-custom/fk-amis/target/test-classes/fr/fkamis/VNext1Probe*.class .cache/vnext1-probe/fr/fkamis/
+    Copy-Item plugins-custom/fk-amis/target/test-classes/fr/fkamis/SyntheticPlayer*.class .cache/vnext1-probe/fr/fkamis/
+    Copy-Item tests/vnext1-plugin.yml .cache/vnext1-probe/plugin.yml
+    & "$($jdk.FullName)/bin/jar.exe" --create --file .cache/FKVNext1Probe.jar -C .cache/vnext1-probe .
+    if ($LASTEXITCODE -ne 0) { throw 'Création de la recette VNext.1 impossible.' }
 }

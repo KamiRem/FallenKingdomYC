@@ -57,6 +57,8 @@ final class ProtectedPlaces implements Listener {
         }
     }
     boolean contains(Location at){return chunks.getOrDefault(chunk(at.getWorld().getName(),at.getBlockX()>>4,at.getBlockZ()>>4),List.of()).stream().anyMatch(b->b.contains(at.getBlockX(),at.getBlockY(),at.getBlockZ()));}
+    boolean containsExceptPortals(Location at){return chunks.getOrDefault(chunk(at.getWorld().getName(),at.getBlockX()>>4,at.getBlockZ()>>4),List.of()).stream().anyMatch(b->!b.id.startsWith("nether-portal:")&&b.contains(at.getBlockX(),at.getBlockY(),at.getBlockZ()));}
+    void portals(Collection<Box> areas){boxes.removeIf(b->b.id.startsWith("nether-portal:"));boxes.addAll(areas);reindex();}
     boolean forbidden(Player player,Location at){return !plugin.isAdministrator(player)&&contains(at);}
     @EventHandler(priority=EventPriority.HIGHEST) public void place(BlockPlaceEvent e){if(forbidden(e.getPlayer(),e.getBlock().getLocation()))e.setCancelled(true);}
     @EventHandler(priority=EventPriority.HIGHEST) public void place(BlockMultiPlaceEvent e){if(e.getReplacedBlockStates().stream().anyMatch(b->forbidden(e.getPlayer(),b.getLocation())))e.setCancelled(true);}

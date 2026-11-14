@@ -1,0 +1,83 @@
+{
+  "passed": true,
+  "fkamisSha256": "46703f7bbb5a6368b52cbac13f606857f6a9a619892e35c6c2d90b1777610442",
+  "testFixtureApprovalOnly": true,
+  "visualInspection": false,
+  "sealedReferenceSha256": "c8fa7e7df5c2caf542be0882e5d93afd2d89217a8ffd8438cfb75d4fd8ba90ca",
+  "allRestoredFilesCompared": 298,
+  "initialChecksAfterStartup": {
+    "bases": 4,
+    "monuments": 7,
+    "monumentBlocksChecked": 6689,
+    "supplySites": 8,
+    "lootChestsVerified": 6,
+    "cavernsChecked": 4,
+    "cavernBlocksChecked": 37128,
+    "day": 0,
+    "started": false
+  },
+  "startup": {
+    "atUtc": "2026-11-14T00:51:34.489760+00:00",
+    "instance": "preproduction-map-v21-restored-1",
+    "authenticatedPlayers": 0,
+    "simulatedPlayers": 0,
+    "officialGameStarted": false,
+    "commands": [
+      "version",
+      "plugins",
+      "fka status",
+      "fka supply status",
+      "tps",
+      "mspt",
+      "list",
+      "stop"
+    ],
+    "passed": true,
+    "java": "openjdk version \"25.0.5\" 2026-10-20 LTS",
+    "runningBackupRefused": true,
+    "exitCode": 0,
+    "warnings": [
+      "\u001b[33;1m[01:51:41 WARN]: [FK] Plugin FallenKingdom v2.24.9 generated an exception while executing task 11"
+    ],
+    "errors": [],
+    "idleMetricsOnly": [
+      "[01:51:41 INFO]: \u001b[33mTPS from last 1m, 5m, 15m: \u001b[0m\u001b[92m20,8\u001b[0m, \u001b[92m20,8\u001b[0m, \u001b[92m20,8\u001b[0m",
+      "[01:51:41 INFO]: \u001b[33mServer tick times \u001b[93m(\u001b[37mavg\u001b[93m/\u001b[37mmin\u001b[93m/\u001b[37mmax\u001b[93m)\u001b[33m from last 5s\u001b[37m,\u001b[33m 10s\u001b[37m,\u001b[33m 1m\u001b[93m:\u001b[0m",
+      "[01:51:41 INFO]: \u001b[33m◴ \u001b[37m\u001b[92m23,3\u001b[37m/\u001b[92m0,6\u001b[37m/\u001b[93m46,0, \u001b[92m23,3\u001b[37m/\u001b[92m0,6\u001b[37m/\u001b[93m46,0, \u001b[92m23,3\u001b[37m/\u001b[92m0,6\u001b[37m/\u001b[93m46,0\u001b[0m"
+    ],
+    "stillDayZero": true,
+    "notStarted": true
+  },
+  "vnextV2ReferenceSha256": "d75d9299fbe08cf5cbe7a3e6ec7da6e13a1c0d7cfe93e018fa12deb0b6488a70",
+  "vnextV2EntireManifestCompared": 294,
+  "vnextV2RollbackStartup": {
+    "atUtc": "2026-11-14T00:51:48.160352+00:00",
+    "instance": "preproduction-map-v2-rollback-1",
+    "authenticatedPlayers": 0,
+    "simulatedPlayers": 0,
+    "officialGameStarted": false,
+    "commands": [
+      "version",
+      "plugins",
+      "fka status",
+      "fka supply status",
+      "tps",
+      "mspt",
+      "list",
+      "stop"
+    ],
+    "passed": true,
+    "java": "openjdk version \"25.0.5\" 2026-10-20 LTS",
+    "runningBackupRefused": true,
+    "exitCode": 0,
+    "warnings": [],
+    "errors": [],
+    "idleMetricsOnly": [
+      "[01:51:54 INFO]: \u001b[33mTPS from last 1m, 5m, 15m: \u001b[0m\u001b[91m2,9\u001b[0m, \u001b[91m2,9\u001b[0m, \u001b[91m2,9\u001b[0m",
+      "[01:51:54 INFO]: \u001b[33mServer tick times \u001b[93m(\u001b[37mavg\u001b[93m/\u001b[37mmin\u001b[93m/\u001b[37mmax\u001b[93m)\u001b[33m from last 5s\u001b[37m,\u001b[33m 10s\u001b[37m,\u001b[33m 1m\u001b[93m:\u001b[0m",
+      "[01:51:54 INFO]: \u001b[33m◴ \u001b[37m\u001b[91m339,2\u001b[37m/\u001b[91m339,2\u001b[37m/\u001b[91m339,2\u001b[93m, \u001b[91m339,2\u001b[37m/\u001b[91m339,2\u001b[37m/\u001b[91m339,2\u001b[93m, \u001b[91m339,2\u001b[37m/\u001b[91m339,2\u001b[37m/\u001b[91m339,2\u001b[0m"
+    ],
+    "stillDayZero": true,
+    "notStarted": true
+  }
+}

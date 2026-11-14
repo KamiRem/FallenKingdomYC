@@ -1,0 +1,828 @@
+{
+  "schema": 1,
+  "mapVersion": "2.1",
+  "referenceOnly": true,
+  "radiusBefore": 80,
+  "radiusAfter": 40,
+  "planSha256": "63a4e4a87910ca22cedd61376d3a172c9a37d963e58d67f780fd0f00855e1e58",
+  "chunks": [
+    [
+      -16,
+      -16
+    ],
+    [
+      -16,
+      -15
+    ],
+    [
+      -15,
+      -16
+    ],
+    [
+      -15,
+      -15
+    ],
+    [
+      -15,
+      -14
+    ],
+    [
+      -15,
+      13
+    ],
+    [
+      -15,
+      14
+    ],
+    [
+      -15,
+      15
+    ],
+    [
+      -14,
+      -17
+    ],
+    [
+      -14,
+      -16
+    ],
+    [
+      -14,
+      -15
+    ],
+    [
+      -14,
+      -14
+    ],
+    [
+      -14,
+      13
+    ],
+    [
+      -14,
+      14
+    ],
+    [
+      -14,
+      15
+    ],
+    [
+      -13,
+      14
+    ],
+    [
+      -13,
+      15
+    ],
+    [
+      -12,
+      14
+    ],
+    [
+      -12,
+      15
+    ],
+    [
+      11,
+      -14
+    ],
+    [
+      11,
+      -13
+    ],
+    [
+      11,
+      -12
+    ],
+    [
+      12,
+      -14
+    ],
+    [
+      12,
+      -13
+    ],
+    [
+      12,
+      -12
+    ],
+    [
+      13,
+      -15
+    ],
+    [
+      13,
+      -14
+    ],
+    [
+      13,
+      -13
+    ],
+    [
+      13,
+      -12
+    ],
+    [
+      14,
+      -15
+    ],
+    [
+      14,
+      -14
+    ],
+    [
+      14,
+      -13
+    ],
+    [
+      14,
+      -12
+    ],
+    [
+      15,
+      10
+    ],
+    [
+      15,
+      11
+    ],
+    [
+      15,
+      12
+    ],
+    [
+      15,
+      13
+    ],
+    [
+      16,
+      10
+    ],
+    [
+      16,
+      11
+    ],
+    [
+      16,
+      12
+    ],
+    [
+      16,
+      13
+    ],
+    [
+      17,
+      11
+    ],
+    [
+      17,
+      12
+    ],
+    [
+      17,
+      13
+    ],
+    [
+      18,
+      11
+    ],
+    [
+      18,
+      12
+    ],
+    [
+      18,
+      13
+    ]
+  ],
+  "caverns": [
+    {
+      "team": "Rouge",
+      "theme": "volcanique_sans_lave",
+      "center": [
+        -240,
+        70,
+        -240
+      ],
+      "entrance": [
+        -216,
+        113,
+        -268
+      ],
+      "entryDistanceToBase": 36.87817782917155,
+      "entrances": 1,
+      "floorY": 69,
+      "depthFromBase": 42,
+      "plannedAirBlocks": 3725,
+      "reachableFloorCells": 589,
+      "stairs": 43,
+      "resources": {
+        "lapis_ore": 6,
+        "iron_ore": 24,
+        "redstone_ore": 12,
+        "coal_ore": 24,
+        "copper_ore": 16,
+        "gold_ore": 6,
+        "diamond_ore": 3
+      },
+      "lavaBlocks": 0,
+      "fireBlocks": 0,
+      "minimumHorizontalTerritoryMargin": 10,
+      "modifiedBlocks": 9335,
+      "visuallyInspected": false
+    },
+    {
+      "team": "Bleue",
+      "theme": "cristaux",
+      "center": [
+        200,
+        23,
+        -200
+      ],
+      "entrance": [
+        224,
+        66,
+        -228
+      ],
+      "entryDistanceToBase": 36.87817782917155,
+      "entrances": 1,
+      "floorY": 22,
+      "depthFromBase": 42,
+      "plannedAirBlocks": 3725,
+      "reachableFloorCells": 589,
+      "stairs": 43,
+      "resources": {
+        "lapis_ore": 6,
+        "iron_ore": 24,
+        "redstone_ore": 12,
+        "coal_ore": 24,
+        "copper_ore": 16,
+        "gold_ore": 6,
+        "diamond_ore": 3
+      },
+      "lavaBlocks": 0,
+      "fireBlocks": 0,
+      "minimumHorizontalTerritoryMargin": 10,
+      "modifiedBlocks": 9335,
+      "visuallyInspected": false
+    },
+    {
+      "team": "Verte",
+      "theme": "luxuriante",
+      "center": [
+        -200,
+        22,
+        240
+      ],
+      "entrance": [
+        -224,
+        63,
+        212
+      ],
+      "entryDistanceToBase": 36.87817782917155,
+      "entrances": 1,
+      "floorY": 21,
+      "depthFromBase": 42,
+      "plannedAirBlocks": 3701,
+      "reachableFloorCells": 581,
+      "stairs": 41,
+      "resources": {
+        "iron_ore": 24,
+        "coal_ore": 24,
+        "diamond_ore": 3,
+        "lapis_ore": 6,
+        "copper_ore": 16,
+        "redstone_ore": 12,
+        "gold_ore": 6
+      },
+      "lavaBlocks": 0,
+      "fireBlocks": 0,
+      "minimumHorizontalTerritoryMargin": 10,
+      "modifiedBlocks": 9229,
+      "visuallyInspected": false
+    },
+    {
+      "team": "Jaune",
+      "theme": "mine_minerale",
+      "center": [
+        280,
+        27,
+        200
+      ],
+      "entrance": [
+        256,
+        68,
+        172
+      ],
+      "entryDistanceToBase": 36.87817782917155,
+      "entrances": 1,
+      "floorY": 26,
+      "depthFromBase": 42,
+      "plannedAirBlocks": 3701,
+      "reachableFloorCells": 581,
+      "stairs": 41,
+      "resources": {
+        "iron_ore": 24,
+        "coal_ore": 24,
+        "diamond_ore": 3,
+        "lapis_ore": 6,
+        "copper_ore": 16,
+        "redstone_ore": 12,
+        "gold_ore": 6
+      },
+      "lavaBlocks": 0,
+      "fireBlocks": 0,
+      "minimumHorizontalTerritoryMargin": 10,
+      "modifiedBlocks": 9229,
+      "visuallyInspected": false
+    }
+  ],
+  "collisions": [],
+  "passed": true,
+  "visualValidation": false,
+  "inputSha256": "8120f618b09b47cb0fac10e667324d06a96ca3a2c8114b1bf42193604349f5de",
+  "output": "C:\\Users\\youne\\Documents\\GitHub\\FallenKingdomYC\\.cache\\vn1\\runtime\\map-v21-built-3",
+  "dryRun": false,
+  "build": {
+    "passed": true,
+    "authenticatedClients": 0,
+    "plannedBlocks": 37128,
+    "changedBlocks": 22219,
+    "chunks": [
+      [
+        -16,
+        -16
+      ],
+      [
+        -16,
+        -15
+      ],
+      [
+        -15,
+        -16
+      ],
+      [
+        -15,
+        -15
+      ],
+      [
+        -15,
+        -14
+      ],
+      [
+        -15,
+        13
+      ],
+      [
+        -15,
+        14
+      ],
+      [
+        -15,
+        15
+      ],
+      [
+        -14,
+        -17
+      ],
+      [
+        -14,
+        -16
+      ],
+      [
+        -14,
+        -15
+      ],
+      [
+        -14,
+        -14
+      ],
+      [
+        -14,
+        13
+      ],
+      [
+        -14,
+        14
+      ],
+      [
+        -14,
+        15
+      ],
+      [
+        -13,
+        14
+      ],
+      [
+        -13,
+        15
+      ],
+      [
+        -12,
+        14
+      ],
+      [
+        -12,
+        15
+      ],
+      [
+        11,
+        -14
+      ],
+      [
+        11,
+        -13
+      ],
+      [
+        11,
+        -12
+      ],
+      [
+        12,
+        -14
+      ],
+      [
+        12,
+        -13
+      ],
+      [
+        12,
+        -12
+      ],
+      [
+        13,
+        -15
+      ],
+      [
+        13,
+        -14
+      ],
+      [
+        13,
+        -13
+      ],
+      [
+        13,
+        -12
+      ],
+      [
+        14,
+        -15
+      ],
+      [
+        14,
+        -14
+      ],
+      [
+        14,
+        -13
+      ],
+      [
+        14,
+        -12
+      ],
+      [
+        15,
+        10
+      ],
+      [
+        15,
+        11
+      ],
+      [
+        15,
+        12
+      ],
+      [
+        15,
+        13
+      ],
+      [
+        16,
+        10
+      ],
+      [
+        16,
+        11
+      ],
+      [
+        16,
+        12
+      ],
+      [
+        16,
+        13
+      ],
+      [
+        17,
+        11
+      ],
+      [
+        17,
+        12
+      ],
+      [
+        17,
+        13
+      ],
+      [
+        18,
+        11
+      ],
+      [
+        18,
+        12
+      ],
+      [
+        18,
+        13
+      ]
+    ],
+    "caverns": [
+      {
+        "team": "Rouge",
+        "theme": "volcanique_sans_lave",
+        "center": [
+          -240,
+          70,
+          -240
+        ],
+        "entrance": [
+          -216,
+          113,
+          -268
+        ],
+        "entryDistanceToBase": 36.87817782917155,
+        "entrances": 1,
+        "floorY": 69,
+        "depthFromBase": 42,
+        "plannedAirBlocks": 3725,
+        "reachableFloorCells": 589,
+        "stairs": 43,
+        "resources": {
+          "lapis_ore": 6,
+          "iron_ore": 24,
+          "redstone_ore": 12,
+          "coal_ore": 24,
+          "copper_ore": 16,
+          "gold_ore": 6,
+          "diamond_ore": 3
+        },
+        "lavaBlocks": 0,
+        "fireBlocks": 0,
+        "minimumHorizontalTerritoryMargin": 10,
+        "modifiedBlocks": 9335,
+        "visuallyInspected": false
+      },
+      {
+        "team": "Bleue",
+        "theme": "cristaux",
+        "center": [
+          200,
+          23,
+          -200
+        ],
+        "entrance": [
+          224,
+          66,
+          -228
+        ],
+        "entryDistanceToBase": 36.87817782917155,
+        "entrances": 1,
+        "floorY": 22,
+        "depthFromBase": 42,
+        "plannedAirBlocks": 3725,
+        "reachableFloorCells": 589,
+        "stairs": 43,
+        "resources": {
+          "lapis_ore": 6,
+          "iron_ore": 24,
+          "redstone_ore": 12,
+          "coal_ore": 24,
+          "copper_ore": 16,
+          "gold_ore": 6,
+          "diamond_ore": 3
+        },
+        "lavaBlocks": 0,
+        "fireBlocks": 0,
+        "minimumHorizontalTerritoryMargin": 10,
+        "modifiedBlocks": 9335,
+        "visuallyInspected": false
+      },
+      {
+        "team": "Verte",
+        "theme": "luxuriante",
+        "center": [
+          -200,
+          22,
+          240
+        ],
+        "entrance": [
+          -224,
+          63,
+          212
+        ],
+        "entryDistanceToBase": 36.87817782917155,
+        "entrances": 1,
+        "floorY": 21,
+        "depthFromBase": 42,
+        "plannedAirBlocks": 3701,
+        "reachableFloorCells": 581,
+        "stairs": 41,
+        "resources": {
+          "iron_ore": 24,
+          "coal_ore": 24,
+          "diamond_ore": 3,
+          "lapis_ore": 6,
+          "copper_ore": 16,
+          "redstone_ore": 12,
+          "gold_ore": 6
+        },
+        "lavaBlocks": 0,
+        "fireBlocks": 0,
+        "minimumHorizontalTerritoryMargin": 10,
+        "modifiedBlocks": 9229,
+        "visuallyInspected": false
+      },
+      {
+        "team": "Jaune",
+        "theme": "mine_minerale",
+        "center": [
+          280,
+          27,
+          200
+        ],
+        "entrance": [
+          256,
+          68,
+          172
+        ],
+        "entryDistanceToBase": 36.87817782917155,
+        "entrances": 1,
+        "floorY": 26,
+        "depthFromBase": 42,
+        "plannedAirBlocks": 3701,
+        "reachableFloorCells": 581,
+        "stairs": 41,
+        "resources": {
+          "iron_ore": 24,
+          "coal_ore": 24,
+          "diamond_ore": 3,
+          "lapis_ore": 6,
+          "copper_ore": 16,
+          "redstone_ore": 12,
+          "gold_ore": 6
+        },
+        "lavaBlocks": 0,
+        "fireBlocks": 0,
+        "minimumHorizontalTerritoryMargin": 10,
+        "modifiedBlocks": 9229,
+        "visuallyInspected": false
+      }
+    ],
+    "checks": [
+      "Tous les matÃ©riaux sources vÃ©rifiÃ©s avant modification",
+      "37128 blocs de sortie et Ã©tats d'escalier conformes",
+      "Spawn et huit coins verticaux vÃ©rifiÃ©s : Rouge",
+      "Spawn et huit coins verticaux vÃ©rifiÃ©s : Bleue",
+      "Spawn et huit coins verticaux vÃ©rifiÃ©s : Verte",
+      "Spawn et huit coins verticaux vÃ©rifiÃ©s : Jaune",
+      "RÃ¨gles de croissance et de temps rÃ©tablies aprÃ¨s le chantier"
+    ],
+    "constructionMillis": 2050,
+    "visualInspection": false
+  },
+  "backup": "C:\\Users\\youne\\Documents\\GitHub\\FallenKingdomYC\\.cache\\vn1\\runtime\\.map-v21-backups\\map-v21-built-3-before.zip",
+  "backupSha256": "74adc4cf7b6ac3692b0cbe462bbc1f6b5a7996f39b20126265113c814aa7fd35",
+  "fkamisSha256": "46703f7bbb5a6368b52cbac13f606857f6a9a619892e35c6c2d90b1777610442",
+  "visualInspection": false,
+  "integrity": {
+    "passed": true,
+    "sourceBackupSha256": "74adc4cf7b6ac3692b0cbe462bbc1f6b5a7996f39b20126265113c814aa7fd35",
+    "regionFilesByteIdentical": 62,
+    "terrainChunksSemanticallyChecked": 467,
+    "constructionChunks": 47,
+    "plannedChunks": 47,
+    "entityChunksCompared": 85,
+    "entitiesInChangedChunksCompared": 135,
+    "errors": [],
+    "routes": [
+      {
+        "team": "Rouge",
+        "entranceConnected": true,
+        "actualReachableFloorCells": 589
+      },
+      {
+        "team": "Bleue",
+        "entranceConnected": true,
+        "actualReachableFloorCells": 589
+      },
+      {
+        "team": "Verte",
+        "entranceConnected": true,
+        "actualReachableFloorCells": 581
+      },
+      {
+        "team": "Jaune",
+        "entranceConnected": true,
+        "actualReachableFloorCells": 581
+      }
+    ],
+    "runtimeBlockEntityFieldsNormalized": [
+      {
+        "at": [
+          -265,
+          67,
+          202
+        ],
+        "type": "minecraft:blast_furnace",
+        "normalizedFields": [
+          "keepPacked",
+          "default furnace speed_multiplier=1",
+          "vault server_data.state_updating_resumes_at"
+        ]
+      },
+      {
+        "at": [
+          222,
+          -17,
+          -242
+        ],
+        "type": "minecraft:vault",
+        "normalizedFields": [
+          "keepPacked",
+          "default furnace speed_multiplier=1",
+          "vault server_data.state_updating_resumes_at"
+        ]
+      },
+      {
+        "at": [
+          222,
+          -17,
+          -252
+        ],
+        "type": "minecraft:vault",
+        "normalizedFields": [
+          "keepPacked",
+          "default furnace speed_multiplier=1",
+          "vault server_data.state_updating_resumes_at"
+        ]
+      },
+      {
+        "at": [
+          231,
+          -19,
+          -247
+        ],
+        "type": "minecraft:vault",
+        "normalizedFields": [
+          "keepPacked",
+          "default furnace speed_multiplier=1",
+          "vault server_data.state_updating_resumes_at"
+        ]
+      },
+      {
+        "at": [
+          249,
+          -24,
+          -251
+        ],
+        "type": "minecraft:vault",
+        "normalizedFields": [
+          "keepPacked",
+          "default furnace speed_multiplier=1",
+          "vault server_data.state_updating_resumes_at"
+        ]
+      }
+    ],
+    "blockEntitiesAndInventoriesUnchanged": true,
+    "visualInspection": false
+  },
+  "initialChecks": {
+    "bases": 4,
+    "monuments": 7,
+    "monumentBlocksChecked": 6689,
+    "supplySites": 8,
+    "lootChestsVerified": 6,
+    "cavernsChecked": 4,
+    "cavernBlocksChecked": 37128,
+    "day": 0,
+    "started": false
+  },
+  "v21ReferenceRequired": true,
+  "visuallyInspected": false,
+  "constructionTemporaryRulesRestored": {
+    "the_nether": {
+      "random_tick_speed": 3,
+      "advance_time": 1
+    },
+    "the_end": {
+      "random_tick_speed": 3,
+      "advance_time": 1
+    },
+    "overworld": {
+      "random_tick_speed": 3,
+      "advance_time": 1
+    }
+  }
+}

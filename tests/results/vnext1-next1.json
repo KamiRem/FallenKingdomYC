@@ -1,0 +1,26 @@
+{
+  "suite": "next1",
+  "attempt": 11,
+  "format": 2,
+  "authenticatedPlayers": 0,
+  "fkamisSha256": "46703f7bbb5a6368b52cbac13f606857f6a9a619892e35c6c2d90b1777610442",
+  "checks": [
+    {
+      "phase": "0",
+      "assertions": 52,
+      "passed": true,
+      "errors": [],
+      "warnings": [
+        "> > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > \u001b[33;1m[02:02:38 WARN]: [FKAmis] Portail officiel endommagé ou sortie obstruée : voyages désactivés, intervention arbitre requise."
+      ]
+    },
+    {
+      "phase": "1",
+      "assertions": 3,
+      "passed": true,
+      "errors": [],
+      "warnings": []
+    }
+  ],
+  "passed": true
+}

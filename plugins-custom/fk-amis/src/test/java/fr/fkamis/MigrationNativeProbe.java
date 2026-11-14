@@ -94,7 +94,7 @@ public final class MigrationNativeProbe extends JavaPlugin {
                 "Verte",new int[]{-200,65,240}, "Jaune",new int[]{280,70,200});
         for (var entry : centers.entrySet()) {
             var team = teams.getTeam(entry.getKey()); var base = team.getBase(); var at = base.getCenter(); int[] c = entry.getValue();
-            check(base.getRadius() == 80 && at.getBlockX() == c[0] && at.getBlockY() == c[1] && at.getBlockZ() == c[2]
+            check(base.getRadius() == (Boolean.getBoolean("fk.vnext1")?40:80) && at.getBlockX() == c[0] && at.getBlockY() == c[1] && at.getBlockZ() == c[2]
                     && at.getWorld().getName().equals("world") && team.getPlayers().isEmpty(), "territoire initial " + entry.getKey());
         }
         Set<World.Environment> dimensions = new HashSet<>();

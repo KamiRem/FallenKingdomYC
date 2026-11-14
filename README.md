@@ -1,12 +1,13 @@
 # Fallen Kingdom privé — quatre royaumes et un arbitre
 
-La livraison courante est [FKAmis VNext](docs/FKAMIS_VNEXT.md) :
-`dist/fallenkingdom-vnext-update.zip`, sans monde ni état de partie. Elle corrige
-le cycle de tir des squelettes et ajoute reset sécurisé, BossBars/alertes,
-protections des lieux et du respawn, configuration, statistiques et informations.
-Les preuves et limites sont dans [le rapport courant](tests/results/vnext-delivery.json).
-La [livraison gameplay](docs/GAMEPLAY_UPDATE.md) reste la base historique conservée.
-Ne pas remplacer le monde ni `state.yml`. Aucun accès à l'hébergement n'a été effectué.
+La livraison courante est [FKAmis VNext.1 et carte V2.1](docs/FKAMIS_VNEXT_1.md).
+Le ZIP `dist/fallenkingdom-vnext1-update.zip` met à jour VNext et les territoires
+à froid, avec sauvegarde complète ; il ne contient aucun monde ni état de joueur.
+L'artefact séparé `dist/fallenkingdom-map-v2.1-build.zip` construit quatre cavernes
+sur une copie initiale uniquement. Le [rapport courant](tests/results/vnext1-delivery.json)
+distingue essais locaux et recette humaine restant à faire. Aucun accès MineStrator.
+Le guidage utilise une ActionBar privée ; la Locator Bar native reste désactivée.
+Les [preuves VNext](docs/FKAMIS_VNEXT.md) et livraisons antérieures sont conservées.
 
 La précédente [mise à jour arbitre, survie et tips](docs/ADMIN_UPDATE.md) se déploie
 avec `dist/fallenkingdom-admin-update.zip`, sans retransfert de carte ni remplacement

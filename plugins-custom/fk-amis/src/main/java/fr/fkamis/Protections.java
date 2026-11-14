@@ -96,6 +96,7 @@ final class Protections implements Listener {
         if (e.getPlayer() != null && plugin.protectedAt(e.getPlayer(), e.getBlock().getLocation())) e.setCancelled(true);
     }
     @EventHandler(priority = EventPriority.HIGHEST) public void open(InventoryOpenEvent e) {
+        if(e.getPlayer() instanceof Player viewer&&plugin.spectators!=null&&plugin.spectators.owns(viewer,e.getInventory()))return;
         if (e.getPlayer() instanceof Player p && (plugin.blocked(p)
                 || inventoryLocations(e.getInventory()).stream().anyMatch(at -> plugin.protectedAt(p, at)))) e.setCancelled(true);
     }

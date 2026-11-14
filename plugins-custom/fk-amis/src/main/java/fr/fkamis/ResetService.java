@@ -63,7 +63,7 @@ final class ResetService {
         result.set("supplies.remaining",interval);result.set("supplies.previous",List.of());
         var drops=result.getConfigurationSection("supplies.drops");
         if(drops!=null)for(String id:drops.getKeys(false))if("ACTIVE".equals(drops.getString(id+".status"))){drops.set(id+".status","EXPIRED");drops.set(id+".ttl",0);drops.set(id+".items",List.of());}
-        result.set("vnext.version",1);result.set("vnext.statistics-json",new MatchStatistics().json());result.set("vnext.respawn-protection",null);
+        result.set("vnext.version",2);result.set("vnext.statistics-json",new MatchStatistics().json());result.set("vnext.respawn-protection",null);result.set("vnext1.nether.activated",false);
         return result;
     }
 }

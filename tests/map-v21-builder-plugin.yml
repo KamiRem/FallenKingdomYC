@@ -1,0 +1,5 @@
+name: FKMapV21Builder
+version: 1.0.0
+main: fr.fkamis.MapV21Builder
+api-version: '26.3'
+depend: [FKAmis]

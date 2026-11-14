@@ -1,0 +1,140 @@
+{
+  "passed": true,
+  "fkamisSha256": "46703f7bbb5a6368b52cbac13f606857f6a9a619892e35c6c2d90b1777610442",
+  "authenticatedPlayers": 0,
+  "logical": {
+    "schema": 1,
+    "operation": "logical",
+    "backup": "C:\\Users\\youne\\Documents\\GitHub\\FallenKingdomYC\\.cache\\vn1\\runtime\\probe-vnext-reset-2\\.fk-resets\\before-reset-20261114T005234173055Z.zip",
+    "backupSha256": "a0e9aa805ba3297f406b14412d21df9fbbcdc3cf91e02136bbaebb0d495eb944",
+    "worldFilesUnchanged": 121,
+    "previousMatchId": "ef021573-5792-4eed-af36-9353b9fd0126",
+    "worldOrInventoriesRestored": false
+  },
+  "protectedFilesCompared": 141,
+  "beforeResetRestart": {
+    "passed": true,
+    "assertions": 5,
+    "errors": []
+  },
+  "logicalRestart": {
+    "passed": true,
+    "assertions": 8,
+    "errors": []
+  },
+  "baseline": {
+    "schema": 1,
+    "sha256": "bb497ecbdb9eb1d1181fb26f84c64cfd9108527b19ce3a14b8dcc5447673b80b",
+    "pluginSha256": "46703f7bbb5a6368b52cbac13f606857f6a9a619892e35c6c2d90b1777610442",
+    "paperSha256": "9601f9a26a2a52a0f2c807cf1abf691f96ee4fb287878313b601cebc2c51eabf",
+    "policies": {
+      "plugins/FKAmis/config.yml": "4bc899e84aa1bfda26871a9456b4f8e87be31923f5e069087bdda25ee815f3d1",
+      "plugins/FKAmis/admins.yml": "ae0d62c7fb96b327507fdcfb8ae262d57f83186845ec5fd7ed65a51ae3ed8671",
+      "plugins/FKAmis/supplies.yml": "7153dcfda08d38940f3cb10daf9c67e3b00aaaa283e5a1c665a5e49529f97d1d",
+      "server.properties": "eaba08aa0d77fecef143dfca09e546f104b4a883bb662e6854e7b8bbe17e4f34",
+      "whitelist.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "ops.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "banned-players.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "banned-ips.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "checks": {
+      "bases": 4,
+      "monuments": 7,
+      "monumentBlocksChecked": 6689,
+      "supplySites": 8,
+      "lootChestsVerified": 6,
+      "cavernsChecked": 0,
+      "cavernBlocksChecked": 0,
+      "day": 0,
+      "started": false
+    },
+    "approvedInitial": true,
+    "atUtc": "2026-11-14T00:52:21.252228+00:00"
+  },
+  "testFixtureApprovalOnly": true,
+  "visuallyInspected": false,
+  "differentPoliciesRefused": true,
+  "fullRestore": {
+    "schema": 1,
+    "operation": "restore-approved-initial",
+    "backup": "C:\\Users\\youne\\Documents\\GitHub\\FallenKingdomYC\\.cache\\vn1\\runtime\\probe-vnext-reset-2\\.fk-resets\\before-reset-20261114T005252787143Z.zip",
+    "backupSha256": "1352525f90e07cf8dc57a78f771a3beaf6442eafc8ca0ae3e8d0c5a65664b5f8",
+    "destination": "C:\\Users\\youne\\Documents\\GitHub\\FallenKingdomYC\\.cache\\vn1\\runtime\\preproduction-vnext1-reset-restored-2",
+    "restoredFiles": 294,
+    "checks": {
+      "bases": 4,
+      "monuments": 7,
+      "monumentBlocksChecked": 6689,
+      "supplySites": 8,
+      "lootChestsVerified": 6,
+      "cavernsChecked": 0,
+      "cavernBlocksChecked": 0,
+      "day": 0,
+      "started": false
+    },
+    "oldInstanceAndHistoryPreserved": true
+  },
+  "fullRestoreStartup": {
+    "atUtc": "2026-11-14T00:53:06.363355+00:00",
+    "instance": "preproduction-vnext1-reset-restored-2",
+    "authenticatedPlayers": 0,
+    "simulatedPlayers": 0,
+    "officialGameStarted": false,
+    "commands": [
+      "version",
+      "plugins",
+      "fka status",
+      "fka supply status",
+      "tps",
+      "mspt",
+      "list",
+      "stop"
+    ],
+    "passed": true,
+    "java": "openjdk version \"25.0.5\" 2026-10-20 LTS",
+    "runningBackupRefused": true,
+    "exitCode": 0,
+    "warnings": [],
+    "errors": [],
+    "idleMetricsOnly": [
+      "[01:53:13 INFO]: \u001b[33mTPS from last 1m, 5m, 15m: \u001b[0m\u001b[91m2,1\u001b[0m, \u001b[91m2,1\u001b[0m, \u001b[91m2,1\u001b[0m",
+      "[01:53:13 INFO]: \u001b[33mServer tick times \u001b[93m(\u001b[37mavg\u001b[93m/\u001b[37mmin\u001b[93m/\u001b[37mmax\u001b[93m)\u001b[33m from last 5s\u001b[37m,\u001b[33m 10s\u001b[37m,\u001b[33m 1m\u001b[93m:\u001b[0m",
+      "[01:53:13 INFO]: \u001b[33m◴ \u001b[37m\u001b[91m487,1\u001b[37m/\u001b[91m487,1\u001b[37m/\u001b[91m487,1\u001b[93m, \u001b[91m487,1\u001b[37m/\u001b[91m487,1\u001b[37m/\u001b[91m487,1\u001b[93m, \u001b[91m487,1\u001b[37m/\u001b[91m487,1\u001b[37m/\u001b[91m487,1\u001b[0m"
+    ],
+    "stillDayZero": true,
+    "notStarted": true
+  },
+  "resetRollbackEntireManifestCompared": 314,
+  "resetRollbackStartup": {
+    "atUtc": "2026-11-14T00:53:20.271997+00:00",
+    "instance": "preproduction-vnext1-reset-rollback-2",
+    "authenticatedPlayers": 0,
+    "simulatedPlayers": 0,
+    "officialGameStarted": false,
+    "commands": [
+      "version",
+      "plugins",
+      "fka status",
+      "fka supply status",
+      "tps",
+      "mspt",
+      "list",
+      "stop"
+    ],
+    "passed": true,
+    "java": "openjdk version \"25.0.5\" 2026-10-20 LTS",
+    "runningBackupRefused": true,
+    "exitCode": 0,
+    "warnings": [
+      "\u001b[33;1m[01:53:27 WARN]: [FK] Plugin FallenKingdom v2.24.9 generated an exception while executing task 11"
+    ],
+    "errors": [],
+    "idleMetricsOnly": [
+      "[01:53:26 INFO]: \u001b[33mTPS from last 1m, 5m, 15m: \u001b[0m\u001b[92m20,0\u001b[0m, \u001b[92m20,0\u001b[0m, \u001b[92m20,0\u001b[0m",
+      "[01:53:26 INFO]: \u001b[33mServer tick times \u001b[93m(\u001b[37mavg\u001b[93m/\u001b[37mmin\u001b[93m/\u001b[37mmax\u001b[93m)\u001b[33m from last 5s\u001b[37m,\u001b[33m 10s\u001b[37m,\u001b[33m 1m\u001b[93m:\u001b[0m",
+      "[01:53:26 INFO]: \u001b[33m◴ \u001b[37m\u001b[92m36,2\u001b[37m/\u001b[92m36,2\u001b[37m/\u001b[92m36,2\u001b[93m, \u001b[92m36,2\u001b[37m/\u001b[92m36,2\u001b[37m/\u001b[92m36,2\u001b[93m, \u001b[92m36,2\u001b[37m/\u001b[92m36,2\u001b[37m/\u001b[92m36,2\u001b[0m"
+    ],
+    "stillDayZero": false,
+    "notStarted": false
+  }
+}

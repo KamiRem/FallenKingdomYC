@@ -1,0 +1,229 @@
+{
+  "passed": true,
+  "fkamisSha256": "46703f7bbb5a6368b52cbac13f606857f6a9a619892e35c6c2d90b1777610442",
+  "microbench": {
+    "activeMovementListenerMeanNs": 277.555,
+    "allMovementListenersMeanNs": 2990.0,
+    "ownBaseActionBarMeanNs": 4295.85,
+    "twoOpenPortalChecksMeanNs": 16448.75,
+    "protectedPlaceLookupMeanNs": 478.224,
+    "pausedMovementListenerMeanNs": 351.8,
+    "additionalLoadedChunksDuringMicrobench": 0,
+    "heapUsedBytes": 618052552,
+    "tps": [
+      15.153115049786756,
+      15.153115049786756,
+      15.153115049786756
+    ],
+    "averageMspt": 15.60602894736842,
+    "authenticatedClients": 0,
+    "realNmsPlayers": 9,
+    "scope": "Micro-mesures locales avec réflexion, corps NMS sans clients ni réseau ; aucune certification MineStrator."
+  },
+  "idleAfter30Seconds": {
+    "idleMetricsOnly": [
+      "[01:50:35 INFO]: \u001b[33mTPS from last 1m, 5m, 15m: \u001b[0m\u001b[92m20,0\u001b[0m, \u001b[92m20,0\u001b[0m, \u001b[92m20,0\u001b[0m",
+      "[01:50:35 INFO]: \u001b[33mServer tick times \u001b[93m(\u001b[37mavg\u001b[93m/\u001b[37mmin\u001b[93m/\u001b[37mmax\u001b[93m)\u001b[33m from last 5s\u001b[37m,\u001b[33m 10s\u001b[37m,\u001b[33m 1m\u001b[93m:\u001b[0m",
+      "[01:50:35 INFO]: \u001b[33m◴ \u001b[37m\u001b[92m0,3\u001b[37m/\u001b[92m0,0\u001b[37m/\u001b[92m8,8\u001b[93m, \u001b[92m0,3\u001b[37m/\u001b[92m0,0\u001b[37m/\u001b[92m8,8\u001b[93m, \u001b[92m0,6\u001b[37m/\u001b[92m0,0\u001b[37m/\u001b[92m23,9\u001b[0m"
+    ],
+    "idleHeapInfo": "8768:\ngarbage-first heap   total reserved 4194304K, committed 1048576K, used 526479K [0x0000000700000000, 0x0000000800000000)\n region size 2048K, 151 young (309248K), 34 survivors (69632K)",
+    "idleSettleSeconds": 30
+  },
+  "cavernConstruction": {
+    "constructionMillis": 2050,
+    "plannedBlocks": 37128,
+    "changedBlocks": 22219,
+    "chunks": [
+      [
+        -16,
+        -16
+      ],
+      [
+        -16,
+        -15
+      ],
+      [
+        -15,
+        -16
+      ],
+      [
+        -15,
+        -15
+      ],
+      [
+        -15,
+        -14
+      ],
+      [
+        -15,
+        13
+      ],
+      [
+        -15,
+        14
+      ],
+      [
+        -15,
+        15
+      ],
+      [
+        -14,
+        -17
+      ],
+      [
+        -14,
+        -16
+      ],
+      [
+        -14,
+        -15
+      ],
+      [
+        -14,
+        -14
+      ],
+      [
+        -14,
+        13
+      ],
+      [
+        -14,
+        14
+      ],
+      [
+        -14,
+        15
+      ],
+      [
+        -13,
+        14
+      ],
+      [
+        -13,
+        15
+      ],
+      [
+        -12,
+        14
+      ],
+      [
+        -12,
+        15
+      ],
+      [
+        11,
+        -14
+      ],
+      [
+        11,
+        -13
+      ],
+      [
+        11,
+        -12
+      ],
+      [
+        12,
+        -14
+      ],
+      [
+        12,
+        -13
+      ],
+      [
+        12,
+        -12
+      ],
+      [
+        13,
+        -15
+      ],
+      [
+        13,
+        -14
+      ],
+      [
+        13,
+        -13
+      ],
+      [
+        13,
+        -12
+      ],
+      [
+        14,
+        -15
+      ],
+      [
+        14,
+        -14
+      ],
+      [
+        14,
+        -13
+      ],
+      [
+        14,
+        -12
+      ],
+      [
+        15,
+        10
+      ],
+      [
+        15,
+        11
+      ],
+      [
+        15,
+        12
+      ],
+      [
+        15,
+        13
+      ],
+      [
+        16,
+        10
+      ],
+      [
+        16,
+        11
+      ],
+      [
+        16,
+        12
+      ],
+      [
+        16,
+        13
+      ],
+      [
+        17,
+        11
+      ],
+      [
+        17,
+        12
+      ],
+      [
+        17,
+        13
+      ],
+      [
+        18,
+        11
+      ],
+      [
+        18,
+        12
+      ],
+      [
+        18,
+        13
+      ]
+    ]
+  },
+  "authenticatedClients": 0,
+  "scope": "Coûts locaux seulement. TPS de sonde influencés par démarrage et constructions synchrones ; charge réseau/MineStrator à mesurer."
+}

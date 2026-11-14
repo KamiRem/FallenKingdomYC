@@ -1,10 +1,15 @@
 # FKAmis VNext — exploitation et preuves
 
+**Guide historique VNext.** La [révision courante VNext.1](FKAMIS_VNEXT_1.md) ajoute
+le guidage privé, les territoires 40, le spectateur, les portails officiels et la
+pause renforcée. Elle retire l’auto-pause à la déconnexion et versionne l’extension
+à 2. Ce document conserve les preuves de la livraison VNext.
+
 Révision indépendante de FallenKingdom, branche `feature/fkamis-vnext`, basée sur
 la livraison gameplay `83e721d8ac12feefdb590976747f88d6825b3243976c7e9f10b1cc35fac5239d`.
 Paper **26.3 build 244**, Java **25**, FallenKingdom officiel **2.24.9** restent
 inchangés. Aucun accès à MineStrator. Les archives précédentes restent historiques.
-Le rapport courant est [vnext-delivery.json](../tests/results/vnext-delivery.json).
+Le rapport historique est [vnext-delivery.json](../tests/results/vnext-delivery.json).
 
 ## Risques de l'audit et décisions
 

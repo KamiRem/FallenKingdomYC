@@ -1,8 +1,8 @@
 # Administration
 
-## Administration VNext
+## Administration VNext.1
 
-Le [guide VNext](FKAMIS_VNEXT.md) décrit les commandes et procédures courantes.
+Le [guide VNext.1](FKAMIS_VNEXT_1.md) décrit les commandes et procédures courantes.
 Arbitre UUID/console : `fka config list|get|set|validate|defaults|diff` et
 `fka reset status|prepare|confirm <jeton>|cancel`. La configuration structurante
 reste verrouillée après départ ; `damage-debug` peut être activé temporairement.
@@ -10,6 +10,26 @@ Le reset confirmé arrête le serveur puis exige la maintenance à froid ; il ne
 remplace aucun monde ou inventaire à chaud. `fka stats [match|player pseudo|team
 équipe|leaderboard]` et `fka info [teams|phases|supplies]` sont publics, sans coordonnées
 secrètes. OP seul ne confère pas le rôle arbitre. Historique et sauvegardes restent privés.
+
+| Nouvelle commande | Accès et effet |
+|---|---|
+| `/fka base` | Participant : guidage vers son propre spawn, aucune direction interdimensionnelle |
+| `/fka spectate [pseudo]` | Éliminé ou arbitre : menu privé ou suivi d'une cible active sûre |
+| `/fka nether portal register overworld` | Arbitre en jeu : viser un cadre sûr en zone centrale neutre |
+| `/fka nether portal register nether` | Arbitre en jeu : viser le cadre retour et sa sortie sûre |
+| `/fka nether portal activate` | Arbitre/console : ouvrir la paire si phase et cadre valides |
+| `/fka nether portal deactivate` | Arbitre/console : fermer les deux surfaces |
+| `/fka nether portal status` | Arbitre/console : contrôle privé des routes et cadres |
+
+La déconnexion ne déclenche aucune pause automatique. La pause manuelle immobilise
+tous les non-arbitres, spectateurs inclus. Les seuils de capture ne baissent pas
+lors d'une déconnexion. `allow-flight=true` évite les expulsions de position ; il
+n'accorde aucun vol Survival. Les commandes natives `waypoint`, `attribute`,
+`gamerule` et `worldborder` sont réservées à la console.
+
+Installer avec `apply_vnext1_update.py` après arrêt et sauvegarde complète. Les
+objectifs hors rayon 40 font refuser la migration ; inspection des salles requise.
+Le ZIP de construction de carte est une opération distincte sur référence initiale.
 
 ## Base gameplay réutilisée
 

@@ -1,0 +1,105 @@
+{
+  "passed": true,
+  "fkamisSha256": "46703f7bbb5a6368b52cbac13f606857f6a9a619892e35c6c2d90b1777610442",
+  "authenticatedClients": 0,
+  "realNmsProfile": true,
+  "inventoryItem": "minecraft:bread",
+  "inventoryCount": 7,
+  "profileFilesCompared": 1,
+  "beforeMigrationFixtureRegistryReconciled": true,
+  "allRestoredFilesCompared": 294,
+  "update": {
+    "backup": "C:\\Users\\youne\\Documents\\GitHub\\FallenKingdomYC\\.cache\\vn1\\runtime\\preproduction-vnext1-inventory-1\\.fk-updates\\before-vnext1-20261114T004852657894Z.zip",
+    "backupSha256": "46cbcc692d98eadead78eb7a936d892ead59ec66fd5e01dbd14ee161adc36f7b",
+    "protectedFiles": 137,
+    "worldInventoriesRolesAndHistoryUnchanged": true,
+    "territories": {
+      "schema": 1,
+      "territories": [
+        {
+          "team": "Rouge",
+          "oldRadius": 80,
+          "newRadius": 40,
+          "center": {
+            "X": -240.0,
+            "Y": 113.0,
+            "Z": -240.0
+          },
+          "minX": -280,
+          "maxX": -200,
+          "minZ": -280,
+          "maxZ": -200,
+          "verticalLimit": 0,
+          "geometricAreaBefore": 25600,
+          "geometricAreaAfter": 6400,
+          "blockColumnsBefore": 25921,
+          "blockColumnsAfter": 6561
+        },
+        {
+          "team": "Bleue",
+          "oldRadius": 80,
+          "newRadius": 40,
+          "center": {
+            "X": 200.0,
+            "Y": 66.0,
+            "Z": -200.0
+          },
+          "minX": 160,
+          "maxX": 240,
+          "minZ": -240,
+          "maxZ": -160,
+          "verticalLimit": 0,
+          "geometricAreaBefore": 25600,
+          "geometricAreaAfter": 6400,
+          "blockColumnsBefore": 25921,
+          "blockColumnsAfter": 6561
+        },
+        {
+          "team": "Verte",
+          "oldRadius": 80,
+          "newRadius": 40,
+          "center": {
+            "X": -200.0,
+            "Y": 65.0,
+            "Z": 240.0
+          },
+          "minX": -240,
+          "maxX": -160,
+          "minZ": 200,
+          "maxZ": 280,
+          "verticalLimit": 0,
+          "geometricAreaBefore": 25600,
+          "geometricAreaAfter": 6400,
+          "blockColumnsBefore": 25921,
+          "blockColumnsAfter": 6561
+        },
+        {
+          "team": "Jaune",
+          "oldRadius": 80,
+          "newRadius": 40,
+          "center": {
+            "X": 280.0,
+            "Y": 70.0,
+            "Z": 200.0
+          },
+          "minX": 240,
+          "maxX": 320,
+          "minZ": 160,
+          "maxZ": 240,
+          "verticalLimit": 0,
+          "geometricAreaBefore": 25600,
+          "geometricAreaAfter": 6400,
+          "blockColumnsBefore": 25921,
+          "blockColumnsAfter": 6561
+        }
+      ],
+      "blocked": [],
+      "passed": true,
+      "centralCoordinatesChanged": false,
+      "squareBoundsInclusive": true
+    },
+    "onlyChangedServerProperty": "allow-flight=true",
+    "noCavernGeneration": true,
+    "serverLeftStopped": true
+  }
+}

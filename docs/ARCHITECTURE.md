@@ -1,8 +1,8 @@
 # Architecture
 
-## Révision VNext courante
+## Révision VNext.1 courante
 
-Voir [FKAMIS_VNEXT.md](FKAMIS_VNEXT.md). `ItemBan` ne remplace que les équipements
+Voir [FKAMIS_VNEXT_1.md](FKAMIS_VNEXT_1.md). `ItemBan` ne remplace que les équipements
 réellement modifiés, préservant le cycle de tir des squelettes. `DamageDiagnostics`
 observe la chaîne tir/impact/dégâts/santé avec débit borné. La production utilise
 l'API Paper ; les corps NMS ne sont présents que dans le JAR de recette séparé.
@@ -16,11 +16,25 @@ dans `supplies.yml`. `MatchInformation` lit les mêmes états et compteurs.
 
 `MatchStatistics` constitue le modèle unique UUID ; `Statistics` collecte après
 protections et exporte les historiques. Le snapshot atomique `state.yml` conserve
-`schema: 1` avec `vnext.version: 1`, statistiques et grâce. `ResetService` prépare
+`schema: 1` avec `vnext.version: 2`, statistiques et grâce. `ResetService` prépare
 un candidat sans l'appliquer à chaud ; `maintenance/new_match.py` utilise le verrou
 partagé pour sauvegarder puis appliquer à froid ou restaurer un point initial entier.
 Les versions futures sont refusées, les clés inconnues conservées. Les anciennes
 sections de cette page décrivent la base toujours réutilisée.
+
+`BaseGuidance` envoie uniquement le spawn allié par ActionBar toutes les deux secondes,
+sans entité ni chunk. Les portées de waypoint sont nulles et la Locator Bar reste
+fermée. `SpectatorService` propose un inventaire privé avec destinations chargées
+et sûres. `NetherPortalService` conserve deux cadres dans `vnext1.nether` : routes
+explicites, refus de génération Vanilla, chargements asynchrones de chunks existants,
+contrôle de session et phase. Le Nether a une bordure technique indépendante ;
+la taille Overworld existante reste conservée. Aucun ticket permanent de guidage/portail.
+Les spectateurs ne génèrent pas de nouveaux chunks.
+
+Le constructeur V2.1 est un JAR de maintenance séparé, retiré de sa sortie après
+construction. Le plan Python est déterministe ; le vérificateur compare tous les
+blocs hors plan, biomes, entités et inventaires. Aucun monde n'est livré dans le
+ZIP de mise à jour, aucune construction n'est lancée sur une partie jouée.
 
 ## Base gameplay réutilisée
 
@@ -161,9 +175,11 @@ de restauration cohérente ; ne jamais restaurer uniquement l'inventaire d'un jo
 
 Pause native profonde, refus des interactions, dégâts, inventaires, transferts et
 déplacements, puis gel du tick des mondes par l'API Paper. Les commandes de reprise
-restent accessibles. Une déconnexion d'un participant actif provoque une pause pour
-prévenir les assauts hors présence des défenseurs. Une capture en cours est remise
-à zéro à toute pause, déconnexion ou reprise.
+restent accessibles. `PauseControl` ancre XYZ, suspend la gravité, détache les
+montures/caméras et refuse déplacements, vélocités, projectiles et téléportations
+ordinaires des non-arbitres, spectateurs inclus. La reprise restaure la gravité.
+Une déconnexion ne suspend plus la partie ; la présence réelle détermine la capture
+sans réduire le seuil du roster officiel. Pause et reprise annulent les captures.
 
 ## Plugins écartés
 

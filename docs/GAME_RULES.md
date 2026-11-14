@@ -1,8 +1,8 @@
 # Règlement de la partie
 
-## Règles VNext
+## Règles VNext.1
 
-Le [guide VNext](FKAMIS_VNEXT.md) complète les règles ci-dessous. Une BossBar suit
+Le [guide VNext.1](FKAMIS_VNEXT_1.md) complète les règles ci-dessous. Une BossBar suit
 la capture et une alerte prévient les défenseurs, avec anti-spam. Les monuments,
 supports de ravitaillement et le petit centre sûr sont protégés du sabotage,
 sans recharge des butins. Le PvE reste actif, y compris les creepers. Après une
@@ -41,7 +41,7 @@ et journalisée, en pause ; voir [le guide](ADMIN_UPDATE.md).
 
 ## Compléments de la carte v2
 
-La carte compacte mesure 1 200 blocs de côté. Les quatre zones de rayon 80 sont
+La carte compacte mesure 1 200 blocs de côté. Les quatre zones migrées de rayon 40 sont
 aménagées et portent un drapeau décoratif ; les forts et salles secrètes restent
 entièrement construits par les équipes. Le drapeau n'est pas un objectif de capture.
 
@@ -63,7 +63,7 @@ mêmes règles que ci-dessous. Ni les monuments ni les ravitaillements ne révè
 Quatre royaumes de un à quatre joueurs, configurés avant partie (défaut deux). Les emplacements et ressources sont inspectés avant
 le départ. Aucun château, mur, tour ou salle n'est donné. Les joueurs récoltent leurs
 matériaux, construisent leurs forts, creusent et aménagent leur propre territoire sur
-toute la hauteur du monde. Sur la v2, rayon de 80 blocs, carré inclusif.
+toute la hauteur du monde. Après migration VNext.1 : rayon de 40 blocs, carré inclusif, sans déplacement des centres.
 
 La construction et les coffres ordinaires sont libres en zone neutre dès J1. La TNT
 reste soumise aux assauts J3 ; les objectifs et supports de ravitaillement restent
@@ -116,8 +116,9 @@ inspecté et validé avant le jour 3. L'administrateur gère cette inspection en
 Min(2, effectif officiel) membres **de la même équipe**, en survie, vivants et connectés, doivent rester
 dans un rayon de 2,5 blocs autour de l'objectif dans un espace accessible adjacent au même niveau pendant 60 secondes
 de ticks serveur. Un défenseur dans cette zone conteste la capture. Un second royaume
-attaquant dans la zone, une sortie, une mort, une déconnexion ou une pause remet la
-progression à zéro. Une baisse de TPS allonge le temps réel : elle ne raccourcit pas la capture.
+attaquant dans la zone bloque la capture. Une sortie, mort ou déconnexion remet la
+progression à zéro si le nombre requis n'est plus présent ; le seuil reste fondé sur
+le roster officiel. Toute pause annule la capture. Une baisse de TPS allonge le temps réel.
 
 Une capture annonce l'élimination du royaume. Tous les membres deviennent spectateurs,
 y compris après reconnexion. Ils n'interagissent plus et ne doivent pas transmettre
@@ -125,8 +126,10 @@ d'informations aux survivants. Après la troisième élimination, le dernier roy
 
 ## Dimensions et objets
 
-Nether fermé au jour 1, ouvert au jour 2. Sa bordure est proportionnelle à celle de
-l'Overworld pour limiter les contournements par les portails. End fermé jusqu'à décision
+Nether fermé au jour 1 ; au jour 2, seuls les deux portails officiels activés par
+l’arbitre autorisent les trajets aller-retour vers leurs sorties fixes. Les autres
+créations et retours Vanilla sont refusés. Le Nether possède sa bordure technique,
+sans petite bordure proportionnelle à celle de l’Overworld. End fermé jusqu'à décision
 administrative. Les téléportations vers une dimension fermée sont refusées ; un joueur
 reconnecté dans une dimension fermée est ramené dans l'Overworld.
 
@@ -140,10 +143,11 @@ Les **élytres (`ELYTRA`) et pommes dorées enchantées (`ENCHANTED_GOLDEN_APPLE
 
 ## Sessions
 
-On joue ensemble. La déconnexion d'un participant actif met la partie en pause ;
-l'administrateur décide de la reprise. La pause bloque les actions de jeu et gèle
-les mondes. Le jour ne progresse pas en l'absence des joueurs. Après redémarrage,
-la partie reste en pause jusqu'à `/fka resume`.
+La déconnexion ne met plus la partie en pause et n'accorde aucune sanction de
+combat-log ni nouvelle grâce de respawn. Les compteurs actifs continuent, même
+sans connecté, et le seuil de capture reste fondé sur l'effectif officiel.
+L'arbitre déclenche les pauses : non-arbitres immobilisés, spectateurs inclus,
+mondes et compteurs gelés. Après redémarrage, reprise manuelle par `/fka resume`.
 
 Les litiges et la validité d'une entrée sont arbitrés avant l'ouverture des assauts.
 Toute dérogation doit être annoncée aux quatre équipes avant la reprise.

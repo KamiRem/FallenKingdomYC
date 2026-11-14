@@ -58,6 +58,10 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
     MatchInformation information;
     Statistics statistics;
     ResetService resets;
+    BaseGuidance baseGuidance;
+    PauseControl pauseControl;
+    SpectatorService spectators;
+    NetherPortalService netherPortals;
     private YamlConfiguration preservedState=new YamlConfiguration();
 
     TeamManager teams() { return FkPI.getInstance().getTeamManager(); }
@@ -167,6 +171,10 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
             information=new MatchInformation(this);
             statistics=new Statistics(this,preservedState.getString("vnext.statistics-json"));
             resets=new ResetService(this);
+            baseGuidance=new BaseGuidance(this);pauseControl=new PauseControl(this);spectators=new SpectatorService(this);
+            netherPortals=new NetherPortalService(this,preservedState.getConfigurationSection("vnext1.nether"));
+            getServer().getPluginManager().registerEvents(baseGuidance,this);getServer().getPluginManager().registerEvents(pauseControl,this);
+            getServer().getPluginManager().registerEvents(spectators,this);getServer().getPluginManager().registerEvents(netherPortals,this);
             getServer().getPluginManager().registerEvents(protectedPlaces,this);
             getServer().getPluginManager().registerEvents(respawnProtection,this);
             getServer().getPluginManager().registerEvents(captureDisplay,this);
@@ -175,12 +183,14 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
             world.getWorldBorder().setCenter(0, 0);
             world.getWorldBorder().setSize(getConfig().getInt("border-size"));
             for (World w : Bukkit.getWorlds()) {
+                w.setGameRule(GameRules.SPECTATORS_GENERATE_CHUNKS,false);
                 if (w.getEnvironment() == World.Environment.NETHER) {
                     w.getWorldBorder().setCenter(0, 0);
-                    w.getWorldBorder().setSize(getConfig().getInt("border-size") / 8.0);
+                    w.getWorldBorder().setSize(59_999_968D);
                 }
             }
             ready = true;
+            pauseControl.sync();netherPortals.sync();
             if(!saveState())return;
             if(statistics.model.finishedAt!=0 && preservedState.contains("vnext.statistics-json"))statistics.export("result");
             for (Player p : Bukkit.getOnlinePlayers()) { administrators.attach(p); reconcilePlayer(p); }
@@ -248,6 +258,9 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
         resetCaptures();
         silenceTips();
         if(lobbyMobs!=null) lobbyMobs.synchronize();
+        if(pauseControl!=null)pauseControl.sync();
+        if(spectators!=null)spectators.sync();
+        if(netherPortals!=null)netherPortals.sync();
         updateDisplay();
     }
 
@@ -266,7 +279,9 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
         if(resets!=null&&resets.stopping)return;
         if(statistics!=null)statistics.tick();
         if(respawnProtection!=null)respawnProtection.tick();
-        if (supplies != null) supplies.tick(Bukkit.getOnlinePlayers().stream().anyMatch(p -> activeParticipant(p) && !p.isDead()));
+        if (supplies != null) supplies.tick(true);
+        if(baseGuidance!=null)baseGuidance.tick();
+        if(netherPortals!=null)netherPortals.tick();
         // Pas d'horloge de jours, pas de progression hors session.
         Fk.getInstance().getGame().stopTimer();
         itemBan.sweep();
@@ -373,6 +388,9 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
             if(args.length>0&&args[0].equalsIgnoreCase("reset")){resets.command(sender,args);return true;}
             if(args.length>0&&args[0].equalsIgnoreCase("stats")){statistics.command(sender,args);return true;}
             if(args.length>0&&args[0].equalsIgnoreCase("info")){information.command(sender,args);return true;}
+            if(args.length>0&&args[0].equalsIgnoreCase("base")){Player p=player(sender);if(!activeParticipant(p))throw new IllegalArgumentException("Guidage réservé à votre propre équipe active.");baseGuidance.show(p);return true;}
+            if(args.length>0&&args[0].equalsIgnoreCase("spectate")){spectators.command(player(sender),args);return true;}
+            if(args.length>0&&args[0].equalsIgnoreCase("nether")){netherPortals.command(sender,args);return true;}
             if (args.length>0&&args[0].equalsIgnoreCase("admin")) { administrators.command(sender,args); return true; }
             if (args.length > 0 && args[0].equalsIgnoreCase("supply")) return supplies.command(sender, args);
             if (args.length > 0 && args[0].equalsIgnoreCase("announce")) { announcements.command(sender,args); return true; }
@@ -382,11 +400,11 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
                 return true;
             }
             if (args[0].equalsIgnoreCase("help")) {
-                sender.sendMessage("/fka status ; /fka info [teams|phases|supplies] ; /fka stats [player pseudo|team équipe|leaderboard|match] ; /fka supply status ; /fka room register");
+                sender.sendMessage("/fka status ; /fka info [teams|phases|supplies] ; /fka stats [player pseudo|team équipe|leaderboard|match] ; /fka supply status ; /fka room register ; /fka base ; /fka spectate [pseudo]");
                 if (mayAdmin(sender)) sender.sendMessage(
                         "Admin : assign <pseudo connecté> <équipe>, unassign <pseudo>, territory <équipe> <rayon>, "
                         + "terrain <équipe> confirm, spawn <équipe>, start [override], pause, resume, nextday, "
-                        + "end <open|close>, room <validate|invalidate|inspect> <équipe>, teams tpall [confirm], announce <message>, config list|get|set|validate|defaults|diff, reset status|prepare|confirm|cancel, win <équipe>, save, pregen, survey");
+                        + "end <open|close>, nether portal register|activate|deactivate|status, room <validate|invalidate|inspect> <équipe>, teams tpall [confirm], announce <message>, config list|get|set|validate|defaults|diff, reset status|prepare|confirm|cancel, win <équipe>, save, pregen, survey");
                 return true;
             }
             if (args[0].equalsIgnoreCase("room") && args.length == 2 && args[1].equalsIgnoreCase("register")) {
@@ -619,7 +637,7 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
         }
         YamlConfiguration yaml = new YamlConfiguration(); yaml.load(file.toFile());
         require(yaml.getInt("schema") == 1, "Schéma de sauvegarde invalide.");
-        require(yaml.getInt("vnext.version",1)==1,"Version VNext future ou invalide ; aucune migration automatique.");
+        require(yaml.getInt("vnext.version",1)>=1&&yaml.getInt("vnext.version",1)<=2,"Version VNext future ou invalide ; aucune migration automatique.");
         preservedState=AtomicData.copy(yaml);
         state.day = yaml.getInt("day"); state.started = yaml.getBoolean("started"); state.paused = true;
         savedSupplies = yaml.getConfigurationSection("supplies");
@@ -682,7 +700,8 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
             var nativeData=new YamlConfiguration();FkPI.getInstance().save(nativeData);
             ConfigurationSection nativeSection=yaml.getConfigurationSection("native");if(nativeSection==null)nativeSection=yaml.createSection("native");AtomicData.overlay(nativeSection,nativeData);
             if (supplies != null) {var supplyData=new YamlConfiguration();supplies.save(supplyData);ConfigurationSection section=yaml.getConfigurationSection("supplies");if(section==null)section=yaml.createSection("supplies");AtomicData.overlay(section,supplyData);}
-            yaml.set("vnext.version",1);
+            yaml.set("vnext.version",2);
+            if(netherPortals!=null){ConfigurationSection portalData=yaml.getConfigurationSection("vnext1.nether");if(portalData==null)portalData=yaml.createSection("vnext1.nether");netherPortals.save(portalData);}
             if(statistics!=null)yaml.set("vnext.statistics-json",statistics.model.json());
             if(respawnProtection!=null){yaml.set("vnext.respawn-protection",null);respawnProtection.save(yaml.createSection("vnext.respawn-protection"));}
             return yaml;
@@ -720,7 +739,7 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
                 // La pause native refuse les téléportations survival. Le passage temporaire
                 // en spectateur permet uniquement ce retour contrôlé vers l'Overworld.
                 p.setGameMode(GameMode.SPECTATOR);
-                p.teleport(Objects.requireNonNull(Bukkit.getWorld("world")).getSpawnLocation());
+                p.teleport(centralSpawn.resolve());
             } finally { p.setGameMode(previousMode); returningToSafety = false; }
         }
     }
@@ -730,12 +749,8 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
     @EventHandler public void onQuit(PlayerQuitEvent e) {
         if(statistics!=null)statistics.pulse();
         administrators.detach(e.getPlayer());
-        if (!activeParticipant(e.getPlayer())) return;
-        resetCaptures();
-        if (state.running() && activeParticipant(e.getPlayer())) {
-            state.paused = true; syncNative(); saveState();
-            Bukkit.broadcastMessage("§eDéconnexion d'un participant : partie mise en pause. Reprise administrative requise.");
-        }
+        // Le roster reste officiel ; les présences réelles sont revérifiées au tick
+        // de capture suivant. Aucune pause ni remise à zéro des autres captures.
     }
     @EventHandler(priority = EventPriority.HIGHEST) public void onRespawn(PlayerRespawnEvent e) {
         if (activeParticipant(e.getPlayer()) && !e.isBedSpawn() && !e.isAnchorSpawn()) {
@@ -766,21 +781,26 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
     }
 
     @Override public List<String> onTabComplete(CommandSender s, Command c, String alias, String[] args) {
+        if(args.length==2&&args[0].equals("spectate")&&s instanceof Player p&&spectators.eligible(p))return Bukkit.getOnlinePlayers().stream().filter(spectators::target).map(Player::getName).toList();
+        if(args.length==2&&args[0].equals("nether")&&mayAdmin(s))return List.of("portal");
+        if(args.length==3&&args[0].equals("nether")&&mayAdmin(s))return List.of("register","activate","deactivate","status");
+        if(args.length==4&&args[0].equals("nether")&&args[2].equals("register")&&mayAdmin(s))return List.of("overworld","nether");
         if(args.length==2&&args[0].equals("info"))return List.of("teams","phases","supplies");
         if(args.length==2&&args[0].equals("stats"))return List.of("player","team","leaderboard","match");
         if(args.length==3&&args[0].equals("stats")&&args[1].equals("team"))return expectedTeams();
-        if (!mayAdmin(s)) return args.length == 1 ? List.of("status", "help", "room", "supply","info","stats") : args.length == 2 && args[0].equals("supply") ? List.of("status") : List.of();
+        if (!mayAdmin(s)) return args.length == 1 ? (s instanceof Player p&&spectators.eligible(p)?List.of("status","help","room","supply","info","stats","base","spectate"):List.of("status", "help", "room", "supply","info","stats","base")) : args.length == 2 && args[0].equals("supply") ? List.of("status") : List.of();
         if(args.length==2&&args[0].equals("config"))return List.of("list","get","set","validate","defaults","diff");
         if(args.length==3&&args[0].equals("config"))return java.util.stream.Stream.concat(GameSettings.DEFAULTS.keySet().stream(),java.util.stream.Stream.of("damage-debug")).sorted().toList();
         if(args.length==2&&args[0].equals("reset"))return List.of("status","prepare","confirm","cancel");
         if (args.length == 2 && args[0].equals("supply")) return List.of("status", "list", "enable", "disable", "reload", "test", "add", "remove").stream().filter(a -> a.startsWith(args[1])).toList();
         if (args.length == 2 && args[0].equalsIgnoreCase("teams")) return List.of("tpall");
         if (args.length == 3 && args[0].equalsIgnoreCase("teams") && args[1].equalsIgnoreCase("tpall")) return List.of("confirm");
-        if (args.length == 1) return List.of("admin", "announce", "config","reset","stats","info","status", "help", "supply", "teams", "assign", "unassign", "territory", "terrain", "spawn", "start", "pause", "resume", "nextday", "end", "room", "win", "save", "pregen", "survey").stream().filter(t -> t.startsWith(args[0])).toList();
+        if (args.length == 1) return List.of("admin", "announce", "config","reset","stats","info","base","spectate","nether","status", "help", "supply", "teams", "assign", "unassign", "territory", "terrain", "spawn", "start", "pause", "resume", "nextday", "end", "room", "win", "save", "pregen", "survey").stream().filter(t -> t.startsWith(args[0])).toList();
         return List.of();
     }
 
     @Override public void onDisable() {
+        if(pauseControl!=null)pauseControl.close();if(baseGuidance!=null)baseGuidance.close();if(spectators!=null)spectators.close();if(netherPortals!=null)netherPortals.close();
         if(statistics!=null)statistics.pulse();
         if(captureDisplay!=null)captureDisplay.clearAll();
         if (administrators!=null) administrators.close();

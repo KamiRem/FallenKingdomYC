@@ -1,0 +1,299 @@
+{
+  "schema": 1,
+  "revision": "FKAmis VNext.1 / carte V2.1",
+  "passed": true,
+  "branch": "feature/fkamis-vnext-1-map-v2-1",
+  "baseCommit": "c631fad",
+  "fkamisSha256": "46703f7bbb5a6368b52cbac13f606857f6a9a619892e35c6c2d90b1777610442",
+  "runtime": {
+    "paper": "26.3-244",
+    "paperSha256": "9601f9a26a2a52a0f2c807cf1abf691f96ee4fb287878313b601cebc2c51eabf",
+    "fallenkingdom": "2.24.9",
+    "fallenkingdomSha256": "9127a92a5ad621f74b29ab8e53b6785d4ee30dd15f720c82c64f2c6a5973ba3b",
+    "java": 25,
+    "hostGamePortPreserved": 22880
+  },
+  "javaUnitTests": {
+    "tests": 51,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "pythonUnitTests": 43,
+  "evidence": {
+    "admin": {
+      "path": "tests/results/vnext1-admin.json",
+      "sha256": "0d66ae26397424176a33e7536810b88ee4eb49f043fc0a34a196de75585522a6",
+      "passed": true
+    },
+    "core": {
+      "path": "tests/results/vnext1-core.json",
+      "sha256": "a64543a717615ab80c3d33397400e18c6a4aa2af87475aed2c6efcf827235d86",
+      "passed": true
+    },
+    "gameplay": {
+      "path": "tests/results/vnext1-gameplay.json",
+      "sha256": "043a13b21b420f577f4c30fb41552589137dbd8cbfaf3f517c6c8d0a3154bba2",
+      "passed": true
+    },
+    "supplies": {
+      "path": "tests/results/vnext1-supplies.json",
+      "sha256": "6bad1588a8140f8b95eeddb087f90592fee582a6164654f8efd114174ec12994",
+      "passed": true
+    },
+    "native": {
+      "path": "tests/results/vnext1-native.json",
+      "sha256": "108c02b7ea8d5dd10996eec60e5b12b466258e93a3d259ffa29651b5d2ecabc5",
+      "passed": true
+    },
+    "vnext": {
+      "path": "tests/results/vnext1-vnext.json",
+      "sha256": "3e95176b312ff3eb2e787e82d9b7f1ac89b0a4fb7f94475b3092e9e12701583b",
+      "passed": true
+    },
+    "features-1": {
+      "path": "tests/results/vnext1-features-1.json",
+      "sha256": "30d89fee5d55b09fa092a6efaedbe89629f44e80bec6329edf4aa5da21533576",
+      "passed": true
+    },
+    "features-2": {
+      "path": "tests/results/vnext1-features-2.json",
+      "sha256": "c489553d0d13a00877c793dd45e75fc633dade1181d767fbaa11afdffa28e36d",
+      "passed": true
+    },
+    "features-3": {
+      "path": "tests/results/vnext1-features-3.json",
+      "sha256": "5cc09ecdaa7c7efcbb9a2dfc0ebe35e4bed963e76544a6a8dbb097a6a7968c4f",
+      "passed": true
+    },
+    "features-4": {
+      "path": "tests/results/vnext1-features-4.json",
+      "sha256": "26f9beb023b70dfc7bf5502d1255124ea3fd735ceb46a8c119a21aa73abf5792",
+      "passed": true
+    },
+    "next1": {
+      "path": "tests/results/vnext1-next1.json",
+      "sha256": "467a304abffa6eaf9ccc121bfaf83f219497ea4f44c147ca6e7370b395b59cf5",
+      "passed": true
+    },
+    "physics-fixed": {
+      "path": "tests/results/vnext1-physics-fixed.json",
+      "sha256": "4b603076c5b12b2319c8d1740758ce633e41be563c0a0fa338d51e0ebbe883ed",
+      "passed": true
+    },
+    "update-rollback": {
+      "path": "tests/results/vnext1-update-rollback.json",
+      "sha256": "82e9f218cdd5706f140012ff8e06c1362e55f7e895beebe39557b114197d3de4",
+      "passed": true
+    },
+    "inventory-restore": {
+      "path": "tests/results/vnext1-inventory-restore.json",
+      "sha256": "369240b9eee8e4ee1d6d6ba94b216aeedfba9106995c5658bf2a35d41a3c5eea",
+      "passed": true
+    },
+    "reset-restore": {
+      "path": "tests/results/vnext1-reset-restore.json",
+      "sha256": "c8154eb873c2cb5d2264e7b3cc89d2ddd7b3bfaebb98409bcee5485a1b323fe4",
+      "passed": true
+    },
+    "map-v21": {
+      "path": "tests/results/vnext1-map-v21.json",
+      "sha256": "b9792799a865807d42695a021ab0e975e9763022ffe0a5f473e12fd6d3683921",
+      "passed": true
+    },
+    "map-restore": {
+      "path": "tests/results/vnext1-map-restore.json",
+      "sha256": "3621feefbcb4dfcd5148c06243abdf109636834da890b813e996b2ae96844439",
+      "passed": true
+    },
+    "refusals": {
+      "path": "tests/results/vnext1-refusals.json",
+      "sha256": "f20c13d2994b2577ee373c697d6717e0eb47b7d24c4852a868d8fa6a0d5f7482",
+      "passed": true
+    },
+    "map-tool-portable": {
+      "path": "tests/results/vnext1-map-tool-portable.json",
+      "sha256": "323d114bd67abba5a3b05751d9390ec6d009f50bef6d278a56d02d4369475dab",
+      "passed": true
+    }
+  },
+  "preservation": {
+    "runtime/local": {
+      "files": 268,
+      "identical": true
+    },
+    "runtime/map-v2": {
+      "files": 278,
+      "identical": true
+    },
+    "runtime/map-v2-fixes": {
+      "files": 285,
+      "identical": true
+    },
+    "runtime/preproduction-26-3": {
+      "files": 291,
+      "identical": true
+    },
+    "runtime/preproduction-admin-update": {
+      "files": 296,
+      "identical": true
+    },
+    "runtime/preproduction-admin-rollback": {
+      "files": 294,
+      "identical": true
+    },
+    "historicalArchivesCompared": 7,
+    "additionalHistoricalArchivesCompared": 23,
+    "vnextBaseArchivesCompared": 10,
+    "vnext1BaseArchivesCompared": 11,
+    "historicalReportsUnchanged": true
+  },
+  "authenticatedClients": 0,
+  "mineStratorAccessed": false,
+  "locator": {
+    "nativeEnabled": false,
+    "fallback": "ActionBar propre spawn et /fka base",
+    "apiAudit": "API locale build244 : portées/styles d’entité, aucune API publique de point fixe filtré par destinataire trouvée",
+    "outgoingTextAndPrivacyAttributesVerified": true,
+    "clientRenderingVerified": false
+  },
+  "caverns": {
+    "built": 4,
+    "input": "référence initiale uniquement",
+    "blocksPlanned": 37128,
+    "chunks": 47,
+    "newChunksGenerated": false,
+    "inventoriesAndEntitiesPreserved": true,
+    "humanInspection": false,
+    "mineralBudgetPerCavern": 91,
+    "depthRelativeToBase": 42
+  },
+  "territories": {
+    "teams": 4,
+    "radiusBefore": 80,
+    "radiusAfter": 40,
+    "centersSpawnsFlagsUnchanged": true,
+    "shape": "carré inclusif, toute hauteur",
+    "geometricAreaRatio": 0.25,
+    "columnsBefore": 25921,
+    "columnsAfter": 6561,
+    "incompatibleObjectivesRefusedBeforeWrites": true
+  },
+  "portals": {
+    "registeredEndpointsInNativeProbe": 2,
+    "bidirectionalTravelAndNetherReconnectVerified": true,
+    "onlyOfficialPairAllowed": true,
+    "vanillaFireAndFireChargeDenied": true,
+    "dispenserDeniedBeforeIgnition": true,
+    "lavaIgniteEventDenied": true,
+    "physicalRandomLavaCycleVerified": false,
+    "productionEndpointsRequireAdminRegistration": true
+  },
+  "features": [
+    "menu spectateur privé et destinations sûres",
+    "aucune pause automatique au départ, seuil roster et grâce conservés",
+    "allow-flight serveur sans vol Survival",
+    "pause XYZ/gravité/vélocité/montures/projectiles/téléportations/spectateurs"
+  ],
+  "migration": "apply_vnext1_update.py : sauvegarde complète, migration conservatrice, aucun creusement",
+  "rollback": "restauration intégrale VNext/V2 dans une destination neuve, manifeste comparé et démarrage prouvé",
+  "humanChecksRemaining": [
+    "rendu ActionBar/confidentialité avec clients Java26.3",
+    "inspection quatre cavernes et salles dans rayon40",
+    "menu/caméra spectateur sous latence",
+    "pause sous nage/vol/reconnexion et ping réel",
+    "allumage lave réel, routage portails en situation de jeu",
+    "combat/déconnexion/capture avec 1 à 4 membres par royaume",
+    "TPS/MSPT/RAM/ping sur MineStrator avec clients authentifiés"
+  ],
+  "commands": [
+    "/fka base",
+    "/fka spectate [pseudo]",
+    "/fka nether portal register overworld|nether",
+    "/fka nether portal activate",
+    "/fka nether portal deactivate",
+    "/fka nether portal status"
+  ],
+  "guide": "docs/FKAMIS_VNEXT_1.md",
+  "testFixtureApprovalsAreNotProductionApprovals": true,
+  "artifacts": {
+    "dist/fallenkingdom-vnext1-update.zip": "4a965a4d37eb88bb1a2c3b9b54652439ebc9e9d84bbd45d368e27eb686a97389",
+    "dist/fallenkingdom-map-v2.1-build.zip": "0729a66c1168885a2ac2d862bc6a3f33cffe1825bff089e601bf65daf616f72f",
+    "dist/vnext1/FKAmis-1.0.0.jar": "46703f7bbb5a6368b52cbac13f606857f6a9a619892e35c6c2d90b1777610442"
+  },
+  "modifiedTrackedOrNewFiles": [
+    " M README.md",
+    " M configs/paper-26.3/server.properties",
+    " M configs/server/server.properties",
+    " M deployment/new_match.py",
+    " M docs/ADMIN_GUIDE.md",
+    " M docs/ARCHITECTURE.md",
+    " M docs/BACKUP_RESTORE.md",
+    " M docs/DEPLOYMENT.md",
+    " M docs/FKAMIS_VNEXT.md",
+    " M docs/GAME_RULES.md",
+    " M docs/PLAYER_GUIDE.md",
+    " M docs/TEST_PLAN.md",
+    " M plugins-custom/fk-amis/src/main/java/fr/fkamis/Administrators.java",
+    " M plugins-custom/fk-amis/src/main/java/fr/fkamis/FKAmis.java",
+    " M plugins-custom/fk-amis/src/main/java/fr/fkamis/NativeAdminBridge.java",
+    " M plugins-custom/fk-amis/src/main/java/fr/fkamis/ProtectedPlaces.java",
+    " M plugins-custom/fk-amis/src/main/java/fr/fkamis/Protections.java",
+    " M plugins-custom/fk-amis/src/main/java/fr/fkamis/ResetService.java",
+    " M plugins-custom/fk-amis/src/test/java/fr/fkamis/GameplayProbe.java",
+    " M plugins-custom/fk-amis/src/test/java/fr/fkamis/MigrationNativeProbe.java",
+    " M scripts/build.ps1",
+    "?? configs/vnext1/",
+    "?? deployment/apply_vnext1_update.py",
+    "?? deployment/territory_migration.py",
+    "?? docs/FKAMIS_VNEXT_1.md",
+    "?? plugins-custom/fk-amis/src/main/java/fr/fkamis/BaseGuidance.java",
+    "?? plugins-custom/fk-amis/src/main/java/fr/fkamis/NetherPortalService.java",
+    "?? plugins-custom/fk-amis/src/main/java/fr/fkamis/PauseControl.java",
+    "?? plugins-custom/fk-amis/src/main/java/fr/fkamis/SpectatorService.java",
+    "?? plugins-custom/fk-amis/src/main/java/fr/fkamis/TravelSafety.java",
+    "?? plugins-custom/fk-amis/src/test/java/fr/fkamis/MapV21Builder.java",
+    "?? plugins-custom/fk-amis/src/test/java/fr/fkamis/SyntheticPlayer.java",
+    "?? plugins-custom/fk-amis/src/test/java/fr/fkamis/VNext1Probe.java",
+    "?? plugins-custom/fk-amis/src/test/java/fr/fkamis/VNext1Test.java",
+    "?? scripts/cavern_plan.py",
+    "?? scripts/map_v21_tool.py",
+    "?? scripts/map_v21_verify.py",
+    "?? scripts/vnext1_delivery.py",
+    "?? scripts/vnext1_physics.py",
+    "?? scripts/vnext1_tests.py",
+    "?? tests/map-v21-builder-plugin.yml",
+    "?? tests/results/vnext1-admin.json",
+    "?? tests/results/vnext1-core.json",
+    "?? tests/results/vnext1-features-1.json",
+    "?? tests/results/vnext1-features-2.json",
+    "?? tests/results/vnext1-features-3.json",
+    "?? tests/results/vnext1-features-4.json",
+    "?? tests/results/vnext1-gameplay.json",
+    "?? tests/results/vnext1-initial-smoke.json",
+    "?? tests/results/vnext1-inventory-restore.json",
+    "?? tests/results/vnext1-locator-api.json",
+    "?? tests/results/vnext1-map-restore.json",
+    "?? tests/results/vnext1-map-restored-startup.json",
+    "?? tests/results/vnext1-map-tool-portable.json",
+    "?? tests/results/vnext1-map-v2-rollback-startup.json",
+    "?? tests/results/vnext1-map-v21.json",
+    "?? tests/results/vnext1-migration-after.json",
+    "?? tests/results/vnext1-migration-before.json",
+    "?? tests/results/vnext1-native-features.json",
+    "?? tests/results/vnext1-native.json",
+    "?? tests/results/vnext1-next1.json",
+    "?? tests/results/vnext1-performance.json",
+    "?? tests/results/vnext1-physics-fixed.json",
+    "?? tests/results/vnext1-refusals.json",
+    "?? tests/results/vnext1-reset-restore.json",
+    "?? tests/results/vnext1-reset-restored-startup.json",
+    "?? tests/results/vnext1-reset-rollback-startup.json",
+    "?? tests/results/vnext1-rollback-startup.json",
+    "?? tests/results/vnext1-supplies.json",
+    "?? tests/results/vnext1-update-rollback.json",
+    "?? tests/results/vnext1-vnext.json",
+    "?? tests/test_vnext1_migration.py",
+    "?? tests/vnext1-plugin.yml"
+  ]
+}

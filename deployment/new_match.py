@@ -60,7 +60,7 @@ def check_versions(root: Path):
 
 def initial_checks(root: Path,reference: Path):
     check_versions(root);state=(root/'plugins/FKAmis/state.yml').read_text(encoding='utf-8')
-    if section(state,('schema',))!='1' or section(state,('vnext','version'))!='1':raise RuntimeError('État VNext initial requis ; versions futures refusées.')
+    if section(state,('schema',))!='1' or section(state,('vnext','version')) not in ('1','2'):raise RuntimeError('État VNext initial requis ; versions futures refusées.')
     for path,value in [(('day',),'0'),(('started',),'false'),(('winner',),"''"),(('eliminated',),'[]')]:
         if section(state,path)!=value:raise RuntimeError('La partie n’est plus initiale : '+'.'.join(path))
     for key in ('roster','objectives'):
@@ -69,6 +69,7 @@ def initial_checks(root: Path,reference: Path):
         if section(state,('native','TeamManager',team,'Members'))!='[]':raise RuntimeError('Affiliations natives non vides.')
     if (root/'plugins/FKAmis/reset-request.json').exists():raise RuntimeError('Une demande de reset est en attente.')
     data=json.loads(reference.read_text(encoding='utf-8'));built=json.loads((root/'map-v2-construction.json').read_text(encoding='utf-8'))
+    if ((root/'map-v21-caverns.json').exists() or built.get('mapVersion')=='2.1') and len(data.get('caverns',[]))!=4:raise RuntimeError('Carte V2.1 : utiliser --reference maintenance/new-match-reference-v2.1.json pour vérifier aussi les cavernes et minerais.')
     if len(built['bases'])!=4 or len(built['monuments'])!=7 or len(built['supplies'])!=8:raise RuntimeError('Quatre bases, sept monuments, huit sites requis.')
     reader=Reader(root);blocks=0
     for monument in data['monuments']:
@@ -92,7 +93,11 @@ def initial_checks(root: Path,reference: Path):
         for key,expected in base['spawn'].items():
             actual=section(state,('spawns',team,key))
             if actual is None or abs(float(actual)-float(expected))>1e-6:raise RuntimeError('Spawn d’équipe différent : '+team)
-    return {'bases':4,'monuments':7,'monumentBlocksChecked':blocks,'supplySites':8,'lootChestsVerified':sum(len(m['loot']) for m in data['monuments']),'day':0,'started':False}
+    cave_blocks=0
+    for cave in data.get('caverns',[]):
+        observed=[[x,y,z,reader.block(x,y,z)] for x,y,z in cave['checkPoints']];cave_blocks+=len(observed)
+        if hashlib.sha256(json.dumps(observed,separators=(',',':')).encode()).hexdigest()!=cave['blockTypesSha256']:raise RuntimeError('Caverne initiale minée ou différente : '+cave['team'])
+    return {'bases':4,'monuments':7,'monumentBlocksChecked':blocks,'supplySites':8,'lootChestsVerified':sum(len(m['loot']) for m in data['monuments']),'cavernsChecked':len(data.get('caverns',[])),'cavernBlocksChecked':cave_blocks,'day':0,'started':False}
 
 
 def seal_baseline(root: Path,archive: Path,reference: Path,approve: bool):

@@ -1,8 +1,8 @@
 # Sauvegarder et restaurer sans mélanger les états
 
-## Réinitialisation VNext
+## Réinitialisation VNext.1
 
-Voir la [procédure VNext](FKAMIS_VNEXT.md) avant `fka reset prepare/confirm`.
+Voir la [procédure VNext.1](FKAMIS_VNEXT_1.md) avant `fka reset prepare/confirm`.
 La confirmation nécessite zéro joueur, arrête proprement Paper et crée seulement
 une demande à froid. `host_ops.py reset-logical --token ...` sauvegarde puis change
 la progression seule : constructions, inventaires et butins pris restent conservés.
@@ -23,6 +23,20 @@ Profil courant : **Paper 26.3-244 / Java 25**, paquet initial
 `tests/results/preproduction-package-26.3.json`. Restaurer une sauvegarde 26.3
 avec ses JAR 26.3 ; l’ancien ZIP 26.2 reste conservé pour une restauration 26.2
 séparée, jamais pour remplacer seulement le JAR d’un monde converti.
+
+## Cohérence VNext.1 et carte V2.1
+
+Le schéma principal reste 1 mais `vnext.version` vaut 2. L'ancien VNext refuse cette
+extension : le retour arrière restaure toute l'instance VNext/V2 dans un dossier
+neuf, avec son JAR, registres, mondes, profils, rôles, objectifs, lots et historiques.
+Conserver séparément les références initiales et sauvegardes de parties jouées.
+Ne jamais greffer des profils ou blocs issus d'un autre instant.
+
+Pour sceller/restaurer une carte V2.1, utiliser la référence générée
+`maintenance/new-match-reference-v2.1.json` ; l'ancienne référence sans cavernes est
+refusée. Les 37 128 positions du chantier, minerais compris, sont contrôlées : une
+caverne minée ne peut plus être déclarée initiale. L'approbation automatique des
+fixtures de recette ne constitue aucune inspection humaine ni approbation production.
 
 ## Sauvegarde à froid
 

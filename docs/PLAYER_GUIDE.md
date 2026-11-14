@@ -1,14 +1,17 @@
 # Guide des participants
 
-## Révision gameplay courante
+## Révision VNext.1 courante
 
-Voir [GAMEPLAY_UPDATE.md](GAMEPLAY_UPDATE.md) pour la livraison ciblée, les causes,
-les limites de preuve, l'installation et le rollback. Le rapport définitif est
-`tests/results/gameplay-update-delivery.json`. Paper 26.3-244 / Java 25 / FK 2.24.9
-inchangé ; 1 à 4 membres par équipe (défaut 2), arbitre UUID indépendant, lit valide
-ou centre sûr pour les morts, construction neutre libre, capture sans condition de
-regard, locator bar désactivée, mobs suspendus au jour 0 et `/fka announce <message>`.
-Les guides des anciennes livraisons restent historiques.
+Voir [le guide VNext.1](FKAMIS_VNEXT_1.md). Le guidage ActionBar et `/fka base`
+indiquent seulement votre base ; aucune position ennemie ni objectif. Hors de son
+monde, la direction est indisponible. Les territoires migrés ont un rayon 40.
+Sur une nouvelle référence V2.1, une caverne thématique est préparée par royaume ;
+les accès et coordonnées restent à inspecter en jeu avant approbation.
+
+Les éliminés et arbitres peuvent utiliser `/fka spectate [pseudo]` pour rejoindre
+un participant actif à une position sûre déjà chargée. Sans pseudo : menu privé.
+Aucune interaction ni ouverture de coffre n'est accordée. La pause immobilise
+également les spectateurs ; la commande attend alors la reprise, sauf arbitre.
 
 ## Survie, morts et arbitrage
 
@@ -32,7 +35,7 @@ Leur butin fixe n'est pas rechargé.
 Toutes les 30 minutes de partie active, un message annonce jusqu'à deux ravitaillements
 et leur zone générale. Les supports sont des coffres fixes : faites un clic droit avec
 plusieurs cases libres pour récupérer le lot entier. Le compteur s'arrête pendant les
-pauses et sans participant. `/fka supply status` indique le temps restant. Le butin
+pauses. Il continue sans joueur connecté. `/fka supply status` indique le temps restant. Le butin
 reste modeste ; le minage et la construction demeurent essentiels.
 
 Utilisez Minecraft Java **26.3**, sans mod obligatoire. Donnez votre pseudo à
@@ -66,7 +69,7 @@ Pour capturer : deux membres de la même équipe (un en format solo) doivent res
 à celui-ci. Vous pouvez regarder ailleurs ou tourner le dos. Ni murs ni étages
 séparés ne permettent de capturer. Un défenseur conteste, un autre royaume attaquant
 bloque ; si une sortie ou une mort laisse trop peu d'attaquants, la progression
-repart de zéro. Une déconnexion déclenche la pause selon les règles habituelles.
+repart de zéro. Une déconnexion ne déclenche plus de pause ; le seuil officiel reste inchangé.
 Un allié supplémentaire qui se déplace loin de la salle n'interrompt pas la capture.
 Ne minez pas les blocs adverses : utilisez la TNT au jour 3 et les accès du fort.
 
@@ -75,5 +78,4 @@ spectateur pour les survivants. La dernière équipe active gagne.
 
 `/fka status` montre le jour et les royaumes restants. `/fk team list` affiche les
 équipes. Le chat FallenKingdom est en équipe par défaut ; préfixer un message par `!`
-pour le chat global. La déconnexion d’un participant actif met la partie en pause pour que les autres
-royaumes ne soient pas attaqués en votre absence.
+pour le chat global. La déconnexion ne suspend pas la partie. Seul l’arbitre décide des pauses.

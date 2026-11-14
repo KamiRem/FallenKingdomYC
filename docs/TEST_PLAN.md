@@ -1,6 +1,24 @@
 # Validation finale du profil Paper 26.3
 
-## Campagne VNext courante
+## Campagne VNext.1 courante
+
+Voir [FKAMIS_VNEXT_1.md](FKAMIS_VNEXT_1.md) et `tests/results/vnext1-delivery.json`.
+Compiler avec `scripts/build.ps1 -VNext1` et les options historiques ci-dessous ;
+les sondes restent séparées du JAR de jeu. `scripts/vnext1_tests.py` réexécute les
+anciennes suites, les quatre capacités et la suite `next1` sur des copies neuves.
+`vnext1_physics.py` mesure les collisions et dégâts de corps NMS sans clients.
+`vnext1_delivery.py` prépare les paquets, répète migration/rollback, inventaires,
+reset, restauration V2.1/V2 et refus de versions futures. Ses chemins de fixtures
+sont volontairement uniques ; conserver les essais et choisir une nouvelle sortie
+pour toute répétition, sans écraser un résultat historique.
+
+`map_v21_tool.py` refuse une partie jouée, construit uniquement dans une sortie
+distincte et compare les blocs hors plan, biomes, entités et inventaires. Le rapport
+`vnext1-map-tool-portable.json` prouve l'exécution depuis les seuls fichiers livrés.
+Les micro-mesures locales et TPS au repos ne certifient aucune charge MineStrator.
+La recette humaine reste dans le guide VNext.1, avec rendu ActionBar et inspection.
+
+## Campagne VNext précédente
 
 Voir [FKAMIS_VNEXT.md](FKAMIS_VNEXT.md) et `tests/results/vnext-delivery.json`.
 `build.ps1 -VNext -Physics -Probe -Corrections -MapV2 -Migration -Administration -Features`
