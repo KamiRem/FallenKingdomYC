@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "atDate": "2026-11-15",
+  "phaseEAuthorized": false,
+  "remoteModified": false,
+  "productionReady": false,
+  "api": {
+    "officialBase": "https://mine.sttr.io",
+    "networkReachable": true,
+    "unauthenticatedHttpStatus": 401,
+    "credentialsConfigured": false,
+    "authenticatedAuditCompleted": false
+  },
+  "sftp": {
+    "tcpReachable": true,
+    "sshBannerReceived": true,
+    "authenticationMode": "password",
+    "hostKeyVerified": false,
+    "authenticated": false,
+    "clientPasswordAutomationAvailable": false
+  },
+  "local": {
+    "passed": true,
+    "candidate": ".cache\\mp15a\\runtime\\map-v21-candidate",
+    "candidateArchiveSha256": "2c1884248891f8a557605d474f42659516d1e97c3a926d24768746c14de82805",
+    "mapPlanSha256": "63a4e4a87910ca22cedd61376d3a172c9a37d963e58d67f780fd0f00855e1e58",
+    "constructionChunks": 47,
+    "integrityPassed": true,
+    "simulation": {
+      "passed": true,
+      "usesSyntheticHistoricalFixture": true,
+      "usesActualRemoteData": false,
+      "newInstanceManifestFilesCompared": 301,
+      "diffCounts": {
+        "added": 8,
+        "removed": 13,
+        "changed": 43
+      },
+      "oldBackupSha256": "1dc4c67b2c4db291fce7f4a05318d99904978085fcf896ff6734dd35204b4d93",
+      "rollbackFullManifestCompared": true,
+      "newStartupPassed": true,
+      "rollbackStartupPassed": true,
+      "inventoriesAndStateMerged": false
+    }
+  },
+  "actualRemoteStateVersionsFilesBackupsVerified": false,
+  "actualRemoteColdBackupCreated": false,
+  "humanVisualApproval": false,
+  "deferred": [
+    "Authentification API et SFTP",
+    "Vérification indépendante de la clé hôte",
+    "Audit réel fichiers/versions/panel/sauvegardes",
+    "Revue des politiques et diff réel",
+    "Inspection humaine de la carte",
+    "Sauvegarde à froid après autorisation explicite E"
+  ],
+  "plan": "docs/MINESTRATOR_PREPARATION.md",
+  "privateEvidence": ".cache/mp15a/preparation.json",
+  "baselineArtifactsUnchanged": true
+}
