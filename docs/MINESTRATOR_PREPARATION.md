@@ -44,6 +44,58 @@ demande la clé API et le mot de passe SFTP en saisie masquée, sans connexion r
 Puis `./scripts/minestrator_audit.ps1` permettra la sonde API en lecture seule ;
 l'accès SFTP par mot de passe restera à vérifier dans le client local.
 
+### Reprise locale et rotation des secrets
+
+La présence du dossier ne signifie plus que la configuration est complète. Le
+workflow contrôle chaque fichier : métadonnées valides, clé API SecureString DPAPI
+déchiffrable et non vide, credential SFTP déchiffrable et associé au compte configuré.
+Une configuration valide est réutilisée sans saisie et sans réécrire ses fichiers.
+Les fichiers absents sont complétés ; un fichier existant illisible ou incompatible
+est conservé et demande un remplacement volontaire. Aucun secret réel n'est testé
+contre MineStrator par ces commandes locales.
+
+```powershell
+# État local uniquement, aucun identifiant affiché, aucune connexion.
+./scripts/minestrator_status.ps1
+# Équivalent, même si le fichier de paramètres d'origine est absent :
+./scripts/minestrator_configure_local.ps1 -Status
+
+# Réutiliser ou compléter les fichiers absents :
+./scripts/minestrator_configure_local.ps1
+
+# Rotation volontaire, confirmation REMPLACER puis saisie masquée :
+./scripts/minestrator_configure_local.ps1 -Replace ApiKey
+./scripts/minestrator_configure_local.ps1 -Replace SftpPassword
+./scripts/minestrator_configure_local.ps1 -Replace ApiKey,SftpPassword
+
+# Après correction volontaire des paramètres locaux :
+./scripts/minestrator_configure_local.ps1 -Replace Connection
+```
+
+Un changement de compte SFTP avec credential déjà présent exige aussi
+`-Replace SftpPassword`. Toute confirmation doit être saisie exactement
+`REMPLACER` ; une autre réponse annule l'opération. Il n'existe pas de remplacement
+forcé silencieux. Un secret vide est refusé avant écriture.
+
+Chaque fichier remplacé conserve sa version précédente dans le même dossier,
+suffixée `.previous-<identifiant aléatoire>`. Les secrets de ces copies restent
+chiffrés DPAPI. Les écritures passent par un fichier temporaire puis une bascule
+atomique par fichier. Un verrou exclusif empêche deux configurations simultanées.
+Une interruption entre plusieurs fichiers laisse une configuration partielle
+reprenable ; aucune transaction globale de tous les fichiers n'est revendiquée.
+Les fichiers `.pending-*` éventuels et les copies précédentes ne sont jamais
+supprimés automatiquement. Tout le dossier reste privé, ignoré par Git et limité
+au compte Windows courant ; les liens/jonctions sont refusés.
+
+`valide` signifie déchiffrable et structurellement cohérent localement, sans
+confirmation de validité du jeton ou du mot de passe auprès de l'hôte.
+La commande d'état n'affiche ni valeur, ni nom de compte, ni empreinte de secret.
+Elle ne crée aucun dossier et ne répare pas les permissions. L'initialisation
+restreint les ACL avant de demander ou d'écrire des secrets.
+
+Tests hors réseau : `./tests/minestrator_store_tests.ps1`. Ils utilisent un nouveau
+dossier `.cache/ms-secrets-tests-*` avec des secrets factices, jamais les accès réels.
+
 Le script d'audit est une sonde de connexion : GET API bornés (informations, live,
 sauvegardes et snapshots du compte), puis `pwd`/`ls` SFTP. Il ne sauvegarde ni
 réponse brute ni listing pouvant contenir des informations privées. Il ne constitue

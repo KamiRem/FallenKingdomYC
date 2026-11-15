@@ -1,0 +1,28 @@
+{
+  "networkCalls": 0,
+  "passed": true,
+  "checks": [
+    "état absent sans création de dossier",
+    "dossier préexistant vide complété avec DPAPI",
+    "réexécution valide sans saisie ni réécriture",
+    "reprise après interruption sans réécrire la clé existante",
+    "remplacement annulé sans modification du secret",
+    "rotation confirmée avec sauvegarde exacte du secret précédent",
+    "nouvelle clé déchiffrable par DPAPI",
+    "secret absent du fichier en clair",
+    "secret illisible conservé sans remplacement implicite",
+    "configuration invalide réparée uniquement après confirmation",
+    "commande état sans secret ni identifiant",
+    "alias état sans charger les paramètres réels",
+    "rotation du credential SFTP avec sauvegarde et DPAPI",
+    "nouveau secret vide refusé sans perte de la version valide",
+    "métadonnées invalides conservées sans remplacement explicite",
+    "métadonnées remplacées avec confirmation et copie précédente",
+    "ACL dossier et secret limitées au compte Windows courant",
+    "écriture concurrente refusée",
+    "toutes les saisies factices consommées"
+  ],
+  "dpapiWindowsTested": true,
+  "count": 19,
+  "actualCredentialsAccessed": false
+}
