@@ -1,0 +1,98 @@
+{
+  "schema": 1,
+  "atUtc": "2026-11-15T17:46:48.7862570Z",
+  "remoteWritesPerformed": false,
+  "deploymentAuthorized": false,
+  "apiAuthenticationVerified": true,
+  "serverIdentityMatches": true,
+  "apiEndpointsVerified": [
+    "GET /server/{id}",
+    "GET /server/{id}/live",
+    "GET /server/{id}/backups",
+    "GET /user/{id}/snapshots"
+  ],
+  "sftp": {
+    "authenticated": true,
+    "hostKeyVerified": true,
+    "hostKeyType": "ssh-ed25519",
+    "files": 305,
+    "directories": 321,
+    "complete": true
+  },
+  "serverState": "offline",
+  "port": 22880,
+  "java": {
+    "panelSettingId": 61,
+    "runtimeVersionVerified": false,
+    "requiredVersion": 25,
+    "panelLabelConfirmedByUser": "Java 25 - Performance",
+    "imageConfirmedByUser": "java/25_perf",
+    "panelVersionConfirmedByUser": true
+  },
+  "installed": {
+    "paper.jar": {
+      "sha256": "9601f9a26a2a52a0f2c807cf1abf691f96ee4fb287878313b601cebc2c51eabf",
+      "matchesExpected": true
+    },
+    "plugins/FallenKingdom-2.24.9.jar": {
+      "sha256": "9127a92a5ad621f74b29ab8e53b6785d4ee30dd15f720c82c64f2c6a5973ba3b",
+      "matchesExpected": true
+    },
+    "plugins/FKAmis-1.0.0.jar": {
+      "sha256": "46703f7bbb5a6368b52cbac13f606857f6a9a619892e35c6c2d90b1777610442",
+      "matchesExpected": true
+    }
+  },
+  "stateFile": {
+    "schema": 1,
+    "day": 0,
+    "started": false,
+    "vnextExtensionPresent": false,
+    "fourTerritoryRadii": [
+      80,
+      80,
+      80,
+      80
+    ],
+    "v21CavernMetadataPresent": false
+  },
+  "backups": {
+    "providerDailyForServer": 44,
+    "accountSnapshots": 5,
+    "currentPointColdBackupCreatedByAgent": false,
+    "existingBackupsRestorationVerified": false
+  },
+  "candidate": {
+    "newGame": true,
+    "initialTechnicalChecks": {
+      "bases": 4,
+      "monuments": 7,
+      "monumentBlocksChecked": 6689,
+      "supplySites": 8,
+      "lootChestsVerified": 6,
+      "cavernsChecked": 4,
+      "cavernBlocksChecked": 37128,
+      "day": 0,
+      "started": false
+    },
+    "localStartupPassed": true,
+    "inventoriesMerged": false,
+    "oldGameStateMerged": false,
+    "oldSupplyProgressMerged": false,
+    "transferFileCount": 146,
+    "realWhitelistEntriesPreserved": 2,
+    "realOpsEntriesPreserved": 2
+  },
+  "nativeUpdaterToRunRemotely": false,
+  "reason": "Le JAR VNext.1 est déjà présent ; l’état historique sans extension n’est pas une entrée valide de apply_vnext1_update. Préparer une nouvelle référence V2.1 complète.",
+  "plan": "docs/MINESTRATOR_DEPLOYMENT_PLAN.md",
+  "privateTransferManifest": ".cache\\ms15q\\transfer-plan-private.json",
+  "remainingChecks": [
+    "Espace disque nécessaire au backup et à la quarantaine",
+    "Désactivation/absence de redémarrage automatique avant sauvegarde",
+    "Inspection visuelle et approbation de la nouvelle référence",
+    "Garantie de maintenance exclusive/verrou partagé avant sauvegarde réelle"
+  ],
+  "sixSftpSafetyTestsPassed": true,
+  "productionReady": false
+}

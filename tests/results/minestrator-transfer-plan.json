@@ -1,0 +1,68 @@
+{
+  "schema": 1,
+  "executed": false,
+  "remoteWritesPerformed": false,
+  "candidate": ".cache\\ms15q\\runtime\\preproduction",
+  "quarantineBeforeTransferAfterVerifiedExternalBackup": [
+    "world",
+    "world_nether",
+    "world_the_end",
+    "plugins/FKAmis",
+    "plugins/FallenKingdom",
+    "BACKUP_MANIFEST.json"
+  ],
+  "alsoPreserveUntouched": [
+    ".ai-backups",
+    "reference",
+    "libraries",
+    "cache",
+    "versions",
+    "config",
+    "bukkit.yml",
+    "spigot.yml",
+    "eula.txt",
+    "eula-acceptance.json",
+    "banned-players.json",
+    "banned-ips.json",
+    "usercache.json"
+  ],
+  "initialChecks": {
+    "bases": 4,
+    "monuments": 7,
+    "monumentBlocksChecked": 6689,
+    "supplySites": 8,
+    "lootChestsVerified": 6,
+    "cavernsChecked": 4,
+    "cavernBlocksChecked": 37128,
+    "day": 0,
+    "started": false
+  },
+  "localStartupPassed": true,
+  "realWhitelistCount": 2,
+  "realOpsCount": 2,
+  "noPlayerDataImported": true,
+  "noOldStateImported": true,
+  "noOldSupplyProgressImported": true,
+  "unverifiedItems": [
+    "Espace disque nécessaire au backup et à la quarantaine",
+    "Désactivation/absence de redémarrage automatique avant sauvegarde",
+    "Inspection visuelle et approbation de la nouvelle référence",
+    "Garantie de maintenance exclusive/verrou partagé avant sauvegarde réelle"
+  ],
+  "backupBeforeDeployment": "Téléchargement complet à froid + manifeste et SHA externes, relecture distante, restauration de contrôle ; snapshots existants insuffisants seuls.",
+  "transferFiles": 146,
+  "oldFilesInReplacedTreesCount": 142,
+  "retainedCoreHashes": {
+    "paper.jar": "9601f9a26a2a52a0f2c807cf1abf691f96ee4fb287878313b601cebc2c51eabf",
+    "server.jar": "9601f9a26a2a52a0f2c807cf1abf691f96ee4fb287878313b601cebc2c51eabf",
+    "plugins/FKAmis-1.0.0.jar": "46703f7bbb5a6368b52cbac13f606857f6a9a619892e35c6c2d90b1777610442",
+    "plugins/FallenKingdom-2.24.9.jar": "9127a92a5ad621f74b29ab8e53b6785d4ee30dd15f720c82c64f2c6a5973ba3b"
+  },
+  "privateManifest": ".cache\\ms15q\\transfer-plan-private.json",
+  "productionReady": false,
+  "javaPanelConfirmedByUser": {
+    "label": "Java 25 - Performance",
+    "image": "java/25_perf",
+    "runtimeMeasured": false
+  }
+}

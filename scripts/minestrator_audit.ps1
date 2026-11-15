@@ -4,7 +4,7 @@ $config=Get-Content -LiteralPath (Join-Path $ConnectionDirectory 'connection.jso
 if ([long]$config.serverId -le 0) { throw 'ID serveur invalide.' }
 $secure=Import-Clixml -LiteralPath (Join-Path $ConnectionDirectory 'api-key.clixml')
 $ptr=[Runtime.InteropServices.Marshal]::SecureStringToBSTR($secure)
-$summary=[ordered]@{remoteWritesAllowed=$false;api=@();sftp='non testé';rawResponsesSaved=$false}
+$summary=[ordered]@{atUtc=[DateTime]::UtcNow.ToString('o');remoteWritesAllowed=$false;authenticatedServerReadOnly=$false;api=@();sftp='non testé';rawResponsesSaved=$false}
 try {
     $token=[Runtime.InteropServices.Marshal]::PtrToStringBSTR($ptr)
     # Liste fermée ; aucune commande console, création de snapshot ou alimentation.
@@ -12,6 +12,7 @@ try {
         try {
             $response=Invoke-RestMethod -Method Get -Uri "https://mine.sttr.io/server/$($config.serverId)$suffix" -Headers @{Authorization="Bearer $token"} -MaximumRedirection 0 -TimeoutSec 20
             $summary.api+=@{endpoint="/server/{id}$suffix";httpSuccess=$true;apiCode=$response.api.code}
+            if ($suffix -eq '') { $summary.authenticatedServerReadOnly=([int]$response.api.code -eq 200 -and [long]$response.api.data.server.id -eq [long]$config.serverId) }
             # Pas de dump : les réponses peuvent contenir des identifiants SFTP ou des liens signés.
         } catch {
             $status=$null
@@ -37,5 +38,6 @@ if ($config.identityFile -and $config.knownHostsFile) {
     $sftpResult=& sftp.exe -F NUL -b $batch -P ([int]$config.sftpPort) -i $config.identityFile -o BatchMode=yes -o StrictHostKeyChecking=yes -o "UserKnownHostsFile=$($config.knownHostsFile)" -o ConnectTimeout=15 "$($config.sftpUser)@$($config.sftpHost)" 2>&1
     $summary.sftp=if ($LASTEXITCODE -eq 0) {'connexion et liste racine réussies'} else {'échec : authentification, accès réseau ou clé hôte à vérifier localement'}
     $sftpResult=$null
-} else { $summary.sftp='Clé SSH non configurée ; authentification par mot de passe à effectuer dans un client SFTP local sans journalisation.' }
+} else { $summary.sftp='Non authentifié par ce script. Utiliser minestrator_inventory.ps1 avec une empreinte de clé hôte vérifiée pour le mot de passe DPAPI.' }
+$summary | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $ConnectionDirectory ('audit-'+[guid]::NewGuid().ToString('N')+'.json')) -Encoding UTF8
 $summary | ConvertTo-Json -Depth 5
