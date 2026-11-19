@@ -1,5 +1,11 @@
 # Plan MineStrator VNext.1 / V2.1 — 15 novembre 2026
 
+Actualisation du 19 novembre : le [complément après sauvegarde -02](MINESTRATOR_BASCULE_PLAN_AFTER_BACKUP_02.md)
+et le [rapport de sauvegarde/restauration](MINESTRATOR_BACKUP_REPORT_20261119_02.md)
+constituent l'état courant. Les mentions de sauvegarde non créée ci-dessous décrivent
+l'audit initial. Le point -02 est vérifié sous dérogation avec une anomalie du marqueur
+source `FKAmis.sha256` ; aucune bascule n'est autorisée ou exécutée.
+
 Statut : inventaire authentifié et candidat local préparés. Aucun fichier distant
 modifié, aucune commande console ou d'alimentation envoyée, aucun snapshot créé.
 Le déploiement attend une autorisation explicite. Ce plan remplace les hypothèses

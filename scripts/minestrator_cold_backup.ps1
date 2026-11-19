@@ -6,7 +6,7 @@ $config=Get-Content -LiteralPath (Join-Path $store 'connection.json') -Raw | Con
 $credential=Import-Clixml -LiteralPath (Join-Path $store 'sftp.clixml')
 $api=Import-Clixml -LiteralPath (Join-Path $store 'api-key.clixml')
 if ($credential -isnot [pscredential] -or $credential.UserName -cne $config.sftpUser) { throw 'Credential local incompatible.' }
-$operation='MS-COLD-20261119-01'
+$operation='MS-COLD-20261119-02'
 $clientDate=[TimeZoneInfo]::ConvertTimeFromUtc([DateTime]::UtcNow,[TimeZoneInfo]::FindSystemTimeZoneById('Romance Standard Time')).ToString('yyyy-MM-dd')
 if ($clientDate -ne '2026-11-19') { throw 'Dérogation ponctuelle réservée au 19 novembre 2026 ; ne pas réutiliser automatiquement.' }
 $destination=Join-Path ([Environment]::GetFolderPath('UserProfile')) "FKBackups/$operation"

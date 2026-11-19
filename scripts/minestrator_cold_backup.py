@@ -28,7 +28,7 @@ from map_reader import nbt
 from sftp_attributes import capture,compare
 
 logging.getLogger('paramiko').setLevel(logging.CRITICAL)
-OPERATION='MS-COLD-20261119-01'
+OPERATION='MS-COLD-20261119-02'
 class Unsafe(RuntimeError):
     def __init__(self,reason,*,details=None):super().__init__(reason);self.details=details
 def now():return datetime.now(timezone.utc).isoformat()
