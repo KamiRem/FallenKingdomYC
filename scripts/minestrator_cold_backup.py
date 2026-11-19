@@ -25,10 +25,12 @@ import zipfile
 import zlib
 from minestrator_sftp_inventory import pin_matches
 from map_reader import nbt
+from sftp_attributes import capture,compare
 
 logging.getLogger('paramiko').setLevel(logging.CRITICAL)
 OPERATION='MS-COLD-20261119-01'
-class Unsafe(RuntimeError):pass
+class Unsafe(RuntimeError):
+    def __init__(self,reason,*,details=None):super().__init__(reason);self.details=details
 def now():return datetime.now(timezone.utc).isoformat()
 def write(path,data):path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 def digest(path):
@@ -36,20 +38,45 @@ def digest(path):
 def safe_name(name):
     if not name or name in ('.','..') or any(c in name for c in '/\\:<>"|?*') or any(ord(c)<32 for c in name) or name.endswith((' ','.')) or re.match(r'(?i)^(CON|PRN|AUX|NUL|COM[1-9]|LPT[1-9])(?:\.|$)',name):raise Unsafe('UnsafeRemotePath')
     return name
-def metadata(item):return {'size':item.st_size,'mtime':item.st_mtime,'mode':stat.S_IMODE(item.st_mode),'uid':getattr(item,'st_uid',None),'gid':getattr(item,'st_gid',None)}
-def assert_same(item,expected):
-    if not stat.S_ISREG(item.st_mode) or metadata(item)!=expected:raise Unsafe('ConcurrentFileChange')
+def metadata(item):
+    observed=capture(item)
+    return {key:observed['attributes'][key]['value'] for key in ('size','mtime','mode','uid','gid')}|{'_sftp':observed}
+def compare_observation(observed,expected,*,name=None,stage='unspecified',same_source=False,evidence=None):
+    if '_sftp' not in expected or '_sftp' not in observed:raise Unsafe('AttributeBaselineUnavailable')
+    for record in (expected,observed):
+        for field in ('size','mtime','mode','uid','gid'):
+            if record[field]!=record['_sftp']['attributes'][field]['value']:raise Unsafe('AttributeRecordInconsistent',details={'path':name,'stage':stage,'field':field})
+    result=compare(expected['_sftp'],observed['_sftp'],same_source=same_source)
+    detail={'atUtc':now(),'path':name,'stage':stage,'expected':expected['_sftp'],'observed':observed['_sftp'],'comparison':result}
+    if evidence:evidence(detail)
+    if not result['accepted']:
+        reason='CriticalAttributeUnavailable' if result['missingCritical'] else 'AttributeAvailabilityLost' if result['availabilityLost'] else 'ConcurrentFileChange'
+        raise Unsafe(reason,details=detail)
+    return result
+def assert_same(item,expected,**kwargs):return compare_observation(metadata(item),expected,**kwargs)
+def assert_tree_same(observed,expected,*,stage,evidence=None):
+    for group in ('files','directories'):
+        if observed[group].keys()!=expected[group].keys():raise Unsafe('RemoteTreeChanged',details={'stage':stage,'group':group,'added':sorted(observed[group].keys()-expected[group].keys()),'removed':sorted(expected[group].keys()-observed[group].keys())})
+        for name in expected[group]:compare_observation(observed[group][name],expected[group][name],name=name,stage=stage,same_source=True,evidence=evidence)
+def assert_hash_same(actual,expected,*,name,stage,evidence=None):
+    if actual!=expected:
+        detail={'path':name,'stage':stage,'expectedSha256':expected,'observedSha256':actual}
+        if evidence:evidence(detail)
+        raise Unsafe('RemoteHashChanged',details=detail)
 def snapshot(client,guard):
     files={};dirs={};seen=set();stack=['']
     while stack:
         folder=stack.pop();guard.check()
         for item in client.listdir_attr(folder or '.'):
             name=safe_name(item.filename);path=(folder+'/'+name).lstrip('/')
+            attrs=metadata(item)
+            if attrs['_sftp']['attributes']['type']['available'] and not(stat.S_ISDIR(item.st_mode) or stat.S_ISREG(item.st_mode)):raise Unsafe('LinkOrSpecialFile')
+            compare_observation(attrs,attrs,name=path,stage='listdir_baseline')
             if path.casefold() in seen:raise Unsafe('WindowsPathCollision')
             seen.add(path.casefold())
             if len(seen)>100000:raise Unsafe('InventoryLimitExceeded')
-            if stat.S_ISDIR(item.st_mode):dirs[path]=metadata(item);stack.append(path)
-            elif stat.S_ISREG(item.st_mode):files[path]=metadata(item)
+            if stat.S_ISDIR(item.st_mode):dirs[path]=attrs;stack.append(path)
+            elif stat.S_ISREG(item.st_mode):files[path]=attrs
             else:raise Unsafe('LinkOrSpecialFile')
     return {'files':files,'directories':dirs}
 class Api:
@@ -94,11 +121,16 @@ class Guard:
     def close(self):
         self.stop_event.set()
         if self.thread:self.thread.join(timeout=5)
-def read_remote(client,name,expected,guard,destination=None):
-    guard.check();assert_same(client.lstat(name),expected)
+def read_remote(client,name,expected,guard,destination=None,*,evidence=None,anchors=None):
+    guard.check();anchor=metadata(client.lstat(name))
+    compare_observation(anchor,expected,name=name,stage='lstat_before_vs_listdir',evidence=evidence)
+    if anchors is not None:
+        if name in anchors:compare_observation(anchor,anchors[name],name=name,stage='lstat_before_vs_first_pass',same_source=True,evidence=evidence)
+        else:anchors[name]=anchor
     h=hashlib.sha256();count=0
     with client.open(name,'rb') as source:
-        assert_same(source.stat(),expected)
+        handle_anchor=metadata(source.stat())
+        compare_observation(handle_anchor,anchor,name=name,stage='fstat_before_vs_lstat',evidence=evidence)
         if hasattr(source,'prefetch'):source.prefetch(expected['size'],max_concurrent_requests=8)
         target=destination.open('xb') if destination else None
         try:
@@ -106,14 +138,16 @@ def read_remote(client,name,expected,guard,destination=None):
                 guard.check();chunk=source.read(256*1024);guard.check()
                 if not chunk:break
                 count+=len(chunk)
-                if count>expected['size']:raise Unsafe('ConcurrentFileChange')
+                if count>expected['size']:raise Unsafe('ConcurrentFileChange',details={'path':name,'stage':'read_byte_count_exceeded','expectedSize':expected['size'],'observedSize':count})
                 h.update(chunk)
                 if target:target.write(chunk)
-            assert_same(source.stat(),expected)
+            after=metadata(source.stat())
+            compare_observation(after,handle_anchor,name=name,stage='fstat_after_vs_fstat_before',same_source=True,evidence=evidence)
+            compare_observation(after,anchor,name=name,stage='fstat_after_vs_lstat_before',evidence=evidence)
         finally:
             if target:target.close()
-    assert_same(client.lstat(name),expected)
-    if count!=expected['size']:raise Unsafe('ConcurrentFileChange')
+    assert_same(client.lstat(name),anchor,name=name,stage='lstat_after_vs_lstat_before',same_source=True,evidence=evidence)
+    if count!=expected['size']:raise Unsafe('ConcurrentFileChange',details={'path':name,'stage':'read_byte_count','expectedSize':expected['size'],'observedSize':count})
     return h.hexdigest()
 def progress(stage,**values):print(json.dumps({'stage':stage,**values}),flush=True)
 def protect_directory(root):
@@ -216,6 +250,8 @@ def run(config):
     protect_directory(root)
     report={'operationId':OPERATION,'startedAtUtc':now(),'status':'in_progress','sharedRemoteLock':False,'derogationExplicitlyAuthorized':True,'schedulingDisabledVerified':False,'remoteWritesPerformed':False,'deploymentAuthorized':False,'completelyGuaranteed':False}
     api=Api(config.pop('apiKey'),config['serverId']);guard=Guard(api);transport=None
+    trace=(root/'sftp-attributes.jsonl').open('x',encoding='utf-8')
+    def evidence(data):trace.write(json.dumps(data,ensure_ascii=False)+'\n');trace.flush()
     try:
         info=api.info();(root/'panel-settings.dpapi').write_bytes(protect_blob(json.dumps(info,sort_keys=True).encode()))
         guard.start();progress('offline_confirmed',apiIntervalSeconds=5)
@@ -227,22 +263,26 @@ def run(config):
         with paramiko.SFTPClient.from_transport(transport) as client:
             client.get_channel().settimeout(10)
             initial=snapshot(client,guard);total=sum(x['size'] for x in initial['files'].values())
+            write(root/'initial-inventory.json',initial)
+            write(root/'download-order.json',list(initial['files']))
             if shutil.disk_usage(root).free<total*3+128*1024**2:raise Unsafe('InsufficientLocalSpace')
             guard.poll();progress('inventory_ready',files=len(initial['files']),directories=len(initial['directories']),bytes=total)
             copy=root/'download.partial';copy.mkdir()
             for name in initial['directories']:(copy/name).mkdir(parents=True,exist_ok=True)
-            manifest=json.loads(json.dumps(initial));done=0;last=time.monotonic()
+            manifest=json.loads(json.dumps(initial));done=0;last=time.monotonic();anchors={}
             for name,attrs in initial['files'].items():
                 target=copy/name;target.parent.mkdir(parents=True,exist_ok=True)
-                manifest['files'][name]['sha256']=read_remote(client,name,attrs,guard,target);done+=1
+                manifest['files'][name]['sha256']=read_remote(client,name,attrs,guard,target,evidence=evidence,anchors=anchors)
+                manifest['files'][name]['pathStatBaseline']=anchors[name];done+=1
                 if time.monotonic()-last>=10:progress('downloading',files=done,totalFiles=len(initial['files']));last=time.monotonic()
-            if snapshot(client,guard)!=initial:raise Unsafe('RemoteTreeChanged')
+            assert_tree_same(snapshot(client,guard),initial,stage='tree_after_copy',evidence=evidence)
             progress('second_remote_read_started');done=0;last=time.monotonic()
             for name,attrs in initial['files'].items():
-                if read_remote(client,name,attrs,guard)!=manifest['files'][name]['sha256']:raise Unsafe('RemoteHashChanged')
+                actual_hash=read_remote(client,name,attrs,guard,evidence=evidence,anchors=anchors)
+                assert_hash_same(actual_hash,manifest['files'][name]['sha256'],name=name,stage='second_remote_sha256',evidence=evidence)
                 done+=1
                 if time.monotonic()-last>=10:progress('remote_hashes',files=done,totalFiles=len(initial['files']));last=time.monotonic()
-            if snapshot(client,guard)!=initial:raise Unsafe('RemoteTreeChanged')
+            assert_tree_same(snapshot(client,guard),initial,stage='tree_after_second_read',evidence=evidence)
             guard.poll();write(root/'manifest.json',manifest)
             progress('archive_and_restore_started');archive,restore=archive_and_restore(root,manifest,guard)
             checks=structure_checks(restore,guard,config['expectedHashes'])
@@ -251,22 +291,26 @@ def run(config):
             guard.check()
             if yaml.returncode:raise Unsafe('YamlStructureCheckFailed')
             checks.update(json.loads(yaml.stdout));checks['yamlCheckedBySafeParser']=True
-            if snapshot(client,guard)!=initial:raise Unsafe('RemoteTreeChanged')
+            for name,anchor in anchors.items():
+                guard.check();assert_same(client.lstat(name),anchor,name=name,stage='lstat_final',same_source=True,evidence=evidence)
+            assert_tree_same(snapshot(client,guard),initial,stage='tree_final',evidence=evidence)
             if api.info()!=info:raise Unsafe('PanelSettingsChanged')
             guard.poll();guard.close();guard.check()
         final=root/'instance.zip';archive.replace(final);sha=digest(final)
         (root/'instance.zip.sha256').write_text(sha+'\n',encoding='ascii')
         (root/'manifest.json.sha256').write_text(digest(root/'manifest.json')+'\n',encoding='ascii')
-        report.update({'status':'verified_under_derogation','finishedAtUtc':now(),'files':len(initial['files']),'directories':len(initial['directories']),'sourceBytes':total,'archiveSha256':sha,'manifestSha256':digest(root/'manifest.json'),'secondRemoteHashPass':True,'remoteMetadataSnapshotsEqual':True,'restoreAllFilesIdentical':True,'structuralChecks':checks,'apiSamples':len(guard.samples),'paperStarted':False,'linuxOwnershipRestoredOnWindows':False,'residualRisk':'Échantillonnage périodique et doubles lectures non atomiques ; écritures transitoires indétectables possibles.'})
+        report.update({'status':'verified_under_derogation','finishedAtUtc':now(),'files':len(initial['files']),'directories':len(initial['directories']),'sourceBytes':total,'archiveSha256':sha,'manifestSha256':digest(root/'manifest.json'),'secondRemoteHashPass':True,'remoteMetadataCriticalFieldsVerified':True,'optionalListingAttributesNeverAssumedEqualWhenAbsent':True,'restoreAllFilesIdentical':True,'structuralChecks':checks,'apiSamples':len(guard.samples),'paperStarted':False,'linuxOwnershipRestoredOnWindows':False,'residualRisk':'Échantillonnage périodique et doubles lectures non atomiques ; écritures transitoires indétectables possibles.'})
+        report['ownershipEvidence']={'filePathStatBaselinesKnown':sum(all(a['_sftp']['attributes'][f]['available'] for f in ('uid','gid')) for a in anchors.values()),'filePathStatBaselinesUnverified':sum(not all(a['_sftp']['attributes'][f]['available'] for f in ('uid','gid')) for a in anchors.values()),'directoryListingOwnershipUnverified':sum(not all(a['_sftp']['attributes'][f]['available'] for f in ('uid','gid')) for a in initial['directories'].values()),'absentValuesProveStability':False}
         write(root/'report.json',report);write(root/'api-observations.json',guard.samples)
         progress('completed',destination=str(root),files=report['files'],archiveSha256=sha,completelyGuaranteed=False)
         return 0
     except Exception as error:
         guard.close()
-        report.update({'status':'aborted','finishedAtUtc':now(),'reason':guard.reason or (str(error) if isinstance(error,Unsafe) else type(error).__name__),'backupValidated':False,'restoreValidated':False,'apiSamples':len(guard.samples)})
+        report.update({'status':'aborted','finishedAtUtc':now(),'reason':guard.reason or (str(error) if isinstance(error,Unsafe) else type(error).__name__),'failureDetailsPrivate':getattr(error,'details',None),'backupValidated':False,'restoreValidated':False,'apiSamples':len(guard.samples)})
         write(root/'report.json',report);write(root/'api-observations.json',guard.samples)
         progress('aborted',reason=report['reason'],destination=str(root));return 1
     finally:
+        trace.close()
         guard.close();config.clear();api.token=None
         if transport:transport.close()
 if __name__=='__main__':

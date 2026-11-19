@@ -33,7 +33,7 @@ class BackupTests(unittest.TestCase):
             path=Path(folder)/'file';sha=backup.read_remote(Client(),'file',backup.metadata(Handle().stat()),GoodGuard(),path)
             self.assertEqual(path.read_bytes(),b'abc');self.assertEqual(sha,hashlib.sha256(b'abc').hexdigest())
     def test_changed_metadata(self):
-        expected=backup.metadata(Handle().stat());expected['mtime']=2
+        value=Handle().stat();value.st_mtime=2;expected=backup.metadata(value)
         with self.assertRaisesRegex(backup.Unsafe,'ConcurrentFileChange'):backup.read_remote(Client(),'file',expected,GoodGuard())
     def test_incorrect_size(self):
         c=Client();c.open=lambda *args:Handle(b'abcd')

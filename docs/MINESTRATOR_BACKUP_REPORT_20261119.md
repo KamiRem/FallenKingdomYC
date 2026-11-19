@@ -91,3 +91,13 @@ Le [plan de bascule V2.1](MINESTRATOR_DEPLOYMENT_PLAN.md) reste documentaire.
 La sauvegarde/restauration n'étant pas validée, la bascule n'est pas débloquée.
 Aucun des 146 fichiers n'a été transféré et aucune autorisation de déploiement
 n'est déduite de l'autorisation de sauvegarde.
+
+## Diagnostic ultérieur autorisé séparément
+
+Le [diagnostic ciblé du comparateur SFTP](MINESTRATOR_SFTP_DIAGNOSTIC_20261119.md)
+a ensuite reproduit le refus : les UID/GID absents de READDIR sont fournis par
+LSTAT/FSTAT. La comparaison brute du script confondait disponibilité et différence
+de valeur. Le fichier initial de la reproduction est `start.sh`, à `lstat_before` ;
+le journal original ne permet toujours pas de certifier rétrospectivement son nom.
+Ce constat et le correctif n'altèrent pas le résultat historique ci-dessus :
+la sauvegarde du 19 novembre reste interrompue et non validée.
