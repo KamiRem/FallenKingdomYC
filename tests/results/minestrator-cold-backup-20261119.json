@@ -1,0 +1,36 @@
+{
+  "operationId": "MS-COLD-20261119-01",
+  "startedAtUtc": "2026-11-19T19:19:47.640392+00:00",
+  "finishedAtUtc": "2026-11-19T19:20:10.151328+00:00",
+  "status": "aborted",
+  "reason": "ConcurrentFileChange",
+  "apiSamples": 6,
+  "remoteWritesPerformed": false,
+  "backupValidated": false,
+  "restoreValidated": false,
+  "copiedFiles": 0,
+  "copiedBytes": 0,
+  "allRecordedApiStatesOffline": true,
+  "lastApiObservation": {
+    "atUtc": "2026-11-19T19:20:10.075842+00:00",
+    "state": "offline",
+    "statsState": "offline"
+  },
+  "archivePresent": false,
+  "restoreDirectoryPresent": false,
+  "sharedRemoteLock": false,
+  "operationRetried": false,
+  "sourceInventoryObserved": {
+    "files": 305,
+    "directories": 321,
+    "bytes": 464871862
+  },
+  "diagnosticLimitation": "Le refus ne détaille pas l’attribut ou le point de contrôle ; une écriture réelle n’est pas démontrée.",
+  "concurrentWriteProven": false,
+  "fakeSafetyTestsPassed": 13,
+  "paperStarted": false,
+  "sharedLockWaivedForThisOperationOnly": true,
+  "schedulingDisablementVerified": false,
+  "report": "docs/MINESTRATOR_BACKUP_REPORT_20261119.md",
+  "derogation": "docs/MINESTRATOR_BACKUP_DEROGATION_20261119.md"
+}
