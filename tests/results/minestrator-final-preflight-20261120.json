@@ -1,0 +1,133 @@
+{
+  "operation": "MS-PREFLIGHT-20261120-01",
+  "startedAtUtc": "2026-11-20T21:06:04.797985+00:00",
+  "finishedAtUtc": "2026-11-20T21:12:17.344261+00:00",
+  "status": "read_only_audit_completed",
+  "authenticatedIdentity": {
+    "serverId": 513365,
+    "port": 22880,
+    "matched": true
+  },
+  "panel": {
+    "settingsKeys": [
+      "id_java_version",
+      "image",
+      "is_bedrock",
+      "is_bungeecord",
+      "java_memory",
+      "php_runtime",
+      "poweraction_message",
+      "startup",
+      "startup_file"
+    ],
+    "changedSettingKeys": [],
+    "javaVersionId": 61,
+    "image": "reg.sttr.io/java/25_perf:latest",
+    "javaMemory": 30,
+    "startupFile": "paper.jar",
+    "startupCommandSameAsBackup": true,
+    "portsSameAsBackup": true
+  },
+  "diskApi": {
+    "current": null,
+    "limit": null,
+    "percent": null,
+    "unitsIndependentlyVerified": false
+  },
+  "diskSftp": {
+    "available": false,
+    "reason": "SftpStatvfsUnavailable"
+  },
+  "scheduling": {
+    "publicApiExposesVerifiedTaskList": false,
+    "disabledVerified": false,
+    "exclusiveHostLockAvailable": false,
+    "possibleSettingKeys": [],
+    "notificationMessagesAreNotRestartDisableProof": true
+  },
+  "filesHashedPerPass": [
+    305,
+    305
+  ],
+  "treeAndMetadataMatchBackup": true,
+  "allSourceHashesMatchBackupTwice": true,
+  "remoteWritesPerformed": false,
+  "remotePowerOrConsoleCommands": false,
+  "remoteDeploymentPerformed": false,
+  "remoteAuditCompleted": true,
+  "originalArchiveAndManifestUnchanged": true,
+  "original305RestoredFilesUnchanged": true,
+  "baseCommit": "93fd580c4af5c197d3b067f9182adcf843caa188",
+  "filesCompared": 305,
+  "directoriesCompared": 321,
+  "apiObservations": 74,
+  "maximumObservationGapSeconds": 5.13062,
+  "allApiObservationsOffline": true,
+  "candidate": "C:\\Users\\youne\\FKBackups\\V21-QUERY-20261120-01",
+  "candidateAndArchiveVerified": true,
+  "transferFiles": 148,
+  "completeManifestFiles": 152,
+  "contentActionCounts": {
+    "replace": 46,
+    "create": 6,
+    "identical": 96
+  },
+  "contentActionBytes": {
+    "replace": 84645731,
+    "create": 6121050,
+    "identical": 97614171
+  },
+  "oldTreeFilesQuarantinedAfterApproval": 142,
+  "oldIndividualFilesQuarantinedAfterApproval": 9,
+  "spacePlan": {
+    "historicalInstanceBytes": 464871862,
+    "payloadBytes": 188380952,
+    "largestTransferFileBytes": 11747328,
+    "externalBackupZipBytes": 413245391,
+    "transferZipBytes": 140900300,
+    "quarantineRenameAdditionalDataBytes": 0,
+    "rollbackStagingReserveBytes": 464871862,
+    "operationalMarginBytes": 2147483648,
+    "requiredAdditionalFreeBytes": 2812483790,
+    "assumptions": [
+      "Fichiers SFTP dans staging neuf puis renommage sur le mÃƒÂªme filesystem",
+      "Quarantaine par renommage, sans duplication des anciens arbres",
+      "RÃƒÂ©serve pour une restauration complÃƒÂ¨te en parallÃƒÂ¨le et un fichier temporaire supplÃƒÂ©mentaire",
+      "Aucune extraction ZIP distante ; marge de 2 Gio proposÃƒÂ©e pour croissance et ÃƒÂ©critures de dÃƒÂ©marrage"
+    ]
+  },
+  "privatePlanSha256": "258e4e85aba7ce69b576d39a3893656a07c1bd889a84402712daa13776ddff46",
+  "privateAuditReportSha256": "649cc16178078f043baa641f2cac8540154f73830a9054cb1e809856c6148862",
+  "targetListSha256": "135063684bfaf068c1350a6110a4c33eec63501e13582baa82a491a095bc287f",
+  "targetManifestSha256": "bc99993cf2796991a97adf92c12091bea86e5b5166c503258d1311aa227948e6",
+  "transferPlanSha256": "7896bd00c34aa50602f779db00b2a178556050c8396dd3ccadf9e0af5b59296a",
+  "transferArchiveSha256": "d6ca64ed0e1d05adfc05aab21387cb050cae148fa3a31acd7cf8645a3507c9f2",
+  "whitelistExistingEntries": 2,
+  "verifiedApprovedIdentitiesAdded": 0,
+  "remoteWhitelistModified": false,
+  "humanRecipeExecuted": false,
+  "performanceAtSeventeenRealConnectionsMeasured": false,
+  "pythonTests": 98,
+  "readyForDeployment": false,
+  "recommendation": "DEPLOIEMENT ENCORE BLOQUE",
+  "blockingBeforeRemoteWrite": [
+    "Espace libre sous quota non vÃ©rifiable avec les accÃ¨s actuels",
+    "TÃ¢ches/calendrier/redÃ©marrages concurrents Ã  vÃ©rifier dans MineBoard ; cadre de maintenance de la bascule Ã  approuver",
+    "Autorisation explicite de bascule absente"
+  ],
+  "openingGatesAfterAuthorizedInstallation": [
+    "IdentitÃ©s Java vÃ©rifiÃ©es et approuvÃ©es, whitelist jusquâ€™Ã  16 participants plus arbitre",
+    "Inspection humaine et recette gameplay distincte de la partie officielle",
+    "Charge mesurÃ©e Ã  4/8/16 participants puis 17 connexions rÃ©elles"
+  ],
+  "report": "docs/MINESTRATOR_FINAL_PREFLIGHT_20261120.md",
+  "recipe": "docs/MINESTRATOR_RECETTE_ET_WHITELIST_20261120.md",
+  "auditToolSha256": {
+    "scripts/minestrator_final_audit.py": "8dde82da319ffe1b12ef46be2d9aa25604d0430fea25b0249a15f67ef20e8d71",
+    "scripts/minestrator_final_audit.ps1": "39ec5b81aa32d005b4d038a29dfa243466e8ab65acb985a7e26df174b1670b5d"
+  },
+  "documentationSha256": {
+    "docs/MINESTRATOR_FINAL_PREFLIGHT_20261120.md": "ebb9368f315894740fad256440f3372466c0081e5ffe536375d177cc53b9f328",
+    "docs/MINESTRATOR_RECETTE_ET_WHITELIST_20261120.md": "79ca0a2e9c2844df182b2411b4fbe554e280ff11de2e8502115facd73c091974"
+  }
+}

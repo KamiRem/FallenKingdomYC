@@ -1,5 +1,12 @@
 # Fallen Kingdom privé — quatre royaumes et un arbitre
 
+L'[audit final avant bascule](docs/MINESTRATOR_FINAL_PREFLIGHT_20261120.md) a
+comparé les 305 fichiers distants au point historique sur deux lectures, sans
+divergence. **Déploiement encore bloqué** : espace libre sous quota et conditions
+de maintenance/redémarrage à confirmer, puis autorisation explicite. Voir la
+[liste exacte des 148 cibles](docs/MINESTRATOR_148_FILES_20261120.tsv) et le
+[protocole whitelist/recette](docs/MINESTRATOR_RECETTE_ET_WHITELIST_20261120.md).
+
 Préparation du 20 novembre : [1 à 4 membres par royaume, V2.1 à 20 places](docs/FOUR_PLAYERS_20261120.md),
 jusqu'à 16 participants et l'arbitre. Le nouveau manifeste privé comporte 148
 fichiers ; le plan antérieur de 146 fichiers est périmé. Rollback historique à
