@@ -2,13 +2,13 @@
 
 ## Préparation courante : quatre membres, 20 novembre 2026
 
-Voir [les règles, le manifeste et les réserves](FOUR_PLAYERS_20261120.md).
+Voir [les règles](FOUR_PLAYERS_20261120.md) et le [complément Query/rollback](MINESTRATOR_QUERY_ROLLBACK_20261120.md).
 V2.1 est préparée localement à **20 places**, quatre royaumes de 1 à 4 participants,
-arbitre distinct. Le plan actuel porte sur **148 fichiers** et propose Query
-désactivé sur la nouvelle instance seulement. Whitelist et paramètres panel
+arbitre distinct. Le plan actuel porte sur **148 fichiers** avec Query
+activé sur le port 22880 pour MineBoard. Whitelist et paramètres panel
 restent protégés. Aucun transfert ou changement distant n'est autorisé.
-Le point historique conserve ses **10 places** ; son test fonctionnel reste
-bloqué par Query activé. Les livraisons et consignes ci-dessous sont historiques.
+Le point historique conserve ses **10 places** et Query activé ; son test
+fonctionnel est réussi localement. Les livraisons et consignes ci-dessous sont historiques.
 
 ## Livraison ciblée VNext.1 courante
 

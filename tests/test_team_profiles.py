@@ -40,7 +40,7 @@ class CapacityProfiles(unittest.TestCase):
         (self.root/'eula.txt').write_text('eula=true\n') # Fixture, aucun vrai serveur.
 
     def configure(self,capacity=20,query='false',whitelist='true'):
-        text=f'max-players={capacity}\nonline-mode=true\nwhite-list={whitelist}\nenforce-whitelist=true\nenable-rcon=false\nenable-command-block=false\nenable-query={query}\npvp=true\ndifficulty=normal\n'
+        text=f'max-players={capacity}\nonline-mode=true\nwhite-list={whitelist}\nenforce-whitelist=true\nenable-rcon=false\nenable-command-block=false\nenable-query={query}\nquery.port=22880\nserver-port=22880\npvp=true\ndifficulty=normal\n'
         (self.root/'server.properties').write_text(text)
 
     def test_historical_ten_and_new_twenty_pass_without_changing_config(self):
@@ -61,6 +61,45 @@ class CapacityProfiles(unittest.TestCase):
             with self.assertRaises(RuntimeError):host_ops.check(self.root)
         self.configure();(self.root/'FKAmis.sha256').write_text('0'*64)
         with self.assertRaisesRegex(RuntimeError,'FKAmis'):host_ops.check(self.root)
+
+    def test_explicit_hosting_profiles_preserve_their_exact_configuration(self):
+        for capacity,profile in [(10,'historical-rollback'),(20,'v21-minestrator')]:
+            self.configure(capacity,query='true');before=(self.root/'server.properties').read_bytes()
+            host_ops.check(self.root,profile)
+            self.assertEqual(before,(self.root/'server.properties').read_bytes())
+            with self.assertRaisesRegex(RuntimeError,'enable-query'):host_ops.check(self.root)
+            self.configure(capacity,query='false')
+            with self.assertRaisesRegex(RuntimeError,'enable-query'):host_ops.check(self.root,profile)
+
+    def test_profiles_cannot_be_interchanged_or_inferred(self):
+        self.configure(20,query='true')
+        with self.assertRaisesRegex(RuntimeError,'max-players'):host_ops.check(self.root,'historical-rollback')
+        self.configure(10,query='true')
+        with self.assertRaisesRegex(RuntimeError,'max-players'):host_ops.check(self.root,'v21-minestrator')
+        with self.assertRaises(ValueError):host_ops.check(self.root,'auto')
+        self.assertEqual('private',host_ops.selected_profile(self.root))
+
+    def test_cli_uses_only_an_explicit_manifest_declaration_or_argument(self):
+        manifest=self.root/'DEPLOYMENT_MANIFEST.json'
+        manifest.write_text(json.dumps({'validationProfile':'v21-minestrator'}))
+        self.assertEqual('v21-minestrator',host_ops.selected_profile(self.root))
+        self.assertEqual('private',host_ops.selected_profile(self.root,'private'))
+        manifest.write_text(json.dumps({'validationProfile':'auto'}))
+        with self.assertRaises(ValueError):host_ops.selected_profile(self.root)
+
+    def test_hosting_profiles_keep_all_security_guards(self):
+        for profile,capacity in [('historical-rollback',10),('v21-minestrator',20)]:
+            for key,value in [('white-list','false'),('online-mode','false'),('enforce-whitelist','false'),('enable-rcon','true'),('enable-command-block','true'),('query.port','25565'),('server-port','25565')]:
+                self.configure(capacity,query='true');p=self.root/'server.properties'
+                original=server.properties(p)[key]
+                p.write_text(p.read_text().replace(key+'='+original,key+'='+value))
+                with self.assertRaises(RuntimeError,msg=profile+'/'+key):host_ops.check(self.root,profile)
+            for key in ('enable-jmx-monitoring','management-server-enabled'):
+                self.configure(capacity,query='true');p=self.root/'server.properties';p.write_text(p.read_text()+key+'=true\n')
+                with self.assertRaises(RuntimeError):host_ops.check(self.root,profile)
+            self.configure(capacity,query='true');(self.root/'FKAmis.sha256').write_text('0'*64)
+            with self.assertRaisesRegex(RuntimeError,'FKAmis'):host_ops.check(self.root,profile)
+            (self.root/'FKAmis.sha256').write_text(server.digest(self.root/'plugins/FKAmis-1.0.0.jar'))
 
     def test_both_profiles_roundtrip_with_state_and_inventory(self):
         for capacity in (10,20):

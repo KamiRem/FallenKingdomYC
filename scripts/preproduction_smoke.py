@@ -16,7 +16,7 @@ import time
 import server
 
 
-def smoke(root: Path, report_path: Path, java: Path, port: int, settle_seconds: int = 0, fixture_commands: tuple[str,...] = (), expected_day: int = 0):
+def smoke(root: Path, report_path: Path, java: Path, port: int, settle_seconds: int = 0, fixture_commands: tuple[str,...] = (), expected_day: int = 0, expected_query_capacity: int | None = None):
     root = root.resolve()
     if root == server.server_dir('map-v2-fixes') or not root.name.startswith(('preproduction', 'migration-')):
         raise RuntimeError('Essai réservé à une copie de préproduction/migration.')
@@ -62,6 +62,13 @@ def smoke(root: Path, report_path: Path, java: Path, port: int, settle_seconds: 
             wait('Done (')
             if not any('FKAmis pr' in line for line in full_log):
                 raise RuntimeError('FKAmis non activé ; migration non compatible.')
+            if expected_query_capacity is not None:
+                from minestrator_rollback_local import connections,verify_listeners,query_local,is_loopback
+                network=connections(process.pid);listeners=verify_listeners(network)
+                query_port=int(server.properties(root/'server.properties')['query.port'])
+                if not any(is_loopback(x['localAddress']) and x['localPort']==port for x in listeners):raise RuntimeError('Socket TCP local absent')
+                if not any(is_loopback(x['LocalAddress']) and x['LocalPort']==query_port for x in network['udp']):raise RuntimeError('Socket Query local absent')
+                report.update(query_local(query_port,expected_query_capacity));report['tcpAndUdpLoopbackVerified']=True
             for value in fixture_commands:command(value)
             if not 0 <= settle_seconds <= 60:raise ValueError('Stabilisation locale 0..60 secondes.')
             if settle_seconds:

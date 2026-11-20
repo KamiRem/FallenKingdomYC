@@ -1,0 +1,86 @@
+{
+  "preparedLocally": true,
+  "deploymentAuthorized": false,
+  "remoteWritesPerformed": false,
+  "remoteConnectionsUsed": false,
+  "newMaxPlayers": 20,
+  "historicalMaxPlayers": 10,
+  "playersPerTeamMaximum": 4,
+  "maxParticipants": 16,
+  "fkamisSha256": "38180caa28442bad838ef395779d9075a33a2c624bc71e2286488ac0e32fb31a",
+  "sourceManifestVerified": 152,
+  "worldFilesUnchanged": 121,
+  "previousCandidateUnchanged": true,
+  "initialChecks": {
+    "bases": 4,
+    "monuments": 7,
+    "monumentBlocksChecked": 6689,
+    "supplySites": 8,
+    "lootChestsVerified": 6,
+    "cavernsChecked": 4,
+    "cavernBlocksChecked": 37128,
+    "day": 0,
+    "started": false
+  },
+  "spawnAudit": [
+    {
+      "team": "Rouge",
+      "safeAdjacentCellsConservative": 15,
+      "atLeastFourCells": true,
+      "radius": 40,
+      "territoryColumns": 6561
+    },
+    {
+      "team": "Bleue",
+      "safeAdjacentCellsConservative": 15,
+      "atLeastFourCells": true,
+      "radius": 40,
+      "territoryColumns": 6561
+    },
+    {
+      "team": "Verte",
+      "safeAdjacentCellsConservative": 15,
+      "atLeastFourCells": true,
+      "radius": 40,
+      "territoryColumns": 6561
+    },
+    {
+      "team": "Jaune",
+      "safeAdjacentCellsConservative": 15,
+      "atLeastFourCells": true,
+      "radius": 40,
+      "territoryColumns": 6561
+    }
+  ],
+  "localStartupPassed": true,
+  "authenticatedPlayers": 0,
+  "privateWork": "C:\\Users\\youne\\FKBackups\\V21-QUERY-20261120-01",
+  "privateArchiveSha256": "d6ca64ed0e1d05adfc05aab21387cb050cae148fa3a31acd7cf8645a3507c9f2",
+  "transferFiles": 148,
+  "supersedes146FilePlan": true,
+  "propertyChanges": {
+    "max-players": {
+      "before": "10",
+      "after": "20"
+    }
+  },
+  "policyFilesPreserved": true,
+  "whitelistExtended": false,
+  "humanInspectionPerformed": false,
+  "hostingCapacityAtSeventeenConcurrentUsersMeasured": false,
+  "rollbackFunctionalValidated": true,
+  "readyForRemoteDeployment": false,
+  "whitelistEntries": 2,
+  "transferPlanSha256": "7896bd00c34aa50602f779db00b2a178556050c8396dd3ccadf9e0af5b59296a",
+  "deploymentManifestSha256": "bc99993cf2796991a97adf92c12091bea86e5b5166c503258d1311aa227948e6",
+  "all148PayloadAndArchiveHashesVerified": true,
+  "fullSourcePreconditionFiles": 305,
+  "queryEnabled": true,
+  "queryPort": 22880,
+  "validationProfile": "v21-minestrator",
+  "tcpAndUdpLoopbackVerified": true,
+  "queryRespondedLocally": true,
+  "rollbackReportSha256": "2bf813562c14ce4652db0d25720e37f97258c5612fb973ea6bf1d67cf7d796b1",
+  "copiedMaintenanceCliPassed": true,
+  "completeDeploymentManifestVerified": true
+}

@@ -4,7 +4,8 @@
 effectifs de 1 à 4, nouvelle instance à 20 places et plan de 148 fichiers.
 Ce complément remplace le défaut à deux et les artefacts courants décrits plus
 bas, conservés comme preuves de la livraison précédente. Le rollback historique
-à dix places reste inchangé et non validé fonctionnellement.
+à dix places reste inchangé ; son [essai fonctionnel et le choix Query](MINESTRATOR_QUERY_ROLLBACK_20261120.md)
+sont désormais validés localement.
 
 Livraison indépendante de VNext, branche `feature/fkamis-vnext-1-map-v2-1`.
 Base : commit `c631fad`, JAR VNext `fd12c43c0f33fa84f4721d49de2c248c7cd1609f0c502403dc8155975ecc0cee`.

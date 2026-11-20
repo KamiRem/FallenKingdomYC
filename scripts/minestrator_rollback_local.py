@@ -2,6 +2,7 @@
 import sys
 sys.dont_write_bytecode=True
 import hashlib
+import ipaddress
 import json
 import os
 from pathlib import Path
@@ -14,7 +15,9 @@ import threading
 import time
 import traceback
 import argparse
+import struct
 import server
+from rollback_integrity import snapshot as world_snapshot, compare as compare_world
 from minestrator_cold_backup import protect_directory
 
 def sha(path):
@@ -35,6 +38,30 @@ def connections(pid):
     r=subprocess.run(['powershell.exe','-NoProfile','-Command',command],capture_output=True,text=True,timeout=20)
     if r.returncode:raise RuntimeError('Inspection réseau locale impossible')
     return json.loads(r.stdout)
+def normalized_ip(value):
+    address=ipaddress.ip_address(value)
+    return address.ipv4_mapped if isinstance(address,ipaddress.IPv6Address) and address.ipv4_mapped else address
+
+def is_loopback(value):
+    return normalized_ip(value).is_loopback
+
+def verify_listeners(network):
+    listeners=[x for x in network['tcp'] if x['state']=='Listen']
+    if any(not is_loopback(x['localAddress']) for x in listeners) or any(not is_loopback(x['LocalAddress']) for x in network['udp']):raise RuntimeError('Service exposé hors localhost')
+    if any(str(normalized_ip(x['remoteAddress']))=='91.197.6.72' for x in network['tcp']):raise RuntimeError('Connexion vers le serveur MineStrator détectée')
+    return listeners
+
+def query_local(port,capacity):
+    session=b'FKA1'
+    with socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as sock:
+        sock.bind(('127.0.0.1',0));sock.settimeout(3)
+        sock.sendto(b'\xfe\xfd\x09'+session,('127.0.0.1',port));data,_=sock.recvfrom(65535)
+        if data[:5]!=b'\x09'+session:raise RuntimeError('Réponse de challenge Query invalide')
+        challenge=int(data[5:].rstrip(b'\0'))
+        sock.sendto(b'\xfe\xfd\x00'+session+struct.pack('>i',challenge)+b'\0'*4,('127.0.0.1',port));data,_=sock.recvfrom(65535)
+        if data[:5]!=b'\x00'+session or b'maxplayers\0'+str(capacity).encode()+b'\0' not in data or b'numplayers\x000\x00' not in data:raise RuntimeError('Statistiques Query inattendues')
+    return {'queryRespondedLocally':True,'queryMaxPlayers':capacity,'queryOnlinePlayers':0}
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--work',type=Path,required=True,help='Nouveau dossier privé hors dépôt et hors sauvegarde')
@@ -62,12 +89,13 @@ def main():
         report.update({'copyManifestFilesCompared':len(before),'manualChangesBeforeBoot':changed,'oldMarkerSha256':old_marker,'jarSha256':actual,'runtimeRegistryCoherent':True})
         print(json.dumps({'stage':'independent_copy_ready','files':len(before),'onlyManualChange':'FKAmis.sha256'}),flush=True)
         # Validateur courant externe : ne pas remplacer les outils ou données historiques.
-        check_code="import sys;from pathlib import Path;sys.path.insert(0,sys.argv[1]);import server;sys.modules['serverlib']=server;sys.path.insert(0,sys.argv[2]);import host_ops;host_ops.check(Path(sys.argv[3]))"
+        check_code="import sys;from pathlib import Path;sys.path.insert(0,sys.argv[1]);import server;sys.modules['serverlib']=server;sys.path.insert(0,sys.argv[2]);import host_ops;host_ops.check(Path(sys.argv[3]),'historical-rollback')"
         check_command=[sys.executable,'-B','-c',check_code,str(server.ROOT/'scripts'),str(server.ROOT/'deployment'),str(root)]
         if server.properties(root/'server.properties').get('max-players')!='10':raise RuntimeError('Capacité historique inattendue')
         run_local(check_command,root,work/'maintenance-before.log')
         report['maintenanceCheckBeforeBoot']=True
         report['externalMaintenanceValidatorSha256']=sha(server.ROOT/'scripts/server.py')
+        report['profile']='historical-rollback';report['externalHostOpsSha256']=sha(server.ROOT/'deployment/host_ops.py')
         report['historicalMaxPlayers']=10
         java=server.java_path();snake=server.ROOT/'.cache/m2/org/yaml/snakeyaml/2.2/snakeyaml-2.2.jar'
         version=subprocess.run([str(java),'-version'],capture_output=True,text=True,check=True)
@@ -80,10 +108,13 @@ def main():
         shutil.copy2(root/'plugins/FKAmis/state.yml',work/'state-before.yml')
         protected=[n for n in before if '/players/data/' in n or '/playerdata/' in n or n.startswith('plugins/FKAmis/history/') or n in ('plugins/FKAmis/admins.yml','plugins/FKAmis/supplies.yml')]
         policies={n:json.loads((root/n).read_text(encoding='utf-8-sig')) for n in ('whitelist.json','ops.json','banned-players.json','banned-ips.json')}
-        with socket.socket() as s:s.bind(('127.0.0.1',0));port=s.getsockname()[1]
+        world_before=world_snapshot(root);write(work/'world-before-private.json',world_before)
+        port=22880;query_port=22880
+        with socket.socket() as tcp,socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as udp:
+            tcp.bind(('127.0.0.1',port));udp.bind(('127.0.0.1',query_port))
         report['localPort']=port
         config=server.properties(root/'server.properties')
-        for key in ('enable-rcon','enable-query','management-server-enabled','enable-jmx-monitoring'):
+        for key in ('enable-rcon','management-server-enabled','enable-jmx-monitoring'):
             if config.get(key,'false')!='false':raise RuntimeError('Service annexe actif : '+key)
         logs=[];pending=queue.Queue()
         env=os.environ.copy()
@@ -95,9 +126,20 @@ def main():
             def read():
                 for line in process.stdout:logs.append(line);pending.put(line)
             reader=threading.Thread(target=read,daemon=True);reader.start()
+            network_stop=threading.Event();network_fault=[];network_samples=[]
+            def monitor_network():
+                while not network_stop.is_set() and process.poll() is None:
+                    try:
+                        sample=connections(process.pid);network_samples.append(sample);verify_listeners(sample)
+                    except Exception as error:
+                        if not network_stop.is_set() and process.poll() is None:network_fault.append(str(error))
+                        return
+                    network_stop.wait(2)
+            watcher=threading.Thread(target=monitor_network,daemon=True);watcher.start()
             def wait_for(marker,timeout=180):
                 end=time.monotonic()+timeout
                 while time.monotonic()<end:
+                    if network_fault:raise RuntimeError(network_fault[0])
                     if process.poll() is not None:raise RuntimeError('Paper arrêté avant validation')
                     try:line=pending.get(timeout=.5)
                     except queue.Empty:continue
@@ -109,15 +151,16 @@ def main():
                 wait_for('Done (')
                 if not any('FKAmis prêt' in x for x in logs):raise RuntimeError('FKAmis non activé')
                 network=connections(process.pid);write(work/'network-private.json',network)
-                listeners=[x for x in network['tcp'] if x['state']=='Listen']
-                if not any(x['localAddress']=='127.0.0.1' and x['localPort']==port for x in listeners):raise RuntimeError('Socket de jeu local non confirmé')
-                if any(x['localAddress'] not in ('127.0.0.1','::1') for x in listeners) or any(x['LocalAddress'] not in ('127.0.0.1','::1') for x in network['udp']):raise RuntimeError('Service exposé hors localhost')
-                if any(x['remoteAddress']=='91.197.6.72' for x in network['tcp']):raise RuntimeError('Connexion vers le serveur MineStrator détectée')
+                listeners=verify_listeners(network)
+                if not any(is_loopback(x['localAddress']) and x['localPort']==port for x in listeners):raise RuntimeError('Socket de jeu local non confirmé')
+                if not any(is_loopback(x['LocalAddress']) and x['LocalPort']==query_port for x in network['udp']):raise RuntimeError('Socket Query local non confirmé')
+                report.update(query_local(query_port,10));report['queryPort']=query_port
                 report['loopbackListenersVerified']=True;report['listeners']=listeners;report['udpEndpointsCount']=len(network['udp'])
                 for cmd,marker in [('version','Paper version'),('plugins','FKAmis'),('fka status','Jour '),('fka config validate','Configuration cohérente'),('fka supply status',''),('fka admin list',''),('list','players online')]:
                     command(cmd)
                     if marker:wait_for(marker,30)
                 if not any('There are 0 of a max of' in x for x in logs):raise RuntimeError('Absence de joueurs non confirmée')
+                if network_fault:raise RuntimeError(network_fault[0])
                 command('stop');process.wait(timeout=120);reader.join(timeout=5)
                 if process.returncode:raise RuntimeError('Arrêt Paper en erreur')
             finally:
@@ -125,11 +168,20 @@ def main():
                     command('stop')
                     try:process.wait(timeout=90)
                     except subprocess.TimeoutExpired:process.kill();process.wait();report['forcedLocalTermination']=True
+                network_stop.set();watcher.join(timeout=25)
+                write(work/'network-observations-private.json',network_samples)
+                report['networkObservationCount']=len(network_samples)
                 reader.join(timeout=5);(work/'paper-private.log').write_text(''.join(logs),encoding='utf-8')
+            if network_fault:raise RuntimeError(network_fault[0])
         errors=[x for x in logs if re.search(r'\b(ERROR|SEVERE)\b',x)]
         if errors:raise RuntimeError('Logs critiques non vides')
         report['warningCount']=sum(bool(re.search(r'\bWARN\b',x)) for x in logs);report['errorCount']=len(errors)
         report['paperExitCode']=process.returncode
+        after=files(root);changes={'changed':[n for n in before if after.get(n)!=before[n]],'added':sorted(after.keys()-before.keys()),'removed':sorted(before.keys()-after.keys())}
+        write(work/'runtime-diff-private.json',changes)
+        report['runtimeChangesCounts']={k:len(v) for k,v in changes.items()}
+        world_after=world_snapshot(root);write(work/'world-after-private.json',world_after)
+        report.update(compare_world(world_before,world_after))
         for name in protected:
             if not (root/name).is_file() or sha(root/name)!=before[name]:raise RuntimeError('Donnée historique protégée modifiée')
         for name,value in policies.items():
@@ -140,9 +192,6 @@ def main():
         report['accessPoliciesPreserved']=True
         run_local(check_command,root,work/'maintenance-after.log')
         report['maintenanceCheckAfterBoot']=True
-        after=files(root);changes={'changed':[n for n in before if after.get(n)!=before[n]],'added':sorted(after.keys()-before.keys()),'removed':sorted(before.keys()-after.keys())}
-        write(work/'runtime-diff-private.json',changes)
-        report['runtimeChangesCounts']={k:len(v) for k,v in changes.items()}
         report['passed']=True
         print(json.dumps({'stage':'local_rollback_test_passed','port':port,'errorCount':0,'historicalStatePreserved':True}),flush=True)
     except Exception as error:

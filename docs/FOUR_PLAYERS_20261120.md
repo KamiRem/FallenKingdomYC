@@ -1,5 +1,9 @@
 # Quatre membres par royaume — préparation du 20 novembre 2026
 
+**Complément ultérieur :** le [rapport Query/rollback](MINESTRATOR_QUERY_ROLLBACK_20261120.md)
+lève le blocage du rollback et remplace le candidat ci-dessous par une révision
+avec Query activé, toujours 148 fichiers. Les résultats précédents restent historiques.
+
 **Préparation locale terminée ; bascule distante bloquée.** Les règles ci-dessous
 remplacent le défaut de deux membres. Paper 26.3-244, Java 25 et FallenKingdom
 officiel 2.24.9 restent inchangés. Aucun accès API/SFTP MineStrator pendant ce travail.
