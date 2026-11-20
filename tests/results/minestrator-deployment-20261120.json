@@ -1,0 +1,183 @@
+{
+  "operation": "MS-DEPLOY-V21-20261120-01",
+  "state": "RUNNING_RECIPE_ONLY",
+  "deploymentAuthorized": true,
+  "residualRisksExplicitlyAccepted": true,
+  "startedAtUtc": "2026-11-20T22:29:00.397652+00:00",
+  "activationStarted": true,
+  "stagedFiles": 148,
+  "remoteWritesPerformed": true,
+  "officialGameStartCommandSent": false,
+  "serverId": 513365,
+  "preflightSourceFilesMetadata": 305,
+  "preflightSourceDirectoriesMetadata": 321,
+  "targetedPrewriteHashes": 18,
+  "fullSourceContentAuditRepeated": false,
+  "spigotPatchApplied": true,
+  "quarantineSourceFiles": 152,
+  "installedFiles": 148,
+  "installedSha256Verified": 148,
+  "retainedCoreVerified": 5,
+  "restartOnCrash": false,
+  "whitelistUnchanged": true,
+  "historicalDataMerged": false,
+  "installationOfflineVerified": true,
+  "installedFileModesVerified": 148,
+  "installedOwnershipVerifiedFiles": 148,
+  "lastUpdatedAtUtc": "2026-11-20T22:42:11.854458+00:00",
+  "originalArchiveSha256": "255fb82eeddb4b067313e8a6ce39ed012ada204f28d0a7bdb0b85ec2025663bf",
+  "originalManifestSha256": "b54da288c8ad983c6bc35172ed1e0a697812b210dd7afe38ffb7e060f9ff81a1",
+  "original305RestoredFilesUnchanged": true,
+  "untouchedFilesMetadataRecheckedBeforeStart": 153,
+  "activeFileCountBeforeStart": 302,
+  "startRequested": true,
+  "startRequestedAtUtc": "2026-11-20T22:41:49.408206+00:00",
+  "startupPassed": true,
+  "startupErrorCount": 0,
+  "startupWarningCount": 0,
+  "paperVersionVerified": "26.3-244",
+  "fallenKingdomVerified": "2.24.9",
+  "restrictedWhitelistRetained": true,
+  "day": 0,
+  "gameStarted": false,
+  "officialParticipants": 0,
+  "territoryRadius": 40,
+  "territoriesVerified": 4,
+  "spawnsVerified": 4,
+  "cavernsVerified": 4,
+  "cavernReferenceBlocksVerified": 37128,
+  "regionChunksRead": 47,
+  "humanMapInspectionPerformed": false,
+  "udpQueryResponded": true,
+  "queryCapacity": 20,
+  "mineBoardApiPlayerCapacity": 20,
+  "mineBoardApiPlayersOnline": 0,
+  "mineBoardVisualInspectionPerformed": false,
+  "baseCommit": "c0ccdd9",
+  "approvedCandidate": "V21-QUERY-20261120-01",
+  "deploymentManifestSha256": "bc99993cf2796991a97adf92c12091bea86e5b5166c503258d1311aa227948e6",
+  "spigotInstalledSha256": "63e939902bc52b0868598205130a94bb5e9f3733073008a05399fddfef687667",
+  "spigotHistoricalSha256": "4764ac315bbd64efe70161977c18c5ce372c72aef5302b75a2648a82c5a88678",
+  "runtime": {
+    "java": "25.0.5+8-LTS",
+    "javaImagePolicy": "Java 25 Performance",
+    "paper": "26.3-244",
+    "fallenKingdom": "2.24.9",
+    "fkamis": "1.0.0",
+    "fkamisSha256": "38180caa28442bad838ef395779d9075a33a2c624bc71e2286488ac0e32fb31a",
+    "gamePort": 22880,
+    "queryPort": 22880,
+    "maxPlayers": 20,
+    "playersPerTeam": 4,
+    "captureSeconds": 60,
+    "captureRadius": 2.5,
+    "whitelistAccounts": 2,
+    "whitelistEnforced": true,
+    "watchdogEnabled": true
+  },
+  "hostingSettingsModified": false,
+  "irreversibleDeleteOperations": 0,
+  "historicalBackupModified": false,
+  "rollbackExecuted": false,
+  "exclusiveHostLockAvailable": false,
+  "hostingCrashRestartPolicyVerified": false,
+  "realPlayerLoginsPerformedByAgent": 0,
+  "humanAcceptanceAnd17ConnectionLoadTestCompleted": false,
+  "productionGameStartAuthorized": false,
+  "apiMonitoring": {
+    "install": {
+      "samples": 106,
+      "firstAtUtc": "2026-11-20T22:29:00.662826+00:00",
+      "lastAtUtc": "2026-11-20T22:37:53.922596+00:00",
+      "states": [
+        "offline"
+      ],
+      "maxGapSeconds": 5.133575
+    },
+    "start": {
+      "samples": 41,
+      "firstAtUtc": "2026-11-20T22:39:05.978095+00:00",
+      "lastAtUtc": "2026-11-20T22:42:11.386295+00:00",
+      "states": [
+        "offline",
+        "online",
+        "starting"
+      ],
+      "maxGapSeconds": 5.135762
+    },
+    "betweenPhasesWithoutRemoteOperationsSeconds": 72.055499
+  },
+  "initialPerformanceObservation": {
+    "playersOnline": 0,
+    "immediateAfterStartup": true,
+    "tps": {
+      "oneMinute": 19.5,
+      "fiveMinutes": 19.5,
+      "fifteenMinutes": 19.5
+    },
+    "msptAvgMinMax": {
+      "fiveSeconds": [
+        1.1,
+        0.6,
+        4.8
+      ],
+      "tenSeconds": [
+        3.2,
+        0.2,
+        195.6
+      ],
+      "oneMinute": [
+        3.2,
+        0.2,
+        195.6
+      ]
+    },
+    "hostingMemoryRaw": {
+      "current": 1325,
+      "limit": 8000,
+      "percent": 16
+    },
+    "hostingMemoryUnitIndependentlyVerified": false,
+    "gcMetricsCollected": false,
+    "seventeenPlayerPerformanceProven": false
+  },
+  "evidenceSha256": {
+    "installed-manifest.json": "1aa3e8cdd194793e10a2689ec5695db6a3be7b6b78919eb933502a6412374685",
+    "journal.jsonl": "d5c5dfc89d8bf35439b20bba7261fde0a93f3ebb30182cb86ecb9301d2cb4067",
+    "startup-private.log": "15407419ad221ac7c163919b1387a7e7769bc691abee0023cd22e0d30cc8acf6",
+    "installed-permissions-private.json": "5d6711cbcb704c5e59a2e14a17e5fc988bc32084ef86f0b282c3266f87840f6b",
+    "api-observations-install.json": "527028a027e9390a524ed92f12ca2bd65c28b6081e7d495359fa7a5cb9065880",
+    "api-observations-start.json": "4d6970bd21dfa6fc40565742a9913899eb47f3f5953c453ece49e877e53411f1"
+  },
+  "localPythonTests": 115,
+  "deploymentSpecificTests": 14,
+  "tcpStatusEvidence": {
+    "atUtc": "2026-11-20T22:43:34.343075+00:00",
+    "minecraftStatusResponded": true,
+    "version": {
+      "name": "Paper 26.3",
+      "protocol": 777
+    },
+    "capacity": 20,
+    "online": 0,
+    "statusPingRoundTripMs": 18.063,
+    "realPlayerLoginPerformed": false,
+    "gameplayOrLoadTestPerformed": false
+  },
+  "finalSourceToolSha256": {
+    "scripts/minestrator_deploy.py": "38cdfa11e946a49b750a32f938ae01e0e7521996f8c1383f8b206754b324acff",
+    "scripts/minestrator_deploy.ps1": "19d9e714c1d440305d71b86f1ae5930cd3c42c169c1c97ec2492bb410628cd6b",
+    "tests/test_minestrator_deploy.py": "d1ba16b15736a2d495870496894724719ed7e816203545f39c54256ad59351e2"
+  },
+  "finalSourceToolNote": "Les contrôles de fichiers conservés ont été ajoutés avant start ; le refus du rollback implicite sain a été ajouté et testé après la réussite, sans nouvelle action distante.",
+  "finalApiObservation": {
+    "atUtc": "2026-11-20T22:50:15.377765+00:00",
+    "apiAuthenticated": true,
+    "state": "online",
+    "statsState": "online",
+    "capacity": 20,
+    "online": 0,
+    "readOnlyRequest": true
+  },
+  "receiptWrittenAtUtc": "2026-11-20T22:50:58.202689+00:00"
+}

@@ -1,0 +1,13 @@
+{
+  "atUtc": "2026-11-20T22:43:34.343075+00:00",
+  "minecraftStatusResponded": true,
+  "version": {
+    "name": "Paper 26.3",
+    "protocol": 777
+  },
+  "capacity": 20,
+  "online": 0,
+  "statusPingRoundTripMs": 18.063,
+  "realPlayerLoginPerformed": false,
+  "gameplayOrLoadTestPerformed": false
+}

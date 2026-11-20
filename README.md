@@ -1,12 +1,14 @@
 # Fallen Kingdom privé — quatre royaumes et un arbitre
 
-L'[audit final avant bascule](docs/MINESTRATOR_FINAL_PREFLIGHT_20261120.md) a
-comparé les 305 fichiers distants au point historique sur deux lectures, sans
-divergence. Le propriétaire confirme maintenant **49,5 Go libres** et aucune
-planification/action en attente. **Bascule NO-GO** tant que la politique après
-crash n'est pas tranchée et l'autorisation explicite reçue : Spigot déclare
-`restart-on-crash=true`, le réglage hébergeur reste non vérifié. Voir la
-[liste exacte des 148 cibles](docs/MINESTRATOR_148_FILES_20261120.tsv) et le
+**V2.1 installée sur MineStrator, serveur réservé à la recette.** Le
+[rapport d'installation du 20 novembre](docs/MINESTRATOR_INSTALLATION_20261120.md)
+confirme les 148 fichiers, leurs empreintes, Paper/plugins, Query à 20 places,
+les quatre territoires/spawns et les quatre cavernes. Partie au jour 0 non
+lancée, whitelist inchangée à deux comptes, `restart-on-crash=false` et watchdog
+actif. Les risques de verrou exclusif absent et de relance hébergeur non vérifiée
+ont été explicitement acceptés pour cette opération. L'[audit préalable](docs/MINESTRATOR_FINAL_PREFLIGHT_20261120.md)
+reste conservé comme preuve historique. Voir la
+[liste exacte des 148 fichiers](docs/MINESTRATOR_148_FILES_20261120.tsv) et le
 [protocole whitelist/recette](docs/MINESTRATOR_RECETTE_ET_WHITELIST_20261120.md).
 
 Préparation du 20 novembre : [1 à 4 membres par royaume, V2.1 à 20 places](docs/FOUR_PLAYERS_20261120.md),
@@ -14,16 +16,18 @@ jusqu'à 16 participants et l'arbitre. Le nouveau manifeste privé comporte 148
 fichiers ; le plan antérieur de 146 fichiers est périmé. Rollback historique à
 10 places préservé. Le [complément Query et rollback](docs/MINESTRATOR_QUERY_ROLLBACK_20261120.md)
 valide son démarrage fonctionnel et finalise Query activé pour MineStrator.
-Aucun déploiement distant autorisé ou exécuté. Les ZIP ci-dessous restent ceux
-de la livraison précédente ; les preuves actuelles sont dans
-`tests/results/query-rollback-delivery.json`.
+Le déploiement contrôlé a ensuite été autorisé et réalisé ; ses preuves sont dans
+`tests/results/minestrator-deployment-20261120.json`. Les ZIP ci-dessous restent
+ceux de la livraison précédente ; le candidat privé de 148 fichiers et
+`tests/results/query-rollback-delivery.json` définissent la préparation actuelle.
 
 La livraison courante est [FKAmis VNext.1 et carte V2.1](docs/FKAMIS_VNEXT_1.md).
 Le ZIP `dist/fallenkingdom-vnext1-update.zip` met à jour VNext et les territoires
 à froid, avec sauvegarde complète ; il ne contient aucun monde ni état de joueur.
 L'artefact séparé `dist/fallenkingdom-map-v2.1-build.zip` construit quatre cavernes
 sur une copie initiale uniquement. Le [rapport courant](tests/results/vnext1-delivery.json)
-distingue essais locaux et recette humaine restant à faire. Aucun accès MineStrator.
+distingue essais locaux et recette humaine restant à faire ; il précède l'installation
+MineStrator documentée ci-dessus.
 Le guidage utilise une ActionBar privée ; la Locator Bar native reste désactivée.
 Les [preuves VNext](docs/FKAMIS_VNEXT.md) et livraisons antérieures sont conservées.
 
@@ -48,7 +52,7 @@ identifiants d’hébergement, logs locaux ou plugins de chantier/recette.
 Le propriétaire a choisi **MineStrator MyBox Perf 8**, Java 25 Performance,
 environ **6154M** de mémoire Java gérés par le panel et le port **22880**.
 Le paquet contient déjà le bon port, `server-ip=` vide et `level-name=world`.
-L’agent n’a pas accédé à l’hébergement et n’a lancé aucune partie officielle.
+L'installation contrôlée n'a lancé aucune partie officielle.
 
 - [Audit technique, résultats et limites](docs/PREPRODUCTION_AUDIT.md).
 - [Transfert MineStrator étape par étape](docs/HOST_INSTALLATION.md).

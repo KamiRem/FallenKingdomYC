@@ -1,5 +1,9 @@
 # Audit final avant bascule V2.1 — 20 novembre 2026
 
+> Rapport préalable conservé dans son contexte. Le propriétaire a ensuite
+> accepté les risques résiduels et autorisé l'opération ; voir le
+> [rapport d'installation exécutée](MINESTRATOR_INSTALLATION_20261120.md).
+
 **Statut : GO pour la préparation et l'espace disque ; NO-GO pour la bascule.**
 Le propriétaire confirme 49,5 Go libres et l'absence de tâches/calendrier/actions
 en attente. Le contrôle ciblé relève toutefois `restart-on-crash: true` côté
