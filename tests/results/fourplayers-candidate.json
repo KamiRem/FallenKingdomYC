@@ -1,0 +1,83 @@
+{
+  "preparedLocally": true,
+  "deploymentAuthorized": false,
+  "remoteWritesPerformed": false,
+  "remoteConnectionsUsed": false,
+  "newMaxPlayers": 20,
+  "historicalMaxPlayers": 10,
+  "playersPerTeamMaximum": 4,
+  "maxParticipants": 16,
+  "fkamisSha256": "38180caa28442bad838ef395779d9075a33a2c624bc71e2286488ac0e32fb31a",
+  "sourceManifestVerified": 152,
+  "worldFilesUnchanged": 121,
+  "previousCandidateUnchanged": true,
+  "initialChecks": {
+    "bases": 4,
+    "monuments": 7,
+    "monumentBlocksChecked": 6689,
+    "supplySites": 8,
+    "lootChestsVerified": 6,
+    "cavernsChecked": 4,
+    "cavernBlocksChecked": 37128,
+    "day": 0,
+    "started": false
+  },
+  "spawnAudit": [
+    {
+      "team": "Rouge",
+      "safeAdjacentCellsConservative": 15,
+      "atLeastFourCells": true,
+      "radius": 40,
+      "territoryColumns": 6561
+    },
+    {
+      "team": "Bleue",
+      "safeAdjacentCellsConservative": 15,
+      "atLeastFourCells": true,
+      "radius": 40,
+      "territoryColumns": 6561
+    },
+    {
+      "team": "Verte",
+      "safeAdjacentCellsConservative": 15,
+      "atLeastFourCells": true,
+      "radius": 40,
+      "territoryColumns": 6561
+    },
+    {
+      "team": "Jaune",
+      "safeAdjacentCellsConservative": 15,
+      "atLeastFourCells": true,
+      "radius": 40,
+      "territoryColumns": 6561
+    }
+  ],
+  "localStartupPassed": true,
+  "authenticatedPlayers": 0,
+  "privateWork": "C:\\Users\\youne\\FKBackups\\V21-FOUR-20261120-01",
+  "privateArchiveSha256": "c308b905d99f72878f2ab613cdc4e22de5ee8cbee856921ce56d1073ecaa66a4",
+  "transferFiles": 148,
+  "supersedes146FilePlan": true,
+  "propertyChanges": {
+    "max-players": {
+      "before": "10",
+      "after": "20"
+    },
+    "enable-query": {
+      "before": "true",
+      "after": "false"
+    }
+  },
+  "policyFilesPreserved": true,
+  "whitelistExtended": false,
+  "humanInspectionPerformed": false,
+  "hostingCapacityAtSeventeenConcurrentUsersMeasured": false,
+  "rollbackFunctionalValidated": false,
+  "readyForRemoteDeployment": false,
+  "whitelistEntries": 2,
+  "transferPlanSha256": "2b94475af6418ed5c7b587cb17c0951eea70eb3502f8339e21306be576dce739",
+  "deploymentManifestSha256": "4d7e6fcf44b21818e1a3b6eb6da53b9deff0b6960a1c5281a58373ac459bc3ff",
+  "all148PayloadAndArchiveHashesVerified": true,
+  "originalBackupPreservationRechecked": true,
+  "fullSourcePreconditionFiles": 305
+}

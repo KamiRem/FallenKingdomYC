@@ -1,5 +1,13 @@
 # Fallen Kingdom privé — quatre royaumes et un arbitre
 
+Préparation du 20 novembre : [1 à 4 membres par royaume, V2.1 à 20 places](docs/FOUR_PLAYERS_20261120.md),
+jusqu'à 16 participants et l'arbitre. Le nouveau manifeste privé comporte 148
+fichiers ; le plan antérieur de 146 fichiers est périmé. Rollback historique à
+10 places préservé, encore bloqué avant démarrage par `enable-query=true`.
+Aucun déploiement distant autorisé ou exécuté. Les ZIP ci-dessous restent ceux
+de la livraison précédente ; les preuves actuelles sont dans
+`tests/results/fourplayers-delivery.json`.
+
 La livraison courante est [FKAmis VNext.1 et carte V2.1](docs/FKAMIS_VNEXT_1.md).
 Le ZIP `dist/fallenkingdom-vnext1-update.zip` met à jour VNext et les territoires
 à froid, avec sauvegarde complète ; il ne contient aucun monde ni état de joueur.

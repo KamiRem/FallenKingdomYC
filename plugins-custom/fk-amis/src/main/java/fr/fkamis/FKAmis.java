@@ -67,7 +67,7 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
     TeamManager teams() { return FkPI.getInstance().getTeamManager(); }
     List<String> expectedTeams() { return getConfig().getStringList("teams"); }
     int assaultDay() { return getConfig().getInt("assault-day"); }
-    int playersPerTeam() { return getConfig().getInt("players-per-team",2); }
+    int playersPerTeam() { return getConfig().getInt("players-per-team",4); }
     String rosterName(UUID id) { return rosterNames.getOrDefault(id,id.toString()); }
     long teamSize(String name) { return roster.values().stream().filter(name::equals).count(); }
     int requiredAttackers(String name) { return TeamCapacity.attackers(getConfig().getInt("capture-players"),teamSize(name)); }
@@ -116,7 +116,7 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
             if(Files.exists(getDataFolder().toPath().resolve("reset-request.json")))throw new IllegalStateException("Réinitialisation confirmée en attente : terminer la maintenance à froid ou utiliser host_ops.py reset-cancel, sans démarrage automatique.");
             SettingsTransaction.recover(getDataFolder().toPath());
             saveDefaultConfig();
-            require(getConfig().get("players-per-team",2) instanceof Integer,"players-per-team doit être un entier entre 1 et 4.");
+            require(getConfig().get("players-per-team",4) instanceof Integer,"players-per-team doit être un entier entre 1 et 4.");
             TeamCapacity.validate(playersPerTeam());
             if (!"2.24.9".equals(Fk.getInstance().getDescription().getVersion()))
                 throw new IllegalStateException("FallenKingdom 2.24.9 requis : contrôler toute mise à jour.");

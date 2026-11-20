@@ -13,6 +13,7 @@ import subprocess
 import threading
 import time
 import traceback
+import argparse
 import server
 from minestrator_cold_backup import protect_directory
 
@@ -35,7 +36,11 @@ def connections(pid):
     if r.returncode:raise RuntimeError('Inspection réseau locale impossible')
     return json.loads(r.stdout)
 def main():
-    source=Path.home()/'FKBackups/MS-COLD-20261119-02';work=Path.home()/'FKBackups/RB-20261119-01';root=work/'preproduction'
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--work',type=Path,required=True,help='Nouveau dossier privé hors dépôt et hors sauvegarde')
+    args=parser.parse_args()
+    source=Path.home()/'FKBackups/MS-COLD-20261119-02';work=args.work.resolve();root=work/'preproduction'
+    if work.is_relative_to(server.ROOT) or work.is_relative_to(source) or source.is_relative_to(work):raise RuntimeError('Destination de test hors dépôt et sauvegarde requise')
     if work.exists():raise RuntimeError('Destination de test existante, ne pas écraser.')
     evidence=json.loads((source/'report.json').read_text(encoding='utf-8'));manifest=json.loads((source/'manifest.json').read_text(encoding='utf-8'))
     original=preservation(source)
@@ -56,12 +61,21 @@ def main():
         if changed!=['FKAmis.sha256']:raise RuntimeError('Modification manuelle supplémentaire')
         report.update({'copyManifestFilesCompared':len(before),'manualChangesBeforeBoot':changed,'oldMarkerSha256':old_marker,'jarSha256':actual,'runtimeRegistryCoherent':True})
         print(json.dumps({'stage':'independent_copy_ready','files':len(before),'onlyManualChange':'FKAmis.sha256'}),flush=True)
-        run_local([sys.executable,'-B',str(root/'maintenance/host_ops.py'),'check'],root,work/'maintenance-before.log')
+        # Validateur courant externe : ne pas remplacer les outils ou données historiques.
+        check_code="import sys;from pathlib import Path;sys.path.insert(0,sys.argv[1]);import server;sys.modules['serverlib']=server;sys.path.insert(0,sys.argv[2]);import host_ops;host_ops.check(Path(sys.argv[3]))"
+        check_command=[sys.executable,'-B','-c',check_code,str(server.ROOT/'scripts'),str(server.ROOT/'deployment'),str(root)]
+        if server.properties(root/'server.properties').get('max-players')!='10':raise RuntimeError('Capacité historique inattendue')
+        run_local(check_command,root,work/'maintenance-before.log')
         report['maintenanceCheckBeforeBoot']=True
+        report['externalMaintenanceValidatorSha256']=sha(server.ROOT/'scripts/server.py')
+        report['historicalMaxPlayers']=10
         java=server.java_path();snake=server.ROOT/'.cache/m2/org/yaml/snakeyaml/2.2/snakeyaml-2.2.jar'
         version=subprocess.run([str(java),'-version'],capture_output=True,text=True,check=True)
         if not re.search(r'version "25[.\"]',version.stderr+version.stdout):raise RuntimeError('Java 25 requis')
         report['javaVersion']=(version.stderr+version.stdout).splitlines()[0]
+        state_command=[str(java),'-cp',str(snake),str(server.ROOT/'scripts/RollbackStateCheck.java')]
+        run_local([*state_command,str(root/'plugins/FKAmis/state.yml'),str(root/'plugins/FKAmis/state.yml')],root,work/'state-schema-before.log')
+        report['historicalSchemaCompatible']=True
         # Seulement des copies privées des données de référence pour le contrôle après exécution.
         shutil.copy2(root/'plugins/FKAmis/state.yml',work/'state-before.yml')
         protected=[n for n in before if '/players/data/' in n or '/playerdata/' in n or n.startswith('plugins/FKAmis/history/') or n in ('plugins/FKAmis/admins.yml','plugins/FKAmis/supplies.yml')]
@@ -124,7 +138,7 @@ def main():
         report.update(json.loads(state_check));report['protectedHistoricalFilesCompared']=len(protected)
         report['playerProfileFilesCompared']=sum('/players/data/' in n or '/playerdata/' in n for n in protected)
         report['accessPoliciesPreserved']=True
-        run_local([sys.executable,'-B',str(root/'maintenance/host_ops.py'),'check'],root,work/'maintenance-after.log')
+        run_local(check_command,root,work/'maintenance-after.log')
         report['maintenanceCheckAfterBoot']=True
         after=files(root);changes={'changed':[n for n in before if after.get(n)!=before[n]],'added':sorted(after.keys()-before.keys()),'removed':sorted(before.keys()-after.keys())}
         write(work/'runtime-diff-private.json',changes)

@@ -22,6 +22,7 @@ class RollbackStateCheck {
     public static void main(String[] args)throws Exception {
         var options=new LoaderOptions();options.setCodePointLimit(16*1024*1024);var yaml=new Yaml(new SafeConstructor(options));
         Map<?,?> a=yaml.load(Files.readString(Path.of(args[0]))),b=yaml.load(Files.readString(Path.of(args[1])));
+        if(!same(a.get("schema"),1)||!same(b.get("schema"),1))throw new IllegalStateException("Schéma historique inconnu");
         for(String key:List.of("schema","day","started","end-open","winner","eliminated","validated","terrain-validated","spawns"))
             if(!same(a.get(key),b.get(key)))throw new IllegalStateException("Historique modifié : "+key);
         for(String key:List.of("roster","roster-names","objectives"))

@@ -5,7 +5,7 @@ import java.util.*;
 /** Règles exposées par les commandes ; aucune valeur numérique permissive. */
 final class GameSettings {
     static final Map<String,Number> DEFAULTS=Collections.unmodifiableMap(new LinkedHashMap<>(Map.of(
-        "players-per-team",2,"capture-seconds",60,"capture-players",2,"capture-radius",2.5,
+        "players-per-team",4,"capture-seconds",60,"capture-players",2,"capture-radius",2.5,
         "pvp-day",2,"assault-day",3,"nether-day",2,"respawn-protection-seconds",5,"supply-interval-seconds",1800)));
     static Number parse(String key,String input) {
         if(!DEFAULTS.containsKey(key))throw new IllegalArgumentException("Paramètre inconnu : "+key);

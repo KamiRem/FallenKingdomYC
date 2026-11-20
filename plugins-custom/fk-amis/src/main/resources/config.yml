@@ -1,5 +1,6 @@
 pvp-day: 2
-players-per-team: 2
+# Capacité maximale ; chaque royaume peut démarrer avec 1 à 4 membres officiels.
+players-per-team: 4
 respawn-protection-seconds: 5
 # Diagnostic temporaire console des dégâts ; désactiver après investigation.
 damage-debug: false

@@ -1,0 +1,19 @@
+{
+  "suite": "four",
+  "attempt": 22,
+  "format": 4,
+  "authenticatedPlayers": 0,
+  "fkamisSha256": "38180caa28442bad838ef395779d9075a33a2c624bc71e2286488ac0e32fb31a",
+  "checks": [
+    {
+      "phase": "0",
+      "assertions": 47,
+      "passed": true,
+      "errors": [],
+      "warnings": [
+        "[20:13:12 WARN]: A manual (plugin-induced) save has been detected while server is configured to auto-save. This may affect performance."
+      ]
+    }
+  ],
+  "passed": true
+}

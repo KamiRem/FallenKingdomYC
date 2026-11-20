@@ -8,8 +8,8 @@ class MatchStateTest {
     private static final List<String> TEAMS = List.of("Rouge", "Bleue", "Verte", "Jaune");
     @Test void refusesIncompleteAndOversizedRoster() {
         MatchState s = new MatchState();
-        assertThrows(IllegalStateException.class, () -> s.start(List.of(2, 2, 2, 1), false));
-        assertThrows(IllegalStateException.class, () -> s.start(List.of(3, 2, 2, 1), true));
+        assertThrows(IllegalStateException.class, () -> s.start(List.of(2, 2, 2, 0), false));
+        assertThrows(IllegalStateException.class, () -> s.start(List.of(5, 2, 2, 1), true));
         assertThrows(IllegalStateException.class, () -> s.start(List.of(2, 2), true));
         assertFalse(s.started);
     }

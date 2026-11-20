@@ -5,6 +5,7 @@ from pathlib import Path
 import re
 import shutil
 import subprocess
+import threading
 import server
 
 ROOT=server.ROOT
@@ -12,12 +13,35 @@ BASE=ROOT/'dist/fallenkingdom-preproduction-26.3.zip'
 QA=ROOT/'.cache/vn1'
 
 
+def run_probe(command,root,timeout=300,stop_timeout=120):
+    """Garder stdin ouvert pour pouvoir demander un arrêt propre au dépassement."""
+    process=subprocess.Popen(command,cwd=root,stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,encoding='utf-8',errors='replace')
+    lines=[]
+    def read():
+        for line in process.stdout:lines.append(line)
+    reader=threading.Thread(target=read,daemon=True);reader.start()
+    timed_out=False;forced=False
+    try:
+        try:process.wait(timeout=timeout)
+        except subprocess.TimeoutExpired:
+            timed_out=True
+            try:process.stdin.write('stop\n');process.stdin.flush()
+            except (OSError,ValueError):pass
+            try:process.wait(timeout=stop_timeout)
+            except subprocess.TimeoutExpired:forced=True;process.kill();process.wait()
+    finally:
+        if process.poll() is None:forced=True;process.kill();process.wait()
+        reader.join(timeout=5);process.stdin.close();process.stdout.close()
+    return process.returncode,''.join(lines),timed_out,forced
+
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--suite',choices=['admin','core','gameplay','supplies','native','features','baseline','vnext','next1'],required=True)
+    parser.add_argument('--suite',choices=['admin','core','gameplay','supplies','native','features','baseline','vnext','next1','four'],required=True)
     parser.add_argument('--size',type=int,choices=range(1,5),default=2)
     parser.add_argument('--attempt',type=int,default=1)
     parser.add_argument('--port',type=int,default=25587)
+    parser.add_argument('--report-prefix',choices=['vnext1','fourplayers'],default='vnext1')
     args=parser.parse_args()
     if not 1<=args.attempt<=100: raise ValueError('Tentative 1..100 requise.')
     assert server.digest(BASE)=='8120f618b09b47cb0fac10e667324d06a96ca3a2c8114b1bf42193604349f5de'
@@ -31,6 +55,7 @@ def main():
     specs['baseline']=('probe-features-baseline','FKFeaturesProbe.jar',['-Dfk.featuresprobe=true','-Dfk.featuresprobe.baseline=true'],[[]],'FEATURES PROBE SUCCESS')
     specs['features']=('probe-features-'+str(args.size),'FKFeaturesProbe.jar',['-Dfk.featuresprobe=true','-Dfk.featuresprobe.size='+str(args.size)],[[f'-Dfk.featuresprobe.phase={n}'] for n in range(3)],'FEATURES PROBE SUCCESS')
     specs['next1']=('probe-vnext1','FKVNext1Probe.jar',[],[[],['-Dfk.vnext1.restart=true']],'VNEXT1 PROBE SUCCESS')
+    specs['four']=('probe-fourplayers','FKFourPlayersProbe.jar',['-Dfk.fourplayers=true'],[[]],'FOUR PLAYERS PROBE SUCCESS')
     prefix,probe,flags,phases,success=specs[args.suite]
     flags=flags+['-Dfk.vnext1=true']
     root=QA/'runtime'/f'{prefix}-{args.attempt}'
@@ -46,10 +71,10 @@ def main():
     shutil.copy2(binary,root/'plugins/FKAmis-1.0.0.jar')
     (root/'FKAmis.sha256').write_text(server.digest(binary)+'\n',encoding='ascii')
     props=root/'server.properties';props.write_text(re.sub(r'^max-players=.*$','max-players=10',props.read_text(encoding='utf-8'),flags=re.M),encoding='utf-8')
-    if args.suite=='features':
+    if args.suite in ('features','four'):
         props.write_text(re.sub(r'^max-players=.*$','max-players=20',props.read_text(encoding='utf-8'),flags=re.M),encoding='utf-8')
         config=root/'plugins/FKAmis/config.yml'
-        config.write_text(config.read_text(encoding='utf-8')+'\nplayers-per-team: '+str(args.size)+'\n',encoding='utf-8')
+        config.write_text(config.read_text(encoding='utf-8')+'\nplayers-per-team: 4\n',encoding='utf-8')
     config=root/'plugins/FKAmis/config.yml'
     if args.suite=='vnext':
         config.write_text(config.read_text(encoding='utf-8')+'\nplayers-per-team: 2\ncustom-vnext-note: conserver\n',encoding='utf-8')
@@ -61,21 +86,20 @@ def main():
     dependency_source=ROOT/'runtime/preproduction-26-3'
     for folder in ('libraries','versions','cache'):
         if (dependency_source/folder).exists():shutil.copytree(dependency_source/folder,root/folder)
-    report={'suite':args.suite,'attempt':args.attempt,'format':args.size if args.suite=='features' else 2,'authenticatedPlayers':0,'fkamisSha256':server.digest(binary),'checks':[]}
+    report={'suite':args.suite,'attempt':args.attempt,'format':args.size if args.suite=='features' else 4 if args.suite=='four' else 2,'authenticatedPlayers':0,'fkamisSha256':server.digest(binary),'checks':[]}
     for i,extra in enumerate(phases):
         with server.maintenance(root,check_worlds=False):
             server.validate(root)
             command=[str(server.java_path()),'-Xms1G','-Xmx4G','-Dstdout.encoding=UTF-8','-Dstderr.encoding=UTF-8',*flags,*extra,
                      '-jar','paper.jar','--nogui','--host','127.0.0.1','--port',str(args.port)]
-            process=subprocess.Popen(command,cwd=root,stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,encoding='utf-8',errors='replace')
-            try:log,_=process.communicate(timeout=300)
-            except subprocess.TimeoutExpired:log,_=process.communicate(input='stop\n',timeout=120)
+            exit_code,log,timed_out,forced=run_probe(command,root)
             (QA/f'tests/results/{args.suite}-{args.size}-{args.attempt}-{i}.log').write_text(log,encoding='utf-8')
             errors=[line for line in log.splitlines() if re.search(r'\b(ERROR|SEVERE)\b',line)]
-            check={'phase':str(i),'assertions':log.count('PROBE PASS '),'passed':process.returncode==0 and success in log and not errors,
+            check={'phase':str(i),'assertions':log.count('PROBE PASS '),'passed':exit_code==0 and success in log and not errors and not timed_out,
+                   'timeout':timed_out,'forcedTermination':forced,
                    'errors':errors,'warnings':[line for line in log.splitlines() if re.search(r'\bWARN\b',line)]}
             report['checks'].append(check);report['passed']=all(c['passed'] for c in report['checks'])
-            (ROOT/('tests/results/vnext1-'+args.suite+('-'+str(args.size) if args.suite=='features' else '')+'.json')).write_text(json.dumps(report,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
+            (ROOT/('tests/results/'+args.report_prefix+'-'+args.suite+('-'+str(args.size) if args.suite=='features' else '')+'.json')).write_text(json.dumps(report,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
             print(json.dumps(check,ensure_ascii=False),flush=True)
             if not check['passed']:raise RuntimeError('Recette échouée ; conserver les logs et la copie.')
 

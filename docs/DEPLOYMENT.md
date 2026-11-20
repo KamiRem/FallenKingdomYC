@@ -1,5 +1,15 @@
 # Déployer le profil retenu : Paper 26.3 sur MineStrator
 
+## Préparation courante : quatre membres, 20 novembre 2026
+
+Voir [les règles, le manifeste et les réserves](FOUR_PLAYERS_20261120.md).
+V2.1 est préparée localement à **20 places**, quatre royaumes de 1 à 4 participants,
+arbitre distinct. Le plan actuel porte sur **148 fichiers** et propose Query
+désactivé sur la nouvelle instance seulement. Whitelist et paramètres panel
+restent protégés. Aucun transfert ou changement distant n'est autorisé.
+Le point historique conserve ses **10 places** ; son test fonctionnel reste
+bloqué par Query activé. Les livraisons et consignes ci-dessous sont historiques.
+
 ## Livraison ciblée VNext.1 courante
 
 Lire [le guide VNext.1](FKAMIS_VNEXT_1.md), `tests/results/vnext1-delivery.json`

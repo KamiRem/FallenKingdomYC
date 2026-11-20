@@ -94,7 +94,7 @@ public final class FeaturesProbe extends JavaPlugin {
         later(()->{try {
             check(actors.stream().allMatch(a->a.teleported==1),"tpall fonctionne pour "+(4*size)+" acteurs");
             // Le moteur est lancé avec les effectifs officiels ; aucun faux client n'est ajouté à Bukkit.
-            call(state,"start",new Class<?>[]{Collection.class,boolean.class,int.class},List.of(size,size,size,size),false,size);
+            call(state,"start",new Class<?>[]{Collection.class,boolean.class,int.class},List.of(size,size,size,size),false,4);
             call(companion,"syncNative",new Class<?>[]{});
             check(cow.isValid() && cow.hasAI() && !cow.isInvulnerable() && cow.isSilent(),"mob restauré au départ avec UUID et propriétés d'origine");
             check(Boolean.TRUE.equals(world.getGameRuleValue(GameRules.SPAWN_MOBS)) && world.getDifficulty()==Difficulty.NORMAL,"spawn naturel réactivé au départ NORMAL");
@@ -217,10 +217,12 @@ public final class FeaturesProbe extends JavaPlugin {
             Location goal=objectives.get(defender);List<Player> attack=new ArrayList<>();
             for(int n=0;n<Math.min(2,size);n++){Actor actor=actors.get(n);actor.at=goal.clone().add(n==0?1.5:-.5,0,.5);attack.add(actor.player);}
             advance(defender,attack,1201);check(((Set<?>)field(state,"eliminated")).contains(defender),"capture complète 60s élimine "+defender+" format "+size);
-            Actor eliminated=actors.get(teams.indexOf(defender)*size);call(companion,"applyMode",new Class<?>[]{Player.class},eliminated.player);
-            check(eliminated.mode==GameMode.SPECTATOR,"éliminé reste spectateur "+defender);
-            var respawn=new PlayerRespawnEvent(eliminated.player,spawns.get(defender),false);Bukkit.getPluginManager().callEvent(respawn);call(companion,"applyMode",new Class<?>[]{Player.class},eliminated.player);
-            check(eliminated.mode==GameMode.SPECTATOR,"mort après capture conserve spectateur "+defender);
+            for(int member=0;member<size;member++) {
+                Actor eliminated=actors.get(teams.indexOf(defender)*size+member);call(companion,"applyMode",new Class<?>[]{Player.class},eliminated.player);
+                check(eliminated.mode==GameMode.SPECTATOR,"éliminé reste spectateur "+defender+" membre "+member);
+                var respawn=new PlayerRespawnEvent(eliminated.player,spawns.get(defender),false);Bukkit.getPluginManager().callEvent(respawn);call(companion,"applyMode",new Class<?>[]{Player.class},eliminated.player);
+                check(eliminated.mode==GameMode.SPECTATOR,"mort après capture conserve spectateur "+defender+" membre "+member);
+            }
         }
         check("Rouge".equals(field(state,"winner")) && (boolean)field(state,"paused"),"victoire du dernier royaume format "+size);
         call(companion,"saveState",new Class<?>[]{});finish();

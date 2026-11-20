@@ -1,0 +1,26 @@
+{
+  "passed": false,
+  "originalsUnchanged": true,
+  "remoteConnectionsUsed": false,
+  "remoteFilesModified": false,
+  "deploymentAuthorized": false,
+  "minecraftClientsAuthenticated": 0,
+  "processStarted": false,
+  "copyManifestFilesCompared": 305,
+  "manualChangesBeforeBoot": [
+    "FKAmis.sha256"
+  ],
+  "oldMarkerSha256": "83e721d8ac12feefdb590976747f88d6825b3243976c7e9f10b1cc35fac5239d",
+  "jarSha256": "46703f7bbb5a6368b52cbac13f606857f6a9a619892e35c6c2d90b1777610442",
+  "runtimeRegistryCoherent": true,
+  "failure": "Validation locale refusée : maintenance-before.log",
+  "testDirectory": "C:\\Users\\youne\\FKBackups\\RB-20261120-01\\preproduction",
+  "status": "blocked_before_paper_start",
+  "criticalFailure": "enable-query=true, attendu false",
+  "historicalMaxPlayers": 10,
+  "legacyCapacityGuardResolved": true,
+  "historicalSchemaSafeParsePassed": true,
+  "historicalSchemaDiagnosticOnly": true,
+  "functionalRollbackValidated": false,
+  "historicalInventoriesReset": false
+}

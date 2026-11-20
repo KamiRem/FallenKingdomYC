@@ -16,7 +16,7 @@ final class MatchInformation {
                 sender.sendMessage(Component.text("Jour "+plugin.state.day+" | "+(!plugin.state.started?"Installation":!plugin.state.winner.isEmpty()?"Terminée":plugin.state.paused?"Pause":"En cours"),NamedTextColor.YELLOW));
                 phases(sender);sender.sendMessage(Component.text("Royaumes actifs : "+plugin.expectedTeams().stream().filter(t->!plugin.state.eliminated.contains(t)).count()+"/4",NamedTextColor.WHITE));supplies(sender);
             }
-            case "teams" -> plugin.expectedTeams().forEach(name->sender.sendMessage(Component.text(name+" : "+plugin.teamSize(name)+" membre(s), "+(plugin.state.eliminated.contains(name)?"éliminé":"actif"),NamedTextColor.WHITE)));
+            case "teams" -> plugin.expectedTeams().forEach(name->sender.sendMessage(Component.text(name+" : "+plugin.teamSize(name)+"/"+plugin.playersPerTeam()+" membre(s) officiel(s), "+(plugin.state.eliminated.contains(name)?"éliminé":"actif"),NamedTextColor.WHITE)));
             case "phases" -> phases(sender);
             case "supplies" -> supplies(sender);
             default -> throw new IllegalArgumentException("info [teams|phases|supplies]");

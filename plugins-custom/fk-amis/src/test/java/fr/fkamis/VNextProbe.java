@@ -62,7 +62,7 @@ public final class VNextProbe extends JavaPlugin {
     }
     @SuppressWarnings("unchecked") private void gameplay()throws Exception {
         check(companion.getConfig().getInt("players-per-team")==3&&(int)field(field(companion,"supplies"),"interval")==1200,"configuration persistante après redémarrage");
-        command("config","defaults");check(companion.getConfig().getInt("players-per-team")==2,"défauts validés appliqués avant partie");
+        command("config","defaults");check(companion.getConfig().getInt("players-per-team")==4,"défauts validés appliqués avant partie");
         for(String team:teams)for(int n=0;n<2;n++){Actor actor=new Actor(team+"VN"+n,false);actors.add(actor);roster.put(actor.id,team);names.put(actor.id,actor.name);FkPI.getInstance().getTeamManager().addPlayer(actor.name,team);}
         admin=new Actor("ArbitreVNext",false);call(companion,"applyMode",new Class<?>[]{Player.class},admin.player);
         call(state,"start",new Class<?>[]{Collection.class,boolean.class,int.class},List.of(2,2,2,2),false,2);call(companion,"syncNative",new Class<?>[]{});

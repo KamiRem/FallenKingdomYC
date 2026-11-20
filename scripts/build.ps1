@@ -1,4 +1,4 @@
-param([switch]$SkipTests, [switch]$Probe, [switch]$MapV2, [switch]$Corrections, [switch]$Migration, [switch]$Administration, [switch]$Features, [switch]$Physics, [switch]$VNext, [switch]$VNext1)
+param([switch]$SkipTests, [switch]$Probe, [switch]$MapV2, [switch]$Corrections, [switch]$Migration, [switch]$Administration, [switch]$Features, [switch]$Physics, [switch]$VNext, [switch]$VNext1, [switch]$FourPlayers)
 $ErrorActionPreference = 'Stop'
 $repo = Split-Path -Parent $PSScriptRoot
 Set-Location -LiteralPath $repo
@@ -62,6 +62,14 @@ if ($Features) {
     Copy-Item tests/features-plugin.yml .cache/features-probe/plugin.yml
     & "$($jdk.FullName)/bin/jar.exe" --create --file .cache/FKFeaturesProbe.jar -C .cache/features-probe .
     if ($LASTEXITCODE -ne 0) { throw 'Création de la recette des fonctionnalités impossible.' }
+}
+if ($FourPlayers) {
+    New-Item -ItemType Directory -Force .cache/four-players/fr/fkamis | Out-Null
+    Copy-Item plugins-custom/fk-amis/target/test-classes/fr/fkamis/FourPlayersProbe*.class .cache/four-players/fr/fkamis/
+    Copy-Item plugins-custom/fk-amis/target/test-classes/fr/fkamis/SyntheticPlayer*.class .cache/four-players/fr/fkamis/
+    Copy-Item tests/four-players-plugin.yml .cache/four-players/plugin.yml
+    & "$($jdk.FullName)/bin/jar.exe" --create --file .cache/FKFourPlayersProbe.jar -C .cache/four-players .
+    if ($LASTEXITCODE -ne 0) { throw 'Création de la recette à seize participants impossible.' }
 }
 if ($Physics) {
     New-Item -ItemType Directory -Force .cache/physics-probe/fr/fkamis | Out-Null

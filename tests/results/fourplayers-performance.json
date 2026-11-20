@@ -1,0 +1,14 @@
+{
+  "regionLookupMeanNsWithReflection": 331.447,
+  "bossBarUpdateTwoSimulatedViewersMeanNs": 2657.05,
+  "statisticsSerialization16MembersMeanNs": 77934.5,
+  "heapUsedBytes": 722790984,
+  "tps": [
+    14.534795324645938,
+    14.534795324645938,
+    14.534795324645938
+  ],
+  "averageMspt": 16.04913947368421,
+  "authenticatedPlayers": 0,
+  "scope": "Micro-mesures locales, interfaces simulées ; pas une mesure multijoueur ni MineStrator."
+}

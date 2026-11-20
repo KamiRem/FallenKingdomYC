@@ -1,5 +1,10 @@
 # Plan de bascule après sauvegarde MS-COLD-20261119-02
 
+**Plan remplacé le 20 novembre 2026**, sans exécution, par la préparation
+[quatre membres par royaume](FOUR_PLAYERS_20261120.md) : 148 fichiers cibles,
+20 places pour V2.1, rollback historique inchangé à 10. Ne plus utiliser le
+nombre 146 ou les empreintes de ce plan comme autorisation de transfert.
+
 **Plan local préparé pour revue, non exécuté et non autorisé.** Le déploiement
 V2.1 est distinct de la dérogation -02, réservée à la sauvegarde/restauration.
 L'[anomalie du marqueur source](MINESTRATOR_BACKUP_REPORT_20261119_02.md) doit être

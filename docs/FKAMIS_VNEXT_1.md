@@ -1,5 +1,11 @@
 # FKAmis VNext.1 et carte V2.1
 
+**Actualisation du 20 novembre 2026 :** [quatre membres par royaume](FOUR_PLAYERS_20261120.md),
+effectifs de 1 à 4, nouvelle instance à 20 places et plan de 148 fichiers.
+Ce complément remplace le défaut à deux et les artefacts courants décrits plus
+bas, conservés comme preuves de la livraison précédente. Le rollback historique
+à dix places reste inchangé et non validé fonctionnellement.
+
 Livraison indépendante de VNext, branche `feature/fkamis-vnext-1-map-v2-1`.
 Base : commit `c631fad`, JAR VNext `fd12c43c0f33fa84f4721d49de2c248c7cd1609f0c502403dc8155975ecc0cee`.
 Paper 26.3-244, Java 25 et FallenKingdom officiel 2.24.9 restent identiques.
