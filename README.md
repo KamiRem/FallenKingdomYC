@@ -2,8 +2,10 @@
 
 L'[audit final avant bascule](docs/MINESTRATOR_FINAL_PREFLIGHT_20261120.md) a
 comparé les 305 fichiers distants au point historique sur deux lectures, sans
-divergence. **Déploiement encore bloqué** : espace libre sous quota et conditions
-de maintenance/redémarrage à confirmer, puis autorisation explicite. Voir la
+divergence. Le propriétaire confirme maintenant **49,5 Go libres** et aucune
+planification/action en attente. **Bascule NO-GO** tant que la politique après
+crash n'est pas tranchée et l'autorisation explicite reçue : Spigot déclare
+`restart-on-crash=true`, le réglage hébergeur reste non vérifié. Voir la
 [liste exacte des 148 cibles](docs/MINESTRATOR_148_FILES_20261120.tsv) et le
 [protocole whitelist/recette](docs/MINESTRATOR_RECETTE_ET_WHITELIST_20261120.md).
 

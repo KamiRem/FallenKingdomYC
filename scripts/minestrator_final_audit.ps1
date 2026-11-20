@@ -1,4 +1,4 @@
-param([Parameter(Mandatory)][string]$OutputDirectory)
+param([Parameter(Mandatory)][string]$OutputDirectory,[ValidateSet('Full','RestartOnly')][string]$Mode='Full')
 $ErrorActionPreference='Stop'
 $root=Split-Path -Parent $PSScriptRoot
 Import-Module (Join-Path $PSScriptRoot 'minestrator_store.psm1') -Force
@@ -11,7 +11,8 @@ $ptr=[Runtime.InteropServices.Marshal]::SecureStringToBSTR($secure)
 $process=[Diagnostics.Process]::new()
 try {
     $start=[Diagnostics.ProcessStartInfo]::new();$start.FileName=Join-Path $root '.tools/ms-audit/Scripts/python.exe'
-    $start.ArgumentList.Add('-B');$start.ArgumentList.Add((Join-Path $PSScriptRoot 'minestrator_final_audit.py'))
+    $scriptName=if ($Mode -eq 'RestartOnly') {'minestrator_restart_check.py'} else {'minestrator_final_audit.py'}
+    $start.ArgumentList.Add('-B');$start.ArgumentList.Add((Join-Path $PSScriptRoot $scriptName))
     $start.UseShellExecute=$false;$start.CreateNoWindow=$true
     $start.RedirectStandardInput=$true;$start.RedirectStandardOutput=$true;$start.RedirectStandardError=$true
     $process.StartInfo=$start

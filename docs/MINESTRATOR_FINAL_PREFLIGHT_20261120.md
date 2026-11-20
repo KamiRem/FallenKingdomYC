@@ -1,13 +1,91 @@
 # Audit final avant bascule V2.1 — 20 novembre 2026
 
-**Recommandation : DÉPLOIEMENT ENCORE BLOQUÉ.** Les fichiers et le candidat sont
-conformes. L'espace réellement libre sous quota et la neutralisation des
-redémarrages concurrents restent à confirmer. Aucune écriture distante, commande
-console, alimentation, modification de whitelist ou bascule n'a été effectuée.
+**Statut : GO pour la préparation et l'espace disque ; NO-GO pour la bascule.**
+Le propriétaire confirme 49,5 Go libres et l'absence de tâches/calendrier/actions
+en attente. Le contrôle ciblé relève toutefois `restart-on-crash: true` côté
+Spigot ; la politique de relance propre à l'hébergement reste non vérifiée.
+Il faut fixer son traitement dans l'accord d'exécution. Aucune écriture distante,
+commande console, alimentation, modification de whitelist ou bascule effectuée.
 
 Base Git : `93fd580`, avant ajout des présents outils/rapports d'audit. Candidat :
 `C:\Users\youne\FKBackups\V21-QUERY-20261120-01`.
 Audit privé : `C:\Users\youne\FKBackups\MS-PREFLIGHT-20261120-01`.
+
+## Complément MineBoard et contrôle ciblé
+
+Constats transmis par le propriétaire le 20 novembre, après inspection de
+MineBoard pour le serveur 513365 : **MyBoxPerf 8, environ 49,5 Go libres sur 50 Go,
+serveur arrêté, aucune tâche planifiée, aucun calendrier de fonctionnement,
+aucune action d'alimentation en attente, aucun redémarrage automatique observé**.
+Abonnement déclaré actif jusqu'au **7 décembre 2026 à 16 h 56**, selon cette
+inspection ; aucune vérification de facturation supplémentaire n'a été exécutée.
+Recontrôler la validité si la fenêtre de bascule est reportée au-delà de cette date.
+
+Ces éléments sont des preuves manuelles fournies par le propriétaire, distinctes
+des mesures API. Ils lèvent la réserve d'espace et documentent les planifications ;
+ils ne prouvent pas la désactivation d'une relance après crash ou l'existence
+d'un verrou exclusif. Aucun de ces réglages n'a été changé par l'agent.
+
+Contrôle additionnel **ciblé**, le 20 novembre de 21:56:03 à 21:56:06 UTC
+(22:56:03–22:56:06 Europe/Paris) : deux observations API offline, identité et
+réglages inchangés ; **cinq petits fichiers lus deux fois**, 23 924 octets au total.
+Il s'agit de `spigot.yml`, `config/paper-global.yml`, `server.properties`,
+`start.sh` et `start.ps1`. Leurs SHA et attributs sont identiques au point -02.
+**Aucun audit complet des 305 fichiers n'a été recommencé.**
+
+| Contrôle après crash | Constat |
+|---|---|
+| Spigot | `settings.restart-on-crash=true`, `restart-script=./start.sh`, `timeout-time=60` secondes |
+| Watchdog Paper | Avertissements à 10 000 ms puis toutes les 5 000 ms ; ce sont des alertes, pas une politique d'hébergement |
+| max-tick-time | 60 000 ms, inchangé |
+| Script | Existe, exige SERVER_PORT et appelle host_ops ; aucune boucle de relance détectée, script jamais exécuté pendant le contrôle |
+| Démarrage panel | Aucun changement ; pas de mot-clé de boucle détecté dans la commande exposée |
+| Relance hébergeur | Non déterminée par les données accessibles ; `id_daemon` est un identifiant, pas un réglage de redémarrage |
+
+La [référence Paper](https://docs.papermc.io/paper/reference/spigot-configuration/)
+décrit la relance par script lors d'un arrêt provoqué par le watchdog ; elle ne
+couvre pas un processus tué extérieurement. L'inspection du bytecode Paper local
+26.3-244 confirme l'ajout d'un hook de relance si ce booléen est vrai. Cela **ne
+démarre pas spontanément un serveur déjà arrêté**. En revanche, un blocage après
+le premier démarrage autorisé peut provoquer une tentative de relance. Le succès
+ou l'échec supposé de start.sh n'est jamais utilisé comme protection.
+
+Pour lever la réserve : obtenir en lecture seule le réglage de relance après
+crash dans MineBoard ou sa confirmation par le support, puis décider explicitement
+de sa politique pendant installation, recette et rollback. Un maintien assumé
+doit être nommé dans l'accord ; il ne vaut pas preuve de désactivation.
+Si une désactivation
+temporaire de `restart-on-crash` est retenue, elle toucherait **spigot.yml, hors
+des 148 cibles** : préparer et faire approuver ce correctif séparément, avec
+empreinte avant/après et retour au réglage choisi. Il n'a pas été appliqué ni
+ajouté silencieusement au manifeste. Ne pas désactiver le watchdog lui-même.
+
+Une proposition **locale uniquement** est prête pour revue dans
+`C:\Users\youne\FKBackups\MS-RESTART-CHECK-20261120-01\proposed-maintenance` :
+elle change ce seul booléen à faux et laisse le watchdog et ses délais intacts.
+SHA d'origine : `4764ac315bbd64efe70161977c18c5ce372c72aef5302b75a2648a82c5a88678` ;
+SHA proposé : `63e939902bc52b0868598205130a94bb5e9f3733073008a05399fddfef687667`.
+Ce fichier n'a été placé ni dans le payload, ni dans l'instance, ni dans les
+sauvegardes. Le manifeste de 148 fichiers n'est pas modifié. Une décision de
+l'appliquer demanderait une autorisation et un périmètre distincts ; la relance
+hébergeur resterait un sujet séparé.
+
+### Alertes d'infrastructure accessibles
+
+La [page officielle publique](https://minestrator.com/statut), récupérée en HTTP
+200 pendant ce complément, affiche « MineStrator est opérationnel ». Aucun avis
+ciblant 8007 n'est visible dans le rendu consulté. La rubrique liée aux serveurs
+du compte ne fournit pas de liste exploitable anonymement ; les ressources
+dynamiques demandées ont répondu HTTP 403. Les statistiques d'uptime intégrées
+portent une date de mise à jour du 15 novembre, pas une attestation de calendrier
+de maintenance au 20 novembre. **Absence de maintenance propre à l'hôte non
+certifiée** : revoir les avis MineBoard/support à l'ouverture de la fenêtre.
+Aucun contournement d'accès ni message au support n'a été effectué.
+
+Les preuves initiales restent dans leur JSON d'origine. Le nouveau complément
+est `tests/results/minestrator-execution-readiness-20261120.json`, avec la preuve
+ciblée et les constats manuels attribués à leur source. Les tests locaux passent
+à 101 ; aucun crash, redémarrage réel ou test de charge n'a été déclenché.
 
 ## Bilan constaté
 
@@ -31,8 +109,9 @@ Europe/Paris**. Ces observations ne garantissent pas l'état à une date ultéri
 | Candidat local | Archive et 148 cibles vérifiées ; manifeste complet de 152 empreintes cohérent avec la copie préparée |
 | Sauvegardes historiques | Archive, manifeste et les 305 fichiers restaurés originaux confirmés inchangés après l'audit |
 | Whitelist | Deux comptes conservés ; aucune identité ajoutée, aucun pseudo/UUID inventé |
-| Espace disponible | API offline : aucun usage disque ; SFTP statvfs non disponible ; contrôle non conclusif |
-| Planifications et verrou | Pas de liste de tâches vérifiable ni de verrou partagé fourni par ces accès ; risque non résolu pour la bascule |
+| Espace disponible | Réserve levée par l'inspection propriétaire : environ 49,5 Go libres ; API/SFTP toujours non conclusifs pour cette mesure |
+| Planifications | Propriétaire : aucune tâche/calendrier/action en attente ; aucune relance automatique observée |
+| Crash et verrou | Spigot configuré pour relance watchdog ; relance hébergeur non déterminée ; absence de verrou exclusif conservée comme risque résiduel |
 
 Les deux passes comparent **l'état distant à la sauvegarde historique**, pas aux
 fichiers futurs de la nouvelle carte. Les différences prévues par le plan sont
@@ -151,10 +230,15 @@ L'API live offline ne retourne que son état dans stats ; l'extension SFTP
 l'espace libre sous quota. **Ne pas déduire le libre en soustrayant cette instance
 du quota MyBox : d'autres données/instances peuvent l'utiliser.**
 
-Action manuelle à préparer, sans rien changer : relever dans MineBoard/MyBox
-l'usage réel et la capacité effectivement disponible sous quota, pour toutes les
-données concernées, avec date/heure. Il faut au moins 2 812 483 790 octets libres
-supplémentaires sous les hypothèses ci-dessus. Le champ API brut `java_memory=30`
+**Contrôle manuel maintenant reçu : environ 49,5 Go libres sous quota.** En
+retenant la conversion décimale conservatrice, cela représente environ
+49 500 000 000 octets, pour 2 812 483 790 nécessaires : marge indicative d'environ
+46,7 Go. **Espace suffisant pour le staging, les quarantaines par renommage et
+la réserve de rollback du plan.** Ces valeurs de panneau sont arrondies ; revoir
+le libre juste avant exécution si l'usage a changé. Un échec de renommage ne
+déclenche pas automatiquement une copie/destruction de secours.
+
+Le champ API brut `java_memory=30`
 est inchangé, mais son unité/allocation effective n'a pas été établie par cette
 lecture : relever aussi la mémoire réellement allouée, sans la modifier.
 
@@ -167,11 +251,12 @@ tâches planifiées ou de verrou de processus partagé. Le message de notificati
 
 MineBoard propose des [tâches planifiées](https://minestrator.com/blog/article/tache-planifiee-minestrator-automatiser-serveur)
 et un [calendrier de fonctionnement](https://minestrator.com/blog/article/minenews-9-google-apple-passkeys-panel-plus-rapide).
-Inspection manuelle ciblée à préparer : tâches/commandes, calendrier, relance
-après crash, actions en attente et interventions des autres opérateurs. Relever
-leur état, les mécanismes à neutraliser et la fenêtre de maintenance ; ne pas
-les désactiver dans le cadre de cet audit. Demander au fournisseur la procédure
-si l'un de ces états n'est pas accessible dans le panel.
+L'inspection manuelle des tâches, calendrier et actions en attente a maintenant
+été confirmée par le propriétaire. **Seule la politique de relance après crash
+de l'hébergement reste à établir** parmi ces mécanismes. Relever aussi les
+interventions éventuelles des autres opérateurs et la fenêtre de maintenance.
+Aucune désactivation n'est autorisée par la présente mission. Demander la lecture
+du réglage au fournisseur si le panel ne l'expose pas.
 
 Une observation offline toutes les cinq secondes n'exclut pas toute écriture
 concurrente ni tout cycle entre deux observations. La dérogation du point -02
@@ -180,14 +265,57 @@ futur devra préciser les conditions de maintenance de cette opération et le
 traitement du risque résiduel, sans changer silencieusement AGENTS.md. Aucun
 verrou exclusif n'est revendiqué ici.
 
-## Bascule proposée, non exécutée
+## Plan d'exécution définitif préparé, non autorisé
 
-1. Lever les réserves d'espace et de maintenance, puis faire approuver ce plan,
+Le plan détaillé est
+`C:\Users\youne\FKBackups\MS-RESTART-CHECK-20261120-01\execution-plan-private.json`.
+Il reprend les 148 cibles, 142 fichiers dans les arbres remplacés, neuf anciennes
+versions séparées et cinq contrôles conservés, sans réécrire le candidat approuvé.
+Le fichier décrit des opérations futures ; **aucune n'a été exécutée**.
+
+Pour l'identifiant d'opération approuvé, réserver les chemins inexistants :
+
+```text
+.fk-stage/<operation_approuvee>/payload/
+.fk-quarantine/<operation_approuvee>/trees/
+.fk-quarantine/<operation_approuvee>/files/
+```
+
+| État du journal privé sur PC | Action future et validation avant étape suivante |
+|---|---|
+| PREPARED | Accord et politique crash fixés ; espace confirmé ; archive historique/manifeste et candidat disponibles hors instance |
+| PREFLIGHT_OK | Identité/offline et réglages inchangés ; métadonnées/fichiers critiques cohérents avec les preuves conservées ; aucune maintenance conflictuelle annoncée |
+| STAGED | 148 fichiers dans staging uniquement ; contenu distant de chacun relu et comparé au manifeste, sans extraction ZIP ni superposition |
+| QUARANTINED | Renommage des trois arbres présents et des neuf anciennes versions ; conserver les chemins avant/après et vérifier les empreintes déplacées ; aucun écrasement de quarantaine |
+| ACTIVATED | Renommer les nouveaux arbres vers leurs chemins actifs ; installer JAR, marqueur, registre et propriétés ; poser le manifeste de déploiement en dernier ; toute erreur arrête la séquence |
+| VERIFIED | Relire les 148 empreintes actives et les cinq fichiers conservés ; profils/inventaires anciens absents des arbres neufs ; permissions accessibles vérifiées |
+| START_ALLOWED | Vérifier que l'autorisation couvre aussi le démarrage ; sinon s'arrêter ici. Pas de relance ou fka start implicite |
+| STARTED_DAY_0 | Contrôler Java/Paper/plugins, Query 22880, capacité 20, jour 0 non lancé, quatre rayons 40 et intégrité des références |
+| RECIPE_PENDING | Exécuter plus tard le protocole humain approuvé ; ne pas déclarer 17 connexions validées ni lancer la partie officielle par défaut |
+
+La surveillance API est maintenue pendant les opérations autorisées, avec arrêt
+immédiat du flux SFTP au démarrage inattendu, à la divergence, à la perte de
+surveillance ou à l'échec critique. Pas de poursuite « au mieux », suppression de
+partie, remplacement de sauvegarde ou copie de secours silencieuse. Une opération
+partielle laisse ses chemins journalisés ; reprise uniquement après décision.
+Une commande d'arrêt du serveur lui-même nécessite que l'accord futur la couvre.
+Le watchdog configuré ne remplace ni cette surveillance ni le risque de processus
+concurrent identifié par l'absence de verrou exclusif.
+
+Avant activation, une annulation conserve le point historique et les quarantaines ;
+si des renommages ont commencé, rétablir seulement les mouvements journalisés
+dans le cadre autorisé. Après activation ou démarrage raté, utiliser la restauration
+complète ci-dessous, jamais un retour au seul JAR ou une fusion de fichiers.
+
+1. Réserve d'espace levée ; fixer le traitement des relances après crash et de
+   la fenêtre de maintenance, puis faire approuver ce plan,
    les empreintes et le périmètre de restauration. La whitelist reste inchangée
    dans les 148 fichiers ; toute extension demande une autorisation distincte.
-2. Juste avant écriture, répéter identité/offline, réglages et préconditions des
-   305 fichiers. À toute dérive : arrêter, conserver le point -02 intact et
-   réauditer ; une nouvelle sauvegarde éventuelle requiert son cadre autorisé.
+2. Juste avant écriture, effectuer le contrôle léger identité/offline, réglages,
+   arborescence/métadonnées et fichiers critiques, en s'appuyant sur les 305 SHA
+   déjà validés deux fois. Ne pas relancer l'audit complet par routine. À toute
+   dérive ou précondition changée : arrêter, conserver le point -02 et réauditer
+   le périmètre nécessaire ; toute nouvelle sauvegarde exige son cadre autorisé.
 3. Garder archive/manifeste/restauration -02 sur PC privé hors instance. Vérifier
    leurs empreintes et l'accès au point fonctionnel de rollback. Conserver la
    fenêtre de maintenance et la surveillance API durant toute l'opération.
@@ -255,7 +383,11 @@ La compatibilité Query avec l'affichage joueurs est [documentée par MineStrato
 mais le rendu réel du panel et la charge humaine restent à tester après
 installation autorisée, sans confondre recette et partie officielle.
 
-**Décision finale : DÉPLOIEMENT ENCORE BLOQUÉ**, en attente de confirmation du libre
-sous quota, des conditions de maintenance/redémarrage et d'une autorisation
-explicite de bascule. L'audit de fichiers et la préparation du candidat sont
-réussis ; ils n'autorisent aucune modification distante.
+**Décision finale : NO-GO pour la bascule ; GO pour l'espace et la préparation.**
+La réserve d'espace et les planifications déclarées sont levées. Restent la
+décision documentée sur la relance après crash, la fenêtre d'exécution et
+l'autorisation explicite de staging/renommage/transfert/démarrage. L'absence de
+verrou exclusif demeure un risque résiduel identifié, pas une garantie exigée
+silencieusement ni une raison de recommencer l'audit complet. Les avis de
+maintenance spécifiques sont à revoir au début de la fenêtre. Les sauvegardes
+originales, les 148 cibles et la configuration de jeu restent inchangées.

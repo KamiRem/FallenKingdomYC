@@ -1,0 +1,82 @@
+{
+  "scope": "targeted_crash_restart_check",
+  "startedAtUtc": "2026-11-20T21:56:03.684251+00:00",
+  "passed": true,
+  "serverId": 513365,
+  "fullAuditRepeated": false,
+  "remoteWritesPerformed": false,
+  "powerOrConsoleCommandSent": false,
+  "scriptsExecuted": false,
+  "hostingCrashRestartPolicyVerified": false,
+  "exclusiveHostLock": false,
+  "files": [
+    {
+      "path": "spigot.yml",
+      "sha256": "4764ac315bbd64efe70161977c18c5ce372c72aef5302b75a2648a82c5a88678",
+      "reads": 2,
+      "matchesBackup": true,
+      "bytes": 4934
+    },
+    {
+      "path": "config/paper-global.yml",
+      "sha256": "0f0d0f2303654bd7675659266713cd9b0a8004d3d80e2d46730dc53cffb3c4b5",
+      "reads": 2,
+      "matchesBackup": true,
+      "bytes": 4444
+    },
+    {
+      "path": "server.properties",
+      "sha256": "eaa8041270a87174b5a0a6f68c5f254fa74960137fefade89cfb972998d187a5",
+      "reads": 2,
+      "matchesBackup": true,
+      "bytes": 1832
+    },
+    {
+      "path": "start.sh",
+      "sha256": "ce92c93bc122509a651144790c5278203681e1f625db2f65c45ecb32a843371b",
+      "reads": 2,
+      "matchesBackup": true,
+      "bytes": 422
+    },
+    {
+      "path": "start.ps1",
+      "sha256": "fd3d8a1ded3a619ee04d5eca76e8bea4178cb843bd193a83e070aa41bded2a10",
+      "reads": 2,
+      "matchesBackup": true,
+      "bytes": 330
+    }
+  ],
+  "panelSettingsUnchanged": true,
+  "hostingRestartRelatedKeysExposed": [
+    "/server/id_daemon"
+  ],
+  "startupCommandHasLoopKeyword": false,
+  "javaVersionId": 61,
+  "image": "reg.sttr.io/java/25_perf:latest",
+  "startupFile": "paper.jar",
+  "restartOnCrash": "true",
+  "restartScript": "./start.sh",
+  "timeoutSeconds": "60",
+  "paperWatchdogWarningDelayMs": "10000",
+  "paperWatchdogWarningEveryMs": "5000",
+  "maxTickTimeMs": "60000",
+  "startShRequiresServerPort": true,
+  "startShInvokesHostOps": true,
+  "startShHasLoopKeyword": false,
+  "apiObservations": [
+    {
+      "atUtc": "2026-11-20T21:56:03.939313+00:00",
+      "state": "offline",
+      "statsState": "offline"
+    },
+    {
+      "atUtc": "2026-11-20T21:56:06.025149+00:00",
+      "state": "offline",
+      "statsState": "offline"
+    }
+  ],
+  "finishedAtUtc": "2026-11-20T21:56:06.028949+00:00",
+  "historicalTargetFilesUnchanged": true,
+  "historicalManifestUnchanged": true,
+  "totalBytesRead": 23924
+}
