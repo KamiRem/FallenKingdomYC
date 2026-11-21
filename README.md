@@ -1,5 +1,9 @@
 # Fallen Kingdom privé — quatre royaumes et un arbitre
 
+Une [variante locale des quatre cavernes naturelles](docs/NATURAL_CAVERNS_20261121.md),
+**V2.1-natural-caverns-r2**, est prête pour inspection visuelle. Les archives et
+aperçus restent privés hors Git. Aucun transfert de cette variante vers MineStrator.
+
 **V2.1 installée sur MineStrator, serveur réservé à la recette.** Le
 [rapport d'installation du 20 novembre](docs/MINESTRATOR_INSTALLATION_20261120.md)
 confirme les 148 fichiers, leurs empreintes, Paper/plugins, Query à 20 places,

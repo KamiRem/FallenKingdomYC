@@ -1,0 +1,300 @@
+{
+  "variant": "V2.1-natural-caverns-r2",
+  "passed": true,
+  "sourceUnchanged": true,
+  "remoteAccessPerformed": false,
+  "deployed": false,
+  "modifiedBlocks": 137578,
+  "modifiedChunks": 47,
+  "changedFiles": [
+    "DEPLOYMENT_MANIFEST.json",
+    "maintenance/new-match-reference-v2.1.json",
+    "maintenance/new-match-reference.json",
+    "world/dimensions/minecraft/overworld/region/r.-1.-1.mca",
+    "world/dimensions/minecraft/overworld/region/r.-1.0.mca",
+    "world/dimensions/minecraft/overworld/region/r.0.-1.mca",
+    "world/dimensions/minecraft/overworld/region/r.0.0.mca"
+  ],
+  "addedFiles": [
+    "maintenance/new-match-reference-v2.1-natural.json",
+    "map-natural-caverns.json"
+  ],
+  "removedFiles": [],
+  "unchangedFiles": 298,
+  "rollbackControlFilesVerified": 121,
+  "worldMetadataByteIdentical": true,
+  "entityAndPoiFilesByteIdentical": true,
+  "monumentsAndSuppliesMetadataIdentical": true,
+  "gameAndRuntimeFilesByteIdentical": true,
+  "visualValidation": false,
+  "sourceDeploymentManifestSha256": "bc99993cf2796991a97adf92c12091bea86e5b5166c503258d1311aa227948e6",
+  "newDeploymentManifestSha256": "6ce82c727e0dae6efd1b9052ad9bef985639139fad872f4a52e6af64a21ac817",
+  "createdAtUtc": "2026-11-21T12:23:09.823038+00:00",
+  "scope": "four caverns, as explicitly clarified by the user",
+  "localPythonTests": 135,
+  "specificPythonTests": 20,
+  "caverns": [
+    {
+      "team": "Rouge",
+      "entrancePreserved": true,
+      "sourcePlannedAirBlocks": 3725,
+      "airBlocks": 24157,
+      "reachableFloorCells": 1280,
+      "maxInteriorHeight": 39,
+      "resources": {
+        "redstone_ore": 12,
+        "coal_ore": 24,
+        "copper_ore": 16,
+        "iron_ore": 24,
+        "gold_ore": 6,
+        "lapis_ore": 6,
+        "diamond_ore": 3
+      },
+      "waterfalls": 1,
+      "lavaBlocks": 0,
+      "bridgeBlocks": 121,
+      "lightInclusions": 24,
+      "modifiedBlocks": 36988,
+      "bridgeStandingCellsReachable": 121,
+      "existingEntitiesAvoided": 13,
+      "entityNeighborhoodCellsPreserved": 37,
+      "minimumTerritoryMargin": 12,
+      "visuallyInspected": false
+    },
+    {
+      "team": "Bleue",
+      "entrancePreserved": true,
+      "sourcePlannedAirBlocks": 3725,
+      "airBlocks": 24105,
+      "reachableFloorCells": 1294,
+      "maxInteriorHeight": 38,
+      "resources": {
+        "iron_ore": 24,
+        "copper_ore": 16,
+        "coal_ore": 24,
+        "gold_ore": 6,
+        "lapis_ore": 6,
+        "redstone_ore": 12,
+        "diamond_ore": 3
+      },
+      "waterfalls": 1,
+      "lavaBlocks": 0,
+      "bridgeBlocks": 123,
+      "lightInclusions": 24,
+      "modifiedBlocks": 33088,
+      "bridgeStandingCellsReachable": 123,
+      "existingEntitiesAvoided": 0,
+      "entityNeighborhoodCellsPreserved": 0,
+      "minimumTerritoryMargin": 12,
+      "visuallyInspected": false
+    },
+    {
+      "team": "Verte",
+      "entrancePreserved": true,
+      "sourcePlannedAirBlocks": 3701,
+      "airBlocks": 24341,
+      "reachableFloorCells": 1277,
+      "maxInteriorHeight": 39,
+      "resources": {
+        "coal_ore": 24,
+        "iron_ore": 24,
+        "gold_ore": 6,
+        "copper_ore": 16,
+        "diamond_ore": 3,
+        "lapis_ore": 6,
+        "redstone_ore": 12
+      },
+      "waterfalls": 1,
+      "lavaBlocks": 0,
+      "bridgeBlocks": 129,
+      "lightInclusions": 24,
+      "modifiedBlocks": 33265,
+      "bridgeStandingCellsReachable": 129,
+      "existingEntitiesAvoided": 0,
+      "entityNeighborhoodCellsPreserved": 0,
+      "minimumTerritoryMargin": 12,
+      "visuallyInspected": false
+    },
+    {
+      "team": "Jaune",
+      "entrancePreserved": true,
+      "sourcePlannedAirBlocks": 3701,
+      "airBlocks": 24307,
+      "reachableFloorCells": 1262,
+      "maxInteriorHeight": 37,
+      "resources": {
+        "iron_ore": 24,
+        "coal_ore": 24,
+        "redstone_ore": 12,
+        "diamond_ore": 3,
+        "copper_ore": 16,
+        "lapis_ore": 6,
+        "gold_ore": 6
+      },
+      "waterfalls": 1,
+      "lavaBlocks": 0,
+      "bridgeBlocks": 128,
+      "lightInclusions": 24,
+      "modifiedBlocks": 34237,
+      "bridgeStandingCellsReachable": 128,
+      "existingEntitiesAvoided": 0,
+      "entityNeighborhoodCellsPreserved": 0,
+      "minimumTerritoryMargin": 12,
+      "visuallyInspected": false
+    }
+  ],
+  "regionProofs": [
+    {
+      "path": "world/dimensions/minecraft/overworld/region/r.-1.-1.mca",
+      "oldSha256": "b6302a9d16602e1acd3d49a47259be289e371214eecfd3d8e1d9a773a42f4f65",
+      "newSha256": "a35197fcd27a4de1a6f7394888bf2548faa6bc3efeb47789c8c4b191a460b7a9",
+      "untouchedChunkPayloadsIdentical": 1012,
+      "blockCellsCompared": 1228800,
+      "targetedChunks": 12,
+      "nonLightingMetadataIdentical": true
+    },
+    {
+      "path": "world/dimensions/minecraft/overworld/region/r.-1.0.mca",
+      "oldSha256": "06a5a1e9f9c7fc3528efc6cf17db2cbc7f2b5f4ff4a24c975cad5035028bcce7",
+      "newSha256": "dbfeff320ebaaf3c8a7039f3f053aa47671ddc210643c29341dbe64977dc3856",
+      "untouchedChunkPayloadsIdentical": 1011,
+      "blockCellsCompared": 1331200,
+      "targetedChunks": 13,
+      "nonLightingMetadataIdentical": true
+    },
+    {
+      "path": "world/dimensions/minecraft/overworld/region/r.0.-1.mca",
+      "oldSha256": "4f6018c77f07910792b19a9d720bf7ba6ba7505b4bdaaa7ad591e27b37b31a95",
+      "newSha256": "abbd1ce1b2e69a028b7fb8a6614bf2bd1e38371dc467afee2070236919be98d5",
+      "untouchedChunkPayloadsIdentical": 1014,
+      "blockCellsCompared": 1024000,
+      "targetedChunks": 10,
+      "nonLightingMetadataIdentical": true
+    },
+    {
+      "path": "world/dimensions/minecraft/overworld/region/r.0.0.mca",
+      "oldSha256": "a379d4516c9c369ac06e24755ac7740667ed6de9a3f31e477f3384c2b12bedcd",
+      "newSha256": "35061f677d89b92b66e1ea0cee653d5cf55007e7e33da1659443c4d3a4be5722",
+      "untouchedChunkPayloadsIdentical": 1012,
+      "blockCellsCompared": 1228800,
+      "targetedChunks": 12,
+      "nonLightingMetadataIdentical": true
+    }
+  ],
+  "paperValidation": {
+    "passed": true,
+    "blocksChecked": 137578,
+    "chunksLoaded": 47,
+    "checks": [
+      "137578 ÃƒÂ©tats de blocs Paper conformes",
+      "Deux plugins de jeu actifs, vingt places, quatre membres, quatre rayons 40 et quatre spawns sÃƒÂ»rs",
+      "Jour zÃƒÂ©ro non lancÃƒÂ©, aucun joueur authentifiÃƒÂ©",
+      "Dix secondes de simulation, nouveaux blocs d'eau : 0"
+    ],
+    "authenticatedClients": 0,
+    "visualInspection": false,
+    "publicPortExposed": false,
+    "exitCode": 0,
+    "errors": 0,
+    "warnings": 0,
+    "artifactCandidateUnchanged": true,
+    "probeJarSha256": "99f80e970fb6095e3b7d1b8f589eeff3d02541970846d1abcf729990c4b5443f",
+    "tcpBoundToLoopbackVerified": true,
+    "queryBoundToLoopbackVerified": true
+  },
+  "maintenanceAndContainmentChecks": {
+    "passed": true,
+    "containment": [
+      {
+        "team": "Rouge",
+        "connectedPassableCells": 24138,
+        "entranceGateCells": 2,
+        "undergroundContained": true
+      },
+      {
+        "team": "Bleue",
+        "connectedPassableCells": 24115,
+        "entranceGateCells": 2,
+        "undergroundContained": true
+      },
+      {
+        "team": "Verte",
+        "connectedPassableCells": 24349,
+        "entranceGateCells": 2,
+        "undergroundContained": true
+      },
+      {
+        "team": "Jaune",
+        "connectedPassableCells": 24316,
+        "entranceGateCells": 2,
+        "undergroundContained": true
+      }
+    ],
+    "hostProfile": "v21-minestrator",
+    "deploymentManifestVerified": true,
+    "initialReferenceChecks": {
+      "bases": 4,
+      "monuments": 7,
+      "monumentBlocksChecked": 6689,
+      "supplySites": 8,
+      "lootChestsVerified": 6,
+      "cavernsChecked": 4,
+      "cavernBlocksChecked": 146115,
+      "day": 0,
+      "started": false
+    },
+    "candidateUnchanged": true,
+    "remoteAccessPerformed": false
+  },
+  "archives": [
+    {
+      "file": "baseline-v21-world.zip",
+      "bytes": 140328982,
+      "sha256": "5a08b894604a1e0ba4d75a00af2f8ea2bafc31cf08165cca91538e88063a1aa4",
+      "files": 121
+    },
+    {
+      "file": "v21-natural-caverns-r2-world-private.zip",
+      "bytes": 141031940,
+      "sha256": "20a83fd467d37379b97964bffd6e5f6709318bd53d95319eab8b3a0a482aaa5a",
+      "files": 123
+    },
+    {
+      "file": "v21-natural-caverns-r2-overlay-private.zip",
+      "bytes": 40539459,
+      "sha256": "b116540bd37114f27b0ec70816582db05032fb78b0001c406eb398d9dfae49e0",
+      "files": 9
+    }
+  ],
+  "historicalArchiveAndManifestUnchangedSha256": {
+    "instance.zip": "255fb82eeddb4b067313e8a6ce39ed012ada204f28d0a7bdb0b85ec2025663bf",
+    "manifest.json": "b54da288c8ad983c6bc35172ed1e0a697812b210dd7afe38ffb7e060f9ff81a1"
+  },
+  "privateWorkDirectory": "C:\\Users\\youne\\FKBackups\\V21-NATURAL-20261121-02",
+  "inspectionCopyPrepared": true,
+  "inspectionCopyStarted": false,
+  "humanInspectionPerformed": false,
+  "multiplayerTestPerformed": false,
+  "readyForVisualInspection": true,
+  "readyForRemoteDeployment": false,
+  "regionChunkPayloadsOutsidePlanUnchanged": true,
+  "sourceAndCandidateRecheckedAtUtc": "2026-11-21T12:29:51.525086+00:00",
+  "toolSha256": {
+    "scripts/natural_caverns_checks.py": "9efc4d6aec5798967929f24fa94ce2d680d26227993f47b81a1d5ed7ab359c76",
+    "scripts/natural_caverns_inspect.py": "a6bf2f5c7135cf97e134e9d19dc8c7d0cc16d9617033209b86bfc282e94c0eeb",
+    "scripts/natural_caverns_plan.py": "0ad6ee3ddd31fe261eb0ba05196e2404d5919874349bf8bb5ee67a98a8cc49f5",
+    "scripts/natural_caverns_preview.py": "b8ea61943ebdb62bb8f92233a16248bb06b683829c8d995a1f4bf58f8cb3cff4",
+    "scripts/natural_caverns_probe.py": "5fa41d52bb587d58961ceee994dc81d84213430b277ad62c6a8854b0eb33ac81",
+    "scripts/natural_caverns_rework.py": "3979e22241be8bedc78b924c0f97fac1165a1e47d52fa9f7f524be8bdf4a9681",
+    "scripts/anvil_patch.py": "948159cf77fb4cf8179c7c29956c83ed40ec3b40ae8322abc7ccab7f0082a304",
+    "tests/NaturalCavernsProbe.java": "3742e76f86e1cc5b563648ac395bb90bc009f8d3893e5be3e50ed3505a8652d1",
+    "tests/test_natural_caverns.py": "a64d595a5a93b192af6b86ea189e50c443ff5b662c5c08b82e29aaa605811ece"
+  },
+  "evidenceSha256": {
+    "chunks-modified-private.json": "8c5c07cf0038e5b6ba84513a69d0ca2b007c9dba7ba9ae3e218f61061c9a99c1",
+    "natural-caverns-plan-private.json": "97bb7a54be000c4fe72484d05ef88552acba08af6c1df8961fce5b5a63b8b09c",
+    "paper-validation-result.json": "18d2ca7dc01adfeca61412e1c8c6c22d3ff5894341bab34e2fcb7d8017206dc7",
+    "additional-checks-private.json": "5c4de3a8fcf5383cb984c19a2b61d44a6c8062874314f57b3d472ca7d4b1fce4",
+    "DEPLOYMENT_MANIFEST.json": "6ce82c727e0dae6efd1b9052ad9bef985639139fad872f4a52e6af64a21ac817"
+  }
+}
