@@ -1,0 +1,77 @@
+{
+  "schema": 1,
+  "baseCommit": "824bc39",
+  "operation": "MS-V22-CELL-REVIEW-20261123-02",
+  "reviewAtUtc": "2026-11-23T15:17:23.928728+00:00",
+  "sourceReadbackFinishedAtUtc": "2026-11-23T10:19:49.171179+00:00",
+  "verdict": "NO_GO_TERRAIN_SAFETY",
+  "referenceR2Approved": false,
+  "conditionalApprovalGatePassed": false,
+  "backupStarted": false,
+  "backupFiles": 0,
+  "backupArchiveSha256": null,
+  "backupManifestSha256": null,
+  "controlRestorePerformed": false,
+  "localPaperStarted": false,
+  "remoteAccessPerformed": false,
+  "remoteWritesPerformed": false,
+  "remotePowerOrConsoleCommandSent": false,
+  "whitelistChanged": false,
+  "deploymentPerformed": false,
+  "currentRemoteStateReconfirmed": false,
+  "generalValidatorsChanged": false,
+  "agentsRulesChanged": false,
+  "terrain": {
+    "exceptions": 2,
+    "exceptionsVerticallyAdjacent": true,
+    "exceptionsInsideTeamTerritory": true,
+    "exceptionsOutsideRestorationTargets": true,
+    "restorationTargetsVerified": 22219,
+    "controlledCells": 37128,
+    "matchingInitialCells": 37126,
+    "documentedDifferencesWithinControlledFootprint": 2,
+    "currentBeforeRestorationFallBlocks": [
+      43
+    ],
+    "currentBeforeRestorationFloor": [
+      "minecraft:coal_ore"
+    ],
+    "proposedR2FallBlocks": [
+      33
+    ],
+    "proposedR2Floor": [
+      "minecraft:stone"
+    ],
+    "airColumnOpenToSky": true,
+    "hazards": [
+      "UNGUARDED_VERTICAL_DROP_ON_STONE"
+    ],
+    "columnDifferencesAboveExceptionsOutsideFootprint": 31,
+    "inGameInspectionPerformed": false
+  },
+  "payload": {
+    "files": 17,
+    "hashesMatchPreviousPlan": true,
+    "modified": false,
+    "referenceStatus": "proposed_only_not_approved",
+    "readyForDeployment": false,
+    "sourcePlanSha256": "1ee58da24317a18326ad55b574ed010823158d64a708b8929e5130c4296bba14"
+  },
+  "pythonTests": 167,
+  "newDiagnosticTests": 5,
+  "privateEvidenceSha256": {
+    "cell-safety-review-private.json": "3f07784291b163a48629e0440a96e2b1297612c96211d944522234291cba3f89",
+    "REVIEW_CELL_SHAFT_PRIVATE.md": "7c3b0cd9aab5b8e5ae1be03500315ab2d414b215a1ae5acc2500d3dded9906be"
+  },
+  "toolSha256": {
+    "scripts/v22_cell_review.py": "fa53d58c722a5e466d428cfd3193c8066efab735d39bdb261955552e871e50bf",
+    "tests/test_v22_cell_review.py": "741d5dcad5f6361983956c2d1c3859b03da7024fed9c9f4bde4fe68487fe66e1"
+  },
+  "remainingPreconditions": [
+    "Revue et décision explicite sur le puits complet, sans correction automatique.",
+    "Validation de la sécurité et de la référence adaptée avant toute sauvegarde conditionnelle.",
+    "Nouveau précontrôle distant et sauvegarde complète autorisée sous dérogation, restauration et boot local.",
+    "Nouveau plan de transition vérifié depuis la sauvegarde actuelle.",
+    "Autorisation distincte avant toute bascule distante."
+  ]
+}

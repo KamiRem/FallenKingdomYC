@@ -2,6 +2,12 @@
 
 **Verdict : NO-GO pour une bascule immédiate. Préparation locale effectuée.**
 
+**Suite de la revue :** l'approbation conditionnelle a déclenché une
+[vérification géométrique supplémentaire](MINESTRATOR_V22_CELL_REVIEW_20261123.md).
+Un puits dangereux a été identifié : la condition de sécurité échoue, la référence
+r2 reste non approuvée et la sauvegarde actuelle autorisée sous condition n'a pas
+été engagée. Les mesures et propositions ci-dessous restent la preuve du préflight.
+
 Deux préconditions restent ouvertes : approbation de la référence proposée qui
 préserve deux cellules de recette, puis autorisation/réalisation/vérification
 d'une nouvelle sauvegarde complète actuelle avec restauration de contrôle.
