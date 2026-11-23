@@ -1,25 +1,34 @@
 # Fallen Kingdom privé — quatre royaumes et un arbitre
 
+**V2.2 déployée sur MineStrator 513365 le 23 novembre : serveur en ligne,
+réservé à la recette humaine, J0 non lancé.** Le [rapport d'installation](docs/MINESTRATOR_V22_INSTALLATION_20261123.md)
+confirme les 17 fichiers, Query/TCP à vingt places, le terrain naturel et le puits
+restauré. [Sauvegarde actuelle complète](docs/MINESTRATOR_V22_CURRENT_BACKUP_20261123.md)
+vérifiée sur 463 fichiers et démarrée sur une copie locale indépendante.
+Whitelist à deux comptes et `restart-on-crash=false` conservés. L'écart de patch
+Java fourni par l'hébergeur est documenté ; aucun réglage panel modifié.
+
 Le [préflight distant V2.2 du 23 novembre](docs/MINESTRATOR_V22_PREFLIGHT_20261123.md)
 prépare 17 fichiers depuis l'état réel, sans écriture distante. La
 [correction locale du puits](docs/V22_SHAFT_RESTORATION_20261123.md) restaure ses
-33 états archivés et ses hauteurs, avec contrôle Paper réussi. **Prêt pour
-inspection humaine locale ; bascule encore NO-GO.** La sauvegarde actuelle reste
-à réaliser après validation. La [revue précédente](docs/MINESTRATOR_V22_CELL_REVIEW_20261123.md)
+33 états archivés et ses hauteurs, avec contrôle Paper réussi. Cette préparation
+a ensuite été approuvée sans inspection humaine préalable et déployée selon le
+rapport ci-dessus. La [revue précédente](docs/MINESTRATOR_V22_CELL_REVIEW_20261123.md)
 est conservée comme preuve du blocage initial. Le [guide pratique de partie test](docs/GUIDE_PARTIE_TEST_V22.md)
 prévoit 4 à 16 participants réels, sans imposer seize joueurs.
 
 La [validation finale V2.2 et le protocole de partie test](docs/V22_VALIDATION_FINALE_ET_PARTIE_TEST_20261123.md)
 complètent la révision locale : guidage privé contrôlé, reprise Nether corrigée,
-simulations jusqu'à la victoire et restauration fonctionnelle. Utiliser le nouveau
-JAR et candidat `V22-FINAL-20261123-02`, conservés hors Git. Aucun déploiement V2.2
-ni partie avec clients authentifiés effectué. L'inspection humaine reste nécessaire.
+simulations jusqu'à la victoire et restauration fonctionnelle. Le JAR validé vient
+du candidat `V22-FINAL-20261123-02`, conservé hors Git ; le paquet intégré réellement
+installé est décrit dans le rapport courant. Aucun test de partie avec clients
+authentifiés n'a été exécuté par les outils ; la recette humaine reste à effectuer.
 Le [rapport du terrain d'origine](docs/V22_VANILLA_UNDERGROUND_20261123.md) conserve
 la preuve de restauration antérieure aux cavernes et des notifications arbitre.
 La [variante R2](docs/NATURAL_CAVERNS_20261121.md) est abandonnée à la demande du
 propriétaire ; ses fichiers et preuves restent conservés hors Git.
 
-**V2.1 installée sur MineStrator, serveur réservé à la recette.** Le
+**Installation historique V2.1, remplacée depuis par V2.2.** Le
 [rapport d'installation du 20 novembre](docs/MINESTRATOR_INSTALLATION_20261120.md)
 confirme les 148 fichiers, leurs empreintes, Paper/plugins, Query à 20 places,
 les quatre territoires/spawns et les quatre cavernes. Partie au jour 0 non
@@ -31,20 +40,20 @@ reste conservé comme preuve historique. Voir la
 [protocole whitelist/recette](docs/MINESTRATOR_RECETTE_ET_WHITELIST_20261120.md).
 
 Préparation du 20 novembre : [1 à 4 membres par royaume, V2.1 à 20 places](docs/FOUR_PLAYERS_20261120.md),
-jusqu'à 16 participants et l'arbitre. Le nouveau manifeste privé comporte 148
+jusqu'à 16 participants et l'arbitre. Le manifeste privé V2.1 comportait 148
 fichiers ; le plan antérieur de 146 fichiers est périmé. Rollback historique à
 10 places préservé. Le [complément Query et rollback](docs/MINESTRATOR_QUERY_ROLLBACK_20261120.md)
 valide son démarrage fonctionnel et finalise Query activé pour MineStrator.
 Le déploiement contrôlé a ensuite été autorisé et réalisé ; ses preuves sont dans
 `tests/results/minestrator-deployment-20261120.json`. Les ZIP ci-dessous restent
 ceux de la livraison précédente ; le candidat privé de 148 fichiers et
-`tests/results/query-rollback-delivery.json` définissent la préparation actuelle.
+`tests/results/query-rollback-delivery.json` décrivent la livraison V2.1 d'alors.
 
 La livraison V2.1 précédente est [FKAmis VNext.1 et carte V2.1](docs/FKAMIS_VNEXT_1.md).
 Le ZIP `dist/fallenkingdom-vnext1-update.zip` met à jour VNext et les territoires
 à froid, avec sauvegarde complète ; il ne contient aucun monde ni état de joueur.
 L'artefact séparé `dist/fallenkingdom-map-v2.1-build.zip` construit quatre cavernes
-sur une copie initiale uniquement. Le [rapport courant](tests/results/vnext1-delivery.json)
+sur une copie initiale uniquement. Le [rapport de livraison V2.1](tests/results/vnext1-delivery.json)
 distingue essais locaux et recette humaine restant à faire ; il précède l'installation
 MineStrator documentée ci-dessus.
 Le guidage utilise une ActionBar privée ; la Locator Bar native reste désactivée.

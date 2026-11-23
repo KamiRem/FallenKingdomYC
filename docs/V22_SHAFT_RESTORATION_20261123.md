@@ -1,5 +1,10 @@
 # V2.2 — restauration locale du puits depuis l'archive initiale
 
+Suite autorisée : le propriétaire dispense de visite préalable et approuve la
+correction. La [bascule V2.2](MINESTRATOR_V22_INSTALLATION_20261123.md) est ensuite
+effectuée depuis une sauvegarde complète actuelle. Les preuves ci-dessous restent
+celles de la proposition locale antérieure, conservée intacte hors Git.
+
 **Statut : prêt pour inspection humaine locale. Déploiement encore NO-GO.**
 La variante privée `V22-SHAFT-20261123-01` restaure les 33 cellules archivées et
 quatre valeurs de hauteur de leur colonne. Aucune connexion MineStrator, aucune

@@ -1,0 +1,494 @@
+{
+  "schema": 1,
+  "operation": "MS-DEPLOY-V22-20261123-01",
+  "baseCommit": "d837416",
+  "verdict": "V22_DEPLOYED_READY_FOR_HUMAN_RECIPE",
+  "serverId": 513365,
+  "verifiedAtUtc": "2026-11-23T16:47:16.184355+00:00",
+  "serverLeftOnline": true,
+  "gameDay": 0,
+  "gameStarted": false,
+  "startRequests": 1,
+  "remoteRollbackPerformed": false,
+  "humanInspectionPerformed": false,
+  "humanInspectionPrerequisiteWaivedByOwner": true,
+  "preflight": {
+    "freshActiveFilesDoubleHashed": 311,
+    "allMatchPreviousAudit": true,
+    "hostKeyPinned": true,
+    "offlineVerifiedBeforeBackupAndInstall": true,
+    "ownerCurrentAvailableQuotaDeclarationGB": 50,
+    "quotaFreeIndependentlyMeasured": false,
+    "exclusiveMaintenanceLockAvailable": false,
+    "hostingCrashRestartPolicyVerified": false,
+    "schedulingAndPendingQueueIndependentlyAccessible": false,
+    "residualRisksExplicitlyAccepted": true
+  },
+  "backup": {
+    "operation": "MS-COLD-V22-20261123-01",
+    "files": 463,
+    "directories": 366,
+    "sourceBytes": 653314681,
+    "archiveBytes": 554345220,
+    "archiveSha256": "18b387d5c824c5a892c98dcf1c009ce22666c09228ab2df42bd8434692656684",
+    "manifestSha256": "758654db5341f361b0bcb7125eb94e1671275fab34b47f17fb71776f4a33e21d",
+    "doubleRemoteReadVerified": true,
+    "restoreAllFilesIdentical": true,
+    "functionalRestoreValidated": true,
+    "structuralChecks": {
+      "regionFiles": 76,
+      "chunksDecoded": 21846,
+      "nbtFiles": 44,
+      "playerProfiles": 2,
+      "jsonFiles": 34,
+      "jarFiles": 3,
+      "inventoryBearingRecords": 1547,
+      "yamlCheckedBySafeParser": true,
+      "paperStarted": false,
+      "allRegionFilesDecoded": 152,
+      "allRegionChunksDecoded": 43711,
+      "allJarCrcChecked": 111,
+      "technicalRegionFilesDecoded": 76,
+      "yamlFiles": 33,
+      "gameStateSchema": 1,
+      "teamSpawns": 4
+    },
+    "apiSamples": 115,
+    "originalArchiveManifestRestorePreserved": true,
+    "atomicSnapshotGuaranteed": false
+  },
+  "rollbackLocal": {
+    "passed": true,
+    "kind": "rollback",
+    "sourceFiles": 463,
+    "remoteConnectionsUsed": false,
+    "gameStarted": false,
+    "authenticatedClients": 0,
+    "maintenanceBefore": true,
+    "javaVersion": "openjdk version \"25.0.5\" 2026-10-20 LTS",
+    "processStarted": true,
+    "queryRespondedLocally": true,
+    "queryMaxPlayers": 20,
+    "queryOnlinePlayers": 0,
+    "loopbackListenersVerified": true,
+    "worldRegionFilesCompared": 76,
+    "worldChunksCompared": 21846,
+    "inventoryAndLootLocationsCompared": 996,
+    "inventoriesAndLootPreserved": true,
+    "noRegionOrChunkRemovedOrAdded": true,
+    "historicalStatePreserved": true,
+    "nativeTeamsAndTerritoriesPreserved": true,
+    "spawnsAndObjectivesPreserved": true,
+    "maintenanceAfter": true,
+    "paperExitCode": 0,
+    "errors": 0,
+    "warnings": 0,
+    "protectedFilesVerified": 163,
+    "playerFilesVerified": 4,
+    "technicalFilesPreserved": 152,
+    "sourceUnchanged": true
+  },
+  "candidateLocal": {
+    "passed": true,
+    "kind": "candidate",
+    "sourceFiles": 467,
+    "remoteConnectionsUsed": false,
+    "gameStarted": false,
+    "authenticatedClients": 0,
+    "maintenanceBefore": true,
+    "javaVersion": "openjdk version \"25.0.5\" 2026-10-20 LTS",
+    "processStarted": true,
+    "queryRespondedLocally": true,
+    "queryMaxPlayers": 20,
+    "queryOnlinePlayers": 0,
+    "loopbackListenersVerified": true,
+    "worldRegionFilesCompared": 76,
+    "worldChunksCompared": 21846,
+    "inventoryAndLootLocationsCompared": 996,
+    "inventoriesAndLootPreserved": true,
+    "noRegionOrChunkRemovedOrAdded": true,
+    "historicalStatePreserved": true,
+    "nativeTeamsAndTerritoriesPreserved": true,
+    "spawnsAndObjectivesPreserved": true,
+    "maintenanceAfter": true,
+    "paperExitCode": 0,
+    "errors": 0,
+    "warnings": 0,
+    "protectedFilesVerified": 163,
+    "playerFilesVerified": 4,
+    "technicalFilesPreserved": 152,
+    "sourceUnchanged": true
+  },
+  "simulation": {
+    "passed": true,
+    "completeSourceFiles": 463,
+    "completeInstalledFilesIncludingNewQuarantine": 480,
+    "installedFiles": 17,
+    "quarantineFiles": 13,
+    "rollbackFilesVerified": 463,
+    "failureInjectionCases": 6,
+    "historicalQuarantinesPreserved": true,
+    "realLocalFilesUsed": true,
+    "linuxModesAndOwnersPlanned": true,
+    "windowsPosixOwnershipApplied": false
+  },
+  "pythonTests": 194,
+  "installed": {
+    "files": 17,
+    "replacements": 12,
+    "creations": 5,
+    "manifestEntries": 157,
+    "sourcePreservedFilesShaAndMetadataVerified": 450,
+    "activePreservedFiles": 298,
+    "coldActiveFiles": 315,
+    "coldCompleteFilesIncludingQuarantines": 480,
+    "newQuarantineFiles": 13,
+    "oldQuarantineFiles": 152,
+    "permissionsAndOwnersVerified": true,
+    "uid": 999,
+    "gid": 995,
+    "sourceBackupOperation": "MS-COLD-V22-20261123-01",
+    "deploymentManifestSha256": "db27f94828f5db36425e7195fa31f903b4463a48b856f83b1a35ac68d2993690",
+    "transferArchiveSha256": "d8f070a62585bede2a3965e74ca1c7f70a41d4521c3a64d276e89225a5c9e55e",
+    "filesDetails": [
+      {
+        "path": "DEPLOYMENT_MANIFEST.json",
+        "action": "replace",
+        "oldSha256": "bc99993cf2796991a97adf92c12091bea86e5b5166c503258d1311aa227948e6",
+        "newSha256": "db27f94828f5db36425e7195fa31f903b4463a48b856f83b1a35ac68d2993690",
+        "bytes": 20833,
+        "expectedMode": 493,
+        "expectedUid": 999,
+        "expectedGid": 995
+      },
+      {
+        "path": "FKAmis.sha256",
+        "action": "replace",
+        "oldSha256": "5f6e2f891a953df2ee1f0df3e5b8e0e3ab648aa6dbde62fb896d5394c02e4725",
+        "newSha256": "a04cc36aa22740ab26fab9deb75de035961c590311f7da769ad71770033bf7d1",
+        "bytes": 65,
+        "expectedMode": 493,
+        "expectedUid": 999,
+        "expectedGid": 995
+      },
+      {
+        "path": "RUNTIME_LOCK.json",
+        "action": "replace",
+        "oldSha256": "d0d27efcf03e9572f30964d642fcb5bef1cff6abe67c9b527c7a4c7fa24dcada",
+        "newSha256": "7806dc103c9e7328b347b0ae65fcc5d64800c42558f36eeda90aabcb2ce1884c",
+        "bytes": 724,
+        "expectedMode": 420,
+        "expectedUid": 999,
+        "expectedGid": 995
+      },
+      {
+        "path": "maintenance/block-defaults-26.3.json",
+        "action": "create",
+        "oldSha256": null,
+        "newSha256": "2a73826e24df6f0edd2d51b4537d56d6b11eea6f921481b595510d4ad3867012",
+        "bytes": 117634,
+        "expectedMode": 420,
+        "expectedUid": 999,
+        "expectedGid": 995
+      },
+      {
+        "path": "maintenance/new-match-reference-v2.2.json",
+        "action": "create",
+        "oldSha256": null,
+        "newSha256": "ebd77cc0cf38e6f271eab602f8cc514f921976f9f04a94f743be953f0086bcf4",
+        "bytes": 2683718,
+        "expectedMode": 420,
+        "expectedUid": 999,
+        "expectedGid": 995
+      },
+      {
+        "path": "maintenance/new-match-reference.json",
+        "action": "replace",
+        "oldSha256": "78a0112d0760333c8640ec20afd01887d0f9a07e3e5b515e4ee41760d181a2ab",
+        "newSha256": "ebd77cc0cf38e6f271eab602f8cc514f921976f9f04a94f743be953f0086bcf4",
+        "bytes": 2683718,
+        "expectedMode": 420,
+        "expectedUid": 999,
+        "expectedGid": 995
+      },
+      {
+        "path": "maintenance/new_match.py",
+        "action": "replace",
+        "oldSha256": "8e0a20534d0c1d8364a210d1e12ca25b7fcad0a878dd5597153f0bdbb3d7cf70",
+        "newSha256": "bf570ebb1209ac1501d5397eaff3986fe3a23bd66ec586f31dd3a3c9d2bd1d0e",
+        "bytes": 13912,
+        "expectedMode": 420,
+        "expectedUid": 999,
+        "expectedGid": 995
+      },
+      {
+        "path": "maintenance/terrain_reference.py",
+        "action": "create",
+        "oldSha256": null,
+        "newSha256": "1546ae120fa7e6eb04be7f4dfd45c86939d57618663a14dab29406361bcaa153",
+        "bytes": 4883,
+        "expectedMode": 420,
+        "expectedUid": 999,
+        "expectedGid": 995
+      },
+      {
+        "path": "map-underground-restoration.json",
+        "action": "create",
+        "oldSha256": null,
+        "newSha256": "26fd94178cb3f5a175661c5d57aba8651b49d7814fe2a588475921bc897237d0",
+        "bytes": 1106,
+        "expectedMode": 493,
+        "expectedUid": 999,
+        "expectedGid": 995
+      },
+      {
+        "path": "map-v2-construction.json",
+        "action": "replace",
+        "oldSha256": "ccb8e3da0c88ae36766227636f505fc95653cdd6cfc7b92f3499c010e9aa0e3e",
+        "newSha256": "7b24863f05966a75970849081e59c5e88c5b647f209fe73cdff25021f4509915",
+        "bytes": 6174,
+        "expectedMode": 493,
+        "expectedUid": 999,
+        "expectedGid": 995
+      },
+      {
+        "path": "plugins/FKAmis-1.0.0.jar",
+        "action": "replace",
+        "oldSha256": "38180caa28442bad838ef395779d9075a33a2c624bc71e2286488ac0e32fb31a",
+        "newSha256": "905b0f4b11192d26cd59b82b151525ad3b69f7f1803c65760589800404345ca5",
+        "bytes": 240041,
+        "expectedMode": 493,
+        "expectedUid": 999,
+        "expectedGid": 995
+      },
+      {
+        "path": "plugins/FallenKingdom/locales/messages_fr.properties",
+        "action": "replace",
+        "oldSha256": "49d14746e14bb5b618f0bc8679936c66eaefab1317d43028074f8cc4bfd3ca5c",
+        "newSha256": "861399da795fee06f31b2ad4d20dbdaacb0686b3db995d9cfa13d218ae7ba8fa",
+        "bytes": 33751,
+        "expectedMode": 493,
+        "expectedUid": 999,
+        "expectedGid": 995
+      },
+      {
+        "path": "reference/history-v21/map-v21-caverns.json",
+        "action": "create",
+        "oldSha256": null,
+        "newSha256": "60cc0668cb7e90f52ef3b1aa21cc90a025fb0038f857765344bd2e6489b798ef",
+        "bytes": 5588,
+        "expectedMode": 420,
+        "expectedUid": 999,
+        "expectedGid": 995
+      },
+      {
+        "path": "world/dimensions/minecraft/overworld/region/r.-1.-1.mca",
+        "action": "replace",
+        "oldSha256": "27496f56f1ff8447c97931091d13a7a08093237a1f020d95b506c79abd172acd",
+        "newSha256": "b5e21a035b5db5bc0941fac62c03c9dff67145b381c319d2f18fa4a1cc3c87c5",
+        "bytes": 10424320,
+        "expectedMode": 493,
+        "expectedUid": 999,
+        "expectedGid": 995
+      },
+      {
+        "path": "world/dimensions/minecraft/overworld/region/r.-1.0.mca",
+        "action": "replace",
+        "oldSha256": "f66ea75cbace2c377e8a44ac784f278504e0d43236bb0997867fbf6c14795299",
+        "newSha256": "1f0339d0fdb9ed27712507b3b32eaddadb844314084b6438aba098d9b40a891b",
+        "bytes": 9297920,
+        "expectedMode": 493,
+        "expectedUid": 999,
+        "expectedGid": 995
+      },
+      {
+        "path": "world/dimensions/minecraft/overworld/region/r.0.-1.mca",
+        "action": "replace",
+        "oldSha256": "31ab51f1c1aa40347795b7c4382bb8f601079c63caafcc1f130a1c0abc211af2",
+        "newSha256": "b7083c5e24387e0184a25f4dbaad3b6ec258157e5ee06cad1bb1fee7d8b265a6",
+        "bytes": 9842688,
+        "expectedMode": 493,
+        "expectedUid": 999,
+        "expectedGid": 995
+      },
+      {
+        "path": "world/dimensions/minecraft/overworld/region/r.0.0.mca",
+        "action": "replace",
+        "oldSha256": "105d2b65f1144ab3fb70c116b22ed829c49844bbed5647551f157bfa4d81e182",
+        "newSha256": "96a2184d44786fae92f226a2c69e937a6ab1bcc7f189832d4c8d922f8a4325f0",
+        "bytes": 11403264,
+        "expectedMode": 493,
+        "expectedUid": 999,
+        "expectedGid": 995
+      }
+    ]
+  },
+  "runtime": {
+    "paper": "26.3-244",
+    "fallenKingdom": "2.24.9",
+    "fkamisDeclaredVersion": "1.0.0",
+    "fkamisSha256": "905b0f4b11192d26cd59b82b151525ad3b69f7f1803c65760589800404345ca5",
+    "javaConfiguredProfile": "Java 25 Performance",
+    "javaImageUnchanged": "reg.sttr.io/java/25_perf:latest",
+    "javaSettingId": 61,
+    "javaObserved": "25.0.5.1+2-LTS",
+    "javaPreviousObserved": "25.0.5+8-LTS",
+    "javaLocalTestVersion": "25.0.5",
+    "javaPatchDifferenceObserved": true,
+    "panelSettingsModified": false,
+    "runtimeImageRollbackGuaranteed": false,
+    "port": 22880,
+    "queryEnabled": true,
+    "maxPlayers": 20,
+    "playersPerTeam": 4,
+    "maximumParticipants": 16,
+    "refereeOutsideRoster": true,
+    "restartOnCrash": false,
+    "watchdogActive": true,
+    "whitelistAccounts": 2,
+    "whitelistUnchanged": true,
+    "startupErrors": 0,
+    "startupWarnings": 0,
+    "world": {
+      "day": 0,
+      "gameStarted": false,
+      "territoriesVerified": 4,
+      "spawnsVerified": 4,
+      "monumentsVerified": 7,
+      "monumentLootChestsVerified": 6,
+      "supplySitesVerified": 8,
+      "shaftHeightmapFieldsVerified": 4,
+      "chunksRead": 86,
+      "humanInspectionPerformed": false,
+      "undergroundMode": "vanilla-restored",
+      "naturalTerrainBlocksChecked": 37128,
+      "naturalSourceArchiveSha256": "8120f618b09b47cb0fac10e667324d06a96ca3a2c8114b1bf42193604349f5de",
+      "additionalArchiveRestorationsChecked": 33,
+      "uniqueNaturalTerrainBlocksChecked": 37159,
+      "preservedTerrainExceptions": 0
+    },
+    "query": {
+      "udpQueryResponded": true,
+      "capacity": 20
+    },
+    "tcp": {
+      "tcpStatusResponded": true,
+      "version": {
+        "name": "Paper 26.3",
+        "protocol": 777
+      },
+      "capacity": 20,
+      "onlinePlayers": 0,
+      "realPlayerLoginPerformed": false
+    },
+    "postStartPreservation": {
+      "staticTargetsShaVerified": 13,
+      "playerFilesAndRoleSupplyFilesShaVerified": 6,
+      "playerFilesShaVerified": 4,
+      "oldQuarantineFilesMetadataVerified": 152,
+      "newQuarantineFiles": 13,
+      "stagingFilesRemaining": 0,
+      "runtimeTotalFiles": 483,
+      "runtimeActiveFiles": 318,
+      "playersPerTeam": 4,
+      "captureSeconds": 60,
+      "captureRadius": 2.5
+    },
+    "mineBoardApiStates": [
+      "online",
+      "online"
+    ],
+    "mineBoardVisualInspectionPerformed": false,
+    "mineBoardApiVersionPlayerFieldsAvailable": false,
+    "officialPortalFramesRegistered": 0,
+    "officialPortalAdministrativelyActivated": false,
+    "officialPortalTravelOpen": false,
+    "baseGuidanceCommandExposedInHelp": true,
+    "realPlayerTerritoryNotificationOrActionBarTestPerformed": false,
+    "runtimeGeneratedFiles": [
+      "logs/2026-11-21-2.log.gz",
+      "plugins/spark/tmp/spark-710de34128dde6-libasyncProfiler.so.tmp",
+      "plugins/spark/tmp/spark-710e0d2e5bf45d-profile-data.jfr.tmp"
+    ],
+    "runtimeMissingExpectedPaths": []
+  },
+  "apiMonitoring": {
+    "install": {
+      "apiSamples": 168,
+      "observedStates": [
+        "offline"
+      ]
+    },
+    "start": {
+      "apiSamples": 17,
+      "observedStates": [
+        "offline",
+        "online"
+      ]
+    },
+    "postcheck": {
+      "apiSamples": 8,
+      "observedStates": [
+        "online"
+      ]
+    }
+  },
+  "actuallyExecutedExecutorSha256": {
+    "install": "1ded8efa273e8227853d2e1ff43a62c7e2bb2c59e9597e2b0e658d8155658a59",
+    "start": "c5ea9d15614ad35773b54d206d96ea3b59b7f6a82727cc8c57d69f6cce371f3b",
+    "postcheck": "9a13ec36052953ae1e92beae11c9a2e3e6572aceb79b156c61884f6001fab526"
+  },
+  "privateEvidenceSha256": {
+    "plan-private.json": "6d98daf7d7cfc58a1864547262dc79613804111ec13f4020dea85f97495baeba",
+    "execution-authorization-private.json": "cec2778751991bf81726c8051acbe3ff7a6f655de4c0b4f8d485fb40a77fbc37",
+    "execution-report.json": "768ca4ee5a3fa724a6cd42cf5bd86624b124c7acf7276df35cb844512f0680c4",
+    "execution-journal-private.jsonl": "3a4523f2aa4f35bb75b28afa17e4322c519e9d21733599678d9e7bd7350fab79",
+    "original-directory-owners-private.json": "f4efc45bfe804c6c8bce6f481768dc88b0bf4d91da25125aa071e0b13744b237",
+    "simulation-private.json": "df1037a0189fdd296b19c87c92848e99cd6ff718d68c40a459544080bb958e29",
+    "rollback-local/report.json": "5fb049ec05534bb6ae230c0ec7ef27e0b877d6edb01921040827e8fd7c6f1b8e",
+    "candidate-local/report.json": "b99e39eac3f0c732fc1651e61356b4466797c08cdb86b1bb3e6ba912d31f4b6e",
+    "startup-private.log": "2d3f9ae8d45e00a202269cae3155bc177387a24d4530bb8b2c31ca96d1c35b3a",
+    "startup-api-private.json": "42af9f69bde97d9ba5316464f4797beab30b12a56972a50c55cc82c405de30e9",
+    "post-start-inventory-private.json": "8c2ac72d8b4d351522d589199a170274c9d3fcfdbc2c9fa3f5042f9c0241205b",
+    "runtime-generated-file-differences-private.json": "eb85c855f26b6a18215028e6a8b2629fec308ebbee435d8c420255d3d1113eb8",
+    "closing-health-private.json": "c552f55b704afb5b85adb84c49a0c6d25ac4f1a402c03f8c16748a288b26b442"
+  },
+  "toolSha256": {
+    "scripts/minestrator_v22_backup.py": "2b2dec51dae21cb5c54e0957c80b1f84645cd87f94f49765fda86f89e088515e",
+    "scripts/minestrator_v22_backup.ps1": "447c1e12c1136faa09ca4de46b6503a29955642b8100b7a782a69a7512edd2d5",
+    "scripts/minestrator_v22_execute.py": "9a13ec36052953ae1e92beae11c9a2e3e6572aceb79b156c61884f6001fab526",
+    "scripts/minestrator_v22_execute.ps1": "3329c55ef65e1f9f230dcb6e39a6d0f1be21df762f30487f652af8e4a233dda3",
+    "scripts/v22_current_local.py": "93e114714138f0ff85539a4ba37838b85648ea34c1ec7d022c20b6a60bec6ba6",
+    "scripts/v22_current_prepare.py": "8380855c3ecda74c9401a237aedf2938276b96b52db20ac618bd6991f568360b",
+    "tests/test_v22_current_backup.py": "64036f0a81d079ab46aa92a07101ef1aae5bab088150c50651c3087f26780d5b",
+    "tests/test_v22_execution.py": "7009bf2166d10a08c1d3d4d75fe211ca54a4aa5cfa4fc1eaf178d7efddeebb5c"
+  },
+  "remainingHumanChecks": [
+    "Affichage réel des notifications territoriales et du guidage ActionBar.",
+    "Visite des bases, sous-sols et correction du puits si souhaitée, sans prétendre l’avoir réalisée.",
+    "Affichage visuel MineBoard.",
+    "Toute whitelist supplémentaire, portail, partie ou test destructif reste soumis à autorisation distincte."
+  ],
+  "finalHealth": {
+    "verifiedAtUtc": "2026-11-23T16:55:46.022754+00:00",
+    "serverId": 513365,
+    "state": "online",
+    "statsState": "online",
+    "tcp": {
+      "tcpStatusResponded": true,
+      "version": {
+        "name": "Paper 26.3",
+        "protocol": 777
+      },
+      "capacity": 20,
+      "onlinePlayers": 0,
+      "realPlayerLoginPerformed": false
+    },
+    "query": {
+      "udpQueryResponded": true,
+      "capacity": 20
+    },
+    "remoteWritesPerformed": false,
+    "powerOrConsoleCommandsSent": false
+  }
+}

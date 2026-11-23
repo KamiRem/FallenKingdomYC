@@ -1,5 +1,10 @@
 # Préparation V2.1 → V2.2 — MineStrator 513365
 
+**Suite autorisée :** la sauvegarde complète et la
+[bascule V2.2](MINESTRATOR_V22_INSTALLATION_20261123.md) ont ensuite réussi.
+Le propriétaire a approuvé la correction du puits et dispensé de visite préalable.
+Le verdict et les observations ci-dessous restent ceux de la préparation initiale.
+
 **Verdict : NO-GO pour une bascule immédiate. Préparation locale effectuée.**
 
 **Suite de la revue :** l'approbation conditionnelle a déclenché une
