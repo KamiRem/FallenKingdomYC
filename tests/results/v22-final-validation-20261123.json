@@ -1,0 +1,965 @@
+{
+  "schema": 1,
+  "revision": "V22-FINAL-20261123-02",
+  "baseCommit": "ded565d",
+  "createdAtUtc": "2026-11-23T09:53:04.466298+00:00",
+  "passed": true,
+  "verdict": "GO_PREPARATION_ONLY",
+  "readyForLocalInspection": true,
+  "remoteDeploymentAuthorized": false,
+  "remoteAccessPerformed": false,
+  "deployed": false,
+  "authenticatedClients": 0,
+  "clientRenderingVerified": false,
+  "humanFullGameVerified": false,
+  "javaUnitTests": 60,
+  "pythonTests": 148,
+  "successfulPaperPhasesRetained": 26,
+  "paperAssertionsRetained": 814,
+  "physicalCases": [
+    {
+      "case": "baseline_ia_golem",
+      "shots": 4,
+      "hits": 4,
+      "damageEvents": 4,
+      "healthBefore": 100.0,
+      "healthAfter": 85.0,
+      "victimType": "IRON_GOLEM",
+      "skeletonTicksLived": 237,
+      "hasAI": true,
+      "hasTarget": true,
+      "lineOfSight": true
+    },
+    {
+      "case": "ia_vers_participant_survival_j1",
+      "shots": 4,
+      "hits": 3,
+      "damageEvents": 3,
+      "healthBefore": 20.0,
+      "healthAfter": 10.0,
+      "victimType": "PLAYER",
+      "skeletonTicksLived": 240,
+      "hasAI": true,
+      "hasTarget": true,
+      "lineOfSight": true
+    },
+    {
+      "case": "squelette_natural_j2_armure_fer",
+      "day": 2,
+      "territory": "null",
+      "mode": "SURVIVAL",
+      "playerPosition": [
+        160.5,
+        200.0,
+        158.5
+      ],
+      "shotsOrLaunches": 4,
+      "hits": 4,
+      "damageEvents": 4,
+      "cancelledDamageEvents": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 4.0,
+      "expectedHealthLoss": true
+    },
+    {
+      "case": "squelette_natural_j3_base",
+      "day": 3,
+      "territory": "§x§f§f§5§5§5§5Rouge",
+      "mode": "SURVIVAL",
+      "playerPosition": [
+        -239.5,
+        200.0,
+        -239.5
+      ],
+      "shotsOrLaunches": 4,
+      "hits": 2,
+      "damageEvents": 2,
+      "cancelledDamageEvents": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 12.0,
+      "expectedHealthLoss": true
+    },
+    {
+      "case": "squelette_commande_summon_j1",
+      "day": 1,
+      "territory": "null",
+      "mode": "SURVIVAL",
+      "playerPosition": [
+        160.5,
+        200.0,
+        158.5
+      ],
+      "shotsOrLaunches": 4,
+      "hits": 4,
+      "damageEvents": 4,
+      "cancelledDamageEvents": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 6.0,
+      "expectedHealthLoss": true
+    },
+    {
+      "case": "zombie_ia_melee_j1",
+      "day": 1,
+      "territory": "null",
+      "mode": "SURVIVAL",
+      "playerPosition": [
+        160.5,
+        200.0,
+        158.5
+      ],
+      "shotsOrLaunches": 0,
+      "hits": 0,
+      "damageEvents": 5,
+      "cancelledDamageEvents": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 5.0,
+      "expectedHealthLoss": true
+    },
+    {
+      "case": "creeper_explosion_physique_j2",
+      "day": 2,
+      "territory": "null",
+      "mode": "SURVIVAL",
+      "playerPosition": [
+        160.5,
+        200.0,
+        158.5
+      ],
+      "shotsOrLaunches": 0,
+      "hits": 0,
+      "damageEvents": 1,
+      "cancelledDamageEvents": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 12.4375,
+      "expectedHealthLoss": true
+    },
+    {
+      "case": "fleche_joueur_j1_refusee",
+      "day": 1,
+      "territory": "null",
+      "mode": "SURVIVAL",
+      "playerPosition": [
+        160.5,
+        200.0,
+        158.5
+      ],
+      "shotsOrLaunches": 1,
+      "hits": 1,
+      "damageEvents": 1,
+      "cancelledDamageEvents": 1,
+      "healthBefore": 20.0,
+      "healthAfter": 20.0,
+      "expectedHealthLoss": false
+    },
+    {
+      "case": "fleche_joueur_j2_neutre",
+      "day": 2,
+      "territory": "null",
+      "mode": "SURVIVAL",
+      "playerPosition": [
+        160.5,
+        200.0,
+        158.5
+      ],
+      "shotsOrLaunches": 1,
+      "hits": 1,
+      "damageEvents": 1,
+      "cancelledDamageEvents": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 16.0,
+      "expectedHealthLoss": true
+    },
+    {
+      "case": "fleche_joueur_j2_base_refusee",
+      "day": 2,
+      "territory": "§x§f§f§5§5§5§5Rouge",
+      "mode": "SURVIVAL",
+      "playerPosition": [
+        -239.5,
+        200.0,
+        -239.5
+      ],
+      "shotsOrLaunches": 1,
+      "hits": 1,
+      "damageEvents": 1,
+      "cancelledDamageEvents": 1,
+      "healthBefore": 20.0,
+      "healthAfter": 20.0,
+      "expectedHealthLoss": false
+    },
+    {
+      "case": "fleche_joueur_j3_base",
+      "day": 3,
+      "territory": "§x§f§f§5§5§5§5Rouge",
+      "mode": "SURVIVAL",
+      "playerPosition": [
+        -239.5,
+        200.0,
+        -239.5
+      ],
+      "shotsOrLaunches": 1,
+      "hits": 1,
+      "damageEvents": 1,
+      "cancelledDamageEvents": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 16.0,
+      "expectedHealthLoss": true
+    },
+    {
+      "case": "distributeur_reel_attribue_j3",
+      "day": 3,
+      "territory": "null",
+      "mode": "SURVIVAL",
+      "playerPosition": [
+        160.5,
+        200.0,
+        158.5
+      ],
+      "shotsOrLaunches": 1,
+      "hits": 1,
+      "damageEvents": 1,
+      "cancelledDamageEvents": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 17.0,
+      "expectedHealthLoss": true
+    },
+    {
+      "case": "squelette_apres_respawn_grace_pvp",
+      "day": 3,
+      "territory": "null",
+      "mode": "SURVIVAL",
+      "playerPosition": [
+        160.5,
+        200.0,
+        158.5
+      ],
+      "shotsOrLaunches": 2,
+      "hits": 2,
+      "damageEvents": 2,
+      "cancelledDamageEvents": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 12.0,
+      "expectedHealthLoss": true
+    },
+    {
+      "case": "arbitre_creatif_fleche_physique",
+      "day": 3,
+      "territory": "null",
+      "mode": "CREATIVE",
+      "playerPosition": [
+        160.5,
+        200.0,
+        158.5
+      ],
+      "shotsOrLaunches": 1,
+      "hits": 1,
+      "damageEvents": 0,
+      "cancelledDamageEvents": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 20.0,
+      "expectedHealthLoss": false
+    },
+    {
+      "case": "elimine_spectateur_fleche_physique",
+      "day": 3,
+      "territory": "null",
+      "mode": "SPECTATOR",
+      "playerPosition": [
+        160.5,
+        200.0,
+        158.5
+      ],
+      "shotsOrLaunches": 1,
+      "hits": 0,
+      "damageEvents": 0,
+      "cancelledDamageEvents": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 20.0,
+      "expectedHealthLoss": false
+    }
+  ],
+  "suites": [
+    {
+      "suite": "final",
+      "passed": true,
+      "sourceUnchanged": true,
+      "fkamisSha256": "905b0f4b11192d26cd59b82b151525ad3b69f7f1803c65760589800404345ca5",
+      "phases": [
+        {
+          "suite": "final",
+          "phase": 0,
+          "passed": true,
+          "assertions": 79,
+          "exitCode": 0,
+          "timeout": false,
+          "errors": [],
+          "warnings": [
+            "\u001b[33;1m[10:41:08 WARN]: A manual (plugin-induced) save has been detected while server is configured to auto-save. This may affect performance."
+          ],
+          "queryLoopback": true,
+          "authenticatedClients": 0,
+          "elapsedSeconds": 15,
+          "logSha256": "0128ac54abd043efe04fb39aa68976ca24f176e4bff2e86dec14ad56651c64e8"
+        },
+        {
+          "suite": "final",
+          "phase": 1,
+          "passed": true,
+          "assertions": 11,
+          "exitCode": 0,
+          "timeout": false,
+          "errors": [],
+          "warnings": [],
+          "queryLoopback": true,
+          "authenticatedClients": 0,
+          "elapsedSeconds": 15,
+          "logSha256": "8b6085af283dacf048038f7fafe6cbe13555b161312895666f4d8c32a2d90b7c"
+        }
+      ],
+      "clientRenderingVerified": false,
+      "remoteAccessPerformed": false
+    },
+    {
+      "suite": "four",
+      "passed": true,
+      "sourceUnchanged": true,
+      "fkamisSha256": "905b0f4b11192d26cd59b82b151525ad3b69f7f1803c65760589800404345ca5",
+      "phases": [
+        {
+          "suite": "four",
+          "phase": 0,
+          "passed": true,
+          "assertions": 47,
+          "exitCode": 0,
+          "timeout": false,
+          "errors": [],
+          "warnings": [
+            "\u001b[33;1m[10:41:41 WARN]: A manual (plugin-induced) save has been detected while server is configured to auto-save. This may affect performance."
+          ],
+          "queryLoopback": true,
+          "authenticatedClients": 0,
+          "elapsedSeconds": 10,
+          "logSha256": "69ac85827eff879ee10de293c601eb092c564a996fa9139eca2c9b2ccf5c7de0"
+        }
+      ],
+      "clientRenderingVerified": false,
+      "remoteAccessPerformed": false
+    },
+    {
+      "suite": "features-1",
+      "passed": true,
+      "sourceUnchanged": true,
+      "fkamisSha256": "905b0f4b11192d26cd59b82b151525ad3b69f7f1803c65760589800404345ca5",
+      "phases": [
+        {
+          "suite": "features-1",
+          "phase": 0,
+          "passed": true,
+          "assertions": 14,
+          "exitCode": 0,
+          "timeout": false,
+          "errors": [],
+          "warnings": [],
+          "queryLoopback": true,
+          "authenticatedClients": 0,
+          "elapsedSeconds": 10,
+          "logSha256": "ffcf00dc6ea99c9544b41f54bfcb58eead8ef44bdb0a1a7ee7e20d984c146977"
+        },
+        {
+          "suite": "features-1",
+          "phase": 1,
+          "passed": true,
+          "assertions": 67,
+          "exitCode": 0,
+          "timeout": false,
+          "errors": [],
+          "warnings": [],
+          "queryLoopback": true,
+          "authenticatedClients": 0,
+          "elapsedSeconds": 10,
+          "logSha256": "88025656f861856ecc5f3efd6c90859591f23df1fc95a30f5f800a0bf93acc1e"
+        },
+        {
+          "suite": "features-1",
+          "phase": 2,
+          "passed": true,
+          "assertions": 15,
+          "exitCode": 0,
+          "timeout": false,
+          "errors": [],
+          "warnings": [],
+          "queryLoopback": true,
+          "authenticatedClients": 0,
+          "elapsedSeconds": 10,
+          "logSha256": "3925de729bd3aa1646c8aa3c71670a83b15221995ddfc81ef0238e937e1deafc"
+        }
+      ],
+      "clientRenderingVerified": false,
+      "remoteAccessPerformed": false
+    },
+    {
+      "suite": "features-2",
+      "passed": true,
+      "sourceUnchanged": true,
+      "fkamisSha256": "905b0f4b11192d26cd59b82b151525ad3b69f7f1803c65760589800404345ca5",
+      "phases": [
+        {
+          "suite": "features-2",
+          "phase": 0,
+          "passed": true,
+          "assertions": 14,
+          "exitCode": 0,
+          "timeout": false,
+          "errors": [],
+          "warnings": [],
+          "queryLoopback": true,
+          "authenticatedClients": 0,
+          "elapsedSeconds": 10,
+          "logSha256": "8876d1f1a6bd1b59a05b69bd0274db55ca7c37087199372ebcf69ce4cb0a6463"
+        },
+        {
+          "suite": "features-2",
+          "phase": 1,
+          "passed": true,
+          "assertions": 67,
+          "exitCode": 0,
+          "timeout": false,
+          "errors": [],
+          "warnings": [],
+          "queryLoopback": true,
+          "authenticatedClients": 0,
+          "elapsedSeconds": 10,
+          "logSha256": "76970e13aa607fe6bf3547acef681838722301abc9d6aa6bc06abd5ccd29ebe8"
+        },
+        {
+          "suite": "features-2",
+          "phase": 2,
+          "passed": true,
+          "assertions": 21,
+          "exitCode": 0,
+          "timeout": false,
+          "errors": [],
+          "warnings": [],
+          "queryLoopback": true,
+          "authenticatedClients": 0,
+          "elapsedSeconds": 10,
+          "logSha256": "144b8c1fc0beaa5916d702c98ea544acf6870b9578bb0486acb858689c305149"
+        }
+      ],
+      "clientRenderingVerified": false,
+      "remoteAccessPerformed": false
+    },
+    {
+      "suite": "features-3",
+      "passed": true,
+      "sourceUnchanged": true,
+      "fkamisSha256": "905b0f4b11192d26cd59b82b151525ad3b69f7f1803c65760589800404345ca5",
+      "phases": [
+        {
+          "suite": "features-3",
+          "phase": 0,
+          "passed": true,
+          "assertions": 14,
+          "exitCode": 0,
+          "timeout": false,
+          "errors": [],
+          "warnings": [],
+          "queryLoopback": true,
+          "authenticatedClients": 0,
+          "elapsedSeconds": 10,
+          "logSha256": "866e85c3baad21383a45a24353d58224894d061fe7060a22592c079eab064768"
+        },
+        {
+          "suite": "features-3",
+          "phase": 1,
+          "passed": true,
+          "assertions": 68,
+          "exitCode": 0,
+          "timeout": false,
+          "errors": [],
+          "warnings": [],
+          "queryLoopback": true,
+          "authenticatedClients": 0,
+          "elapsedSeconds": 10,
+          "logSha256": "1099b3a6794538a7198260301f3e243c6c5e25b09fbf328de5e0e180d358918e"
+        },
+        {
+          "suite": "features-3",
+          "phase": 2,
+          "passed": true,
+          "assertions": 27,
+          "exitCode": 0,
+          "timeout": false,
+          "errors": [],
+          "warnings": [],
+          "queryLoopback": true,
+          "authenticatedClients": 0,
+          "elapsedSeconds": 10,
+          "logSha256": "6ed9951cc8629de57438fe7acffa7574ddfd7876dbdc5583c36ad104916c7edd"
+        }
+      ],
+      "clientRenderingVerified": false,
+      "remoteAccessPerformed": false
+    },
+    {
+      "suite": "features-4",
+      "passed": true,
+      "sourceUnchanged": true,
+      "fkamisSha256": "905b0f4b11192d26cd59b82b151525ad3b69f7f1803c65760589800404345ca5",
+      "phases": [
+        {
+          "suite": "features-4",
+          "phase": 0,
+          "passed": true,
+          "assertions": 14,
+          "exitCode": 0,
+          "timeout": false,
+          "errors": [],
+          "warnings": [],
+          "queryLoopback": true,
+          "authenticatedClients": 0,
+          "elapsedSeconds": 10,
+          "logSha256": "25e22e7753950fdcb915f393b73dd4190cef5fe700f603953442d79d575c264f"
+        },
+        {
+          "suite": "features-4",
+          "phase": 1,
+          "passed": true,
+          "assertions": 68,
+          "exitCode": 0,
+          "timeout": false,
+          "errors": [],
+          "warnings": [],
+          "queryLoopback": true,
+          "authenticatedClients": 0,
+          "elapsedSeconds": 10,
+          "logSha256": "e9a302f29dc8852957675ee720792756a9fe8a3e507a4e2f9b5a2cc13a5db18d"
+        },
+        {
+          "suite": "features-4",
+          "phase": 2,
+          "passed": true,
+          "assertions": 33,
+          "exitCode": 0,
+          "timeout": false,
+          "errors": [],
+          "warnings": [],
+          "queryLoopback": true,
+          "authenticatedClients": 0,
+          "elapsedSeconds": 10,
+          "logSha256": "c94b7dbcd4a78b7b80c14466f914d042da9f7cb3451bdcc73905b648ef1961f1"
+        }
+      ],
+      "clientRenderingVerified": false,
+      "remoteAccessPerformed": false
+    },
+    {
+      "suite": "next1",
+      "passed": true,
+      "sourceUnchanged": true,
+      "fkamisSha256": "905b0f4b11192d26cd59b82b151525ad3b69f7f1803c65760589800404345ca5",
+      "phases": [
+        {
+          "suite": "next1",
+          "phase": 0,
+          "passed": true,
+          "assertions": 52,
+          "exitCode": 0,
+          "timeout": false,
+          "errors": [],
+          "warnings": [
+            "\u001b[33;1m[10:44:22 WARN]: [FKAmis] Portail officiel endommagé ou sortie obstruée : voyages désactivés, intervention arbitre requise."
+          ],
+          "queryLoopback": true,
+          "authenticatedClients": 0,
+          "elapsedSeconds": 20,
+          "logSha256": "2b7182d3074b060b92666f9096d90bbbe0740268f775d2156efb0363fb685fe9"
+        },
+        {
+          "suite": "next1",
+          "phase": 1,
+          "passed": true,
+          "assertions": 3,
+          "exitCode": 0,
+          "timeout": false,
+          "errors": [],
+          "warnings": [],
+          "queryLoopback": true,
+          "authenticatedClients": 0,
+          "elapsedSeconds": 10,
+          "logSha256": "e4484365bb57fb9d6fbd12199b795124287ac743a7838488210b54b85b61f61b"
+        }
+      ],
+      "clientRenderingVerified": false,
+      "remoteAccessPerformed": false
+    },
+    {
+      "suite": "supplies",
+      "passed": true,
+      "sourceUnchanged": true,
+      "fkamisSha256": "905b0f4b11192d26cd59b82b151525ad3b69f7f1803c65760589800404345ca5",
+      "phases": [
+        {
+          "suite": "supplies",
+          "phase": 0,
+          "passed": true,
+          "assertions": 41,
+          "exitCode": 0,
+          "timeout": false,
+          "errors": [],
+          "warnings": [],
+          "queryLoopback": true,
+          "authenticatedClients": 0,
+          "elapsedSeconds": 20,
+          "logSha256": "18ed020344c72bd0ea2b345dcfe23d9c9d347d4dfc448e157d46f904c603cfe1"
+        },
+        {
+          "suite": "supplies",
+          "phase": 1,
+          "passed": true,
+          "assertions": 6,
+          "exitCode": 0,
+          "timeout": false,
+          "errors": [],
+          "warnings": [],
+          "queryLoopback": true,
+          "authenticatedClients": 0,
+          "elapsedSeconds": 20,
+          "logSha256": "e4c75a78c79e0c2e1d664a42c1e24fe68dd205be8f444c902bf60946ac1bc692"
+        }
+      ],
+      "clientRenderingVerified": false,
+      "remoteAccessPerformed": false
+    },
+    {
+      "suite": "statistics",
+      "passed": true,
+      "sourceUnchanged": true,
+      "fkamisSha256": "905b0f4b11192d26cd59b82b151525ad3b69f7f1803c65760589800404345ca5",
+      "phases": [
+        {
+          "suite": "statistics",
+          "phase": 0,
+          "passed": true,
+          "assertions": 16,
+          "exitCode": 0,
+          "timeout": false,
+          "errors": [],
+          "warnings": [],
+          "queryLoopback": true,
+          "authenticatedClients": 0,
+          "elapsedSeconds": 10,
+          "logSha256": "9df42ecc3c866b185d96e89034c03f696fd30a35bfd5b3aa7ccc3391dfa8e93b"
+        },
+        {
+          "suite": "statistics",
+          "phase": 1,
+          "passed": true,
+          "assertions": 81,
+          "exitCode": 0,
+          "timeout": false,
+          "errors": [],
+          "warnings": [],
+          "queryLoopback": true,
+          "authenticatedClients": 0,
+          "elapsedSeconds": 10,
+          "logSha256": "13b2e260db7a89c8648a685bb82025db0ac793beeff035b2b0f15cee4fcd7a90"
+        },
+        {
+          "suite": "statistics",
+          "phase": 2,
+          "passed": true,
+          "assertions": 5,
+          "exitCode": 0,
+          "timeout": false,
+          "errors": [],
+          "warnings": [],
+          "queryLoopback": true,
+          "authenticatedClients": 0,
+          "elapsedSeconds": 10,
+          "logSha256": "1a1443d807fa78567df5d8b0380b1a960c787b966d21f5c24840b49edf5e59ab"
+        }
+      ],
+      "clientRenderingVerified": false,
+      "remoteAccessPerformed": false
+    },
+    {
+      "suite": "physics",
+      "passed": true,
+      "sourceUnchanged": true,
+      "fkamisSha256": "905b0f4b11192d26cd59b82b151525ad3b69f7f1803c65760589800404345ca5",
+      "phases": [
+        {
+          "suite": "physics",
+          "phase": 0,
+          "passed": true,
+          "assertions": 0,
+          "exitCode": 0,
+          "timeout": false,
+          "errors": [],
+          "warnings": [],
+          "queryLoopback": true,
+          "authenticatedClients": 0,
+          "elapsedSeconds": 95,
+          "logSha256": "f4a0ec655fe3ea7aaa70451bae3c4055190c4a148d99034dcdac10f2596d47e5"
+        }
+      ],
+      "clientRenderingVerified": false,
+      "remoteAccessPerformed": false
+    }
+  ],
+  "terrainValidation": {
+    "passed": true,
+    "naturalBlocksChecked": 22219,
+    "footprintChunksLoaded": 47,
+    "territoriesAndSpawnsVerified": 4,
+    "day": 0,
+    "gameStarted": false,
+    "authenticatedClients": 0,
+    "visualInspection": false,
+    "generationPerformed": false,
+    "exitCode": 0,
+    "errors": 0,
+    "warnings": 0,
+    "candidateUnchanged": true,
+    "queryLoopback": true
+  },
+  "territoryNotifications": {
+    "passed": true,
+    "baseline": false,
+    "checks": [
+      "arbitre Creative réel",
+      "OP sans rôle arbitre conserve ses restrictions",
+      "phase initiale jour zéro",
+      "notification arbitre jour zéro rétablie",
+      "Survival et OP : une seule notification native, aucun doublon",
+      "présentation native et nom de l'équipe conservés",
+      "couleur verte présente dans le paquet chat",
+      "limite native 41/40 Rouge",
+      "entrée arbitre Rouge",
+      "couleur chat Rouge",
+      "limite native 41/40 Bleue",
+      "entrée arbitre Bleue",
+      "couleur chat Bleue",
+      "limite native 41/40 Verte",
+      "entrée arbitre Verte",
+      "couleur chat Verte",
+      "limite native 41/40 Jaune",
+      "entrée arbitre Jaune",
+      "couleur chat Jaune",
+      "aucun spam à l'intérieur",
+      "sortie vers zone neutre",
+      "téléportation locale acceptée",
+      "téléportation arbitre dans un territoire",
+      "arbitre pendant partie simulée commencée",
+      "participants après départ, aucun doublon",
+      "protection J1 Survival Rouge",
+      "OP sans exemption de territoire Rouge",
+      "exemption arbitre conservée Rouge",
+      "événements de test sans destruction de bloc Rouge",
+      "protection J1 Survival Bleue",
+      "OP sans exemption de territoire Bleue",
+      "exemption arbitre conservée Bleue",
+      "événements de test sans destruction de bloc Bleue",
+      "protection J1 Survival Verte",
+      "OP sans exemption de territoire Verte",
+      "exemption arbitre conservée Verte",
+      "événements de test sans destruction de bloc Verte",
+      "protection J1 Survival Jaune",
+      "OP sans exemption de territoire Jaune",
+      "exemption arbitre conservée Jaune",
+      "événements de test sans destruction de bloc Jaune",
+      "éliminé reste Spectator",
+      "éliminé : uniquement message natif préexistant, aucun repli supplémentaire",
+      "changement de dimension refusé sans nouvelle notification ni privilège",
+      "arbitre autorisé entre dimensions",
+      "sortie Overworld vers Nether",
+      "retour Overworld",
+      "entrée après changement de dimension",
+      "arbitre mobile et notifié en pause",
+      "pause et ancrage participant conservés",
+      "protection native DeepPause inchangée"
+    ],
+    "assertions": 51,
+    "observations": {
+      "day0CreativeAdminMessages": 1,
+      "day0SurvivalMessages": 1,
+      "day0OpMessages": 1
+    },
+    "authenticatedClients": 0,
+    "visualInspection": false,
+    "officialGameStarted": false,
+    "exitCode": 0,
+    "errors": 0,
+    "warnings": 0,
+    "sourceUnchanged": true,
+    "gamePort": 25629,
+    "queryLoopback": true
+  },
+  "delivery": {
+    "passed": true,
+    "revision": "V22-FINAL-20261123-02",
+    "artifacts": [
+      {
+        "file": "fallenkingdom-v22-final-candidate-private.zip",
+        "sha256": "75b192b294af5a62d966206014efe957ef6ecfe3926e4a1bfe00d2dea2b1e0ea",
+        "files": 309,
+        "bytes": 414054061
+      },
+      {
+        "file": "FKAmis-v22-final.jar",
+        "sha256": "905b0f4b11192d26cd59b82b151525ad3b69f7f1803c65760589800404345ca5",
+        "files": 1,
+        "bytes": 240041
+      }
+    ],
+    "changedCandidateFiles": [
+      "DEPLOYMENT_MANIFEST.json",
+      "FKAmis.sha256",
+      "RUNTIME_LOCK.json",
+      "plugins/FKAmis-1.0.0.jar"
+    ],
+    "candidateManagedFiles": 309,
+    "manifestEntries": 160,
+    "worldFilesIdenticalToDed565d": 121,
+    "originalCandidateUnchanged": true,
+    "maintenanceChecks": {
+      "bases": 4,
+      "monuments": 7,
+      "monumentBlocksChecked": 6689,
+      "supplySites": 8,
+      "lootChestsVerified": 6,
+      "cavernsChecked": 0,
+      "cavernBlocksChecked": 0,
+      "day": 0,
+      "started": false,
+      "undergroundMode": "vanilla-restored",
+      "naturalTerrainBlocksChecked": 37128,
+      "naturalSourceArchiveSha256": "8120f618b09b47cb0fac10e667324d06a96ca3a2c8114b1bf42193604349f5de"
+    },
+    "remoteAccessPerformed": false,
+    "deployed": false
+  },
+  "finishedGameRestoration": {
+    "passed": true,
+    "archive": "finished-simulated-match-private.zip",
+    "sha256": "6cdf8fc34a48f91d89c8f43234c3c37b16ce997aac30260733a69288b7d1c15a",
+    "filesRestoredAndVerified": 318,
+    "functionalBoot": {
+      "suite": "finished-match-restore",
+      "phase": 0,
+      "passed": true,
+      "assertions": 0,
+      "exitCode": 0,
+      "timeout": false,
+      "errors": [],
+      "warnings": [],
+      "queryLoopback": true,
+      "authenticatedClients": 0,
+      "elapsedSeconds": 15,
+      "logSha256": "1da8f5cbf06e33bea915ee4004d3009269cf4ebc18e71399d3111a0d08a3821d"
+    },
+    "restoredGame": {
+      "eliminatedTeams": 3,
+      "participants": 16,
+      "passed": true,
+      "winner": "Rouge",
+      "paused": true,
+      "day": 3,
+      "statisticsSha256": "1ba76204c47bf0c9403d0982f85653989603792df35bd68a00cac8ff65735a4b",
+      "authenticatedClients": 0
+    },
+    "preservation": {
+      "worldRegionFilesCompared": 76,
+      "worldChunksCompared": 21847,
+      "inventoryAndLootLocationsCompared": 996,
+      "inventoriesAndLootPreserved": true,
+      "noRegionOrChunkRemovedOrAdded": true
+    },
+    "restoreControlUnchanged": true,
+    "sourceUnchanged": true,
+    "historicalBackupUsed": false,
+    "authenticatedClients": 0
+  },
+  "originalCandidateAndArtifactsUnchanged": true,
+  "historicalArchiveAndManifestUnchangedSha256": {
+    "instance.zip": "255fb82eeddb4b067313e8a6ce39ed012ada204f28d0a7bdb0b85ec2025663bf",
+    "manifest.json": "b54da288c8ad983c6bc35172ed1e0a697812b210dd7afe38ffb7e060f9ff81a1"
+  },
+  "candidateWorldFilesUnchanged": 121,
+  "previousTerrainProofRetainedSha256": "aa99ba22f35aeb38828de6f818e66e0e42a7c92253b5a6ffd5538dc955c8f7f1",
+  "diagnosticAttemptsPreserved": [
+    {
+      "attempt": "final-01",
+      "reason": "Retour Nether après redémarrage impossible, chargement des cadres incomplet"
+    },
+    {
+      "attempt": "final-02",
+      "reason": "Cadre Nether non chargé après reprise"
+    },
+    {
+      "attempt": "final-03",
+      "reason": "Lecture diagnostique charge les cadres et masque le premier défaut ; désactivation révèle le même défaut sur les surfaces"
+    },
+    {
+      "attempt": "final-04",
+      "reason": "80 assertions réussies, remplacées par la campagne élargie final-05 à 88 assertions"
+    },
+    {
+      "attempt": "supplies-01",
+      "reason": "Préfixe de rapport refusé par la sonde historique, corrigé dans l’orchestrateur"
+    },
+    {
+      "attempt": "candidate-before-maintenance-utf8-fix",
+      "reason": "Sortie du sous-processus Python en encodage Windows ; finalisation arrêtée puis relancée sur copie neuve en UTF-8"
+    },
+    {
+      "attempt": "final-06",
+      "directory": "C:\\Users\\youne\\FKBackups\\V22-FINAL-20261123-01",
+      "reason": "Élimination entre demande et callback : autorisation de voyage périmée ; défaut reproduit puis corrigé avant nouvelle campagne complète"
+    }
+  ],
+  "privateWorkDirectory": "C:\\Users\\youne\\FKBackups\\V22-FINAL-20261123-02",
+  "privateEvidenceSha256": {
+    "delivery-private.json": "63763b6b39884df7b74928673b3a2a8f74067210ab3810edf32a7f3cc0dfbce6",
+    "finished-match-restore-result.json": "5417b4713e03d08dddab5062c090a0ebe4d4a2a152d2d38e1f7b3e47675c9d88",
+    "vanilla-paper-validation-result.json": "d6445c57679499ec2673fc0decce8a8c76b9a37dd3725f320880ee3f3f2d2e57",
+    "territory-fixed-01-result.json": "ea703cec1d9c8761b9d3b5d7fc15abd18749a9938ddfcfd1522778aaa2fc916c",
+    "candidate-files-private.json": "93620ad3377078b345fd18055421c8f421a3e89e8bce4206ce4255666f52c875",
+    "source-files-private.json": "dc32d5e472b1f395b8d7543bab2321b7eaa0a305f876df537f352dcbe3655f3f",
+    "finished-match-boot-file-differences-private.json": "c59f209aaac32c5f9ca5f31b44b13a9e3eb36112107587a1d4c7abb6213c598b",
+    "final-result.json": "403b877f8ba1a1cdaca940232273dee5ce8867c82fa9a6b5301291987a1b12f5",
+    "four-result.json": "8babbfa01c279485d0dda974fdfde60b1859db9956ea4e2d38ab30a696bb3157",
+    "features-1-result.json": "5f221fa4dc87f9a33c471d131e18acd557aa4c79c2ff2f4fd8a16523320b2c46",
+    "features-2-result.json": "05e09ad7fe7e7831474a53dbf1dba3319789ac80c0f74a2d214d16c356c34125",
+    "features-3-result.json": "061015d12d7cd2ce6874ff6b7b439ac9ef355ec4bf80e95d1c0467af64e7a85e",
+    "features-4-result.json": "206c0bd40ef3e99fe6db33fdd646ee3978a8c2833e8c70fa25f8a3e606d6c4dd",
+    "next1-result.json": "1945dc6c024ae8db596d0b7104ae1df78bc00b502c7392b2c89a8e7ed5db86f9",
+    "supplies-result.json": "73c0de2be8aaffc4f4fabe8ec8796d52183fbd5556acf472b94c3bc51b78cd65",
+    "statistics-result.json": "61b94aeb58c9c29ad6805e7fab6bb45b0d25a25fb95cba7a1102ac59a88b1292",
+    "physics-result.json": "8304b5f484c4b0c8baa5baf206af564c1672b8ef970178f49570880d19e4b5ac"
+  },
+  "toolSha256": {
+    "plugins-custom/fk-amis/src/main/java/fr/fkamis/NetherPortalService.java": "e809db1017c49ed87732d8ae47cc3ed25e2500cfb91024a126e095bce5d60a30",
+    "plugins-custom/fk-amis/src/test/java/fr/fkamis/BaseGuidanceTest.java": "a3793420dcb173cb9f5e923461b5f2b9cfd5ff0ccbd895169cc6fb71ddef4625",
+    "plugins-custom/fk-amis/src/test/java/fr/fkamis/FinalValidationProbe.java": "89b98281801564687181e425c5d50ff1d0b3bab1636d43e04a0dfac981f0e961",
+    "plugins-custom/fk-amis/src/test/java/fr/fkamis/CampaignRestoreProbe.java": "1c0f851efa17cb405869011d877e4fac3844dc298f98ae97c24acb280f24a5a0",
+    "scripts/v22_final_campaign.py": "c5ca322dbca9976cd39e4f0176d7718c5e76d7c22f8b47ac280894b341ba4b20",
+    "scripts/v22_final_delivery.py": "b7a6fae09970f2666236a24df111e20705b0bd8820e8750db2b514f61f3c393b",
+    "tests/test_v22_campaign.py": "00c9c719f3d34b7fb4be5880fe4c2340463dc4d3d6081e1d647a01a4e6bb662c"
+  },
+  "pendingHumanValidation": [
+    "Inspection réelle des sous-sols, spawns et protections",
+    "Rendu et rythme ActionBar, chat, BossBars, latence et reconnexions",
+    "Cadres Nether réellement choisis, sorties et aller-retour authentifié",
+    "Whitelist et rôles approuvés, ouverture et déroulement de partie explicitement autorisés",
+    "Mesures MineBoard, TPS/MSPT/RAM/GC/ping à 4, 8, 16 participants puis arbitre",
+    "Sauvegarde actuelle, intégration bloc par bloc et nouveau préflight avant déploiement"
+  ],
+  "functionalRestoreBootFileDifferences": {
+    "changed": 23,
+    "created": 4,
+    "relocatedFixtureJar": 1
+  },
+  "intermediateCandidateSupersededButPreserved": true
+}

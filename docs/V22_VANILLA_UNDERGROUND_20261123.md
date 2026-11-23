@@ -2,6 +2,11 @@
 
 **Prêt pour inspection locale. Aucun déploiement, aucune connexion à MineStrator.**
 
+Complément du 23 novembre : la [validation finale et le protocole de partie test](V22_VALIDATION_FINALE_ET_PARTIE_TEST_20261123.md)
+livrent un nouveau JAR corrigeant la reprise des cadres Nether. Les artefacts et
+empreintes ci-dessous restent ceux de la première livraison, conservée intacte ;
+utiliser le candidat `V22-FINAL-20261123-02` pour la prochaine inspection complète.
+
 La révision `V2.2-vanilla-underground` supprime les quatre chantiers de cavernes
 en restaurant les états de blocs de la référence antérieure approuvée. Elle
 ajoute un repli indépendant de notification dans FKAmis pour l'arbitre.

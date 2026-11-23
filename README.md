@@ -1,8 +1,12 @@
 # Fallen Kingdom privé — quatre royaumes et un arbitre
 
-La révision locale [V2.2 — sous-sols d'origine et notifications de territoire](docs/V22_VANILLA_UNDERGROUND_20261123.md)
-est prête pour inspection : terrain restauré depuis l'archive approuvée antérieure
-aux cavernes et notifications arbitre rétablies. Aucun déploiement V2.2 effectué.
+La [validation finale V2.2 et le protocole de partie test](docs/V22_VALIDATION_FINALE_ET_PARTIE_TEST_20261123.md)
+complètent la révision locale : guidage privé contrôlé, reprise Nether corrigée,
+simulations jusqu'à la victoire et restauration fonctionnelle. Utiliser le nouveau
+JAR et candidat `V22-FINAL-20261123-02`, conservés hors Git. Aucun déploiement V2.2
+ni partie avec clients authentifiés effectué. L'inspection humaine reste nécessaire.
+Le [rapport du terrain d'origine](docs/V22_VANILLA_UNDERGROUND_20261123.md) conserve
+la preuve de restauration antérieure aux cavernes et des notifications arbitre.
 La [variante R2](docs/NATURAL_CAVERNS_20261121.md) est abandonnée à la demande du
 propriétaire ; ses fichiers et preuves restent conservés hors Git.
 

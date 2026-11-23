@@ -1,0 +1,5 @@
+name: FKCampaignRestoreProbe
+version: 1.0.0
+main: fr.fkamis.CampaignRestoreProbe
+api-version: '26.3'
+depend: [FKAmis]

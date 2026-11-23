@@ -20,7 +20,12 @@ final class NetherPortalService implements Listener {
         boolean includes(Location at){if(!world.equals(at.getWorld().getName()))return false;int u=axis==Axis.X?at.getBlockX()-x:at.getBlockZ()-z;
             return (axis==Axis.X?at.getBlockZ()==z:at.getBlockX()==x)&&u>=0&&u<width&&at.getBlockY()>=y&&at.getBlockY()<y+height;}
         boolean loaded(){if(level()==null)return false;for(int u=-1;u<=width;u++){Location at=at(u,0);if(!level().isChunkLoaded(at.getBlockX()>>4,at.getBlockZ()>>4))return false;}return true;}
-        void load(){for(int u=-1;u<=width;u++){Location at=at(u,0);if(!level().isChunkGenerated(at.getBlockX()>>4,at.getBlockZ()>>4))throw new IllegalArgumentException("Chunk de portail absent ; aucune génération automatique.");level().getChunkAt(at.getBlockX()>>4,at.getBlockZ()>>4,false);}}
+        void load(){for(int u=-1;u<=width;u++){Location at=at(u,0);int cx=at.getBlockX()>>4,cz=at.getBlockZ()>>4;
+            if(!level().isChunkGenerated(cx,cz))throw new IllegalArgumentException("Chunk de portail absent ; aucune génération automatique.");
+            // Paper 26.3 : getChunkAt(x,z,false) ne fournit qu'un wrapper, sans charger le chunk.
+            // Le contrôle précédent impose un chunk déjà généré avant ce chargement réel.
+            level().getChunkAt(cx,cz);
+        }}
         boolean intact(boolean requirePortal){
             if(!loaded())return false;
             for(int u=-1;u<=width;u++)for(int v=-1;v<=height;v++){
@@ -70,7 +75,7 @@ final class NetherPortalService implements Listener {
             case "status"->sender.sendMessage("Portail officiel : "+frames.keySet()+", activation administrative "+activated+", voyage actuellement "+(open()?"ouvert":"fermé/suspendu")+". Aucune sortie Vanilla générée.");
             case "register"->{if(args.length!=4||!Set.of("overworld","nether").contains(args[3])||!(sender instanceof Player player)||activated)throw new IllegalArgumentException("Arbitre en jeu : nether portal register overworld|nether, après désactivation.");Frame frame=detect(player,args[3]);frames.put(args[3],frame);updateProtection();save(sender,"register "+args[3]);}
             case "activate"->{if(!plugin.state.running()||plugin.state.day<plugin.getConfig().getInt("nether-day")||frames.size()!=2)throw new IllegalArgumentException("Deux cadres officiels enregistrés et phase Nether active, hors pause, requis.");frames.forEach((side,frame)->{frame.load();validate(frame,side,true);});activated=true;if(!plugin.saveState()){activated=false;throw new IllegalArgumentException("Écriture refusée ; portail non activé.");}sync();audit(sender,"activate");}
-            case "deactivate"->{activated=false;frames.values().forEach(f->f.render(false));save(sender,"deactivate");}
+            case "deactivate"->{activated=false;if(!plugin.saveState())throw new IllegalArgumentException("État non sauvegardé ; arrêt de sécurité.");frames.values().forEach(f->{f.load();f.render(false);});audit(sender,"deactivate");sender.sendMessage("§aPortail officiel désactivé.");}
             default->throw new IllegalArgumentException("nether portal register|activate|deactivate|status");
         }
     }
@@ -80,8 +85,9 @@ final class NetherPortalService implements Listener {
     void sync(){boolean open=open();for(Frame frame:frames.values()){if(open)frame.load();if(frame.loaded()){if(open&&!frame.intact(false)){activated=false;plugin.saveState();}frame.render(open&&activated);}}}
     void tick(){if(!open())return;for(Frame frame:frames.values())if(frame.loaded()&&(!frame.intact(true)||!TravelSafety.safe(frame.exit))){activated=false;frames.values().forEach(f->f.render(false));plugin.saveState();plugin.getLogger().warning("Portail officiel endommagé ou sortie obstruée : voyages désactivés, intervention arbitre requise.");break;}}
     boolean permits(PlayerTeleportEvent event){return event.getPlayer().getUniqueId().equals(permit)&&permittedDestination!=null&&event.getTo()!=null&&event.getTo().getWorld().equals(permittedDestination.getWorld())&&event.getTo().distanceSquared(permittedDestination)<.01;}
+    private boolean eligible(Player player){return (plugin.activeParticipant(player)||plugin.isAdministrator(player))&&player.getGameMode()!=GameMode.SPECTATOR;}
     private void travel(Player player){
-        if(!open()||(!plugin.activeParticipant(player)&&!plugin.isAdministrator(player))||player.getGameMode()==GameMode.SPECTATOR||pending.containsKey(player.getUniqueId())||cooldown.getOrDefault(player.getUniqueId(),0L)>System.nanoTime())return;
+        if(!open()||!eligible(player)||pending.containsKey(player.getUniqueId())||cooldown.getOrDefault(player.getUniqueId(),0L)>System.nanoTime())return;
         String origin=player.getWorld().getEnvironment()==World.Environment.NETHER?"nether":"overworld";Frame source=frames.get(origin),target=frames.get(origin.equals("nether")?"overworld":"nether");
         if(source==null||target==null||!source.includes(player.getLocation())||!source.intact(true)||!player.getPassengers().isEmpty())return;
         UUID ticket=UUID.randomUUID();pending.put(player.getUniqueId(),ticket);
@@ -89,7 +95,7 @@ final class NetherPortalService implements Listener {
         var loads=chunks.stream().map(key->target.level().getChunkAtAsync((int)(key>>32),(int)(long)key,false)).toList();
         java.util.concurrent.CompletableFuture.allOf(loads.toArray(java.util.concurrent.CompletableFuture[]::new)).whenComplete((unused,error)->Bukkit.getScheduler().runTask(plugin,()->{
             if(!pending.remove(player.getUniqueId(),ticket))return;
-            if(error!=null||loads.stream().anyMatch(f->f.getNow(null)==null)||!player.isOnline()||Bukkit.getPlayer(player.getUniqueId())!=player||!open()||!source.includes(player.getLocation())||!source.intact(true)||!target.intact(true)||!TravelSafety.safe(target.exit))return;
+            if(error!=null||loads.stream().anyMatch(f->f.getNow(null)==null)||!player.isOnline()||Bukkit.getPlayer(player.getUniqueId())!=player||!open()||!eligible(player)||!source.includes(player.getLocation())||!source.intact(true)||!target.intact(true)||!TravelSafety.safe(target.exit))return;
             if(player.isInsideVehicle())player.leaveVehicle();permit=player.getUniqueId();permittedDestination=target.exit;
             try{if(player.teleport(target.exit,PlayerTeleportEvent.TeleportCause.NETHER_PORTAL))cooldown.put(player.getUniqueId(),System.nanoTime()+3_000_000_000L);}finally{permit=null;permittedDestination=null;}
         }));
