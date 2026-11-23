@@ -8,6 +8,12 @@ Un puits dangereux a été identifié : la condition de sécurité échoue, la r
 r2 reste non approuvée et la sauvegarde actuelle autorisée sous condition n'a pas
 été engagée. Les mesures et propositions ci-dessous restent la preuve du préflight.
 
+**Suite locale :** la [restauration ciblée du puits](V22_SHAFT_RESTORATION_20261123.md)
+est techniquement validée et prête pour inspection humaine. Sa nouvelle liste de
+17 fichiers et ses empreintes remplacent la proposition r2 pour la revue ; aucune
+bascule ni sauvegarde distante n'a été effectuée. Les observations distantes de ce
+rapport n'ont pas été renouvelées pendant cette correction locale.
+
 Deux préconditions restent ouvertes : approbation de la référence proposée qui
 préserve deux cellules de recette, puis autorisation/réalisation/vérification
 d'une nouvelle sauvegarde complète actuelle avec restauration de contrôle.

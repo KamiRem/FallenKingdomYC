@@ -43,7 +43,12 @@ public final class VanillaUndergroundProbe extends JavaPlugin {
             var m=amis.getClass().getDeclaredMethod("safeSpawn",String.class);m.setAccessible(true);if(!(boolean)m.invoke(amis,team.getName()))throw new AssertionError("Spawn non praticable");
         }
         var state=YamlConfiguration.loadConfiguration(Path.of("plugins/FKAmis/state.yml").toFile());if(state.getBoolean("started")||state.getInt("day")!=0)throw new AssertionError("Partie initiale altérée");
-        Map<String,Object> result=new LinkedHashMap<>();result.put("passed",true);result.put("naturalBlocksChecked",checked);result.put("footprintChunksLoaded",chunks.size());result.put("territoriesAndSpawnsVerified",4);result.put("day",0);result.put("gameStarted",false);result.put("authenticatedClients",0);result.put("visualInspection",false);result.put("generationPerformed",false);
+        int surfaces=0;
+        if(plan.has("surfaceChecks"))for(JsonElement raw:plan.getAsJsonArray("surfaceChecks")){
+            JsonObject s=raw.getAsJsonObject();JsonArray at=s.getAsJsonArray("at");int x=at.get(0).getAsInt(),y=at.get(1).getAsInt(),z=at.get(2).getAsInt();
+            if(world.getHighestBlockAt(x,z).getY()!=y||!world.getBlockAt(x,y,z).getBlockData().matches(Bukkit.createBlockData(s.get("state").getAsString()))||!world.getBlockAt(x,y+1,z).isPassable()||!world.getBlockAt(x,y+2,z).isPassable())throw new AssertionError("Surface ou heightmap du puits incorrecte");surfaces++;
+        }
+        Map<String,Object> result=new LinkedHashMap<>();result.put("passed",true);result.put("naturalBlocksChecked",checked);result.put("footprintChunksLoaded",chunks.size());result.put("territoriesAndSpawnsVerified",4);result.put("surfaceChecksVerified",surfaces);result.put("day",0);result.put("gameStarted",false);result.put("authenticatedClients",0);result.put("visualInspection",false);result.put("generationPerformed",false);
         Files.writeString(Path.of("vanilla-paper-result.json"),new GsonBuilder().setPrettyPrinting().create().toJson(result));getLogger().info("VANILLA UNDERGROUND PAPER SUCCESS");Bukkit.shutdown();
     }
     private void fail(Throwable t){getLogger().log(Level.SEVERE,"VANILLA UNDERGROUND PAPER FAILED",t);Bukkit.shutdown();}

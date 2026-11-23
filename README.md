@@ -1,10 +1,12 @@
 # Fallen Kingdom privé — quatre royaumes et un arbitre
 
 Le [préflight distant V2.2 du 23 novembre](docs/MINESTRATOR_V22_PREFLIGHT_20261123.md)
-prépare 17 fichiers depuis l'état réel, sans écriture distante. **Bascule encore
-NO-GO** : la [revue conditionnelle des deux cellules](docs/MINESTRATOR_V22_CELL_REVIEW_20261123.md)
-révèle un puits dangereux ; référence r2 non validée et sauvegarde conditionnelle
-non engagée. Le [guide pratique de partie test](docs/GUIDE_PARTIE_TEST_V22.md)
+prépare 17 fichiers depuis l'état réel, sans écriture distante. La
+[correction locale du puits](docs/V22_SHAFT_RESTORATION_20261123.md) restaure ses
+33 états archivés et ses hauteurs, avec contrôle Paper réussi. **Prêt pour
+inspection humaine locale ; bascule encore NO-GO.** La sauvegarde actuelle reste
+à réaliser après validation. La [revue précédente](docs/MINESTRATOR_V22_CELL_REVIEW_20261123.md)
+est conservée comme preuve du blocage initial. Le [guide pratique de partie test](docs/GUIDE_PARTIE_TEST_V22.md)
 prévoit 4 à 16 participants réels, sans imposer seize joueurs.
 
 La [validation finale V2.2 et le protocole de partie test](docs/V22_VALIDATION_FINALE_ET_PARTIE_TEST_20261123.md)
