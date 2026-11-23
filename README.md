@@ -1,5 +1,11 @@
 # Fallen Kingdom privé — quatre royaumes et un arbitre
 
+Le [préflight distant V2.2 du 23 novembre](docs/MINESTRATOR_V22_PREFLIGHT_20261123.md)
+prépare 17 fichiers depuis l'état réel, sans écriture distante. **Bascule encore
+NO-GO** : référence préservant deux écarts à approuver et sauvegarde actuelle à
+autoriser/vérifier. Le [guide pratique de partie test](docs/GUIDE_PARTIE_TEST_V22.md)
+prévoit 4 à 16 participants réels, sans imposer seize joueurs.
+
 La [validation finale V2.2 et le protocole de partie test](docs/V22_VALIDATION_FINALE_ET_PARTIE_TEST_20261123.md)
 complètent la révision locale : guidage privé contrôlé, reprise Nether corrigée,
 simulations jusqu'à la victoire et restauration fonctionnelle. Utiliser le nouveau

@@ -1,0 +1,383 @@
+{
+  "schema": 1,
+  "operation": "MS-V22-PREFLIGHT-20261123-01",
+  "baseCommit": "2759630",
+  "preparedAtUtc": "2026-11-23T13:53:29.686218+00:00",
+  "auditCompletedReadOnly": true,
+  "remoteWritesPerformed": false,
+  "powerOrConsoleCommandSent": false,
+  "backupCreated": false,
+  "currentBackupVerified": false,
+  "currentFullRestorePerformed": false,
+  "deploymentPerformed": false,
+  "gameStartSent": false,
+  "verdict": "NO_GO_IMMEDIATE_SWITCH",
+  "preparationCompleted": true,
+  "serverId": 513365,
+  "apiIdentityVerified": true,
+  "hostKeyPinned": true,
+  "phases": {
+    "discover": {
+      "passed": true,
+      "startedAtUtc": "2026-11-23T10:09:39.355529+00:00",
+      "finishedAtUtc": "2026-11-23T10:10:36.236611+00:00",
+      "apiObservations": 13,
+      "states": [
+        "offline"
+      ],
+      "maxGapSeconds": 5.118018
+    },
+    "fingerprint": {
+      "passed": true,
+      "startedAtUtc": "2026-11-23T10:12:15.117838+00:00",
+      "finishedAtUtc": "2026-11-23T10:17:12.493742+00:00",
+      "apiObservations": 60,
+      "states": [
+        "offline"
+      ],
+      "maxGapSeconds": 5.128795
+    },
+    "regions": {
+      "passed": true,
+      "startedAtUtc": "2026-11-23T10:18:44.632833+00:00",
+      "finishedAtUtc": "2026-11-23T10:19:49.171179+00:00",
+      "apiObservations": 14,
+      "states": [
+        "offline"
+      ],
+      "maxGapSeconds": 5.118531
+    },
+    "checkpoint": {
+      "passed": true,
+      "startedAtUtc": "2026-11-23T13:50:10.823494+00:00",
+      "finishedAtUtc": "2026-11-23T13:50:11.243535+00:00",
+      "apiObservations": 2,
+      "states": [
+        "offline"
+      ],
+      "maxGapSeconds": 0.08291
+    }
+  },
+  "versions": {
+    "paper": "26.3-244",
+    "javaLastBoot": "25.0.5+8-LTS",
+    "javaImage": "reg.sttr.io/java/25_perf:latest",
+    "fallenKingdom": "2.24.9",
+    "currentFkamisSha256": "38180caa28442bad838ef395779d9075a33a2c624bc71e2286488ac0e32fb31a",
+    "proposedFkamisSha256": "905b0f4b11192d26cd59b82b151525ad3b69f7f1803c65760589800404345ca5"
+  },
+  "configuration": {
+    "gamePort": 22880,
+    "queryEnabled": true,
+    "queryPort": 22880,
+    "maxPlayers": 20,
+    "whitelistEnforced": true,
+    "whitelistAccounts": 2,
+    "whitelistUnchangedSinceDeployment": true,
+    "playersPerTeam": 4,
+    "teams": 4,
+    "officialParticipants": 0,
+    "day": 0,
+    "started": false,
+    "territoryRadius": 40,
+    "spawnsAndCentersMatchRetainedReference": true,
+    "captureSeconds": 60,
+    "captureRadius": 2.5,
+    "restartOnCrash": false,
+    "watchdogMaxTickTimeMs": 60000,
+    "administrators": 1,
+    "existingPlayerProfiles": 1,
+    "existingPlayerProfileBelongsToAdministrator": true
+  },
+  "differencesSinceInstalledPreBootV21": {
+    "baselineFiles": 302,
+    "currentFiles": 311,
+    "changed": 38,
+    "added": 9,
+    "missing": 0,
+    "changedNonWorldPaths": [
+      "plugins/FKAmis/state.yml",
+      "plugins/FallenKingdom/save.yml",
+      "server.properties",
+      "usercache.json"
+    ],
+    "serverPropertiesEffectiveChanges": [],
+    "profilePathsNotPublished": true
+  },
+  "technicalMetadata": [
+    {
+      "namespace": ".fk-stage",
+      "operations": [
+        {
+          "operation": "MS-DEPLOY-V21-20261120-01",
+          "files": 0,
+          "bytes": 0,
+          "directoryMtime": 1795213798
+        }
+      ],
+      "contentsRead": false
+    },
+    {
+      "namespace": ".fk-quarantine",
+      "operations": [
+        {
+          "operation": "MS-DEPLOY-V21-20261120-01",
+          "files": 152,
+          "bytes": 182616866,
+          "directoryMtime": 1795214136
+        }
+      ],
+      "contentsRead": false
+    }
+  ],
+  "diskSftp": {
+    "available": false,
+    "reason": "SftpStatvfsUnavailable"
+  },
+  "diskApiAvailable": false,
+  "exclusiveMaintenanceLockAvailable": false,
+  "spacePlan": {
+    "stagingBytes": 46746720,
+    "quarantineRenameAdditionalDataBytes": 0,
+    "rollbackParallelReserveBytes": 653314681,
+    "completeInstanceBytesObservedByMetadata": 653314681,
+    "completeInstanceFilesObservedByMetadata": 463,
+    "historicalQuarantineContentHashed": false,
+    "temporaryLargestFileBytes": 11403264,
+    "marginBytes": 2147483648,
+    "requiredAdditionalFreeBytes": 2858948313,
+    "remoteArchiveBytes": 0
+  },
+  "ownerReport": {
+    "receivedDuringCurrentTask": true,
+    "quotaGo": 50,
+    "rawUsageApproximatelyMo": 625,
+    "freeGreaterThan49GoIsOwnerEstimate": true,
+    "exactFreeAvailable": false,
+    "overheadAppliedValueNotTreatedAsFree": true,
+    "scheduledTaskListEmpty": true,
+    "operatingCalendarNotAvailable": true,
+    "pendingActionQueueVerified": false,
+    "hostingCrashRestartPolicyVerified": false
+  },
+  "rebase": {
+    "restoredCells": 22219,
+    "targetedChunks": 46,
+    "regions": 4,
+    "untouchedChunkPayloadsIdentical": 4050,
+    "fullChunkCellsCompared": 4710400,
+    "conflictsOnRestoredCells": 0,
+    "nonLightingMetadataAndInventoriesPreserved": true,
+    "approvedReferenceRejectedTwoRetainedStoneToAirEdits": true,
+    "proposedReferenceApprovalRequired": true,
+    "preservedTerrainEdits": 2,
+    "approvedInitialCellsMatched": 37126,
+    "cellsControlled": 37128,
+    "originalCandidateAndArchivesUnchanged": true
+  },
+  "payload": {
+    "proposedOnly": true,
+    "directory": "proposed-payload-preserve-current-r2",
+    "files": [
+      {
+        "path": "DEPLOYMENT_MANIFEST.json",
+        "action": "replace",
+        "oldSha256": "bc99993cf2796991a97adf92c12091bea86e5b5166c503258d1311aa227948e6",
+        "newSha256": "4286c50cdba4174ff2e18ea8617b7a69ea4425134ce1cd63662a947036ca0083",
+        "bytes": 20416,
+        "expectedMode": 493
+      },
+      {
+        "path": "FKAmis.sha256",
+        "action": "replace",
+        "oldSha256": "5f6e2f891a953df2ee1f0df3e5b8e0e3ab648aa6dbde62fb896d5394c02e4725",
+        "newSha256": "a04cc36aa22740ab26fab9deb75de035961c590311f7da769ad71770033bf7d1",
+        "bytes": 65,
+        "expectedMode": 493
+      },
+      {
+        "path": "RUNTIME_LOCK.json",
+        "action": "replace",
+        "oldSha256": "d0d27efcf03e9572f30964d642fcb5bef1cff6abe67c9b527c7a4c7fa24dcada",
+        "newSha256": "7806dc103c9e7328b347b0ae65fcc5d64800c42558f36eeda90aabcb2ce1884c",
+        "bytes": 724,
+        "expectedMode": 420
+      },
+      {
+        "path": "maintenance/block-defaults-26.3.json",
+        "action": "create",
+        "oldSha256": null,
+        "newSha256": "2a73826e24df6f0edd2d51b4537d56d6b11eea6f921481b595510d4ad3867012",
+        "bytes": 117634,
+        "expectedMode": 420
+      },
+      {
+        "path": "maintenance/new-match-reference-v2.2.json",
+        "action": "create",
+        "oldSha256": null,
+        "newSha256": "dcc9e54439b571ab3aaffb0606721e81153701fc1a2a371a9aafd57eed199ae3",
+        "bytes": 2676838,
+        "expectedMode": 420
+      },
+      {
+        "path": "maintenance/new-match-reference.json",
+        "action": "replace",
+        "oldSha256": "78a0112d0760333c8640ec20afd01887d0f9a07e3e5b515e4ee41760d181a2ab",
+        "newSha256": "dcc9e54439b571ab3aaffb0606721e81153701fc1a2a371a9aafd57eed199ae3",
+        "bytes": 2676838,
+        "expectedMode": 420
+      },
+      {
+        "path": "maintenance/new_match.py",
+        "action": "replace",
+        "oldSha256": "8e0a20534d0c1d8364a210d1e12ca25b7fcad0a878dd5597153f0bdbb3d7cf70",
+        "newSha256": "bf570ebb1209ac1501d5397eaff3986fe3a23bd66ec586f31dd3a3c9d2bd1d0e",
+        "bytes": 13912,
+        "expectedMode": 420
+      },
+      {
+        "path": "maintenance/terrain_reference.py",
+        "action": "create",
+        "oldSha256": null,
+        "newSha256": "4b7d817bc97e1cd1df1c50a92f3ab88e310203a8551b3ea3985ae1f1f2911e57",
+        "bytes": 2334,
+        "expectedMode": 420
+      },
+      {
+        "path": "map-underground-restoration.json",
+        "action": "create",
+        "oldSha256": null,
+        "newSha256": "dd5df124be83c3cd19fc386ac720e891c638035aa51cf1fb1f532720c60e31a9",
+        "bytes": 597,
+        "expectedMode": 493
+      },
+      {
+        "path": "map-v2-construction.json",
+        "action": "replace",
+        "oldSha256": "ccb8e3da0c88ae36766227636f505fc95653cdd6cfc7b92f3499c010e9aa0e3e",
+        "newSha256": "7b24863f05966a75970849081e59c5e88c5b647f209fe73cdff25021f4509915",
+        "bytes": 6174,
+        "expectedMode": 493
+      },
+      {
+        "path": "plugins/FKAmis-1.0.0.jar",
+        "action": "replace",
+        "oldSha256": "38180caa28442bad838ef395779d9075a33a2c624bc71e2286488ac0e32fb31a",
+        "newSha256": "905b0f4b11192d26cd59b82b151525ad3b69f7f1803c65760589800404345ca5",
+        "bytes": 240041,
+        "expectedMode": 493
+      },
+      {
+        "path": "plugins/FallenKingdom/locales/messages_fr.properties",
+        "action": "replace",
+        "oldSha256": "49d14746e14bb5b618f0bc8679936c66eaefab1317d43028074f8cc4bfd3ca5c",
+        "newSha256": "861399da795fee06f31b2ad4d20dbdaacb0686b3db995d9cfa13d218ae7ba8fa",
+        "bytes": 33751,
+        "expectedMode": 493
+      },
+      {
+        "path": "reference/history-v21/map-v21-caverns.json",
+        "action": "create",
+        "oldSha256": null,
+        "newSha256": "60cc0668cb7e90f52ef3b1aa21cc90a025fb0038f857765344bd2e6489b798ef",
+        "bytes": 5588,
+        "expectedMode": 420
+      },
+      {
+        "path": "world/dimensions/minecraft/overworld/region/r.-1.-1.mca",
+        "action": "replace",
+        "oldSha256": "27496f56f1ff8447c97931091d13a7a08093237a1f020d95b506c79abd172acd",
+        "newSha256": "b5e21a035b5db5bc0941fac62c03c9dff67145b381c319d2f18fa4a1cc3c87c5",
+        "bytes": 10424320,
+        "expectedMode": 493
+      },
+      {
+        "path": "world/dimensions/minecraft/overworld/region/r.-1.0.mca",
+        "action": "replace",
+        "oldSha256": "f66ea75cbace2c377e8a44ac784f278504e0d43236bb0997867fbf6c14795299",
+        "newSha256": "9571f2d0646b25995df88c1da1bb1426add16abd6f6fbc4ff883c206cf3429c3",
+        "bytes": 9281536,
+        "expectedMode": 493
+      },
+      {
+        "path": "world/dimensions/minecraft/overworld/region/r.0.-1.mca",
+        "action": "replace",
+        "oldSha256": "31ab51f1c1aa40347795b7c4382bb8f601079c63caafcc1f130a1c0abc211af2",
+        "newSha256": "b7083c5e24387e0184a25f4dbaad3b6ec258157e5ee06cad1bb1fee7d8b265a6",
+        "bytes": 9842688,
+        "expectedMode": 493
+      },
+      {
+        "path": "world/dimensions/minecraft/overworld/region/r.0.0.mca",
+        "action": "replace",
+        "oldSha256": "105d2b65f1144ab3fb70c116b22ed829c49844bbed5647551f157bfa4d81e182",
+        "newSha256": "96a2184d44786fae92f226a2c69e937a6ab1bcc7f189832d4c8d922f8a4325f0",
+        "bytes": 11403264,
+        "expectedMode": 493
+      }
+    ],
+    "removedActiveRecordsToQuarantine": [
+      "map-v21-caverns.json"
+    ],
+    "manifestEntries": 157,
+    "activeFilesAfterModel": 315,
+    "preservedActiveFiles": 298,
+    "quarantineNewFiles": 13,
+    "archive": "v22-transition-PROPOSED-r2-private.zip",
+    "archiveSha256": "8b9b0feabd9aa569e75d87a18629882926d691ebf0158badf694a4bd98d8bb4b",
+    "archiveBytes": 39674038,
+    "envelopeManifestNotInstalled": true
+  },
+  "simulation": {
+    "transferHashModel": {
+      "passed": true,
+      "failureInjected": false,
+      "activeFilesAfter": 315,
+      "payloadFiles": 17,
+      "quarantinedFiles": 13,
+      "preservedFiles": 298,
+      "stagingEmpty": true,
+      "realTransferPerformed": false
+    },
+    "rollbackHashModel": {
+      "passed": true,
+      "failureInjected": true,
+      "rollbackHashModelMatchesCurrentSource": true,
+      "failedAttemptPreservedFiles": 312,
+      "quarantinePreservedFiles": 3,
+      "realRestorePerformed": false
+    },
+    "physicalCurrentRestoreTestPerformed": false,
+    "newIntegratedPaperBootPerformed": false,
+    "humanClientsUsed": 0
+  },
+  "pythonTests": 162,
+  "newPreflightTests": 14,
+  "historicalArchiveAndManifestUnchangedSha256": {
+    "instance.zip": "255fb82eeddb4b067313e8a6ce39ed012ada204f28d0a7bdb0b85ec2025663bf",
+    "manifest.json": "b54da288c8ad983c6bc35172ed1e0a697812b210dd7afe38ffb7e060f9ff81a1"
+  },
+  "remainingPreconditions": [
+    "Approbation explicite de la référence proposée conservant deux écarts, ou décision distincte",
+    "Autorisation de sauvegarde avec verrou partagé ou nouvelle dérogation ciblée",
+    "Sauvegarde complète actuelle et restauration contrôlée fonctionnellement",
+    "Comparaison depuis cette sauvegarde et simulation complète concrète",
+    "Autorisation séparée de bascule, démarrage, whitelist et partie"
+  ],
+  "privateEvidenceSha256": {
+    "discover-private.json": "34840c9cdbc0577c0767012f92aaec1bfd8cfdec65ab172ebd3ece712e746881",
+    "fingerprint-private.json": "22e326b7f30d0ffe1539038bb4ed37fb1fde120979218e761e879a2c061b1e3f",
+    "regions-private.json": "453276462b862aafdc232e79f60c224c1f67cced20f5f8676e44357cee0fbf33",
+    "checkpoint-private.json": "a2f8254db2b40a9fa28845acb4eec777edbd00ff48326b3f4355b377ef34869b",
+    "deployment-differences-private.json": "431dfaca8daac4ec9cf37dd49b22d0b4f4c0baeeb4d800399635c3d20a7abd75",
+    "rebase-simulation-private.json": "860c964d46a10c567db4940a798622a8f1e68f53a43d973767782d656600bf11",
+    "transition-plan-private.json": "1ee58da24317a18326ad55b574ed010823158d64a708b8929e5130c4296bba14",
+    "natural-reference-differences-private.json": "8929dceb47d6bc73ea8ce567ec10132e28cd893e99a9c92a0fcf3aeb0359e8cf"
+  },
+  "toolSha256": {
+    "scripts/minestrator_v22_preflight.ps1": "001a42297dfffef0b3aa47dbe4f52eab456c43aa0e4b5491903ada78390b9945",
+    "scripts/minestrator_v22_preflight.py": "3fb8c7ce3253715aef8af88ddfd7d7b85d92dcea93b8f1bd6327a891b07c62d5",
+    "scripts/v22_rebase_plan.py": "4986424d3a520c916b546e2a5d2aad9c37e13847fdfdc896601c534d0f6f51fb",
+    "tests/test_v22_preflight.py": "a7b71bb320be37c7d20ec1a6c49863ef05b8bc7d1f889ffd957c009b3196fc70"
+  }
+}
