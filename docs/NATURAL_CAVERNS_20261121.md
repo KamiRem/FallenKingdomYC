@@ -1,5 +1,9 @@
 # Variante locale — quatre cavernes naturelles
 
+> **Variante abandonnée le 23 novembre 2026 à la demande du propriétaire.**
+> Archives et preuves conservées comme historique ; ne pas déployer cette carte.
+> Voir la [révision V2.2 avec terrain d'origine](V22_VANILLA_UNDERGROUND_20261123.md).
+
 **V2.1-natural-caverns-r2 est prête pour inspection visuelle. Aucun déploiement autorisé ou effectué.**
 
 Le propriétaire a précisé que la refonte concerne **les quatre équipes**. Cette

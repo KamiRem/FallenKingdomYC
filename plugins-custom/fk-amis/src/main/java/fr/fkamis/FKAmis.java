@@ -62,6 +62,7 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
     PauseControl pauseControl;
     SpectatorService spectators;
     NetherPortalService netherPortals;
+    TerritoryNotifications territoryNotifications;
     private YamlConfiguration preservedState=new YamlConfiguration();
 
     TeamManager teams() { return FkPI.getInstance().getTeamManager(); }
@@ -145,6 +146,8 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
             getServer().getPluginManager().registerEvents(this, this);
             getServer().getPluginManager().registerEvents(administrators, this);
             nativeAdminBridge = new NativeAdminBridge(this);
+            territoryNotifications=new TerritoryNotifications(this);
+            getServer().getPluginManager().registerEvents(territoryNotifications,this);
             chunkLeases = new ChunkLeases(this);
             damageAttribution = new DamageAttribution(this);
             diagnostics=new DamageDiagnostics(this);
@@ -800,6 +803,7 @@ public final class FKAmis extends JavaPlugin implements Listener, CommandExecuto
     }
 
     @Override public void onDisable() {
+        if(territoryNotifications!=null)territoryNotifications.close();
         if(pauseControl!=null)pauseControl.close();if(baseGuidance!=null)baseGuidance.close();if(spectators!=null)spectators.close();if(netherPortals!=null)netherPortals.close();
         if(statistics!=null)statistics.pulse();
         if(captureDisplay!=null)captureDisplay.clearAll();

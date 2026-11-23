@@ -58,6 +58,15 @@ def check_versions(root: Path):
     if {p.name for p in (root/'plugins').glob('*.jar')}!={'FallenKingdom-2.24.9.jar','FKAmis-1.0.0.jar'}:raise RuntimeError('Les deux plugins de production uniquement sont requis.')
 
 
+def reference_mode(built,data,has_cavern_record):
+    if built.get('mapVersion')=='2.2':
+        if (data.get('underground') or {}).get('mode')!='vanilla-restored' or data.get('caverns'):raise RuntimeError('Carte V2.2 : référence du terrain naturel obligatoire, aucun ancien contrôle de cavernes substitué.')
+        return 'vanilla-restored'
+    if 'underground' in data:raise RuntimeError('Référence naturelle incompatible avec cette version de carte')
+    if (has_cavern_record or built.get('mapVersion')=='2.1') and len(data.get('caverns',[]))!=4:raise RuntimeError('Carte V2.1 : utiliser --reference maintenance/new-match-reference-v2.1.json pour vérifier aussi les cavernes et minerais.')
+    return 'historical'
+
+
 def initial_checks(root: Path,reference: Path):
     check_versions(root);state=(root/'plugins/FKAmis/state.yml').read_text(encoding='utf-8')
     if section(state,('schema',))!='1' or section(state,('vnext','version')) not in ('1','2'):raise RuntimeError('État VNext initial requis ; versions futures refusées.')
@@ -69,7 +78,7 @@ def initial_checks(root: Path,reference: Path):
         if section(state,('native','TeamManager',team,'Members'))!='[]':raise RuntimeError('Affiliations natives non vides.')
     if (root/'plugins/FKAmis/reset-request.json').exists():raise RuntimeError('Une demande de reset est en attente.')
     data=json.loads(reference.read_text(encoding='utf-8'));built=json.loads((root/'map-v2-construction.json').read_text(encoding='utf-8'))
-    if ((root/'map-v21-caverns.json').exists() or built.get('mapVersion')=='2.1') and len(data.get('caverns',[]))!=4:raise RuntimeError('Carte V2.1 : utiliser --reference maintenance/new-match-reference-v2.1.json pour vérifier aussi les cavernes et minerais.')
+    natural=reference_mode(built,data,(root/'map-v21-caverns.json').exists())=='vanilla-restored'
     if len(built['bases'])!=4 or len(built['monuments'])!=7 or len(built['supplies'])!=8:raise RuntimeError('Quatre bases, sept monuments, huit sites requis.')
     reader=Reader(root);blocks=0
     for monument in data['monuments']:
@@ -97,7 +106,11 @@ def initial_checks(root: Path,reference: Path):
     for cave in data.get('caverns',[]):
         observed=[[x,y,z,reader.block(x,y,z)] for x,y,z in cave['checkPoints']];cave_blocks+=len(observed)
         if hashlib.sha256(json.dumps(observed,separators=(',',':')).encode()).hexdigest()!=cave['blockTypesSha256']:raise RuntimeError('Caverne initiale minée ou différente : '+cave['team'])
-    return {'bases':4,'monuments':7,'monumentBlocksChecked':blocks,'supplySites':8,'lootChestsVerified':sum(len(m['loot']) for m in data['monuments']),'cavernsChecked':len(data.get('caverns',[])),'cavernBlocksChecked':cave_blocks,'day':0,'started':False}
+    terrain={}
+    if natural:
+        from terrain_reference import verify
+        terrain=verify(root,data,reader)
+    return {'bases':4,'monuments':7,'monumentBlocksChecked':blocks,'supplySites':8,'lootChestsVerified':sum(len(m['loot']) for m in data['monuments']),'cavernsChecked':len(data.get('caverns',[])),'cavernBlocksChecked':cave_blocks,'day':0,'started':False,**terrain}
 
 
 def seal_baseline(root: Path,archive: Path,reference: Path,approve: bool):

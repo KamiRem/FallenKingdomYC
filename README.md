@@ -1,8 +1,10 @@
 # Fallen Kingdom privé — quatre royaumes et un arbitre
 
-Une [variante locale des quatre cavernes naturelles](docs/NATURAL_CAVERNS_20261121.md),
-**V2.1-natural-caverns-r2**, est prête pour inspection visuelle. Les archives et
-aperçus restent privés hors Git. Aucun transfert de cette variante vers MineStrator.
+La révision locale [V2.2 — sous-sols d'origine et notifications de territoire](docs/V22_VANILLA_UNDERGROUND_20261123.md)
+est prête pour inspection : terrain restauré depuis l'archive approuvée antérieure
+aux cavernes et notifications arbitre rétablies. Aucun déploiement V2.2 effectué.
+La [variante R2](docs/NATURAL_CAVERNS_20261121.md) est abandonnée à la demande du
+propriétaire ; ses fichiers et preuves restent conservés hors Git.
 
 **V2.1 installée sur MineStrator, serveur réservé à la recette.** Le
 [rapport d'installation du 20 novembre](docs/MINESTRATOR_INSTALLATION_20261120.md)
@@ -25,7 +27,7 @@ Le déploiement contrôlé a ensuite été autorisé et réalisé ; ses preuves 
 ceux de la livraison précédente ; le candidat privé de 148 fichiers et
 `tests/results/query-rollback-delivery.json` définissent la préparation actuelle.
 
-La livraison courante est [FKAmis VNext.1 et carte V2.1](docs/FKAMIS_VNEXT_1.md).
+La livraison V2.1 précédente est [FKAmis VNext.1 et carte V2.1](docs/FKAMIS_VNEXT_1.md).
 Le ZIP `dist/fallenkingdom-vnext1-update.zip` met à jour VNext et les territoires
 à froid, avec sauvegarde complète ; il ne contient aucun monde ni état de joueur.
 L'artefact séparé `dist/fallenkingdom-map-v2.1-build.zip` construit quatre cavernes

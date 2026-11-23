@@ -1,0 +1,5 @@
+name: FKTerritoryProbe
+version: 1.0.0
+main: fr.fkamis.TerritoryProbe
+api-version: '26.3'
+depend: [FKAmis]
